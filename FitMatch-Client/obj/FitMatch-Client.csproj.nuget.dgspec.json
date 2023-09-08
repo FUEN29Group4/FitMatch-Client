@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj": {}
+    "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj": {
+    "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj",
         "projectName": "FitMatch-Client",
-        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj",
+        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\obj\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

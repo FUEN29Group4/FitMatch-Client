@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3gI6vWIthdNNutfw/zgNdgcNo7/rar7GnIxd6QV38oE=",
+  "Hash": "CXi6owGHoYUQqTylFFeLeL3K9dfXnTQmyEDje9sjUBA=",
   "Source": "FitMatch-Client",
   "BasePath": "_content/FitMatch-Client",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "FitMatch-Client\\wwwroot",
       "Source": "FitMatch-Client",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\obj\\Debug\\net7.0\\scopedcss\\bundle\\FitMatch-Client.styles.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\obj\\Debug\\net7.0\\scopedcss\\bundle\\FitMatch-Client.styles.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "FitMatch-Client.styles.css",
       "AssetKind": "All",
@@ -31,13 +31,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\obj\\Debug\\net7.0\\scopedcss\\bundle\\FitMatch-Client.styles.css"
+      "OriginalItemSpec": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\obj\\Debug\\net7.0\\scopedcss\\bundle\\FitMatch-Client.styles.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\FitMatch-Client.bundle.scp.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\FitMatch-Client.bundle.scp.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "FitMatch-Client.bundle.scp.css",
       "AssetKind": "All",
@@ -48,13 +48,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\FitMatch-Client.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\FitMatch-Client.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\bootstrap.min.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\bootstrap.min.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "css/bootstrap.min.css",
       "AssetKind": "All",
@@ -68,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\course.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\course.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "css/course.css",
       "AssetKind": "All",
@@ -85,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\css\\course.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\animate.min.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\animate.min.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "css/Mall.css/animate.min.css",
       "AssetKind": "All",
@@ -102,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\css\\Mall.css\\animate.min.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\bootstrap.min.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\bootstrap.min.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "css/Mall.css/bootstrap.min.css",
       "AssetKind": "All",
@@ -119,10 +119,10 @@
       "OriginalItemSpec": "wwwroot\\css\\Mall.css\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\css2.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\css2.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "css/Mall.css/css2.css",
       "AssetKind": "All",
@@ -136,10 +136,10 @@
       "OriginalItemSpec": "wwwroot\\css\\Mall.css\\css2.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\meanmenu.min.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\meanmenu.min.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "css/Mall.css/meanmenu.min.css",
       "AssetKind": "All",
@@ -153,10 +153,10 @@
       "OriginalItemSpec": "wwwroot\\css\\Mall.css\\meanmenu.min.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\owl.carousel.min.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\owl.carousel.min.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "css/Mall.css/owl.carousel.min.css",
       "AssetKind": "All",
@@ -170,10 +170,10 @@
       "OriginalItemSpec": "wwwroot\\css\\Mall.css\\owl.carousel.min.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\owl.theme.default.min.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\owl.theme.default.min.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "css/Mall.css/owl.theme.default.min.css",
       "AssetKind": "All",
@@ -187,10 +187,10 @@
       "OriginalItemSpec": "wwwroot\\css\\Mall.css\\owl.theme.default.min.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\remixicon.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\remixicon.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "css/Mall.css/remixicon.css",
       "AssetKind": "All",
@@ -204,10 +204,10 @@
       "OriginalItemSpec": "wwwroot\\css\\Mall.css\\remixicon.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\responsive.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\responsive.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "css/Mall.css/responsive.css",
       "AssetKind": "All",
@@ -221,10 +221,10 @@
       "OriginalItemSpec": "wwwroot\\css\\Mall.css\\responsive.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\style.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\Mall.css\\style.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "css/Mall.css/style.css",
       "AssetKind": "All",
@@ -238,10 +238,10 @@
       "OriginalItemSpec": "wwwroot\\css\\Mall.css\\style.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\PersonalStyle.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\PersonalStyle.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "css/PersonalStyle.css",
       "AssetKind": "All",
@@ -255,10 +255,10 @@
       "OriginalItemSpec": "wwwroot\\css\\PersonalStyle.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\style.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\css\\style.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "css/style.css",
       "AssetKind": "All",
@@ -272,10 +272,10 @@
       "OriginalItemSpec": "wwwroot\\css\\style.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-1.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-1.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-1.jpg",
       "AssetKind": "All",
@@ -289,10 +289,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-1.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-10.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-10.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-10.jpg",
       "AssetKind": "All",
@@ -306,10 +306,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-10.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-11.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-11.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-11.jpg",
       "AssetKind": "All",
@@ -323,10 +323,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-11.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-12.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-12.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-12.jpg",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-12.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-13.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-13.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-13.jpg",
       "AssetKind": "All",
@@ -357,10 +357,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-13.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-14.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-14.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-14.jpg",
       "AssetKind": "All",
@@ -374,10 +374,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-14.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-15.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-15.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-15.jpg",
       "AssetKind": "All",
@@ -391,10 +391,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-15.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-16.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-16.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-16.jpg",
       "AssetKind": "All",
@@ -408,10 +408,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-16.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-17.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-17.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-17.jpg",
       "AssetKind": "All",
@@ -425,10 +425,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-17.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-18.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-18.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-18.jpg",
       "AssetKind": "All",
@@ -442,10 +442,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-18.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-19.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-19.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-19.jpg",
       "AssetKind": "All",
@@ -459,10 +459,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-19.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-2.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-2.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-2.jpg",
       "AssetKind": "All",
@@ -476,10 +476,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-2.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-20.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-20.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-20.jpg",
       "AssetKind": "All",
@@ -493,10 +493,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-20.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-21.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-21.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-21.jpg",
       "AssetKind": "All",
@@ -510,10 +510,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-21.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-22.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-22.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-22.jpg",
       "AssetKind": "All",
@@ -527,10 +527,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-22.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-23.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-23.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-23.jpg",
       "AssetKind": "All",
@@ -544,10 +544,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-23.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-24.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-24.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-24.jpg",
       "AssetKind": "All",
@@ -561,10 +561,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-24.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-25.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-25.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-25.jpg",
       "AssetKind": "All",
@@ -578,10 +578,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-25.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-3.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-3.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-3.jpg",
       "AssetKind": "All",
@@ -595,10 +595,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-3.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-4.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-4.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-4.jpg",
       "AssetKind": "All",
@@ -612,10 +612,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-4.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-5.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-5.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-5.jpg",
       "AssetKind": "All",
@@ -629,10 +629,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-5.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-6.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-6.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-6.jpg",
       "AssetKind": "All",
@@ -646,10 +646,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-6.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-7.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-7.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-7.jpg",
       "AssetKind": "All",
@@ -663,10 +663,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-7.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-8.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-8.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-8.jpg",
       "AssetKind": "All",
@@ -680,10 +680,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-8.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-9.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\about\\img-9.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/about/img-9.jpg",
       "AssetKind": "All",
@@ -697,10 +697,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\img-9.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\bg\\bg-5.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\bg\\bg-5.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/bg/bg-5.jpg",
       "AssetKind": "All",
@@ -714,10 +714,10 @@
       "OriginalItemSpec": "wwwroot\\images\\bg\\bg-5.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\bg\\bg-7.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\bg\\bg-7.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/bg/bg-7.jpg",
       "AssetKind": "All",
@@ -731,10 +731,10 @@
       "OriginalItemSpec": "wwwroot\\images\\bg\\bg-7.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\bg\\bg-cta.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\bg\\bg-cta.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/bg/bg-cta.jpg",
       "AssetKind": "All",
@@ -748,10 +748,10 @@
       "OriginalItemSpec": "wwwroot\\images\\bg\\bg-cta.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\bg\\bg-image-2-1.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\bg\\bg-image-2-1.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/bg/bg-image-2-1.jpg",
       "AssetKind": "All",
@@ -765,10 +765,10 @@
       "OriginalItemSpec": "wwwroot\\images\\bg\\bg-image-2-1.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\bg\\matchbgimage.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\bg\\matchbgimage.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/bg/matchbgimage.jpg",
       "AssetKind": "All",
@@ -782,10 +782,10 @@
       "OriginalItemSpec": "wwwroot\\images\\bg\\matchbgimage.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\bg\\slide2.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\bg\\slide2.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/bg/slide2.jpg",
       "AssetKind": "All",
@@ -799,10 +799,10 @@
       "OriginalItemSpec": "wwwroot\\images\\bg\\slide2.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\gym\\五股運動中心.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\gym\\五股運動中心.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/gym/五股運動中心.jpg",
       "AssetKind": "All",
@@ -816,10 +816,10 @@
       "OriginalItemSpec": "wwwroot\\images\\gym\\五股運動中心.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\gym\\南屯運動中心.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\gym\\南屯運動中心.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/gym/南屯運動中心.jpg",
       "AssetKind": "All",
@@ -833,10 +833,10 @@
       "OriginalItemSpec": "wwwroot\\images\\gym\\南屯運動中心.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\gym\\屏東運動中心.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\gym\\屏東運動中心.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/gym/屏東運動中心.jpg",
       "AssetKind": "All",
@@ -850,10 +850,10 @@
       "OriginalItemSpec": "wwwroot\\images\\gym\\屏東運動中心.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\gym\\新莊運動中心.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\gym\\新莊運動中心.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/gym/新莊運動中心.jpg",
       "AssetKind": "All",
@@ -867,10 +867,10 @@
       "OriginalItemSpec": "wwwroot\\images\\gym\\新莊運動中心.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\gym\\臺南運動中心.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\gym\\臺南運動中心.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/gym/臺南運動中心.jpg",
       "AssetKind": "All",
@@ -884,10 +884,10 @@
       "OriginalItemSpec": "wwwroot\\images\\gym\\臺南運動中心.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\gym\\樹林運動中心.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\gym\\樹林運動中心.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/gym/樹林運動中心.jpg",
       "AssetKind": "All",
@@ -901,10 +901,10 @@
       "OriginalItemSpec": "wwwroot\\images\\gym\\樹林運動中心.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\icon\\star.png",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\icon\\star.png",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/icon/star.png",
       "AssetKind": "All",
@@ -918,10 +918,10 @@
       "OriginalItemSpec": "wwwroot\\images\\icon\\star.png"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\icon\\star_dark.png",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\icon\\star_dark.png",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/icon/star_dark.png",
       "AssetKind": "All",
@@ -935,10 +935,10 @@
       "OriginalItemSpec": "wwwroot\\images\\icon\\star_dark.png"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\index\\ig icon.png",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\index\\ig icon.png",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/index/ig icon.png",
       "AssetKind": "All",
@@ -952,10 +952,10 @@
       "OriginalItemSpec": "wwwroot\\images\\index\\ig icon.png"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\index\\Rectangle 15.png",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\index\\Rectangle 15.png",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/index/Rectangle 15.png",
       "AssetKind": "All",
@@ -969,10 +969,10 @@
       "OriginalItemSpec": "wwwroot\\images\\index\\Rectangle 15.png"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\index\\yoga.png",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\index\\yoga.png",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/index/yoga.png",
       "AssetKind": "All",
@@ -986,10 +986,10 @@
       "OriginalItemSpec": "wwwroot\\images\\index\\yoga.png"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\LOGO\\favicon.png",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\LOGO\\favicon.png",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/LOGO/favicon.png",
       "AssetKind": "All",
@@ -1003,10 +1003,10 @@
       "OriginalItemSpec": "wwwroot\\images\\LOGO\\favicon.png"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\LOGO\\Logo.png",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\LOGO\\Logo.png",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/LOGO/Logo.png",
       "AssetKind": "All",
@@ -1020,10 +1020,10 @@
       "OriginalItemSpec": "wwwroot\\images\\LOGO\\Logo.png"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\LOGO\\Logo2.png",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\LOGO\\Logo2.png",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/LOGO/Logo2.png",
       "AssetKind": "All",
@@ -1037,10 +1037,10 @@
       "OriginalItemSpec": "wwwroot\\images\\LOGO\\Logo2.png"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\LOGO\\systemlogo.png",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\LOGO\\systemlogo.png",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/LOGO/systemlogo.png",
       "AssetKind": "All",
@@ -1054,10 +1054,10 @@
       "OriginalItemSpec": "wwwroot\\images\\LOGO\\systemlogo.png"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\nopersonal.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\nopersonal.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/nopersonal.jpg",
       "AssetKind": "All",
@@ -1071,10 +1071,10 @@
       "OriginalItemSpec": "wwwroot\\images\\nopersonal.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\B.webp",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\B.webp",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/商城/B.webp",
       "AssetKind": "All",
@@ -1088,10 +1088,10 @@
       "OriginalItemSpec": "wwwroot\\images\\商城\\B.webp"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\BCAA.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\BCAA.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/商城/BCAA.jpg",
       "AssetKind": "All",
@@ -1105,10 +1105,10 @@
       "OriginalItemSpec": "wwwroot\\images\\商城\\BCAA.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\brand.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\brand.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/商城/brand.jpg",
       "AssetKind": "All",
@@ -1122,10 +1122,10 @@
       "OriginalItemSpec": "wwwroot\\images\\商城\\brand.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\cup.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\cup.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/商城/cup.jpg",
       "AssetKind": "All",
@@ -1139,10 +1139,10 @@
       "OriginalItemSpec": "wwwroot\\images\\商城\\cup.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\fruit.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\fruit.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/商城/fruit.jpg",
       "AssetKind": "All",
@@ -1156,10 +1156,10 @@
       "OriginalItemSpec": "wwwroot\\images\\商城\\fruit.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\maxproteinpowder.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\maxproteinpowder.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/商城/maxproteinpowder.jpg",
       "AssetKind": "All",
@@ -1173,10 +1173,10 @@
       "OriginalItemSpec": "wwwroot\\images\\商城\\maxproteinpowder.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\peeta.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\peeta.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/商城/peeta.jpg",
       "AssetKind": "All",
@@ -1190,10 +1190,10 @@
       "OriginalItemSpec": "wwwroot\\images\\商城\\peeta.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\protein powder.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\protein powder.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/商城/protein powder.jpg",
       "AssetKind": "All",
@@ -1207,10 +1207,10 @@
       "OriginalItemSpec": "wwwroot\\images\\商城\\protein powder.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\ProuctDetil.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\ProuctDetil.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/商城/ProuctDetil.jpg",
       "AssetKind": "All",
@@ -1224,10 +1224,10 @@
       "OriginalItemSpec": "wwwroot\\images\\商城\\ProuctDetil.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\牛奶巧克力.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\牛奶巧克力.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/商城/牛奶巧克力.jpg",
       "AssetKind": "All",
@@ -1241,10 +1241,10 @@
       "OriginalItemSpec": "wwwroot\\images\\商城\\牛奶巧克力.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\肌酸.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\商城\\肌酸.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/商城/肌酸.jpg",
       "AssetKind": "All",
@@ -1258,10 +1258,10 @@
       "OriginalItemSpec": "wwwroot\\images\\商城\\肌酸.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\巨石強森.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\巨石強森.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/教練/巨石強森.jpg",
       "AssetKind": "All",
@@ -1275,10 +1275,10 @@
       "OriginalItemSpec": "wwwroot\\images\\教練\\巨石強森.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\艾利克.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\艾利克.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/教練/艾利克.jpg",
       "AssetKind": "All",
@@ -1292,10 +1292,10 @@
       "OriginalItemSpec": "wwwroot\\images\\教練\\艾利克.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\李奇福.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\李奇福.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/教練/李奇福.jpg",
       "AssetKind": "All",
@@ -1309,10 +1309,10 @@
       "OriginalItemSpec": "wwwroot\\images\\教練\\李奇福.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\沈音燈.jpeg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\沈音燈.jpeg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/教練/沈音燈.jpeg",
       "AssetKind": "All",
@@ -1326,10 +1326,10 @@
       "OriginalItemSpec": "wwwroot\\images\\教練\\沈音燈.jpeg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\車炫承.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\車炫承.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/教練/車炫承.jpg",
       "AssetKind": "All",
@@ -1343,10 +1343,10 @@
       "OriginalItemSpec": "wwwroot\\images\\教練\\車炫承.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\帕梅拉.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\帕梅拉.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/教練/帕梅拉.jpg",
       "AssetKind": "All",
@@ -1360,10 +1360,10 @@
       "OriginalItemSpec": "wwwroot\\images\\教練\\帕梅拉.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\林芊妤.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\林芊妤.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/教練/林芊妤.jpg",
       "AssetKind": "All",
@@ -1377,10 +1377,10 @@
       "OriginalItemSpec": "wwwroot\\images\\教練\\林芊妤.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\秋成勳.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\秋成勳.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/教練/秋成勳.jpg",
       "AssetKind": "All",
@@ -1394,10 +1394,10 @@
       "OriginalItemSpec": "wwwroot\\images\\教練\\秋成勳.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\羅布.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\教練\\羅布.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/教練/羅布.jpg",
       "AssetKind": "All",
@@ -1411,10 +1411,10 @@
       "OriginalItemSpec": "wwwroot\\images\\教練\\羅布.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\user1.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\user1.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/會員/user1.jpg",
       "AssetKind": "All",
@@ -1428,10 +1428,10 @@
       "OriginalItemSpec": "wwwroot\\images\\會員\\user1.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\user2.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\user2.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/會員/user2.jpg",
       "AssetKind": "All",
@@ -1445,10 +1445,10 @@
       "OriginalItemSpec": "wwwroot\\images\\會員\\user2.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\user3.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\user3.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/會員/user3.jpg",
       "AssetKind": "All",
@@ -1462,10 +1462,10 @@
       "OriginalItemSpec": "wwwroot\\images\\會員\\user3.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\user4.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\user4.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/會員/user4.jpg",
       "AssetKind": "All",
@@ -1479,10 +1479,10 @@
       "OriginalItemSpec": "wwwroot\\images\\會員\\user4.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\user5.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\user5.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/會員/user5.jpg",
       "AssetKind": "All",
@@ -1496,10 +1496,10 @@
       "OriginalItemSpec": "wwwroot\\images\\會員\\user5.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\userfemale1.png",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\userfemale1.png",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/會員/userfemale1.png",
       "AssetKind": "All",
@@ -1513,10 +1513,10 @@
       "OriginalItemSpec": "wwwroot\\images\\會員\\userfemale1.png"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\userfemale2.png",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\userfemale2.png",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/會員/userfemale2.png",
       "AssetKind": "All",
@@ -1530,10 +1530,10 @@
       "OriginalItemSpec": "wwwroot\\images\\會員\\userfemale2.png"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\usermale1.png",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\usermale1.png",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/會員/usermale1.png",
       "AssetKind": "All",
@@ -1547,10 +1547,10 @@
       "OriginalItemSpec": "wwwroot\\images\\會員\\usermale1.png"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\usermale2.png",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\usermale2.png",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/會員/usermale2.png",
       "AssetKind": "All",
@@ -1564,10 +1564,10 @@
       "OriginalItemSpec": "wwwroot\\images\\會員\\usermale2.png"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\usermale3.png",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\會員\\usermale3.png",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/會員/usermale3.png",
       "AssetKind": "All",
@@ -1581,10 +1581,10 @@
       "OriginalItemSpec": "wwwroot\\images\\會員\\usermale3.png"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\TRX.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\TRX.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/TRX.jpg",
       "AssetKind": "All",
@@ -1598,10 +1598,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\TRX.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\有氧.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\有氧.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/有氧.jpg",
       "AssetKind": "All",
@@ -1615,10 +1615,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\有氧.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\有氧2.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\有氧2.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/有氧2.jpg",
       "AssetKind": "All",
@@ -1632,10 +1632,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\有氧2.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\重量訓練.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\重量訓練.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/重量訓練.jpg",
       "AssetKind": "All",
@@ -1649,10 +1649,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\重量訓練.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\重量訓練2.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\重量訓練2.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/重量訓練2.jpg",
       "AssetKind": "All",
@@ -1666,10 +1666,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\重量訓練2.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\重量訓練3.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\重量訓練3.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/重量訓練3.jpg",
       "AssetKind": "All",
@@ -1683,10 +1683,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\重量訓練3.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\重量訓練4.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\重量訓練4.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/重量訓練4.jpg",
       "AssetKind": "All",
@@ -1700,10 +1700,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\重量訓練4.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\核心訓練.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\核心訓練.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/核心訓練.jpg",
       "AssetKind": "All",
@@ -1717,10 +1717,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\核心訓練.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\核心訓練2.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\核心訓練2.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/核心訓練2.jpg",
       "AssetKind": "All",
@@ -1734,10 +1734,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\核心訓練2.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\核心訓練3.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\核心訓練3.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/核心訓練3.jpg",
       "AssetKind": "All",
@@ -1751,10 +1751,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\核心訓練3.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\格鬥.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\格鬥.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/格鬥.jpg",
       "AssetKind": "All",
@@ -1768,10 +1768,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\格鬥.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\格鬥2.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\格鬥2.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/格鬥2.jpg",
       "AssetKind": "All",
@@ -1785,10 +1785,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\格鬥2.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\深蹲.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\深蹲.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/深蹲.jpg",
       "AssetKind": "All",
@@ -1802,10 +1802,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\深蹲.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\跑步.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\跑步.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/跑步.jpg",
       "AssetKind": "All",
@@ -1819,10 +1819,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\跑步.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\瑜珈.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\瑜珈.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/瑜珈.jpg",
       "AssetKind": "All",
@@ -1836,10 +1836,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\瑜珈.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\瑜珈2.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\瑜珈2.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/瑜珈2.jpg",
       "AssetKind": "All",
@@ -1853,10 +1853,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\瑜珈2.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\瑜珈3.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\瑜珈3.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/瑜珈3.jpg",
       "AssetKind": "All",
@@ -1870,10 +1870,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\瑜珈3.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\戰繩.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\戰繩.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/戰繩.jpg",
       "AssetKind": "All",
@@ -1887,10 +1887,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\戰繩.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\戰繩2.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\課程\\戰繩2.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/課程/戰繩2.jpg",
       "AssetKind": "All",
@@ -1904,10 +1904,10 @@
       "OriginalItemSpec": "wwwroot\\images\\課程\\戰繩2.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\餐廳\\salad2.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\餐廳\\salad2.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/餐廳/salad2.jpg",
       "AssetKind": "All",
@@ -1921,10 +1921,10 @@
       "OriginalItemSpec": "wwwroot\\images\\餐廳\\salad2.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\餐廳\\餐廳1.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\餐廳\\餐廳1.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/餐廳/餐廳1.jpg",
       "AssetKind": "All",
@@ -1938,10 +1938,10 @@
       "OriginalItemSpec": "wwwroot\\images\\餐廳\\餐廳1.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\餐廳\\餐廳2.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\餐廳\\餐廳2.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/餐廳/餐廳2.jpg",
       "AssetKind": "All",
@@ -1955,10 +1955,10 @@
       "OriginalItemSpec": "wwwroot\\images\\餐廳\\餐廳2.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\餐廳\\餐廳3.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\餐廳\\餐廳3.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/餐廳/餐廳3.jpg",
       "AssetKind": "All",
@@ -1972,10 +1972,10 @@
       "OriginalItemSpec": "wwwroot\\images\\餐廳\\餐廳3.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\餐廳\\餐廳4.jpg",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\images\\餐廳\\餐廳4.jpg",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "images/餐廳/餐廳4.jpg",
       "AssetKind": "All",
@@ -1989,10 +1989,10 @@
       "OriginalItemSpec": "wwwroot\\images\\餐廳\\餐廳4.jpg"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\index_Cy",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\index_Cy",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "js/index_Cy",
       "AssetKind": "All",
@@ -2006,10 +2006,10 @@
       "OriginalItemSpec": "wwwroot\\js\\index_Cy"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\ajaxchimp.min.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\ajaxchimp.min.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "js/Mail.js/ajaxchimp.min.js",
       "AssetKind": "All",
@@ -2023,10 +2023,10 @@
       "OriginalItemSpec": "wwwroot\\js\\Mail.js\\ajaxchimp.min.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\bootstrap.bundle.min.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\bootstrap.bundle.min.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "js/Mail.js/bootstrap.bundle.min.js",
       "AssetKind": "All",
@@ -2040,10 +2040,10 @@
       "OriginalItemSpec": "wwwroot\\js\\Mail.js\\bootstrap.bundle.min.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\contact-form-script.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\contact-form-script.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "js/Mail.js/contact-form-script.js",
       "AssetKind": "All",
@@ -2057,10 +2057,10 @@
       "OriginalItemSpec": "wwwroot\\js\\Mail.js\\contact-form-script.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\custom.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\custom.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "js/Mail.js/custom.js",
       "AssetKind": "All",
@@ -2074,10 +2074,10 @@
       "OriginalItemSpec": "wwwroot\\js\\Mail.js\\custom.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\form-validator.min.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\form-validator.min.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "js/Mail.js/form-validator.min.js",
       "AssetKind": "All",
@@ -2091,10 +2091,10 @@
       "OriginalItemSpec": "wwwroot\\js\\Mail.js\\form-validator.min.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\jquery.min.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\jquery.min.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "js/Mail.js/jquery.min.js",
       "AssetKind": "All",
@@ -2108,10 +2108,10 @@
       "OriginalItemSpec": "wwwroot\\js\\Mail.js\\jquery.min.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\meanmenu.min.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\meanmenu.min.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "js/Mail.js/meanmenu.min.js",
       "AssetKind": "All",
@@ -2125,10 +2125,10 @@
       "OriginalItemSpec": "wwwroot\\js\\Mail.js\\meanmenu.min.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\owl.carousel.min.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\owl.carousel.min.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "js/Mail.js/owl.carousel.min.js",
       "AssetKind": "All",
@@ -2142,10 +2142,10 @@
       "OriginalItemSpec": "wwwroot\\js\\Mail.js\\owl.carousel.min.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\range-slider.min.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\range-slider.min.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "js/Mail.js/range-slider.min.js",
       "AssetKind": "All",
@@ -2159,10 +2159,10 @@
       "OriginalItemSpec": "wwwroot\\js\\Mail.js\\range-slider.min.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\wow.min.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\Mail.js\\wow.min.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "js/Mail.js/wow.min.js",
       "AssetKind": "All",
@@ -2176,10 +2176,10 @@
       "OriginalItemSpec": "wwwroot\\js\\Mail.js\\wow.min.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\main.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\js\\main.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "js/main.js",
       "AssetKind": "All",
@@ -2193,10 +2193,10 @@
       "OriginalItemSpec": "wwwroot\\js\\main.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\animate\\animate.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\animate\\animate.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/animate/animate.css",
       "AssetKind": "All",
@@ -2210,10 +2210,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\animate\\animate.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\animate\\animate.min.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\animate\\animate.min.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/animate/animate.min.css",
       "AssetKind": "All",
@@ -2227,10 +2227,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\animate\\animate.min.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\easing\\easing.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\easing\\easing.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/easing/easing.js",
       "AssetKind": "All",
@@ -2244,10 +2244,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\easing\\easing.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\easing\\easing.min.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\easing\\easing.min.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/easing/easing.min.js",
       "AssetKind": "All",
@@ -2261,10 +2261,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\easing\\easing.min.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\assets\\ajax-loader.gif",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\assets\\ajax-loader.gif",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/owlcarousel/assets/ajax-loader.gif",
       "AssetKind": "All",
@@ -2278,10 +2278,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\owlcarousel\\assets\\ajax-loader.gif"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\assets\\owl.carousel.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\assets\\owl.carousel.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/owlcarousel/assets/owl.carousel.css",
       "AssetKind": "All",
@@ -2295,10 +2295,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\owlcarousel\\assets\\owl.carousel.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\assets\\owl.carousel.min.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\assets\\owl.carousel.min.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/owlcarousel/assets/owl.carousel.min.css",
       "AssetKind": "All",
@@ -2312,10 +2312,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\owlcarousel\\assets\\owl.carousel.min.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\assets\\owl.theme.default.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\assets\\owl.theme.default.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/owlcarousel/assets/owl.theme.default.css",
       "AssetKind": "All",
@@ -2329,10 +2329,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\owlcarousel\\assets\\owl.theme.default.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\assets\\owl.theme.default.min.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\assets\\owl.theme.default.min.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/owlcarousel/assets/owl.theme.default.min.css",
       "AssetKind": "All",
@@ -2346,10 +2346,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\owlcarousel\\assets\\owl.theme.default.min.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\assets\\owl.theme.green.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\assets\\owl.theme.green.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/owlcarousel/assets/owl.theme.green.css",
       "AssetKind": "All",
@@ -2363,10 +2363,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\owlcarousel\\assets\\owl.theme.green.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\assets\\owl.theme.green.min.css",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\assets\\owl.theme.green.min.css",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/owlcarousel/assets/owl.theme.green.min.css",
       "AssetKind": "All",
@@ -2380,10 +2380,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\owlcarousel\\assets\\owl.theme.green.min.css"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\assets\\owl.video.play.png",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\assets\\owl.video.play.png",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/owlcarousel/assets/owl.video.play.png",
       "AssetKind": "All",
@@ -2397,10 +2397,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\owlcarousel\\assets\\owl.video.play.png"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\LICENSE",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\LICENSE",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/owlcarousel/LICENSE",
       "AssetKind": "All",
@@ -2414,10 +2414,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\owlcarousel\\LICENSE"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\owl.carousel.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\owl.carousel.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/owlcarousel/owl.carousel.js",
       "AssetKind": "All",
@@ -2431,10 +2431,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\owlcarousel\\owl.carousel.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\owl.carousel.min.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\owlcarousel\\owl.carousel.min.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/owlcarousel/owl.carousel.min.js",
       "AssetKind": "All",
@@ -2448,10 +2448,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\owlcarousel\\owl.carousel.min.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\waypoints\\links.php",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\waypoints\\links.php",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/waypoints/links.php",
       "AssetKind": "All",
@@ -2465,10 +2465,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\waypoints\\links.php"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\waypoints\\waypoints.min.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\waypoints\\waypoints.min.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/waypoints/waypoints.min.js",
       "AssetKind": "All",
@@ -2482,10 +2482,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\waypoints\\waypoints.min.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\wow\\wow.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\wow\\wow.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/wow/wow.js",
       "AssetKind": "All",
@@ -2499,10 +2499,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\wow\\wow.js"
     },
     {
-      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\wow\\wow.min.js",
+      "Identity": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\lib\\wow\\wow.min.js",
       "SourceId": "FitMatch-Client",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch_FrontEnd\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\User\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\wwwroot\\",
       "BasePath": "_content/FitMatch-Client",
       "RelativePath": "lib/wow/wow.min.js",
       "AssetKind": "All",
