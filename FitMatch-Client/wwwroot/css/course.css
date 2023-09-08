@@ -1,0 +1,92 @@
+/* personal_course */
+
+
+
+/* .coursebody {
+    background-color: #000;
+}
+
+.course-single-body {
+    background-color: #000;
+} */
+
+
+
+
+
+/* 以下是餐廳用 */
+
+.section.meals {
+    background: transparent;
+}
+
+.section.main {
+    background-color: transparent;
+}
+
+
+
+.title-nav {
+    width: 690px;
+    height: 150px;
+    background-color: rgba(245, 12, 152, 0.65);
+    position: absolute;
+    /* 將 .subnav 設置為絕對定位 */
+    top: 60px;
+    /* 距離 .banner 頂部的距離 */
+    border-radius: 5px;
+    z-index: 1;
+}
+
+
+#restaurants {
+    padding: 0;
+    margin: 0;
+}
+
+#map {
+    height: 400px;
+    padding: 0;
+    margin: 0;
+}
+
+#restaurants,
+#map {
+    display: flex;
+    flex-direction: row;
+}
+
+.row>div {
+    padding: 0;
+}
+
+
+.image-container {
+    margin-right: -150px;
+    /* 調整這個值來控制元素之間的距離 */
+}
+
+.restaurant-content-title {
+    font-size: 45px;
+}
+
+
+.card img {
+    transition: transform 0.3s ease;
+    /* 這將在0.3秒內平滑放大或縮小圖片 */
+}
+
+.card img:hover {
+    transform: scale(1.1);
+    /* 這將放大圖片到原始大小的110% */
+}
+
+
+#vanta-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
