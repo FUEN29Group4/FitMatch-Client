@@ -50,7 +50,7 @@
                                 搜尋
                             </h3>
                             <div class="list-group list-group-flush">
-                                <input type="text" placeholder="請輸入場館名稱" />
+                                <input type="text" placeholder="請輸入場館名稱" @("@input")="searchGym" />
                             </div>
                         </div>
                         <!-- Search Box Ends -->
@@ -112,8 +112,8 @@
                                                             id="showButton"
                                                             class="btn-dark"
                                                             data-bs-toggle="modal"
-                                                            data-bs-target="#reservationModal">
-                                                        點我預約
+                                                            data-bs-target="#detailModal">
+                                                        更多資訊
                                                     </button>
                                                 </div>
                                                 <p class="card-subtitle letter-spacing">
@@ -430,11 +430,11 @@
 
 
 <script>
-    Vue.createApp({
-
+    const app = Vue.createApp({
         data() {
             return {
                 gyms: [],
+                searchKey: "",
             };
         },
         mounted() {
@@ -456,10 +456,23 @@
                         console.error("API 請求失敗: " + error.message);
                     });
             },
+            searchGym(event) {
+                this.searchKey = event.target.value;
+                fetch(`https://localhost:7011/api/Gym/search?gymName=${this.searchKey}`)
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("API 請求失敗 " + response);
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        this.gyms = data;
+                    })
+                    .catch((error) => {
+                        console.error("API 請求失敗: " + error.message);
+                    });
+            }
         },
-    }).mount('#app')
-
-
-
-
+    }).mount('#app');
 </script>
+
