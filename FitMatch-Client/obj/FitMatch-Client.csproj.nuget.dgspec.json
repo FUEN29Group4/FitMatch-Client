@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jeono\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj": {}
+    "C:\\Users\\user\\OneDrive\\文件\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jeono\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj": {
+    "C:\\Users\\user\\OneDrive\\文件\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jeono\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj",
+        "projectUniqueName": "C:\\Users\\user\\OneDrive\\文件\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj",
         "projectName": "FitMatch-Client",
-        "projectPath": "C:\\Users\\jeono\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj",
-        "packagesPath": "C:\\Users\\jeono\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jeono\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\obj\\",
+        "projectPath": "C:\\Users\\user\\OneDrive\\文件\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\OneDrive\\文件\\GitHub\\FitMatch-Client\\FitMatch-Client\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jeono\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
