@@ -9,53 +9,56 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = FitMatch_Client
 build_property.RootNamespace = FitMatch_Client
-build_property.ProjectDir = C:\Users\win10\Documents\GitHub\FitMatch-Client\FitMatch-Client\
+build_property.ProjectDir = C:\Users\user\OneDrive\文件\GitHub\FitMatch-Client\FitMatch-Client\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\win10\Documents\GitHub\FitMatch-Client\FitMatch-Client
+build_property.MSBuildProjectDirectory = C:\Users\user\OneDrive\文件\GitHub\FitMatch-Client\FitMatch-Client
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/win10/Documents/GitHub/FitMatch-Client/FitMatch-Client/Views/Gym/Gym.cshtml]
+[C:/Users/user/OneDrive/文件/GitHub/FitMatch-Client/FitMatch-Client/Views/Gym/Gym.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3ltXEd5bS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/win10/Documents/GitHub/FitMatch-Client/FitMatch-Client/Views/Home/Index.cshtml]
+[C:/Users/user/OneDrive/文件/GitHub/FitMatch-Client/FitMatch-Client/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/win10/Documents/GitHub/FitMatch-Client/FitMatch-Client/Views/Home/Privacy.cshtml]
+[C:/Users/user/OneDrive/文件/GitHub/FitMatch-Client/FitMatch-Client/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/win10/Documents/GitHub/FitMatch-Client/FitMatch-Client/Views/MemberFavorite/MemberFavorite.cshtml]
+[C:/Users/user/OneDrive/文件/GitHub/FitMatch-Client/FitMatch-Client/Views/MemberFavorite/MemberFavorite.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyRmF2b3JpdGVcTWVtYmVyRmF2b3JpdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/win10/Documents/GitHub/FitMatch-Client/FitMatch-Client/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/user/OneDrive/文件/GitHub/FitMatch-Client/FitMatch-Client/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/win10/Documents/GitHub/FitMatch-Client/FitMatch-Client/Views/TrainerClass/TrainerClass.cshtml]
+<<<<<<< Updated upstream
+[C:/Users/user/OneDrive/文件/GitHub/FitMatch-Client/FitMatch-Client/Views/TrainerClass/TrainerClass.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lckNsYXNzXFRyYWluZXJDbGFzcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/win10/Documents/GitHub/FitMatch-Client/FitMatch-Client/Views/Trainer/Match.cshtml]
+=======
+>>>>>>> Stashed changes
+[C:/Users/user/OneDrive/文件/GitHub/FitMatch-Client/FitMatch-Client/Views/Trainer/Match.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lclxNYXRjaC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/win10/Documents/GitHub/FitMatch-Client/FitMatch-Client/Views/Trainer/TrainerResume.cshtml]
+[C:/Users/user/OneDrive/文件/GitHub/FitMatch-Client/FitMatch-Client/Views/Trainer/TrainerResume.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lclxUcmFpbmVyUmVzdW1lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/win10/Documents/GitHub/FitMatch-Client/FitMatch-Client/Views/_ViewImports.cshtml]
+[C:/Users/user/OneDrive/文件/GitHub/FitMatch-Client/FitMatch-Client/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/win10/Documents/GitHub/FitMatch-Client/FitMatch-Client/Views/_ViewStart.cshtml]
+[C:/Users/user/OneDrive/文件/GitHub/FitMatch-Client/FitMatch-Client/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/win10/Documents/GitHub/FitMatch-Client/FitMatch-Client/Views/Shared/_Layout.cshtml]
+[C:/Users/user/OneDrive/文件/GitHub/FitMatch-Client/FitMatch-Client/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-f9z93i14ta

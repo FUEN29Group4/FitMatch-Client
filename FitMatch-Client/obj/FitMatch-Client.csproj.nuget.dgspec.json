@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< Updated upstream
     "C:\\Users\\win10\\Documents\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj": {}
   },
   "projects": {
@@ -15,6 +16,22 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\win10\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+    "C:\\Users\\user\\OneDrive\\文件\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\user\\OneDrive\\文件\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\user\\OneDrive\\文件\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj",
+        "projectName": "FitMatch-Client",
+        "projectPath": "C:\\Users\\user\\OneDrive\\文件\\GitHub\\FitMatch-Client\\FitMatch-Client\\FitMatch-Client.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\OneDrive\\文件\\GitHub\\FitMatch-Client\\FitMatch-Client\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> Stashed changes
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
