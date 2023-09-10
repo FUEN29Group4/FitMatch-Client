@@ -294,55 +294,20 @@
 // 将calendar声明为全局变量
 var calendar;
 
-document.addEventListener('DOMContentLoaded', function () {
-    var calendarEl = document.getElementById('calendar');
-    calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'timeGridWeek',
-        allDayText: '场馆',
+// 定义 loadEvents 函数
+function loadEvents() {
+    // 使用提供的GET URL获取数据
+    // 从URL获取的Trainer的ID
+    var urlParams = new URLSearchParams(window.location.search);
+    var trainerId = urlParams.get("id");
 
-        dayHeaderContent: function (headerInfo) {
-            var btn = document.createElement('button');
-            btn.innerText = '新增课程';
-            btn.addEventListener('click', function () {
-                openVenueModal(headerInfo.date);
-            });
-            return { domNodes: [btn] };
-        },
+    // 确保 trainerId 存在
+    if (!trainerId) {
+        console.error('TrainerId is missing from the URL');
+        return;
+    }
 
-        slotLabelFormat: {
-            hour: 'numeric',
-            minute: '2-digit',
-            omitZeroMinute: false,
-            hour12: false
-        },
-
-        eventContent: function (arg) {
-            return {
-                html: '<b>' + arg.timeText + '</b><br>' + arg.event.extendedProps.gymName // 修改这里
-            };
-        }
-    });
-
-    calendar.render();
-    
-    // 在页面加载时调用loadEvents
-    loadEvents();
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    function loadEvents() {
-        // 使用提供的GET URL获取数据
-        // 從URL獲取的Trainer的ID
-        var urlParams = new URLSearchParams(window.location.search);
-        var trainerId = urlParams.get("id");
-
-        // 確保 trainerId 存在
-        if (!trainerId) {
-            console.error('TrainerId is missing from the URL');
-            return;
-        }
-
-        fetch("https://localhost:7011/TrainerClass/" + trainerId)
+    fetch("https://localhost:7011/api/TrainerClass/" + trainerId)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -372,15 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('Error loading events:', error);
             alert('加载预约数据时发生错误，请刷新页面重试。');
         });
-    }
-
-    // 在此调用loadEvents()，以便在文档完全加载后运行
-    loadEvents();
-});
-
-
-
-
+}
 
 function openVenueModal(date) {
     // 创建弹出窗口的 HTML
@@ -438,4 +395,37 @@ function openVenueModal(date) {
     modal.style.display = 'block';
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+    calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        allDayText: '场馆',
+        dayHeaderContent: function (headerInfo) {
+            var btn = document.createElement('button');
+            btn.innerText = '新增课程';
+            btn.addEventListener('click', function () {
+                openVenueModal(headerInfo.date);
+            });
+            return { domNodes: [btn] };
+        },
+        slotLabelFormat: {
+            hour: 'numeric',
+            minute: '2-digit',
+            omitZeroMinute: false,
+            hour12: false
+        },
+        eventContent: function (arg) {
+            return {
+                html: '<b>' + arg.timeText + '</b><br>' + arg.event.extendedProps.gymName
+            };
+        }
+    });
+
+    calendar.render();
+
+    // 在页面加载时调用loadEvents
+    loadEvents();
+});
+
 </script>
+
