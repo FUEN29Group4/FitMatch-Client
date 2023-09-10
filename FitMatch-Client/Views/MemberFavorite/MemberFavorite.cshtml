@@ -81,6 +81,7 @@
     </div>
 
 
+<<<<<<< Updated upstream
     <div class="container" v-for="favorite in MemberFavorites.favoritesWithMembers" :key="favorite.memberFavoriteId">
         <ul v-for="member in favorite.members" :key="member.memberId">
             <li>{{ member.memberName }}</li>
@@ -88,12 +89,25 @@
             <li>{{ member.email }}</li>
 
             <li v-for="order in favorite.orders" :key="order.memberId">年度累積消費金額 NT.{{ order.totalPrice }}</li>
+=======
+    <div v-for="favorite in MemberFavorites.favoritesWithMembers" :key="favorite.memberFavoriteId">
+        <ul v-for="members in favorite.members" :key="members.memberId">
+            <li>{{ member.memberName }}</li>
+
+
+            <li>一般會員</li>
+            <li>{{ favoritesWithMembers.member.email }}</li>
+            <li>年度累積消費金額 NT.{{ favorite.totalPrice }}</li>
+>>>>>>> Stashed changes
         </ul>
         <hr />
     </div>
 
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     <div class="container">
         <button type="button" class="btn btn-primary">
             <a class="text-light" href=" personal_member_favorite_list.html">我的教練</a>
@@ -109,14 +123,24 @@
     </div>
 
 
+<<<<<<< Updated upstream
     <main>
+=======
+    <main >
+>>>>>>> Stashed changes
         <div class="container-md pt-3" style="padding-bottom: 50px">
             <div class="row g-2 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5">
                 <!-- 使用v-for來迭代每個MemberFavorite -->
 
+<<<<<<< Updated upstream
                 <div class="col" v-for="memberFavorite in MemberFavorites.favoritesWithTrainersAndProducts" :key="memberFavorite.memberFavoriteId">
                     <div v-for="trainer in memberFavorite.trainers" :key="trainer.trainerId">
 
+=======
+                <div class="col" v-for="memberFavorite in favoritesWithTrainersAndProducts" :key="memberFavorite.memberFavoriteId">
+
+                    <div v-for="trainer in favoritesWithTrainersAndProducts.trainers" :key="trainer.trainerId">
+>>>>>>> Stashed changes
                         <div class="card mh-250px card1 overflow-hidden">
                             <div class="card-image">
                                 @* <img :src="'data:image/jpeg;base64,' + trainer.photo" alt="Trainer Image" style="width: 330px; height: 250px; object-fit: cover;" /> *@
@@ -147,13 +171,51 @@
     <!-- body end -->
 </div>
 
+<<<<<<< Updated upstream
+=======
+
+<style scoped>
+
+    /* 圓形框框樣式 */
+    .card-image img {
+        width: 250px;
+        height: 330px;
+        object-fit: cover; /* 確保圖片在容器內完整顯示 */
+        overflow: hidden;
+    }
+
+
+    .card1:hover img {
+        transform: scale(1.1);
+    }
+
+
+
+    .card {
+        flex-direction: column;
+        border-radius: 20px;
+        height: 100%;
+        display: flex;
+    }
+
+</style>
+
+>>>>>>> Stashed changes
 <script>
     Vue.createApp({
 
         data() {
             return {
+<<<<<<< Updated upstream
                 MemberFavorites: [],
                 favoritesWithTrainersAndProducts: [],  // 添加此行
+=======
+                MemberFavorites: {}
+,
+
+                favoritesWithMembers: [],
+                favoritesWithTrainersAndProducts: [],  // 初始化這個屬性
+>>>>>>> Stashed changes
             };
         },
         mounted() {
@@ -180,6 +242,9 @@
                     })
                     .then((data) => {
                         this.MemberFavorites = data;
+                        this.FavoritesWithMembers = data.FavoritesWithMembers;
+                        this.FavoritesWithTrainersAndProducts = data.FavoritesWithTrainersAndProducts;
+
                     })
                     .catch((error) => {
                         console.error("API 請求失敗: " + error.message);
