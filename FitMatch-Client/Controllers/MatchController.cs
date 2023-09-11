@@ -2,7 +2,7 @@
 
 namespace FitMatch_Client.Controllers
 {
-    public class TrainerController : Controller
+    public class MatchController : Controller
     {
         public IActionResult Match()
         {
