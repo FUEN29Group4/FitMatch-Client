@@ -5,6 +5,10 @@
 
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/vuex@4"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAx81rlSCMsRIUbaL06l0OqVm5tSYkvDA&callback=initMap" async defer></script>
+
+
+
 <!-- Page Header Start -->
 <div class="container-fluid page-header py-5 wow fadeIn"
      data-wow-delay="0.1s">
@@ -86,10 +90,10 @@
                         <!-- Location Filters End -->
                         <!-- Buttons -->
                         <div class="btn btn-primary p-3 m-2 course-widget">搜尋</div>
-                        <div class="btn btn-clear p-3 m-2 course-widget"
-                             id="clearFilters">
+                        <div class="btn btn-clear p-3 m-2 course-widget" id="clearFilters" v-on:click="reloadPage">
                             清除篩選條件
                         </div>
+
                     </div>
                     <!-- Left Filter Section Ends -->
                     <!-- Right Section to Display Gyms -->
@@ -123,14 +127,7 @@
                                                     <h5>地址：</h5>
                                                     <h5 style="color: #ddd">{{ gym.address }}</h5>
                                                 </div>
-                                                <div class="d-flex align-items-center">
-                                                    <iframe :src="gym.mapUrl"
-                                                            width="600"
-                                                            height="150"
-                                                            style="border: 0"
-                                                            loading="lazy"
-                                                            referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                                </div>
+                                                <div :id="'map-' + gym.id" style="height: 200px;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -430,6 +427,11 @@
 
 
 <script>
+    // 初始化 Google Maps 相關設定的函數
+    function initMap() {
+        // 這裡可以放置 Google Maps 初始化的程式碼，例如建立一個新的 map 實例
+    }
+
     const app = Vue.createApp({
         data() {
             return {
@@ -438,11 +440,16 @@
             };
         },
         mounted() {
-            this.fetchGyms();
+            this.fetchGyms().then(() => {
+                this.$nextTick(() => {
+                    this.addMarkersToMap();
+                });
+            });
         },
+
         methods: {
             fetchGyms() {
-                fetch("https://localhost:7011/api/Gym")
+                return fetch("https://localhost:7011/api/Gym")
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error("API 請求失敗 " + response);
@@ -467,12 +474,43 @@
                     })
                     .then((data) => {
                         this.gyms = data;
+                        this.addMarkersToMap();
                     })
                     .catch((error) => {
                         console.error("API 請求失敗: " + error.message);
                     });
+            },
+            addMarkersToMap() {
+                const geocoder = new google.maps.Geocoder();
+
+                this.gyms.forEach((gym) => {
+                    geocoder.geocode({ address: gym.address }, (results, status) => {
+                        if (status === "OK") {
+                            const position = results[0].geometry.location;
+                            const map = new google.maps.Map(
+                                document.getElementById("map-" + gym.id),
+                                {
+                                    center: position,
+                                    zoom: 15,
+                                }
+                            );
+                            new google.maps.Marker({
+                                map: map,
+                                position: position,
+                                title: gym.gymName,
+                            });
+                        } else {
+                            console.error(`Geocode failed for ${gym.address}: ${status}`);
+                        }
+                    });
+                });
+            },
+            reloadPage() {
+                location.reload();
             }
         },
-    }).mount('#app');
+    }).mount("#app");
+
+
 </script>
 
