@@ -582,7 +582,7 @@
                 initCalendar();
             })
             .catch(error => {
-                alert("初始化失敗: " + error.message);
+                console.log("初始化失敗: " + error.message);
             });
     });
     // 我要預約按鈕
@@ -694,7 +694,7 @@
             })
             .catch(function (error) {
                 // 處理錯誤情況
-                alert("API請求失敗: " + error.message);
+                console.log("找不到預約資料: " + error.message);
             });
     }
     var classTypeData = null;
@@ -706,7 +706,7 @@
         fetch("https://localhost:7011/api/ClassType")
             .then(function (response) {
                 if (!response.ok) {
-                    throw new Error("API請求失敗" + response);
+                    throw new Error("課程資訊API請求失敗" + response);
                 }
                 return response.json();
             })
@@ -716,7 +716,7 @@
             })
             .catch(function (error) {
                 // 處理錯誤情況
-                alert("API請求失敗: " + error.message);
+                alert("課程資訊API請求失敗: " + error.message);
             });
     }
     function showModal(event) {
@@ -824,7 +824,7 @@
                 Swal.fire('失敗', '預約失敗，請洽客服', 'error');
             }
         }).catch(error => {
-            alert("API請求失敗: " + error.message);
+            console.log("預約資訊傳送失敗: " + error.message);
         });
     }
 </script>

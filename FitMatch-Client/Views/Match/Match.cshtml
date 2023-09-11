@@ -1,7 +1,8 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Match";
 }
+<script src="https://unpkg.com/vue@3"></script>
+
 <style>
     .match-title .page-header {
         background: none;
@@ -116,11 +117,11 @@
 
     /* 尋找課程內容 */
     .course-photo .team-item {
-        /* display: inline-block; */
         position: relative;
         width: 200px;
         height: 200px;
         overflow: hidden;
+        z-index: 1;
     }
 
         .course-photo .team-item img {
@@ -132,15 +133,23 @@
     .gym-photo .team-item {
         /* display: inline-block; */
         position: relative;
-        width: 300px;
-        height: 300px;
+        width: 100%;
+        height: 200px;
         overflow: hidden;
     }
 
-        .gym-photo .team-item img {
-            width: 100%;
-            height: auto;
-        }
+    .team-img {
+        height: 200px;
+        /* 设置一个明确的高度 */
+        overflow: hidden;
+        position: relative;
+    }
+
+    .gym-photo .team-img img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
 
     /* 學員評價 */
     .review-box {
@@ -158,8 +167,8 @@
         .review-box .review-list {
             display: flex;
             position: absolute;
-            transform: translateX(0);
-            transition: transform 0.02s linear;
+            /* transform: translateX(0); */
+            /* transition: transform 0.02s linear; */
         }
 
         .review-box .item {
@@ -199,6 +208,29 @@
     .btn-dark:hover {
         background-color: #7c7c7c;
     }
+
+    /* 教練頭上標籤 */
+    .top-label {
+        position: relative;
+        /* background-color: red; */
+        width: 60px;
+        color: white;
+        padding: 5px 10px;
+        transform: rotate(-30deg) translate(-20px, 35px);
+        transform-origin: 0% 0%;
+        z-index: 999;
+        border-radius: 30px 30px 0 0;
+    }
+
+    #reviews .item {
+        background: white;
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 5px;
+        margin: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        width: 200px;
+    }
 </style>
 <div class="container">
     <!-- Page Header Start -->
@@ -209,102 +241,38 @@
                 <h4 class="breadcrumb-item text-white m-5">針對個人需求提供量身定制的教練服務</h4>
             </div>
             <div class="container text-center py-5">
-                <a href="trainer.html" class="btn btn-dark p-4 px-5 me-5" style="border-radius:10px">
+                <a href="trainer.html" class="btn btn-dark p-4 px-5 me-5"
+                   style="border-radius:10px; border: 1px solid #7c7c7c;">
                     <h3>找教練</h3>
                 </a>
-                <a href="gym.html" class="btn btn-dark p-4 px-5 ms-5" style="border-radius:10px">
+                <a href="gym.html" class="btn btn-dark p-4 px-5 ms-5"
+                   style="border-radius:10px;border: 1px solid #7c7c7c;" ">
                     <h3>找場館</h3>
                 </a>
             </div>
         </div>
     </div>
     <!-- Page Header End -->
-    <!-- 推薦教練區開始  (好像可以不用這塊) -->
-    <!-- <div class="container-xxl py-1">
-        <div class="container">
-            <div class="p-4 wow fadeInUp d-flex align-items-center" data-wow-delay="0.1s">
-
-                <select class="p-2 me-auto">
-                    <option selected value="1">熱門</option>
-                    <option value="2">最新</option>
-                </select>
-                 <p class="text-light me-auto">熱門教練</p>
-                <a href="trainer.html" class="text-light">
-                    <p class="m-0">查看全部</p>
-                </a>
-            </div>
-        </div>
-    </div> -->
+    
     <!-- 推薦教練頭像Start -->
     <div class="tcircle container-xxl py-1">
-        <div class="row g-4 d-flex justify-content-center">
-            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="row g-4 d-flex justify-content-center" id="trainerTop5">
+            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.1s"
+                 v-for="(trainer, index) in trainerteams" :key="trainer.trainerId">
+                <div class="top-label">TOP{{ index + 1 }}</div>
                 <div class="team-item mx-auto d-flex align-items-center">
                     <div class="team-img position-relative overflow-hidden d-flex align-items-center">
-                        <img class="img-fluid" src="~/images/教練/巨石強森.jpg" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-primary" href="trainer_resume.html">我要預約</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center p-4">
-                    <h5 class="text-uppercase">The Rock</h5>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="team-item mx-auto d-flex align-items-center">
-                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
-                        <img class="img-fluid" src="~/images/教練/艾利克.jpg" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-primary" href="trainer_resume.html">我要預約</a>
-                        </div>
-                    </div>
 
-                </div>
-                <div class="text-center p-4">
-                    <h5 class="text-uppercase">Biao Han</h5>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="team-item mx-auto d-flex align-items-center">
-                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
-                        <img class="img-fluid" src="~/images/教練/李奇福.jpg" alt="">
+                        <img class="img-fluid" :src="'data:image/jpeg;base64,' + trainer.photo"
+                             :alt="trainer.trainerName">
                         <div class="team-social">
-                            <a class="btn btn-primary" href="trainer_resume.html">我要預約</a>
+                            <a class="btn btn-primary"
+                               :href="'/Match/TrainerResume?id=' + trainer.trainerId">我要預約</a>
                         </div>
                     </div>
-
                 </div>
                 <div class="text-center p-4">
-                    <h5 class="text-uppercase">Larry</h5>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="team-item mx-auto d-flex align-items-center">
-                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
-                        <img class="img-fluid" src="~/images/教練/沈音燈.jpg" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-primary" href="trainer_resume.html">我要預約</a>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="text-center p-4">
-                    <h5 class="text-uppercase">Anllela</h5>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="team-item mx-auto d-flex align-items-center">
-                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
-                        <img class="img-fluid" src="~/images/教練/車炫承.jpg" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-primary" href="trainer_resume.html">我要預約</a>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="text-center p-4">
-                    <h5 class="text-uppercase">ChooSung</h5>
+                    <h5 class="text-uppercase">{{ trainer.trainerName }}</h5>
                 </div>
             </div>
         </div>
@@ -320,7 +288,7 @@
                         <img src="~/images/教練/巨石強森.jpg" alt="" class="trainer-img">
                     </div>
                     <!-- 教練名字 -->
-                    <h3 class="card-title text-light text-center py-2">The Rock</h3>
+                    <h3 class="card-title text-light text-center py-2">巨石強森</h3>
 
 
                     <!-- 社群 -->
@@ -347,8 +315,8 @@
                             </div>
                         </div>
                         <!-- 詳細資訊 -->
-                        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                             aria-hidden="true">
+                        <div class="modal fade" id="myModal" tabindex="-1"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content detailcard p-2">
                                     <div class="d-flex justify-content-end">
@@ -369,7 +337,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer d-flex justify-content-center">
-                                        <a href="trainer.html" class="btn btn-dark"
+                                        <a asp-controller="Match" asp-action="TrainerResume?id=1" class="btn btn-dark"
                                            style="border-radius:8px">立即預約</a>
                                     </div>
                                 </div>
@@ -484,88 +452,181 @@
     </div>
     <!-- 尋找你想媒合的課程內容End -->
     <!-- 學員評價Start -->
-    <div class="container wow fadeInUp pt-5" data-wow-delay="0.1s">
+    <div class="container wow fadeInUp pt-5" data-wow-delay="0.1s" id="reviews">
         <h3>學員評價</h3>
-        <div class="review-box" id="box1">
+
+        <div class="review-box" @@mouseover="pauseScroll" @@mouseleave="resumeScroll" id="box1">
+            <div class="review-list" ref="list1">
+                <div class="item" v-for="review in reviews">
+                    <p>{{ review.comment }}</p>
+                    <span>- {{ review.memberName }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-box" @@mouseover="pauseScroll" @@mouseleave="resumeScroll" id="box2">
+            <div class="review-list" ref="list2">
+                <div class="item" v-for="review in reviews">
+                    <p>{{ review.comment }}</p>
+                    <span>- {{ review.memberName }}</span>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="review-box" id="box1">
             <div class="review-list" id="list1">
                 <div class="item"></div>
             </div>
-        </div>
-        <div class="review-box" id="box2">
+        </div> -->
+        <!-- <div class="review-box" id="box2">
             <div class="review-list" id="list2">
                 <div class="item"></div>
             </div>
-        </div>
+        </div> -->
     </div>
     <!-- 學員評價End -->
     <!-- 與我們合作的場地Start -->
-    <div class="gym-photo course-photo container-xxl pt-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="gym-photo course-photo container-xxl pt-5 wow fadeInUp" data-wow-delay="0.1s" id="Gyms">
         <h3>與我們合作的健身場館</h3>
         <div class="row g-4 justify-content-between">
-            <div class="col-lg-3 col-md-3">
+            <div class="col-lg-3 col-md-3" v-for="gym in gyms" :key="gym.gymId">
                 <div class="team-item mx-auto">
                     <div class="team-img position-relative overflow-hidden align-items-center">
-                        <img class="img-fluid" src="~/images/gym/五股運動中心.jpg" alt="">
+                        <img class="img-fluid" :src="'data:image/jpeg;base64,' + gym.photo"
+                             :alt="gym.gymName">
                         <div class="team-social">
-                            <a class="btn btn-primary" href="course3.html">我要預約</a>
+                            <a class="btn btn-primary" :href="'/Gym/Gym?id=' + gym.gymId">我要預約</a>
                         </div>
                     </div>
-                    <div class="bg-darkgray text-center p-2">
-                        <h5 class="text-uppercase">五股運動中心</h5>
-                    </div>
+
+                </div>
+                <div class="bg-darkgray text-center p-2">
+                    <h5 class="text-uppercase">{{ gym.gymName }}</h5>
                 </div>
 
             </div>
-            <div class="col-lg-3 col-md-3 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="team-item mx-auto">
-                    <div class="team-img position-relative overflow-hidden align-items-center">
-                        <img class="img-fluid" src="~/images/gym/南屯運動中心.jpg" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-primary" href="course2.html">我要預約</a>
-                        </div>
-                    </div>
-                    <div class="bg-darkgray text-center p-2">
-                        <h5 class="text-uppercase">南屯運動中心</h5>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-lg-3 col-md-3 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="team-item mx-auto">
-                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
-                        <img class="img-fluid" src="~/images/gym/新莊運動中心.jpg" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-primary" href="course6.html">我要預約</a>
-                        </div>
-                    </div>
-                    <div class="bg-darkgray text-center p-2">
-                        <h5 class="text-uppercase">新莊運動中心</h5>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-lg-3 col-md-3 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="team-item mx-auto">
-                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
-                        <img class="img-fluid" src="~/images/gym/臺南運動中心.jpg" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-primary" href="course5.html">我要預約</a>
-                        </div>
-                    </div>
-                    <div class="bg-darkgray text-center p-2">
-                        <h5 class="text-uppercase">臺南運動中心</h5>
-                    </div>
-                </div>
-
-            </div>
-
         </div>
     </div>
     <!-- 與我們合作的場地End -->
 
 </div>
-
 <script>
+    const app1 = Vue.createApp({
+        data() {
+            return {
+                trainerteams: []
+            };
+        },
+        mounted() {
+            this.fetchTrainers();
+        },
+        methods: {
+            async fetchTrainers() {
+                try {
+                    const response = await fetch('https://localhost:7011/api/Match/TrainerTOP5');
+                    const data = await response.json();
+                    this.trainerteams = data;
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        }
+    }).mount("#trainerTop5");
+    const app2 = Vue.createApp({
+        data() {
+            return {
+                gyms: []
+            };
+        },
+        mounted() {
+            this.fetchTrainers();
+        },
+        methods: {
+            async fetchTrainers() {
+                try {
+                    const response = await fetch('https://localhost:7011/api/Match/GymTOP4');
+                    const data = await response.json();
+                    this.gyms = data;
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        }
+    }).mount("#Gyms");
+    // 學員評價輪播
+    const app3 = Vue.createApp({
+        data() {
+            return {
+                reviews: [],
+                itemWidth: 224, // 200 + 2 * 24
+                scrollSpeed: 0.5,
+                currentPosition1: 0,
+                currentPosition2: -224  //初始位置
+            }
+        },
+        mounted() {
+            this.fetchReviews();
+            this.startScrolling();
+        },
+        methods: {
+            async fetchReviews() {
+                try {
+                    const response = await fetch('https://localhost:7011/api/Match/Reviews');
+                    const data = await response.json();
+                    this.reviews = data;
+                    // this.currentPosition2 = -this.itemWidth * this.reviews.length;
+                } catch (error) {
+                    console.error("Failed to fetch reviews:", error);
+                }
+            },
+            startScrolling() {
+                const move = () => {
+                    this.currentPosition1 -= this.scrollSpeed;
+                    this.currentPosition2 += this.scrollSpeed;
+                    const totalWidth = this.itemWidth * this.reviews.length;
+
+                    if (this.currentPosition1 <= -totalWidth) {
+                        this.currentPosition1 += totalWidth;
+                    }
+
+                    if (this.currentPosition2 >= 0) {
+                        this.currentPosition2 -= totalWidth;
+                    }
+
+                    this.$refs.list1.style.transform = `translateX(${this.currentPosition1}px)`;
+                    this.$refs.list2.style.transform = `translateX(${this.currentPosition2}px)`;
+
+                    requestAnimationFrame(move);
+                };
+                // const move1 = () => {
+                //     this.currentPosition1 -= this.scrollSpeed;
+                //     if (this.currentPosition1 <= -this.itemWidth * this.reviews.length) {
+                //         this.currentPosition1 = 0;
+                //     }
+                //     this.$refs.list1.style.transform = `translateX(${this.currentPosition1}px)`;
+                //     requestAnimationFrame(move1);
+                // };
+
+                // const move2 = () => {
+                //     this.currentPosition2 += this.scrollSpeed;
+                //     if (this.currentPosition2 >= 0) {
+                //         this.currentPosition2 = -this.itemWidth * this.reviews.length;
+                //     }
+                //     this.$refs.list2.style.transform = `translateX(${this.currentPosition2}px)`;
+                //     requestAnimationFrame(move2);
+                // };
+
+                move();
+                // move2();
+            },
+            pauseScroll() {
+                this.scrollSpeed = 0;
+            },
+            resumeScroll() {
+                this.scrollSpeed = 0.5;
+            }
+        }
+    }).mount("#reviews");
+
     // 上課照片輪播
     var images = [
         "/images/課程/戰繩.jpg",
@@ -627,143 +688,4 @@
     }
 
     document.addEventListener('DOMContentLoaded', loadImages);
-
-    // 學員評價輪播
-
-    var reviews = [
-        { message: "感謝FitMatch！我在這找到了完美的教練，訓練課程讓我每天都充滿活力", name: "Daniel" },
-        { message: "健身專家真實，媒合快速，感謝FitMatch幫我找到了理想的訓練夥伴。", name: "Daniel" },
-        { message: "我在這找到了專業的指導，讓健身更有方向。", name: "Emily" },
-        { message: "平台使我找到了熱情的教練Eric，他的訓練計劃讓我更健康有活力。", name: "Jack" },
-        { message: "感謝平台，找到了最適合我的訓練夥伴", name: "Chris" },
-        { message: "與FitMatch，我發現健身不再是負擔，而是享受", name: "Sarah" },
-        { message: "FitMatch不僅媒合，更是我健身路上的優秀導師", name: "Max" },
-        { message: "找到了理想的教練，健身效果倍增，謝謝平台！", name: "Lily" }
-    ];
-
-    function loadReviews() {
-        // var list = document.querySelector('.review-list');
-        // var box = document.querySelector('.review-box');
-        var itemWidth = 200 + 2 * 24;
-        var scrollSpeed = 0.5;
-        // var currentPosition = 0;
-        // 第一個滾動
-        var list1 = document.querySelector('#list1');
-        var box1 = document.querySelector('#box1');
-        var currentPosition1 = 0;
-
-        // 第二個滾動
-        var list2 = document.querySelector('#list2');
-        var box2 = document.querySelector('#box2');
-        var currentPosition2 = -itemWidth * reviews.length;
-
-        function addReview(review, list) {
-            var item = document.createElement('div');
-            item.className = 'item';
-            item.style.background = 'white';
-            item.style.border = '1px solid #ccc';
-            item.style.padding = '20px';
-            item.style.borderRadius = '5px';
-            item.style.margin = '10px';
-            item.style.boxShadow = '0 3px 10px rgba(0, 0, 0, 0.1)';
-            var reviewText = document.createElement('p');
-            reviewText.textContent = review.message;
-            item.appendChild(reviewText);
-
-            var reviewerName = document.createElement('span');
-            reviewerName.textContent = '- ' + review.name;
-            reviewerName.style.fontWeight = 'bold';
-            item.appendChild(reviewerName);
-
-            list.appendChild(item);
-        }
-        function clearReviews(list) {
-            list.innerHTML = '';
-        }
-        // function clearReviews() {
-        //     list.innerHTML = ''; // 清空原有評價
-        // }
-
-        // function fillReviews() {
-        //     clearReviews();
-        //     for (var k = 0; k < Math.ceil(1296 / itemWidth); k++) {
-        //         for (var i = 0; i < reviews.length; i++) {
-        //             addReview(reviews[i]);
-        //         }
-        //     }
-        // }
-
-        // fillReviews();
-        function fillReviews(list) {
-            clearReviews(list);
-            for (var k = 0; k < Math.ceil(1296 / itemWidth); k++) {
-                for (var i = 0; i < reviews.length; i++) {
-                    addReview(reviews[i], list);
-                }
-            }
-        }
-        // function move() {
-        //     currentPosition -= scrollSpeed;
-        //     if (currentPosition <= -itemWidth * reviews.length) {
-        //         currentPosition = 0;
-        //     }
-        //     list.style.transform = `translateX(${currentPosition}px)`;
-        //     requestAnimationFrame(move);
-        // }
-
-        // move();
-
-        //     box.onmouseover = function () {
-        //         scrollSpeed = 0;
-        //     };
-
-        //     box.onmouseleave = function () {
-        //         scrollSpeed = 0.5;
-        //     };
-        // }
-
-        // document.addEventListener('DOMContentLoaded', loadReviews);
-
-        function move1() {
-            currentPosition1 -= scrollSpeed;
-            if (currentPosition1 <= -itemWidth * reviews.length) {
-                currentPosition1 = 0;
-            }
-            list1.style.transform = `translateX(${currentPosition1}px)`;
-            requestAnimationFrame(move1);
-        }
-
-        function move2() {
-            currentPosition2 += scrollSpeed;
-            if (currentPosition2 >= 0) {
-                currentPosition2 = -itemWidth * reviews.length;
-            }
-            list2.style.transform = `translateX(${currentPosition2}px)`;
-            requestAnimationFrame(move2);
-        }
-
-        fillReviews(list1); // 填充第一個list
-        fillReviews(list2); // 填充第二個list
-
-        move1();
-        move2();
-
-        box1.onmouseover = function () {
-            scrollSpeed = 0;
-        };
-
-        box1.onmouseleave = function () {
-            scrollSpeed = 0.5;
-        };
-
-        box2.onmouseover = function () {
-            scrollSpeed = 0;
-        };
-
-        box2.onmouseleave = function () {
-            scrollSpeed = 0.5;
-        };
-    }
-
-    document.addEventListener('DOMContentLoaded', loadReviews);
 </script>
