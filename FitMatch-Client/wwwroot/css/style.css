@@ -1,0 +1,618 @@
+/********** 通用樣式 **********/
+:root {
+    --primary: #F24B88;
+    --secondary: #191C24;
+    --light: #ffff;
+    --dark: #000000;
+}
+
+container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* input顏色 */
+.form-check-input:checked {
+    background-color: #F24B88;
+    border-color: #F24B88 !important;
+}
+
+/* content裡的東西 */
+.content .bg-secondary {
+    background-color: #fff !important;
+}
+
+.form-check-input {
+    background-color: #fff;
+    border-color: #6666;
+}
+
+.form-control:focus {
+    outline: none;
+    /* 移除預設的聚焦輪廓 */
+    /* 添加欄位邊線 */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    /* 添加陰影效果 */
+}
+
+.form-control,
+.form-select {
+    background-color: fff;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: fff;
+    border-color: #808080;
+
+    outline: none;
+    /* 移除外部輪廓 */
+    box-shadow: none;
+    /* 移除光暈效果 */
+}
+
+/* 移除按鈕和鏈接的焦點光暈 */
+.btn:focus,
+.page-link:focus,
+.form-check-input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: #6666
+}
+
+/* 背景顏色 */
+.bgc {
+    background-color: black;
+}
+
+/* 高度 */
+.h-75 {
+    height: 75px;
+}
+
+/* 寬度 */
+.w-75 {
+    width: 75px;
+}
+
+/* 文字顏色樣式 */
+.text-light {
+    color: #FFFFFF !important;
+}
+
+.text-primary {
+    color: #F24B88 !important;
+}
+
+.text-color {
+    color: #f24b88;
+}
+
+.text-black {
+    color: #232323;
+}
+
+.text-sm {
+    font-size: 14px;
+}
+
+.text-md {
+    font-size: 26px;
+    line-height: 36px;
+}
+
+.text-lg {
+    font-size: 56px;
+    line-height: 66px;
+}
+
+/* 背景 */
+.bg-darkgray {
+    background-color: #12121C;
+}
+
+.bg-pink {
+    background-color: #F24B88;
+}
+
+
+
+.back-to-top {
+    position: fixed;
+    display: none;
+    right: 45px;
+    bottom: 45px;
+    z-index: 99;
+}
+
+
+/*** Spinner ***/
+#spinner {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    z-index: 99999;
+}
+
+#spinner.show {
+    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/*** Button ***/
+.btn {
+    font-weight: 500;
+    transition: .5s;
+}
+
+.btn-square {
+    width: 38px;
+    height: 38px;
+}
+
+.btn-sm-square {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-lg-square {
+    width: 48px;
+    height: 48px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #F24B88;
+    border-color: #F24B88;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #BF3B6C;
+    border-color: #BF3B6C;
+}
+
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #F24B88;
+    --bs-btn-border-color: #F24B88;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #BF3B6C;
+    --bs-btn-hover-border-color: #F24B88;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #F24B88;
+    --bs-btn-active-border-color: #BF3B6C;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #F24B88;
+    --bs-btn-disabled-border-color: #F24B88;
+}
+
+.btn-primary:focus,
+.btn-primary:active,
+.btn-check:active,
+.btn-primary:hover {
+    background-color: #BF3B6C;
+    border-color: #BF3B6C;
+
+}
+
+.btn-check:focus,
+.btn-primary:focus,
+/* .form-check-input:focus, */
+.btn:focus {
+    background-color: #bf3b6c;
+    border-color: #BF3B6C;
+    box-shadow: 0 0 0 0.25rem BF3B6C(191, 59, 108, 0.5);
+}
+
+.btn-clear:hover {
+    background-color: #bf3b6c;
+    border: 1px solid #bf3b6c;
+    color: #FFFFFF;
+
+
+}
+
+.btn-clear {
+    border: 1px solid #F24B88;
+    color: #FFFFFF;
+}
+
+.btn-dark {
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+.btn-dark:hover {
+    background-color: #585858;
+    border: 1px solid #585858;
+
+}
+
+/*** Navbar ***/
+.navbar .dropdown-toggle::after {
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.navbar .navbar-nav .nav-link {
+    margin-right: 30px;
+    padding: 40px 0;
+    color: var(--light) !important;
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    outline: none;
+}
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link.active {
+    color: var(--primary);
+}
+
+.dropdown-item.active {
+    background-color: rgb(242, 75, 136);
+}
+
+.dropdown-item:hover {
+    background-color: rgba(242, 75, 136, .55);
+}
+
+.navbar.sticky-top {
+    top: -100px;
+    /* transition: .5s; */
+    transition: 0.5s;
+}
+
+
+@media (max-width: 991.98px) {
+
+    .navbar .navbar-nav .nav-link,
+    .navbar.shadow-sm .navbar-nav .nav-link {
+        margin-right: 0;
+        padding: 10px 0;
+    }
+
+    .navbar .navbar-nav {
+        margin-top: 8px;
+        border-top: 1px solid var(--light);
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar.shadow-sm .navbar-nav .nav-link {
+        padding: 20px 0;
+    }
+
+    .navbar .nav-item .dropdown-menu {
+        display: block;
+        border: none;
+        margin-top: 0;
+        top: 150%;
+        opacity: 0;
+        visibility: hidden;
+        transition: .5s;
+    }
+
+    .navbar .nav-item:hover .dropdown-menu {
+        top: 100%;
+        visibility: visible;
+        transition: .5s;
+        opacity: 1;
+    }
+}
+
+
+/*** Header ***/
+.carousel-caption {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .85);
+    z-index: 1;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 10%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 3rem;
+    height: 3rem;
+}
+
+@media (max-width: 768px) {
+    #header-carousel .carousel-item {
+        position: relative;
+        min-height: 450px;
+    }
+
+    #header-carousel .carousel-item img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+
+/* index首圖 ＋透明度 */
+.page-header {
+    background: linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(../images/bg/bg-7.jpg) center center no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    color: var(--light);
+}
+
+
+/*** Service ***/
+.service-item .btn {
+    position: absolute;
+    right: -50px;
+    bottom: -50px;
+    width: 50px;
+    height: 50px;
+    color: var(--primary);
+    background: var(--dark);
+    opacity: 0;
+}
+
+.service-item:hover .btn {
+    right: 0;
+    bottom: 0;
+    opacity: 1;
+}
+
+
+/*** Team ***/
+.team-item .team-img::before,
+.team-item .team-img::after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .85);
+    transition: .5s;
+}
+
+.team-item .team-img::after {
+    left: auto;
+    right: 0;
+}
+
+.team-item:hover .team-img::before,
+.team-item:hover .team-img::after {
+    width: 50%;
+}
+
+.team-item .team-img .team-social {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .5s;
+    z-index: 3;
+    opacity: 0;
+}
+
+.team-item:hover .team-img .team-social {
+    transition-delay: .3s;
+    opacity: 1;
+}
+
+.team-item .team-social .btn {
+    display: inline-flex;
+    margin: 0 3px;
+    color: var(--primary);
+    background: var(--dark);
+}
+
+.team-item .team-social .btn:hover {
+    color: #FFFFFF;
+    background: var(--primary);
+}
+
+
+/*** Testimonial 會員評論 ***/
+.testimonial-carousel {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.testimonial-carousel .owl-dots {
+    margin-top: 35px;
+    height: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.testimonial-carousel .owl-dots .owl-dot {
+
+    /* 小點的底的形狀原本為方形 */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    /* 圖片變圓形 */
+
+    margin: 0 5px;
+    padding: 5px;
+
+    /* 這是設定分頁圓點的背景顏色，使用了自定義的變數 --secondary，這個變數可能在CSS中定義了對應的顏色值。 */
+    background: var(--secondary);
+
+    transition: .5s;
+}
+
+.testimonial-carousel .owl-dots .owl-dot.active {
+    width: 100px;
+    height: 100px;
+
+
+    border-radius: 50%;
+    /* 圖片變圓形 */
+
+}
+
+.testimonial-carousel .owl-dots .owl-dot img {
+    opacity: .1;
+    transition: .5s;
+
+
+    border-radius: 50%;
+    /* 圖片變圓形 */
+
+}
+
+/* 點小頭時，呈現完全不透明  opacity:透明度*/
+.testimonial-carousel .owl-dots .owl-dot.active img {
+    opacity: 1;
+}
+
+
+/*** Footer ***/
+.footer .btn.btn-link {
+    display: block;
+    margin-bottom: 5px;
+    padding: 0;
+    text-align: left;
+    color: var(--light);
+    font-size: 15px;
+    font-weight: normal;
+    text-transform: capitalize;
+    transition: .3s;
+}
+
+.footer .btn.btn-link::before {
+    position: relative;
+    content: "\f105";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 10px;
+}
+
+.footer .btn.btn-link:hover {
+    color: var(--primary);
+    letter-spacing: 1px;
+    box-shadow: none;
+}
+
+.footer .copyright {
+    padding: 1.5rem;
+    font-size: 15px;
+    background: var(--dark);
+}
+
+.footer .copyright a {
+    color: var(--light);
+}
+
+.footer .copyright a:hover {
+    color: var(--primary);
+}
+
+/* personal_course */
+
+.text-center {
+    text-align: center;
+}
+
+.coursebody {
+    background-color: #000;
+}
+
+.course-single-body {
+    background-color: #000;
+}
+
+.list-group-item2 {
+    background: linear-gradient(90deg, #f24b88 0%, #bd00ff 100%);
+}
+
+/* 文字顏色樣式 */
+.text-color {
+    color: #f24b88;
+}
+
+.text-black {
+    color: #232323;
+}
+
+.text-sm {
+    font-size: 14px;
+}
+
+.text-md {
+    font-size: 26px;
+    line-height: 36px;
+}
+
+.text-lg {
+    font-size: 56px;
+    line-height: 66px;
+}
+
+/* 連結樣式 */
+a {
+    transition: all 0.35s ease;
+    color: #000000;
+    /* 設置為黑色 */
+}
+
+a:hover,
+a:focus {
+    /* color: #f24b88 !important; */
+    text-decoration: none !important;
+    outline: 0;
+    color: #000000;
+}
+
+/* 視覺UI用的-按鈕1 */
+.btn-main,
+.btn-small,
+.btn-transparent {
+    background: linear-gradient(90deg, #f24b88 0%, #bd00ff 100%);
+    color: #fff;
+}
+
+/* 視覺UI用的-按鈕1按下後的樣式 */
+.btn-main:hover,
+.btn-small:hover,
+.btn-transparent:hover {
+    background: linear-gradient(90deg, #bd00ff 0%, #f24b88 100%);
+    color: #fff !important;
+    transform: translateY(-5px);
+}

@@ -1,0 +1,769 @@
+﻿
+@{
+    ViewData["Title"] = "Match";
+}
+<style>
+    .match-title .page-header {
+        background: none;
+    }
+
+    body {
+        background-image: url('/images/bg/matchbgimage.jpg');
+        background-size: cover;
+    }
+
+    .tcircle .team-item {
+        /* display: inline-block; */
+        position: relative;
+        width: 150px;
+        height: 150px;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+
+        .tcircle .team-item img {
+            width: 100%;
+            height: auto;
+        }
+
+    /* rock照片 */
+    .rock .circle-container {
+        width: 300px;
+        /* 圓的寬度 */
+        height: 300px;
+        /* 圓的高度，應與寬度相同以產生完美的圓形 */
+        border-radius: 50%;
+        overflow: hidden;
+        /* 隱藏超出的部分 */
+        position: relative;
+        /* 使內部的 img 元素能夠使用絕對定位 */
+    }
+
+    .rock .trainer-img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* 巨石卡片 */
+    .rock .card {
+        border: none;
+    }
+
+    .rock-card {
+        background: linear-gradient(90deg, #F24B88 0%, #BD00FF 100%);
+        border-radius: 10px
+    }
+
+    .rock .rock-card {
+        position: relative;
+    }
+
+        .rock .rock-card::before {
+            content: "";
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(10deg, #BD00FF 0%, #0f0623 100%);
+            border-radius: 10px;
+            z-index: -1;
+        }
+
+    /* 詳細資訊的視窗 */
+    .detailcard {
+        background: linear-gradient(90deg, #F24B88 0%, #BD00FF 100%);
+        border-radius: 10px
+    }
+
+    /* 上課照片 */
+    .photocarousel.image-box {
+        position: relative;
+        height: 250px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .photocarousel .image-list {
+        display: flex;
+        position: absolute;
+        transform: translateX(0);
+        transition: transform 0.02s linear;
+    }
+
+    .photocarousel .item {
+        width: 200px;
+        height: 200px;
+        margin-left: 2px;
+        font-size: 5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        padding-right: 10px;
+    }
+
+        .photocarousel .item img {
+            width: 100%;
+            /* 確保圖像的寬度為100% */
+            height: 100%;
+            /* 確保圖像的高度為100% */
+            object-fit: cover;
+            /* 讓圖像保持其比例，但完全覆蓋它的容器 */
+        }
+
+    /* 尋找課程內容 */
+    .course-photo .team-item {
+        /* display: inline-block; */
+        position: relative;
+        width: 200px;
+        height: 200px;
+        overflow: hidden;
+    }
+
+        .course-photo .team-item img {
+            width: 100%;
+            height: auto;
+        }
+
+    /* 尋找健身房 */
+    .gym-photo .team-item {
+        /* display: inline-block; */
+        position: relative;
+        width: 300px;
+        height: 300px;
+        overflow: hidden;
+    }
+
+        .gym-photo .team-item img {
+            width: 100%;
+            height: auto;
+        }
+
+    /* 學員評價 */
+    .review-box {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        padding: 15px 0;
+        border-radius: 5px;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        /* background-color: #f8f8f8; */
+        height: 180px;
+    }
+
+        .review-box .review-list {
+            display: flex;
+            position: absolute;
+            transform: translateX(0);
+            transition: transform 0.02s linear;
+        }
+
+        .review-box .item {
+            width: 200px;
+            min-height: 120px;
+            margin: 0 12px;
+            background: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            font-size: 14px;
+            /* 設定整體字體大小 */
+            line-height: 1.5;
+            /* 調整行高以提高可讀性 */
+        }
+
+            .review-box .item p {
+                margin-bottom: 10px;
+                /* 留下一些空間在評價和名字之間 */
+                font-style: italic;
+                /* 讓留言有點斜體，更像引用 */
+                text-align: center;
+            }
+
+            .review-box .item span {
+                /* font-size: 16px; */
+                /* font-weight: bold; */
+                /* display: block; */
+                /* text-align: center; */
+                color: #F24B88;
+            }
+
+    .btn-dark:hover {
+        background-color: #7c7c7c;
+    }
+</style>
+<div class="container">
+    <!-- Page Header Start -->
+    <div class="match-title">
+        <div class="container-fluid page-header py-5 mb-4 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container text-center py-5">
+                <h1 class="text-white text-uppercase mb-3 animated slideInDown">與我們卓越的金牌教練共同提升您的運動體驗!</h1>
+                <h4 class="breadcrumb-item text-white m-5">針對個人需求提供量身定制的教練服務</h4>
+            </div>
+            <div class="container text-center py-5">
+                <a href="trainer.html" class="btn btn-dark p-4 px-5 me-5" style="border-radius:10px">
+                    <h3>找教練</h3>
+                </a>
+                <a href="gym.html" class="btn btn-dark p-4 px-5 ms-5" style="border-radius:10px">
+                    <h3>找場館</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+    <!-- 推薦教練區開始  (好像可以不用這塊) -->
+    <!-- <div class="container-xxl py-1">
+        <div class="container">
+            <div class="p-4 wow fadeInUp d-flex align-items-center" data-wow-delay="0.1s">
+
+                <select class="p-2 me-auto">
+                    <option selected value="1">熱門</option>
+                    <option value="2">最新</option>
+                </select>
+                 <p class="text-light me-auto">熱門教練</p>
+                <a href="trainer.html" class="text-light">
+                    <p class="m-0">查看全部</p>
+                </a>
+            </div>
+        </div>
+    </div> -->
+    <!-- 推薦教練頭像Start -->
+    <div class="tcircle container-xxl py-1">
+        <div class="row g-4 d-flex justify-content-center">
+            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="team-item mx-auto d-flex align-items-center">
+                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
+                        <img class="img-fluid" src="~/images/教練/巨石強森.jpg" alt="">
+                        <div class="team-social">
+                            <a class="btn btn-primary" href="trainer_resume.html">我要預約</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center p-4">
+                    <h5 class="text-uppercase">The Rock</h5>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="team-item mx-auto d-flex align-items-center">
+                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
+                        <img class="img-fluid" src="~/images/教練/艾利克.jpg" alt="">
+                        <div class="team-social">
+                            <a class="btn btn-primary" href="trainer_resume.html">我要預約</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="text-center p-4">
+                    <h5 class="text-uppercase">Biao Han</h5>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="team-item mx-auto d-flex align-items-center">
+                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
+                        <img class="img-fluid" src="~/images/教練/李奇福.jpg" alt="">
+                        <div class="team-social">
+                            <a class="btn btn-primary" href="trainer_resume.html">我要預約</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="text-center p-4">
+                    <h5 class="text-uppercase">Larry</h5>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="team-item mx-auto d-flex align-items-center">
+                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
+                        <img class="img-fluid" src="~/images/教練/沈音燈.jpg" alt="">
+                        <div class="team-social">
+                            <a class="btn btn-primary" href="trainer_resume.html">我要預約</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="text-center p-4">
+                    <h5 class="text-uppercase">Anllela</h5>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="team-item mx-auto d-flex align-items-center">
+                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
+                        <img class="img-fluid" src="~/images/教練/車炫承.jpg" alt="">
+                        <div class="team-social">
+                            <a class="btn btn-primary" href="trainer_resume.html">我要預約</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="text-center p-4">
+                    <h5 class="text-uppercase">ChooSung</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 推薦教練頭像End -->
+    <!-- 巨石強森推薦區 Start -->
+    <div class="rock container-xxl py-1 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="card bg-transparent mb-4" style="width: 100%;">
+            <div class="row no-gutters">
+                <!-- 教練大頭貼 -->
+                <div class="col-md-6 p-5">
+                    <div class="circle-container mx-auto">
+                        <img src="~/images/教練/巨石強森.jpg" alt="" class="trainer-img">
+                    </div>
+                    <!-- 教練名字 -->
+                    <h3 class="card-title text-light text-center py-2">The Rock</h3>
+
+
+                    <!-- 社群 -->
+                    <div class="d-flex align-items-center mb-2">
+                        <p class="card-subtitle letter-spacing m-auto">
+                            <i class="fa-brands fa-square-facebook fa-xl me-2 fc-232323"></i>
+                            <i class="fa-brands fa-linkedin fa-xl me-2 fc-232323"></i>
+                            <i class="fa-brands fa-square-instagram fa-xl fc-232323"></i>
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="col-md-5 d-flex align-items-center">
+                    <div class="rock-card card-body team-wrap pl-5 text-light pt-5">
+                        <h4 class="px-3">超越極限，與巨石強森一同塑造你的力量</h4>
+                        <p class="text-black fw-bold px-3 pt-3">
+                            巨石強森憑藉自身的豐富經驗和知識，為你提供全面的健身指導。無論你是初學者還是有經驗的健身愛好者，他都能根據你的需求和目標制定量身定制的訓練計劃。他強調正確的技巧和姿勢，並注重每個動作的細節，確保你的訓練效果最大化。
+                        </p>
+                        <div class="d-flex justify-content-center">
+                            <div class="btn btn-dark" style="border-radius:8px" data-bs-toggle="modal"
+                                 data-bs-target="#myModal">
+                                查看詳細資訊
+                            </div>
+                        </div>
+                        <!-- 詳細資訊 -->
+                        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content detailcard p-2">
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn-close " data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-light">
+                                        <div class="modal-body">
+                                            <ul>
+                                                <li>原名為洛克（The Rock），在1996年加入世界摔角娛樂（WWE，前身為WWF）。</li>
+                                                <li>曾經11次獲得WWE世界冠軍。</li>
+                                                <li>獲得兩次WWE洲際冠軍和五次WWE雙打冠軍。</li>
+                                                <li>
+                                                    在2000年至2001年間成為WWE世界冠軍連續擊敗「斯杰夫・奧斯汀」(Stone Cold Steve
+                                                    Austin)，稱霸WWE。
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-center">
+                                        <a href="trainer.html" class="btn btn-dark"
+                                           style="border-radius:8px">立即預約</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 詳細資訊End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 巨石強森推薦區 End -->
+    <!-- 實際上課照片Start -->
+    <div class="container wow fadeInUp" data-wow-delay="0.1s">
+        <h3>實際上課照片</h3>
+        <div class="image-box photocarousel">
+            <div class="image-list">
+                <div class="item"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 實際上課照片End -->
+    <!-- 尋找你想媒合的課程內容Start -->
+    <div class="course-photo container-xxl wow fadeInUp pt-3" data-wow-delay="0.1s">
+        <h3>尋找你想媒合的課程內容</h3>
+        <div class="row g-4">
+            <div class="col-lg-2 col-md-4">
+                <div class="team-item mx-auto">
+                    <div class="team-img position-relative overflow-hidden align-items-center">
+                        <img class="img-fluid" src="~/images/課程/戰繩.jpg" alt="">
+                        <div class="team-social">
+                            <a class="btn btn-primary" href="course3.html">我要預約</a>
+                        </div>
+                    </div>
+                    <div class="bg-darkgray text-center p-2">
+                        <h5 class="text-uppercase">戰繩</h5>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="team-item mx-auto">
+                    <div class="team-img position-relative overflow-hidden align-items-center">
+                        <img class="img-fluid" src="~/images/課程/有氧.jpg" alt="">
+                        <div class="team-social">
+                            <a class="btn btn-primary" href="course2.html">我要預約</a>
+                        </div>
+                    </div>
+                    <div class="bg-darkgray text-center p-2">
+                        <h5 class="text-uppercase">有氧</h5>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="team-item mx-auto">
+                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
+                        <img class="img-fluid" src="~/images/課程/核心訓練.jpg" alt="">
+                        <div class="team-social">
+                            <a class="btn btn-primary" href="course6.html">我要預約</a>
+                        </div>
+                    </div>
+                    <div class="bg-darkgray text-center p-2">
+                        <h5 class="text-uppercase">核心訓練</h5>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="team-item mx-auto">
+                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
+                        <img class="img-fluid" src="~/images/課程/格鬥.jpg" alt="">
+                        <div class="team-social">
+                            <a class="btn btn-primary" href="course5.html">我要預約</a>
+                        </div>
+                    </div>
+                    <div class="bg-darkgray text-center p-2">
+                        <h5 class="text-uppercase">格鬥</h5>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="team-item mx-auto">
+                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
+                        <img class="img-fluid" src="~/images/課程/瑜珈.jpg" alt="">
+                        <div class="team-social">
+                            <a class="btn btn-primary" href="course4.html">我要預約</a>
+                        </div>
+                    </div>
+                    <div class="bg-darkgray text-center p-2">
+                        <h5 class="text-uppercase">瑜珈</h5>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="team-item mx-auto">
+                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
+                        <img class="img-fluid" src="~/images/課程/重量訓練.jpg" alt="">
+                        <div class="team-social">
+                            <a class="btn btn-primary" href="course1.html">我要預約</a>
+                        </div>
+                    </div>
+                    <div class="bg-darkgray text-center p-2">
+                        <h5 class="text-uppercase">重量訓練</h5>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- 尋找你想媒合的課程內容End -->
+    <!-- 學員評價Start -->
+    <div class="container wow fadeInUp pt-5" data-wow-delay="0.1s">
+        <h3>學員評價</h3>
+        <div class="review-box" id="box1">
+            <div class="review-list" id="list1">
+                <div class="item"></div>
+            </div>
+        </div>
+        <div class="review-box" id="box2">
+            <div class="review-list" id="list2">
+                <div class="item"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 學員評價End -->
+    <!-- 與我們合作的場地Start -->
+    <div class="gym-photo course-photo container-xxl pt-5 wow fadeInUp" data-wow-delay="0.1s">
+        <h3>與我們合作的健身場館</h3>
+        <div class="row g-4 justify-content-between">
+            <div class="col-lg-3 col-md-3">
+                <div class="team-item mx-auto">
+                    <div class="team-img position-relative overflow-hidden align-items-center">
+                        <img class="img-fluid" src="~/images/gym/五股運動中心.jpg" alt="">
+                        <div class="team-social">
+                            <a class="btn btn-primary" href="course3.html">我要預約</a>
+                        </div>
+                    </div>
+                    <div class="bg-darkgray text-center p-2">
+                        <h5 class="text-uppercase">五股運動中心</h5>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-3 col-md-3 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="team-item mx-auto">
+                    <div class="team-img position-relative overflow-hidden align-items-center">
+                        <img class="img-fluid" src="~/images/gym/南屯運動中心.jpg" alt="">
+                        <div class="team-social">
+                            <a class="btn btn-primary" href="course2.html">我要預約</a>
+                        </div>
+                    </div>
+                    <div class="bg-darkgray text-center p-2">
+                        <h5 class="text-uppercase">南屯運動中心</h5>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-3 col-md-3 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="team-item mx-auto">
+                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
+                        <img class="img-fluid" src="~/images/gym/新莊運動中心.jpg" alt="">
+                        <div class="team-social">
+                            <a class="btn btn-primary" href="course6.html">我要預約</a>
+                        </div>
+                    </div>
+                    <div class="bg-darkgray text-center p-2">
+                        <h5 class="text-uppercase">新莊運動中心</h5>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-3 col-md-3 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="team-item mx-auto">
+                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
+                        <img class="img-fluid" src="~/images/gym/臺南運動中心.jpg" alt="">
+                        <div class="team-social">
+                            <a class="btn btn-primary" href="course5.html">我要預約</a>
+                        </div>
+                    </div>
+                    <div class="bg-darkgray text-center p-2">
+                        <h5 class="text-uppercase">臺南運動中心</h5>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- 與我們合作的場地End -->
+
+</div>
+
+<script>
+    // 上課照片輪播
+    var images = [
+        "/images/課程/戰繩.jpg",
+        "/images/課程/瑜珈3.jpg",
+        "/images/課程/深蹲.jpg",
+        "/images/課程/TRX.jpg",
+        "/images/課程/格鬥2.jpg"
+    ];
+
+    function loadImages() {
+        var list = document.querySelector('.image-list');
+        var box = document.querySelector('.image-box');
+        var itemWidth = 200 + 2 * 24;
+        var scrollSpeed = 0.5;
+        var currentPosition = 0;
+
+        function addImage(src) {
+            var item = document.createElement('div');
+            item.className = 'item';
+            var img = document.createElement('img');
+            img.src = src;
+            item.appendChild(img);
+            list.appendChild(item);
+        }
+
+        function clearImages() {
+            list.innerHTML = ''; // 清空原有照片
+        }
+
+        function fillImages() {
+            clearImages();
+            for (var k = 0; k < Math.ceil(1296 / itemWidth); k++) {
+                for (var i = 0; i < images.length; i++) {
+                    addImage(images[i]);
+                }
+            }
+        }
+
+        fillImages();
+
+        function move() {
+            currentPosition -= scrollSpeed;
+            if (currentPosition <= -itemWidth * images.length) {
+                currentPosition = 0;
+            }
+            list.style.transform = `translateX(${currentPosition}px)`;
+            requestAnimationFrame(move);
+        }
+
+        move();
+
+        box.onmouseover = function () {
+            scrollSpeed = 0;
+        };
+
+        box.onmouseleave = function () {
+            scrollSpeed = 0.5;
+        };
+    }
+
+    document.addEventListener('DOMContentLoaded', loadImages);
+
+    // 學員評價輪播
+
+    var reviews = [
+        { message: "感謝FitMatch！我在這找到了完美的教練，訓練課程讓我每天都充滿活力", name: "Daniel" },
+        { message: "健身專家真實，媒合快速，感謝FitMatch幫我找到了理想的訓練夥伴。", name: "Daniel" },
+        { message: "我在這找到了專業的指導，讓健身更有方向。", name: "Emily" },
+        { message: "平台使我找到了熱情的教練Eric，他的訓練計劃讓我更健康有活力。", name: "Jack" },
+        { message: "感謝平台，找到了最適合我的訓練夥伴", name: "Chris" },
+        { message: "與FitMatch，我發現健身不再是負擔，而是享受", name: "Sarah" },
+        { message: "FitMatch不僅媒合，更是我健身路上的優秀導師", name: "Max" },
+        { message: "找到了理想的教練，健身效果倍增，謝謝平台！", name: "Lily" }
+    ];
+
+    function loadReviews() {
+        // var list = document.querySelector('.review-list');
+        // var box = document.querySelector('.review-box');
+        var itemWidth = 200 + 2 * 24;
+        var scrollSpeed = 0.5;
+        // var currentPosition = 0;
+        // 第一個滾動
+        var list1 = document.querySelector('#list1');
+        var box1 = document.querySelector('#box1');
+        var currentPosition1 = 0;
+
+        // 第二個滾動
+        var list2 = document.querySelector('#list2');
+        var box2 = document.querySelector('#box2');
+        var currentPosition2 = -itemWidth * reviews.length;
+
+        function addReview(review, list) {
+            var item = document.createElement('div');
+            item.className = 'item';
+            item.style.background = 'white';
+            item.style.border = '1px solid #ccc';
+            item.style.padding = '20px';
+            item.style.borderRadius = '5px';
+            item.style.margin = '10px';
+            item.style.boxShadow = '0 3px 10px rgba(0, 0, 0, 0.1)';
+            var reviewText = document.createElement('p');
+            reviewText.textContent = review.message;
+            item.appendChild(reviewText);
+
+            var reviewerName = document.createElement('span');
+            reviewerName.textContent = '- ' + review.name;
+            reviewerName.style.fontWeight = 'bold';
+            item.appendChild(reviewerName);
+
+            list.appendChild(item);
+        }
+        function clearReviews(list) {
+            list.innerHTML = '';
+        }
+        // function clearReviews() {
+        //     list.innerHTML = ''; // 清空原有評價
+        // }
+
+        // function fillReviews() {
+        //     clearReviews();
+        //     for (var k = 0; k < Math.ceil(1296 / itemWidth); k++) {
+        //         for (var i = 0; i < reviews.length; i++) {
+        //             addReview(reviews[i]);
+        //         }
+        //     }
+        // }
+
+        // fillReviews();
+        function fillReviews(list) {
+            clearReviews(list);
+            for (var k = 0; k < Math.ceil(1296 / itemWidth); k++) {
+                for (var i = 0; i < reviews.length; i++) {
+                    addReview(reviews[i], list);
+                }
+            }
+        }
+        // function move() {
+        //     currentPosition -= scrollSpeed;
+        //     if (currentPosition <= -itemWidth * reviews.length) {
+        //         currentPosition = 0;
+        //     }
+        //     list.style.transform = `translateX(${currentPosition}px)`;
+        //     requestAnimationFrame(move);
+        // }
+
+        // move();
+
+        //     box.onmouseover = function () {
+        //         scrollSpeed = 0;
+        //     };
+
+        //     box.onmouseleave = function () {
+        //         scrollSpeed = 0.5;
+        //     };
+        // }
+
+        // document.addEventListener('DOMContentLoaded', loadReviews);
+
+        function move1() {
+            currentPosition1 -= scrollSpeed;
+            if (currentPosition1 <= -itemWidth * reviews.length) {
+                currentPosition1 = 0;
+            }
+            list1.style.transform = `translateX(${currentPosition1}px)`;
+            requestAnimationFrame(move1);
+        }
+
+        function move2() {
+            currentPosition2 += scrollSpeed;
+            if (currentPosition2 >= 0) {
+                currentPosition2 = -itemWidth * reviews.length;
+            }
+            list2.style.transform = `translateX(${currentPosition2}px)`;
+            requestAnimationFrame(move2);
+        }
+
+        fillReviews(list1); // 填充第一個list
+        fillReviews(list2); // 填充第二個list
+
+        move1();
+        move2();
+
+        box1.onmouseover = function () {
+            scrollSpeed = 0;
+        };
+
+        box1.onmouseleave = function () {
+            scrollSpeed = 0.5;
+        };
+
+        box2.onmouseover = function () {
+            scrollSpeed = 0;
+        };
+
+        box2.onmouseleave = function () {
+            scrollSpeed = 0.5;
+        };
+    }
+
+    document.addEventListener('DOMContentLoaded', loadReviews);
+</script>

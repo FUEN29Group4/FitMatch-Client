@@ -1,0 +1,441 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!-- 周曆 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+<!-- SweetAlert2 -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+
+
+    <style>
+        /* 預約區塊 */
+        .fc-scrollgrid {
+            background-color: #f8f9fa;
+
+        }
+
+        .fc-theme-standard .fc-scrollgrid,
+        .fc td,
+        .fc th {
+            border-color: #6C7293;
+        }
+
+        .fc-col-header-cell-cushion {
+            color: #2c2b2b;
+        }
+
+        .fc-scrollgrid-shrink-frame {
+            color: #a7a7b8;
+        }
+
+        .fc-timegrid-slot-label-cushion {
+            margin-top: 10px;
+            color: #2c2b2b;
+
+        }
+
+        .reservation .booked-button {
+            display: block;
+            background-color: #808080;
+            color: #fff;
+            text-align: center;
+            border: none;
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            /* 可選，增加一點圓角 */
+            pointer-events: none;
+            /* 禁用 */
+            /* cursor: not-allowed; */
+        }
+
+        .reservation table th {
+            text-align: center;
+            white-space: pre-line;
+            /* 換行保留 */
+            color: #ffff;
+            font-weight: normal;
+        }
+
+        .reservation .time-cell {
+            text-align: center;
+            font-size: 18px;
+            color: #ffff;
+        }
+
+        .reservation .btn-primary:focus {
+            color: #fff;
+            background-color: #BF3B6C;
+            border-color: #BF3B6C;
+            box-shadow: 0 0 0 .25rem #582337;
+        }
+
+        .fc-timegrid-slot-label-cushion {
+            height: 40px;
+        }
+
+        .fc-toolbar-title {
+            color: #f24b88;
+        }
+
+        .fc-day {
+            background-color: #fff;
+        }
+
+        .fc-day-today {
+            background-color: #f24b88 !important;
+
+        }
+
+        .fc-event-main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .reservation .available {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: green;
+            color: #ffff;
+            outline: 2px solid green;
+            border: none;
+            /* 移除邊框 */
+            box-shadow: none;
+            /* 移除陰影 */
+            /* border-color: transparent; */
+            /* 將邊線顏色設為透明 */
+            border-radius: 3px;
+
+        }
+
+        .fc-timegrid-event .fc-event-main {
+            padding: 0;
+        }
+
+        .reservation .available:hover {
+            background-color: rgb(1, 100, 1);
+        }
+
+        .reservation .booked {
+            background-color: grey;
+            pointer-events: none;
+        }
+
+        #addButton {
+            position: absolute;
+            top: 10px;
+            /* 调整按钮的垂直位置 */
+            left: 10px;
+            /* 调整按钮的水平位置 */
+            z-index: 1;
+            /* 确保按钮位于日历的上方 */
+            /* 其他样式属性 */
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 60%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+        body{
+            background-color:#fefefe;
+        }
+    </STyle>
+        <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Our Barber</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center text-uppercase mb-0">
+                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                    <li class="breadcrumb-item text-primary active" aria-current="page">Our Barber</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <!-- Personal Body Start -->
+
+    <!-- body start -->
+
+    <div class="container text-center">
+        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+            aria-label="breadcrumb">
+            <ol class="breadcrumb" style="color: rgb(0, 0, 0);">
+                <li class="breadcrumb-item"><a href="index.html" style="color: rgb(0, 0, 0);">首頁</a></li>
+                <li class="breadcrumb-item"><a href="personal_member.html" style="color: rgb(0, 0, 0);">教練專區</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">課程</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="container">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <div class="container member line">
+                    <div class="nav" style="color: rgb(0, 0, 0);">
+                        <a style="color: rgb(0, 0, 0);" href="personal_trainer_Basic_Information.html"
+                            class="nav-link nav-item ">基本資料</a>
+                        <a style="color: rgb(0, 0, 0);" href="personal_trainer_Schedule_Time.html"
+                            class="nav-link nav-item">課程</a>
+                        <a style="color: rgb(0, 0, 0);" href="personal_trainer_Schedule.html"
+                            class="nav-link nav-item">課表時程</a>
+                        <a style="color: rgb(0, 0, 0);" href="personal_trainer_Schedule_Record.html"
+                            class="nav-link nav-item">教課紀錄</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <hr>
+
+    <div class="container">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div>
+                    <span class="float-right">排休</span>
+
+                    <span class="float-right"
+                        style="background-color:rgb(19, 19, 19);color: rgb(19, 19, 19);  border: 1px solid rgb(19, 19, 19); width: 30px;height: 30px; padding: 5px;">O
+                    </span>
+                    <span class="float-right">萬華運動中心
+                    </span>
+                    <span class="float-right"
+                        style="background-color:lightblue;color: lightblue;  border: 1px solid gray; width: 30px;height: 30px; padding: 5px;">O
+                    </span>
+                    <span class="float-right">金三角運動中心
+                    </span>
+                    <span class="float-right"
+                        style="background-color:rgb(172, 138, 138);color: rgb(172, 138, 138);  border: 1px solid gray; width: 30px;height: 30px; padding: 5px;">O
+                    </span>
+
+                </div>
+            </nav>
+        </div>
+        <div class="date" id="calendar">
+
+        </div>
+
+
+        <div class="container text-center">
+            <button type="button" class="btn btn-primary" style="background-color: #F24B88;"><a
+                    href="personal_trainer_Schedule.html" style="color: #fff;">儲存</a></button>
+        </div>
+    </div>
+
+    <hr>
+    <!-- body end -->
+    <hr>
+
+
+<!-- Personal Body End -->
+<script>
+// 将calendar声明为全局变量
+var calendar;
+
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+    calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        allDayText: '场馆',
+
+        dayHeaderContent: function (headerInfo) {
+            var btn = document.createElement('button');
+            btn.innerText = '新增课程';
+            btn.addEventListener('click', function () {
+                openVenueModal(headerInfo.date);
+            });
+            return { domNodes: [btn] };
+        },
+
+        slotLabelFormat: {
+            hour: 'numeric',
+            minute: '2-digit',
+            omitZeroMinute: false,
+            hour12: false
+        },
+
+        eventContent: function (arg) {
+            return {
+                html: '<b>' + arg.timeText + '</b><br>' + arg.event.extendedProps.gymName // 修改这里
+            };
+        }
+    });
+
+    calendar.render();
+    
+    // 在页面加载时调用loadEvents
+    loadEvents();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    function loadEvents() {
+        // 使用提供的GET URL获取数据
+        // 從URL獲取的Trainer的ID
+        var urlParams = new URLSearchParams(window.location.search);
+        var trainerId = urlParams.get("id");
+
+        // 確保 trainerId 存在
+        if (!trainerId) {
+            console.error('TrainerId is missing from the URL');
+            return;
+        }
+
+        fetch("https://localhost:7011/TrainerClass/" + trainerId)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // 打印API返回的数据
+            console.log("API Response:", data);
+
+            if (data && Array.isArray(data)) {
+                data.forEach(eventData => {
+                    calendar.addEvent({
+                        title: eventData.gymName, 
+                        start: new Date(eventData.startTime),
+                        end: new Date(eventData.endTime),
+                        extendedProps: {
+                            memberName: eventData.memberName,
+                            className: eventData.className,
+                            gymName: eventData.gymName
+                        }
+                    });
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error loading events:', error);
+            alert('加载预约数据时发生错误，请刷新页面重试。');
+        });
+    }
+
+    // 在此调用loadEvents()，以便在文档完全加载后运行
+    loadEvents();
+});
+
+
+
+
+
+function openVenueModal(date) {
+    // 创建弹出窗口的 HTML
+    var modalHTML = '<div id="venueModal" class="modal">';
+    modalHTML += '<div class="modal-content">';
+    modalHTML += '<span class="close">&times;</span>';
+    modalHTML += '<h2>新增场馆</h2>';
+    modalHTML += '<div>Date: <input type="text" id="datePicker" value="' + date.toISOString().slice(0, 10) + '" readonly></div>';
+    modalHTML += '<input type="text" id="venueName" placeholder="场馆名称">';
+    modalHTML += '<button id="addVenueButton">添加场馆</button>';
+    modalHTML += '</div></div>';
+
+    // 添加弹出窗口 HTML 到页面中
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    // 获取弹出窗口元素和关闭按钮
+    var modal = document.getElementById('venueModal');
+    var closeButton = document.querySelector('.close');
+
+    // 当点击关闭按钮或者模态窗口以外的区域时，关闭弹出窗口
+    closeButton.addEventListener('click', function () {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function (event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // 当点击添加场馆按钮时，获取日期、场馆名称并添加事件到日历
+    var addVenueButton = document.getElementById('addVenueButton');
+    addVenueButton.addEventListener('click', function () {
+        var selectedDate = new Date(document.getElementById('datePicker').value);
+        var venueName = document.getElementById('venueName').value;
+
+        if (selectedDate && venueName) {
+            var event = {
+                title: '课程',
+                start: selectedDate,
+                extendedProps: {
+                    venue: venueName
+                }
+            };
+
+            calendar.addEvent(event);
+            modal.style.display = 'none';
+            alert('课程已创建：' + selectedDate.toLocaleDateString() + ' - ' + venueName);
+        } else {
+            alert('请输入有效的日期和场馆名称。');
+        }
+    });
+
+    // 显示弹出窗口
+    modal.style.display = 'block';
+}
+
+</script>
