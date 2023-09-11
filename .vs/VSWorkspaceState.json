@@ -4,9 +4,8 @@
     "\\FitMatch-Client",
     "\\FitMatch-Client\\Controllers",
     "\\FitMatch-Client\\Views",
-    "\\FitMatch-Client\\Views\\Gym",
-    "\\FitMatch-Client\\Views\\MemberFavorite"
+    "\\FitMatch-Client\\Views\\Gym"
   ],
-  "SelectedNode": "\\FitMatch-Client\\Views\\MemberFavorite\\MemberFavorite.cshtml",
+  "SelectedNode": "\\FitMatch-Client.sln",
   "PreviewInSolutionExplorer": false
 }
