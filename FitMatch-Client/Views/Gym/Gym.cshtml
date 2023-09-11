@@ -99,7 +99,7 @@
                     <!-- Right Section to Display Gyms -->
                     <div class="col-lg-8 col-md-4">
                         <div class="row">
-                            <div v-for="gym in gyms" :key="gym.id" class="col-12 mb-4">
+                            <div v-for="gym in gyms" :key="gym.gymId" class="col-12 mb-4">
                                 <div class="card border-0 bg-transparent rounded-0 mb-4">
                                     <div class="row no-gutters">
                                         <div class="col-md-5 d-flex justify-content-center align-items-center">
@@ -127,7 +127,7 @@
                                                     <h5>地址：</h5>
                                                     <h5 style="color: #ddd">{{ gym.address }}</h5>
                                                 </div>
-                                                <div :id="'map-' + gym.id" style="height: 200px;"></div>
+                                                <div :id="'map-' + gym.gymId" style="height: 200px;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -488,7 +488,7 @@
                         if (status === "OK") {
                             const position = results[0].geometry.location;
                             const map = new google.maps.Map(
-                                document.getElementById("map-" + gym.id),
+                                document.getElementById("map-" + gym.gymId),
                                 {
                                     center: position,
                                     zoom: 15,

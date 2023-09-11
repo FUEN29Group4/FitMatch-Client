@@ -5,7 +5,7 @@
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/vuex@4"></script>
 
-<div style="background-color: #fff">
+<div style="background-color: #fff" id="app">
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn"
          data-wow-delay="0.1s">
@@ -80,19 +80,19 @@
         <hr />
     </div>
 
-    <div class="container">
-        <ul class="list-style-type-none">
-            <li>李大明</li>
+
+    <div class="container" v-for="favorite in MemberFavorites.favoritesWithMembers" :key="favorite.memberFavoriteId">
+        <ul v-for="member in favorite.members" :key="member.memberId">
+            <li>{{ member.memberName }}</li>
             <li>一般會員</li>
-            <li>ispan@yahoo.com.tw</li>
-            <li>年度累積消費金額 NT.3,509</li>
-           @*  <li>{{Member.MemberName}}</li>
-            <li>一般會員</li>
-            <li>{{Member.Email}}</li>
-            <li>年度累積消費金額 NT.{{Order.TotalPrice}}</li> *@
+            <li>{{ member.email }}</li>
+
+            <li v-for="order in favorite.orders" :key="order.memberId">年度累積消費金額 NT.{{ order.totalPrice }}</li>
         </ul>
         <hr />
     </div>
+
+
 
     <div class="container">
         <button type="button" class="btn btn-primary">
@@ -109,16 +109,18 @@
     </div>
 
 
-    <main id="app">
+    <main>
         <div class="container-md pt-3" style="padding-bottom: 50px">
             <div class="row g-2 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5">
                 <!-- 使用v-for來迭代每個MemberFavorite -->
-                <div class="col"  v-for="memberFavorite in MemberFavorites" :key="memberFavorite.memberFavoriteId">
+
+                <div class="col" v-for="memberFavorite in MemberFavorites.favoritesWithTrainersAndProducts" :key="memberFavorite.memberFavoriteId">
                     <div v-for="trainer in memberFavorite.trainers" :key="trainer.trainerId">
+
                         <div class="card mh-250px card1 overflow-hidden">
                             <div class="card-image">
-                                @* <img :src="'data:image/jpeg;base64,' + trainer.photo" alt="Trainer Image" style="width: 330px; height: 250px; object-fit: cover;" /> *@
-                                <img :src="'/images/教練/' + trainer.photo" alt="Trainer Image"  />
+                                <img :src="'data:image/jpeg;base64,' + trainer.photo" alt="Trainer Image" style="width: 330px; height: 250px; object-fit: cover;" />
+                               @*  <img :src="'/images/教練/' + trainer.photo" alt="Trainer Image" /> *@
 
 
                             </div>
@@ -146,34 +148,9 @@
 </div>
 
 
-<style scoped>
-  
-    /* 圓形框框樣式 */
-    .card-image img {
-        width: 250px;
-        height: 330px;
-        object-fit: cover; /* 確保圖片在容器內完整顯示 */
-        overflow: hidden;
-    }
-
-
-    .card1:hover img {
-        transform: scale(1.1);
-    }
 
 
 
-    .card {
-        flex-direction: column;
-        border-radius:20px;
-        height: 100%;
-        display: flex;
-    }
-
-
-
-
-</style> 
 
 <script>
     Vue.createApp({
@@ -181,6 +158,7 @@
         data() {
             return {
                 MemberFavorites: [],
+                favoritesWithTrainersAndProducts: [],  // 添加此行
             };
         },
         mounted() {
@@ -217,3 +195,367 @@
     }).mount('#app')
 
 </script>
+
+
+
+<style scoped>
+
+    /* 圓形框框樣式 */
+    .card-image img {
+        width: 250px;
+        height: 330px;
+        object-fit: cover; /* 確保圖片在容器內完整顯示 */
+        overflow: hidden;
+    }
+
+
+    .card1:hover img {
+        transform: scale(1.1);
+    }
+
+
+
+    .card {
+        flex-direction: column;
+        border-radius: 20px;
+        height: 100%;
+        display: flex;
+    }
+
+    /* personal_member */
+    body {
+        background-color: #fff;
+    }
+
+    .container .navbar-expand-lg {
+        border: 1px solid #ececec;
+    }
+
+    button {
+        background-color: #F24B88;
+        color: #ffffff;
+    }
+
+    active .cc {
+        border-bottom: 3px solid #F24B88;
+    }
+
+    .member.line a:hover,
+    .member.line a:active {
+        border-bottom: 2px solid #F24B88;
+    }
+
+    .member.ac ol li a {
+        border-bottom: 2px solid #F24B88;
+    }
+
+    /* 分隔符 */
+
+    $breadcrumb-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E");
+
+    figure {
+        width: 35%;
+        padding: 5px;
+        float: right;
+        margin-right: 20px;
+    }
+
+
+    /* 圓形框框樣式 */
+    .round-image {
+        border-radius: 50%;
+        /* 50% 會將元素變成圓形 */
+        overflow: hidden;
+        /* 超出元素範圍的部分隱藏 */
+        width: 500px;
+        /* 調整圖片寬度 */
+        height: 500px;
+        /* 調整圖片高度 */
+        margin: 0 auto;
+        /* 水平居中 */
+    }
+
+        /* 圖片樣式 */
+        .round-image img {
+            width: 100%;
+            /* 讓圖片自適應容器大小 */
+            height: auto;
+        }
+
+    li label {
+        margin: 25px;
+    }
+
+    .personalBtn {
+        border-radius: 25px;
+        margin-left: 50px;
+    }
+
+    .serviceBtn button {
+        background-color: #F24B88;
+        /* border-radius: 25px; */
+    }
+
+    /* personal 表單元素 table */
+
+    ul li {
+        list-style-type: none;
+    }
+
+    .tb1 {
+        width: 400px;
+        border: 3px solid #0072E3;
+        border-collapse: collapse;
+    }
+
+    td,
+    th {
+        border-bottom: 1px solid gray;
+        text-align: center;
+    }
+
+    /* table {
+            margin: 50px;
+            padding: 50px;
+        } */
+
+    thead {
+        background-color: #2b2b2b;
+        color: #ffffff;
+        text-transform: capitalize;
+        margin: 60px;
+        padding: 60px;
+        text-align: center;
+    }
+
+    tbody {
+        text-align: center;
+    }
+
+    .cc.vv td:hover {
+        background-color: rgba(145, 145, 145, 0.603);
+        color: rgb(26, 26, 26);
+    }
+
+    .favotitelist.img1 {
+        width: 100px;
+    }
+
+    /* personal 收藏清單 */
+
+
+
+    .favoriteTag {
+        border: 1px solid #acd6ff;
+        border-radius: 10px;
+    }
+
+    .h-150px {
+        height: 150px;
+    }
+
+    .mh-250px {
+        min-height: 250px;
+    }
+
+    .h-300px {
+        height: 300px;
+    }
+
+    .w-600px {
+        /* width: 600px; */
+    }
+
+    .fz-40px {
+        font-size: 40px;
+    }
+
+    .fz-12px {
+        font-size: 12px;
+    }
+
+    .op5 {
+        opacity: 0.5;
+    }
+
+    .cup {
+        cursor: pointer;
+    }
+
+    .card1 img {
+        transition: all 0.2s;
+    }
+
+    /* 圓形框框樣式 */
+    .card-image {
+        overflow: hidden;
+        /* 超出元素範圍的部分隱藏 */
+        width: 220px;
+        /* 調整圖片寬度 */
+        height: 220px;
+        /* 調整圖片高度 */
+        margin: 0 auto;
+        /* 水平居中 */
+    }
+
+        /* 圖片樣式 */
+        .card-image img {
+            width: 100%;
+            /* 讓圖片自適應容器大小 */
+            height: auto;
+        }
+
+
+
+
+    .card1:hover img {
+        transform: scale(1.1);
+    }
+
+    /* .card {
+            width: 250px;
+        } */
+
+    /* personal 超連結 */
+    a:hover,
+    a:visited,
+    a:link,
+    a:active {
+        text-decoration: none;
+    }
+
+    /* personal_course */
+
+    .text-center {
+        text-align: center;
+    }
+
+    .coursebody {
+        background-color: #000;
+    }
+
+    .course-single-body {
+        background-color: #000;
+    }
+
+
+    .list-group-item {
+        background: linear-gradient(90deg, #f24b88 0%, #bd00ff 100%);
+    }
+
+
+    /* personal_member */
+    figure {
+        width: 35%;
+        padding: 5px;
+        float: right;
+        margin-right: 20px;
+    }
+
+    .member.img-head {
+        width: 300px;
+    }
+
+    li label {
+        margin: 25px;
+    }
+
+    .personalBtn1 {
+        border-radius: 25px;
+    }
+
+    /* personal 表單元素 table */
+
+    .tb1 {
+        width: 400px;
+        border: 3px solid #0072E3;
+        border-collapse: collapse;
+    }
+
+    td,
+    th {
+        border-bottom: 1px solid gray;
+        text-align: center;
+    }
+
+    /* table {
+            margin: 50px;
+            padding: 50px;
+        } */
+
+    thead {
+        color: #ffffff;
+        text-transform: capitalize;
+        margin: 60px;
+        padding: 60px;
+        text-align: center;
+    }
+
+    tbody {
+        margin-right: auto;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* tbody tr:hover {
+            background-color: aqua;
+            color: rgb(241, 241, 241);
+        } */
+
+    .tableclass tbody td:hover {
+        background-color: rgba(145, 145, 145, 0.603);
+        color: rgb(26, 26, 26);
+    }
+
+    .favotitelist.img1 {
+        width: 100px;
+    }
+
+    td img {
+        width: 150px;
+    }
+
+    .class.tr td {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        vertical-align: middle;
+        color: #000000;
+    }
+
+    /* personal 課程紀錄
+        .tableRecord.tt tbody tr:nth-child(2n) {
+            background-color: #FDEDF3
+        } */
+
+    /* .plot.ho ul li a:hover,
+        a:active {
+            background: #F24B88;
+        } */
+
+    .st1 {
+        width: 450px;
+        /* border-bottom: 3px dashed #9D9D9D; */
+        margin: 20px;
+        padding-bottom: 10px;
+    }
+
+    /* Personal Coach */
+
+    textarea {
+        resize: none;
+    }
+
+    .t1 {
+        width: 100px;
+        /* border: 1px solid red; */
+        float: left;
+        text-align: right;
+    }
+
+    /* td ul li {
+            float: left
+        } */
+
+</style>
