@@ -1,10 +1,15 @@
 ﻿
 @{
+    Layout = null;
     ViewData["Title"] = "Login";
 }
 
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/vuex@4"></script>
+
+
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
 
 <!-- Sign In Start -->
 <div id="app" class="container-fluid">
@@ -39,7 +44,7 @@
                     登入
                 </button>
                 <p class="text-center mb-0" style="color: #a5a5a5;">
-                    還沒成為會員嗎? <a href="signup.html"
+                    還沒成為會員嗎? <a asp-controller="SignUp" asp-action="SignUp"
                                 class="text-light">註冊</a>
                 </p>
             </div>
