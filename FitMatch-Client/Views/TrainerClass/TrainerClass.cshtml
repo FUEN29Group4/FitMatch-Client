@@ -321,9 +321,13 @@ function loadEvents() {
                 throw new Error('Unexpected data format');
             }
         })
-        .catch(error => {
+  .catch(error => {
             console.error('Error loading events:', error);
-            alert('加载预约數據时發生錯誤，请刷新页面重试。');
+            Swal.fire({
+                icon: 'error',
+                title: '错误',
+                text: '加载预约数据时发生错误，请刷新页面重试。'
+            });
         });
 }
 
@@ -364,15 +368,23 @@ function populateEvents(data) {
         });
     }
 
-    // 接下來的代碼是將其他事件加入到日曆上
+
+    // 將其他事件加入到日曆上
     data.forEach(eventData => {
         const startTime = formatTime(new Date(eventData.startTime));
         const endTime = formatTime(new Date(eventData.endTime));
-        const eventTitle = eventData.memberName 
-            ? `${startTime}-${endTime} ${eventData.memberName}`
-            : `${startTime}-${endTime} 未預約`;
+        
+        let eventTitle = '';
+        let eventColor = 'green'; // 預設顏色為藍色
 
-        const eventColor = eventData.memberName ? 'green' : 'red';
+        if (eventData.courseStatus === '已過期' || eventData.courseStatus === '已完成') {
+            eventTitle = '已結束';
+            eventColor = 'gray';
+        } else {
+            eventTitle = eventData.memberName 
+                ? `${startTime}-${endTime} ${eventData.memberName}`
+                : `${startTime}-${endTime} 未預約`;
+        }
 
         calendar.addEvent({
             title: eventTitle,
@@ -383,7 +395,8 @@ function populateEvents(data) {
             extendedProps: {
                 memberName: eventData.memberName,
                 className: eventData.className,
-                gymName: eventData.gymName
+                gymName: eventData.gymName,
+                courseStatus: eventData.courseStatus
             }
         });
     });
@@ -397,132 +410,130 @@ function formatDateToISO(date) {
     return `${year}-${month}-${day}`;
 }
 function openVenueModal(date) {
-        // 如果模态窗口已存在，先删除它
-    var existingModal = document.getElementById('venueModal');
-    if (existingModal) {
-        existingModal.remove();
-    }
-// 创建弹出窗口的 HTML
-    var modalHTML = '<div id="venueModal" class="modal">';
-    modalHTML += '<div class="modal-content">';
-    modalHTML += '<span class="close">&times;</span>';
-    modalHTML += '<h2>新增場館</h2>';
-    modalHTML += '<div>Date: <input type="text" id="datePicker" value="' + formatDateToISO(date) + '" readonly></div>';
-    modalHTML += '<input type="text" id="venueName" placeholder="場館名稱">';
-    modalHTML += '<button id="addVenueButton">添加場館</button>';
-    modalHTML += '</div></div>';
+    // 先获取场馆信息
+    fetch('https://localhost:7011/api/Match/Gym')
+    .then(response => response.json())
+    .then(data => {
+        // 假设 data 是一个场馆名称的数组
+        const gymOptions = data.map(gym => {
+            return `<option value="${gym.gymId}">${gym.gymName}</option>`;
+        }).join('');
 
-    // 添加弹出窗口 HTML 到页面中
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
+        Swal.fire({
+            title: '新增场馆',
+            html: `
+                日期: <strong>${date.toLocaleDateString()}</strong><br>
+                場館名稱: 
+                <select id="gym-select">
+                    ${gymOptions}
+                </select>
+            `,
+            showCancelButton: true,
+            confirmButtonText: '添加',
+            cancelButtonText: '取消',
+            preConfirm: () => {
+            // 使用 Swal 获取 select 的选择的文本（即健身房的名稱）
+            const selectElement = document.getElementById('gym-select');
+            return selectElement.options[selectElement.selectedIndex].text;
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const venueName = result.value;
+                if (venueName) {
+                    const event = {
+                        title: venueName,
+                        start: date,
+                        allDay: true,
+                        extendedProps: {
+                            venue: venueName
+                        }
+                    };
 
-    // 获取弹出窗口元素和关闭按钮
-    var modal = document.getElementById('venueModal');
-    var closeButton = document.querySelector('.close');
-
-    // 当点击关闭按钮或者模态窗口以外的区域时，关闭弹出窗口
-    closeButton.addEventListener('click', function () {
-        modal.style.display = 'none';
+                    calendar.addEvent(event);
+                    Swal.fire({
+                        icon: 'success',
+                        title: '場館已創建',
+                        text: '日期: ' + date.toLocaleDateString() + '，場館名稱: ' + venueName
+                    });
+                }
+            }
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching gyms:', error);
+        Swal.fire({
+            icon: 'error',
+            title: '错误',
+            text: '加载场馆数据时发生错误，请刷新页面重试。'
+        });
     });
-
-    window.addEventListener('click', function (event) {
-        if (event.target == modal) {
-            modal.style.display = 'none';
-        }
-    });
-
-    // 当点击添加场馆按钮时，获取日期、场馆名称并添加事件到日历
-    var addVenueButton = document.getElementById('addVenueButton');
-    addVenueButton.addEventListener('click', function () {
-        var selectedDate = new Date(document.getElementById('datePicker').value);
-        var venueName = document.getElementById('venueName').value;
-
-        if (selectedDate && venueName) {
-            var event = {
-                 title: venueName,  // 使用場館名稱作為事件標題
-        start: selectedDate,
-        allDay: true,     // 指定為全天事件
-        extendedProps: {
-            venue: venueName
-        }
-    };
-
-            calendar.addEvent(event);
-            modal.style.display = 'none';
-            alert('课程已创建：' + selectedDate.toLocaleDateString() + ' - ' + venueName);
-        } else {
-            alert('请输入有效的日期和场馆名称。');
-        }
-    });
-
-    // 显示弹出窗口
-    modal.style.display = 'block';
 }
+
+
 function openTimeSlotModal(date) {
-    // 如果模态窗口已存在，先删除它
-    var existingModal = document.getElementById('timeSlotModal');
-    if (existingModal) {
-        existingModal.remove();
+    // 计算结束时间，此处假定预约时间为1小时
+    let endDate = new Date(date);
+    endDate.setHours(endDate.getHours() + 1);
+
+    Swal.fire({
+        title: '预约时段: ' + formatTime(date) + ' - ' + formatTime(endDate),
+        input: 'text',
+        inputLabel: '会员名称',
+        inputPlaceholder: '请输入会员名称',
+        showCancelButton: true,
+        confirmButtonText: '预约',
+        cancelButtonText: '取消'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const memberName = result.value;
+            if (memberName) {
+                const event = {
+                    title: '已预约: ' + memberName,
+                    start: date,
+                    end: endDate,
+                    backgroundColor: 'blue',
+                    borderColor: 'blue'
+                };
+
+                calendar.addEvent(event);
+                Swal.fire({
+                    icon: 'success',
+                    title: '已预约'
+                });
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: '请输入会员名称'
+                });
+            }
+        }
+    });
+}
+
+function formatTime(date) {
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let period = 'AM';
+
+    if (hours >= 12) {
+        period = 'PM';
+        hours = hours > 12 ? hours - 12 : hours; // 如果超过12，将其转换为12小时制
     }
 
-    // 创建弹出窗口的 HTML
-    var modalHTML = '<div id="timeSlotModal" class="modal">';
-    modalHTML += '<div class="modal-content">';
-    modalHTML += '<span class="close">&times;</span>';
-    modalHTML += '<h2>预约时段</h2>';
-    modalHTML += '<div>Date: ' + date.toLocaleTimeString() + '</div>'; // 显示时间而不是日期
-    modalHTML += '<input type="text" id="memberName" placeholder="会员名称">';
-    modalHTML += '<button id="bookSlotButton">预约</button>';
-    modalHTML += '</div></div>';
-
-    // 添加弹出窗口 HTML 到页面中
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
-
-    // 获取弹出窗口元素和关闭按钮
-    var modal = document.getElementById('timeSlotModal');
-    var closeButton = document.querySelector('.close');
-
-    // 当点击关闭按钮或者模态窗口以外的区域时，关闭弹出窗口
-    closeButton.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', function(event) {
-        if (event.target == modal) {
-            modal.style.display = 'none';
-        }
-    });
-
-    // 当点击预约按钮时，获取会员名称并在日历上添加预约
-    var bookSlotButton = document.getElementById('bookSlotButton');
-    bookSlotButton.addEventListener('click', function() {
-        var memberName = document.getElementById('memberName').value;
-
-        if (memberName) {
-            // 根据需要添加或修改事件属性
-            var event = {
-                title: '已预约: ' + memberName,
-                start: date,
-                backgroundColor: 'blue',
-                borderColor: 'blue'
-            };
-
-            calendar.addEvent(event);
-            modal.style.display = 'none';
-            alert('已预约');
-        } else {
-            alert('请输入会员名称。');
-        }
-    });
-
-    // 显示弹出窗口
-    modal.style.display = 'block';
+    return (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes + ' ' + period;
 }
+
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
     calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'timeGridWeek',
+        contentHeight: 'auto',
+        slotDuration: '01:00:00',   // 这里设置每个时间槽为1小时
+        slotMinTime: '09:00:00',
+        slotMaxTime: '21:00:00',   // 注意，这是下一小时的开始，所以是21:00，表示最后一个时间槽是20:00-21:00
         displayEventTime: false,
         allDayText: '场馆',
 dayHeaderContent: function (headerInfo) {
