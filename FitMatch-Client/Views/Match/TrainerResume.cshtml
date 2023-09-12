@@ -477,7 +477,7 @@
 
 <!-- 預約日期顯示結束 -->
 <!-- 顯示場館 -->
-<div id="myModal" class="modal">
+@*<div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close" id="closeModal">&times;</span>
         <p id="gym-info">健身房資訊將顯示在這裡</p>
@@ -485,7 +485,7 @@
         <button id="confirmBtn">確認預約</button>
         <button id="cancelBtn">取消</button>
     </div>
-</div>
+</div>*@
 <!-- 顯示場館結束 -->
 <!-- Section Team End -->
 <!-- 教練履歷 -->
@@ -776,17 +776,17 @@
         // };
     }
     //模擬視窗的功能
-    // 關閉模態視窗
-    document.getElementById("closeModal").onclick = function () {
-        var modal = document.getElementById("myModal");
-        modal.style.display = "none";
-    }
+    //// 關閉模態視窗
+    //document.getElementById("closeModal").onclick = function () {
+    //    var modal = document.getElementById("myModal");
+    //    modal.style.display = "none";
+    //}
 
-    // 取消按钮
-    document.getElementById("cancelBtn").onclick = function () {
-        var modal = document.getElementById("myModal");
-        modal.style.display = "none";
-    }
+    //// 取消按钮
+    //document.getElementById("cancelBtn").onclick = function () {
+    //    var modal = document.getElementById("myModal");
+    //    modal.style.display = "none";
+    //}
     // 確認預約
     function confirmReservation(event) {
         // 隱藏模態視窗

@@ -486,9 +486,9 @@
         methods: {
             async fetchTrainers() {
                 try {
-                    const response = await fetch('https://localhost:7011/api/Match/GymTOP4');
+                    const response = await fetch('https://localhost:7011/api/Match/Gym');
                     const data = await response.json();
-                    this.gyms = data;
+                    this.gyms = data.slice(0, 4);
                 } catch (error) {
                     console.error('Error:', error);
                 }
@@ -564,9 +564,9 @@
         methods: {
             async fetchTrainers() {
                 try {
-                    const response = await fetch('https://localhost:7011/api/Match/ClassTypesTOP6');
+                    const response = await fetch('https://localhost:7011/api/Match/ClassTypes');
                     const data = await response.json();
-                    this.classtypes = data;
+                    this.classtypes = data.slice(0, 6);
                 } catch (error) {
                     console.error('Error:', error);
                 }
