@@ -291,58 +291,23 @@
 
 <!-- Personal Body End -->
 <script>
-// 将calendar声明为全局变量
 var calendar;
+var todayGymName = "";
 
-document.addEventListener('DOMContentLoaded', function () {
-    var calendarEl = document.getElementById('calendar');
-    calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'timeGridWeek',
-        allDayText: '场馆',
+// 將格式化時間的功能封裝成函數
+function formatTime(date) {
+    return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+}
 
-        dayHeaderContent: function (headerInfo) {
-            var btn = document.createElement('button');
-            btn.innerText = '新增课程';
-            btn.addEventListener('click', function () {
-                openVenueModal(headerInfo.date);
-            });
-            return { domNodes: [btn] };
-        },
+function loadEvents() {
+    const trainerId = new URLSearchParams(window.location.search).get("id");
 
-        slotLabelFormat: {
-            hour: 'numeric',
-            minute: '2-digit',
-            omitZeroMinute: false,
-            hour12: false
-        },
+    if (!trainerId) {
+        console.error('TrainerId is missing from the URL');
+        return;
+    }
 
-        eventContent: function (arg) {
-            return {
-                html: '<b>' + arg.timeText + '</b><br>' + arg.event.extendedProps.gymName // 修改这里
-            };
-        }
-    });
-
-    calendar.render();
-    
-    // 在页面加载时调用loadEvents
-    loadEvents();
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    function loadEvents() {
-        // 使用提供的GET URL获取数据
-        // 從URL獲取的Trainer的ID
-        var urlParams = new URLSearchParams(window.location.search);
-        var trainerId = urlParams.get("id");
-
-        // 確保 trainerId 存在
-        if (!trainerId) {
-            console.error('TrainerId is missing from the URL');
-            return;
-        }
-
-        fetch("https://localhost:7011/TrainerClass/" + trainerId)
+    fetch("https://localhost:7011/api/TrainerClass/" + trainerId)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -350,47 +315,101 @@ document.addEventListener("DOMContentLoaded", function () {
             return response.json();
         })
         .then(data => {
-            // 打印API返回的数据
-            console.log("API Response:", data);
-
-            if (data && Array.isArray(data)) {
-                data.forEach(eventData => {
-                    calendar.addEvent({
-                        title: eventData.gymName, 
-                        start: new Date(eventData.startTime),
-                        end: new Date(eventData.endTime),
-                        extendedProps: {
-                            memberName: eventData.memberName,
-                            className: eventData.className,
-                            gymName: eventData.gymName
-                        }
-                    });
-                });
+            if (Array.isArray(data)) {
+                populateEvents(data);
+            } else {
+                throw new Error('Unexpected data format');
             }
         })
         .catch(error => {
             console.error('Error loading events:', error);
-            alert('加载预约数据时发生错误，请刷新页面重试。');
+            alert('加载预约數據时發生錯誤，请刷新页面重试。');
+        });
+}
+
+function getGymsForDate(date) {
+    let dateEvents = calendar.getEvents().filter(event => {
+        const eventDate = event.start;
+        return eventDate.getFullYear() === date.getFullYear() && 
+               eventDate.getMonth() === date.getMonth() &&
+               eventDate.getDate() === date.getDate() && 
+               event.allDay;
+    });
+    
+    // 如果当天有多个全天事件（应该不会），则将它们的标题（也就是健身房名称）合并
+    return dateEvents.map(event => event.title).join(', ');
+}
+function populateEvents(data) {
+    const gymNamesByDate = {};
+
+    data.forEach(eventData => {
+        const eventDate = new Date(eventData.startTime);
+        const dateKey = eventDate.toISOString().split('T')[0]; // 獲得 YYYY-MM-DD 格式的日期
+
+        if (!gymNamesByDate[dateKey]) {
+            gymNamesByDate[dateKey] = new Set(); // 使用 Set 以確保健身房名稱不重複
+        }
+
+        gymNamesByDate[dateKey].add(eventData.gymName);
+    });
+
+    // 加入健身房名稱為全天事件
+    for (let [date, gymNamesSet] of Object.entries(gymNamesByDate)) {
+        const allGymNames = Array.from(gymNamesSet).join(', ');
+
+        calendar.addEvent({
+            title: allGymNames,
+            start: new Date(date),
+            allDay: true
         });
     }
 
-    // 在此调用loadEvents()，以便在文档完全加载后运行
-    loadEvents();
-});
+    // 接下來的代碼是將其他事件加入到日曆上
+    data.forEach(eventData => {
+        const startTime = formatTime(new Date(eventData.startTime));
+        const endTime = formatTime(new Date(eventData.endTime));
+        const eventTitle = eventData.memberName 
+            ? `${startTime}-${endTime} ${eventData.memberName}`
+            : `${startTime}-${endTime} 未預約`;
+
+        const eventColor = eventData.memberName ? 'green' : 'red';
+
+        calendar.addEvent({
+            title: eventTitle,
+            start: new Date(eventData.startTime),
+            end: new Date(eventData.endTime),
+            backgroundColor: eventColor,
+            borderColor: eventColor,
+            extendedProps: {
+                memberName: eventData.memberName,
+                className: eventData.className,
+                gymName: eventData.gymName
+            }
+        });
+    });
+}
 
 
-
-
-
+function formatDateToISO(date) {
+    var year = date.getFullYear();
+    var month = (date.getMonth() + 1).toString().padStart(2, '0');
+    var day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
 function openVenueModal(date) {
-    // 创建弹出窗口的 HTML
+        // 如果模态窗口已存在，先删除它
+    var existingModal = document.getElementById('venueModal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+// 创建弹出窗口的 HTML
     var modalHTML = '<div id="venueModal" class="modal">';
     modalHTML += '<div class="modal-content">';
     modalHTML += '<span class="close">&times;</span>';
-    modalHTML += '<h2>新增场馆</h2>';
-    modalHTML += '<div>Date: <input type="text" id="datePicker" value="' + date.toISOString().slice(0, 10) + '" readonly></div>';
-    modalHTML += '<input type="text" id="venueName" placeholder="场馆名称">';
-    modalHTML += '<button id="addVenueButton">添加场馆</button>';
+    modalHTML += '<h2>新增場館</h2>';
+    modalHTML += '<div>Date: <input type="text" id="datePicker" value="' + formatDateToISO(date) + '" readonly></div>';
+    modalHTML += '<input type="text" id="venueName" placeholder="場館名稱">';
+    modalHTML += '<button id="addVenueButton">添加場館</button>';
     modalHTML += '</div></div>';
 
     // 添加弹出窗口 HTML 到页面中
@@ -419,12 +438,13 @@ function openVenueModal(date) {
 
         if (selectedDate && venueName) {
             var event = {
-                title: '课程',
-                start: selectedDate,
-                extendedProps: {
-                    venue: venueName
-                }
-            };
+                 title: venueName,  // 使用場館名稱作為事件標題
+        start: selectedDate,
+        allDay: true,     // 指定為全天事件
+        extendedProps: {
+            venue: venueName
+        }
+    };
 
             calendar.addEvent(event);
             modal.style.display = 'none';
@@ -437,5 +457,106 @@ function openVenueModal(date) {
     // 显示弹出窗口
     modal.style.display = 'block';
 }
+function openTimeSlotModal(date) {
+    // 如果模态窗口已存在，先删除它
+    var existingModal = document.getElementById('timeSlotModal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    // 创建弹出窗口的 HTML
+    var modalHTML = '<div id="timeSlotModal" class="modal">';
+    modalHTML += '<div class="modal-content">';
+    modalHTML += '<span class="close">&times;</span>';
+    modalHTML += '<h2>预约时段</h2>';
+    modalHTML += '<div>Date: ' + date.toLocaleTimeString() + '</div>'; // 显示时间而不是日期
+    modalHTML += '<input type="text" id="memberName" placeholder="会员名称">';
+    modalHTML += '<button id="bookSlotButton">预约</button>';
+    modalHTML += '</div></div>';
+
+    // 添加弹出窗口 HTML 到页面中
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    // 获取弹出窗口元素和关闭按钮
+    var modal = document.getElementById('timeSlotModal');
+    var closeButton = document.querySelector('.close');
+
+    // 当点击关闭按钮或者模态窗口以外的区域时，关闭弹出窗口
+    closeButton.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // 当点击预约按钮时，获取会员名称并在日历上添加预约
+    var bookSlotButton = document.getElementById('bookSlotButton');
+    bookSlotButton.addEventListener('click', function() {
+        var memberName = document.getElementById('memberName').value;
+
+        if (memberName) {
+            // 根据需要添加或修改事件属性
+            var event = {
+                title: '已预约: ' + memberName,
+                start: date,
+                backgroundColor: 'blue',
+                borderColor: 'blue'
+            };
+
+            calendar.addEvent(event);
+            modal.style.display = 'none';
+            alert('已预约');
+        } else {
+            alert('请输入会员名称。');
+        }
+    });
+
+    // 显示弹出窗口
+    modal.style.display = 'block';
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+    calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        displayEventTime: false,
+        allDayText: '场馆',
+dayHeaderContent: function (headerInfo) {
+    var container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.alignItems = 'center'; // 讓內容居中
+
+    var dateElem = document.createElement('div');
+    dateElem.innerText = headerInfo.date.toLocaleDateString();
+    container.appendChild(dateElem);
+
+    var btn = document.createElement('button');
+    btn.innerText = '新增場館';
+    btn.style.marginTop = '5px'; // 增加上邊距，使按鈕不會遮擋場館名稱
+    btn.addEventListener('click', function () {
+        openVenueModal(headerInfo.date);
+    });
+    container.appendChild(btn);
+
+    return { domNodes: [container] };
+},
+
+
+        dateClick: function(info) {
+            openTimeSlotModal(info.date);
+        }
+    });
+
+    calendar.render();
+
+    loadEvents();
+});
+
 
 </script>
+
