@@ -1,0 +1,92 @@
+﻿
+@{
+    Layout = null;
+    ViewData["Title"] = "Login";
+}
+
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/vuex@4"></script>
+
+
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+
+<!-- Sign In Start -->
+<div id="app" class="container-fluid">
+    <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+            <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <a href="index.html" class="">
+                        <div class="mb-3" style="transform: scale(0.9);">
+                            <img src="./images/LOGO/Logo.png" alt="">
+                        </div>
+                    </a>
+                    <h3>登入</h3>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control col-original" id="floatingInput" v-model="Account">
+                    <label for="floatingInput" style="color: #a5a5a5;">帳號</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="password" class="form-control col-original" id="floatingPassword" v-model="Password">
+                    <label for="floatingPassword" style="color: #a5a5a5;">密碼</label>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1" style="color: #a5a5a5;">記住我</label>
+                    </div>
+                    <a href="" class="text-light">忘記密碼</a>
+                </div>
+                <button type="button" class="btn btn-primary py-3 w-100 mb-4" v-on:click="login"
+                        style="background-color: #F24B88; color: white;">
+                    登入
+                </button>
+                <p class="text-center mb-0" style="color: #a5a5a5;">
+                    還沒成為會員嗎? <a asp-controller="SignUp" asp-action="SignUp"
+                                class="text-light">註冊</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sign In End -->
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                Account: '',
+                Password: ''
+            };
+        },
+        methods: {
+            async login() {
+                const requestOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ Email: this.Account, Password: this.Password })
+                };
+
+                try {
+                    const response = await fetch('https://localhost:7011/api/Login/login', requestOptions);
+
+                    if (response.status === 200) {
+                        const data = await response.json();
+                        console.log('登入成功', data);
+                        window.location.href = "/Gym/Gym"; 
+                    } else if (response.status === 404) {
+                        console.log('帳號或密碼錯誤');
+                    } else {
+                        console.log('發生錯誤');
+                    }
+                } catch (error) {
+                    console.log('發生錯誤', error);
+                }
+            }
+        }
+    });
+
+    app.mount('#app');
+</script>

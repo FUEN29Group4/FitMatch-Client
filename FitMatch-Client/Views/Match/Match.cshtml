@@ -216,7 +216,7 @@
         width: 60px;
         color: white;
         padding: 5px 10px;
-        transform: rotate(-30deg) translate(-20px, 35px);
+        transform: rotate(-35deg) translate(-20px, 35px);
         transform-origin: 0% 0%;
         z-index: 999;
         border-radius: 30px 30px 0 0;
@@ -241,109 +241,112 @@
                 <h4 class="breadcrumb-item text-white m-5">針對個人需求提供量身定制的教練服務</h4>
             </div>
             <div class="container text-center py-5">
-                <a href="trainer.html" class="btn btn-dark p-4 px-5 me-5"
+                <a asp-controller="Trainer" asp-action="Trainer" class="btn btn-dark p-4 px-5 me-5"
                    style="border-radius:10px; border: 1px solid #7c7c7c;">
                     <h3>找教練</h3>
                 </a>
-                <a href="gym.html" class="btn btn-dark p-4 px-5 ms-5"
-                   style="border-radius:10px;border: 1px solid #7c7c7c;" ">
+                <a asp-controller="Gym" asp-action="Gym" class="btn btn-dark p-4 px-5 ms-5"
+                   style="border-radius:10px;border: 1px solid #7c7c7c;">
                     <h3>找場館</h3>
                 </a>
             </div>
         </div>
     </div>
     <!-- Page Header End -->
-    
     <!-- 推薦教練頭像Start -->
-    <div class="tcircle container-xxl py-1">
-        <div class="row g-4 d-flex justify-content-center" id="trainerTop5">
-            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.1s"
-                 v-for="(trainer, index) in trainerteams" :key="trainer.trainerId">
-                <div class="top-label">TOP{{ index + 1 }}</div>
-                <div class="team-item mx-auto d-flex align-items-center">
-                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
+    <div id="trainerTop5">
+        <div class="tcircle container-xxl py-1">
+            <div class="row g-4 d-flex justify-content-center">
+                <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.1s"
+                     v-for="(trainer, index) in trainerteams" :key="trainer.trainerId">
+                    <div class="top-label">TOP{{ index + 1 }}</div>
+                    <div class="team-item mx-auto d-flex align-items-center">
+                        <div class="team-img position-relative overflow-hidden d-flex align-items-center">
 
-                        <img class="img-fluid" :src="'data:image/jpeg;base64,' + trainer.photo"
-                             :alt="trainer.trainerName">
-                        <div class="team-social">
-                            <a class="btn btn-primary"
-                               :href="'/Match/TrainerResume?id=' + trainer.trainerId">我要預約</a>
+                            <img class="img-fluid" :src="'data:image/jpeg;base64,' + trainer.photo"
+                                 :alt="trainer.trainerName">
+                            <div class="team-social">
+                                <a class="btn btn-primary"
+                                   :href="'/Match/TrainerResume?id=' + trainer.trainerId">我要預約</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="text-center p-4">
-                    <h5 class="text-uppercase">{{ trainer.trainerName }}</h5>
+                    <div class="text-center p-4">
+                        <h5 class="text-uppercase">{{ trainer.trainerName }}</h5>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- 推薦教練頭像End -->
-    <!-- 巨石強森推薦區 Start -->
-    <div class="rock container-xxl py-1 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="card bg-transparent mb-4" style="width: 100%;">
-            <div class="row no-gutters">
-                <!-- 教練大頭貼 -->
-                <div class="col-md-6 p-5">
-                    <div class="circle-container mx-auto">
-                        <img src="~/images/教練/巨石強森.jpg" alt="" class="trainer-img">
-                    </div>
-                    <!-- 教練名字 -->
-                    <h3 class="card-title text-light text-center py-2">巨石強森</h3>
+        <!-- 推薦教練頭像End -->
+        <!-- 巨石強森推薦區 Start -->
+        <div class="rock container-xxl py-1 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="card bg-transparent mb-4" style="width: 100%;">
+                <div class="row no-gutters">
+                    <!-- 教練大頭貼 -->
+                    <div class="col-md-6 p-5">
+                        <div class="circle-container mx-auto">
+                            @*<img src="~/images/教練/巨石強森.jpg" alt="" class="trainer-img">*@
+                            <img class="trainer-img" :src="'data:image/jpeg;base64,' + trainer1Photo" alt="巨石強森" v-if="trainer1Photo">
 
-
-                    <!-- 社群 -->
-                    <div class="d-flex align-items-center mb-2">
-                        <p class="card-subtitle letter-spacing m-auto">
-                            <i class="fa-brands fa-square-facebook fa-xl me-2 fc-232323"></i>
-                            <i class="fa-brands fa-linkedin fa-xl me-2 fc-232323"></i>
-                            <i class="fa-brands fa-square-instagram fa-xl fc-232323"></i>
-                        </p>
-                    </div>
-                </div>
-
-
-                <div class="col-md-5 d-flex align-items-center">
-                    <div class="rock-card card-body team-wrap pl-5 text-light pt-5">
-                        <h4 class="px-3">超越極限，與巨石強森一同塑造你的力量</h4>
-                        <p class="text-black fw-bold px-3 pt-3">
-                            巨石強森憑藉自身的豐富經驗和知識，為你提供全面的健身指導。無論你是初學者還是有經驗的健身愛好者，他都能根據你的需求和目標制定量身定制的訓練計劃。他強調正確的技巧和姿勢，並注重每個動作的細節，確保你的訓練效果最大化。
-                        </p>
-                        <div class="d-flex justify-content-center">
-                            <div class="btn btn-dark" style="border-radius:8px" data-bs-toggle="modal"
-                                 data-bs-target="#myModal">
-                                查看詳細資訊
-                            </div>
                         </div>
-                        <!-- 詳細資訊 -->
-                        <div class="modal fade" id="myModal" tabindex="-1"
-                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content detailcard p-2">
-                                    <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn-close " data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body text-light">
-                                        <div class="modal-body">
-                                            <ul>
-                                                <li>原名為洛克（The Rock），在1996年加入世界摔角娛樂（WWE，前身為WWF）。</li>
-                                                <li>曾經11次獲得WWE世界冠軍。</li>
-                                                <li>獲得兩次WWE洲際冠軍和五次WWE雙打冠軍。</li>
-                                                <li>
-                                                    在2000年至2001年間成為WWE世界冠軍連續擊敗「斯杰夫・奧斯汀」(Stone Cold Steve
-                                                    Austin)，稱霸WWE。
-                                                </li>
-                                            </ul>
+                        <!-- 教練名字 -->
+                        <h3 class="card-title text-light text-center py-2">巨石強森</h3>
+
+
+                        <!-- 社群 -->
+                        <div class="d-flex align-items-center mb-2">
+                            <p class="card-subtitle letter-spacing m-auto">
+                                <i class="fa-brands fa-square-facebook fa-xl me-2 fc-232323"></i>
+                                <i class="fa-brands fa-linkedin fa-xl me-2 fc-232323"></i>
+                                <i class="fa-brands fa-square-instagram fa-xl fc-232323"></i>
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-5 d-flex align-items-center">
+                        <div class="rock-card card-body team-wrap pl-5 text-light pt-5">
+                            <h4 class="px-3">超越極限，與巨石強森一同塑造你的力量</h4>
+                            <p class="text-black fw-bold px-3 pt-3">
+                                巨石強森憑藉自身的豐富經驗和知識，為你提供全面的健身指導。無論你是初學者還是有經驗的健身愛好者，他都能根據你的需求和目標制定量身定制的訓練計劃。他強調正確的技巧和姿勢，並注重每個動作的細節，確保你的訓練效果最大化。
+                            </p>
+                            <div class="d-flex justify-content-center">
+                                <div class="btn btn-dark" style="border-radius:8px" data-bs-toggle="modal"
+                                     data-bs-target="#myModal">
+                                    查看詳細資訊
+                                </div>
+                            </div>
+                            <!-- 詳細資訊 -->
+                            <div class="modal fade" id="myModal" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content detailcard p-2">
+                                        <div class="d-flex justify-content-end">
+                                            <button type="button" class="btn-close " data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer d-flex justify-content-center">
-                                        <a asp-controller="Match" asp-action="TrainerResume?id=1" class="btn btn-dark"
-                                           style="border-radius:8px">立即預約</a>
+                                        <div class="modal-body text-light">
+                                            <div class="modal-body">
+                                                <ul>
+                                                    <li>原名為洛克（The Rock），在1996年加入世界摔角娛樂（WWE，前身為WWF）。</li>
+                                                    <li>曾經11次獲得WWE世界冠軍。</li>
+                                                    <li>獲得兩次WWE洲際冠軍和五次WWE雙打冠軍。</li>
+                                                    <li>
+                                                        在2000年至2001年間成為WWE世界冠軍連續擊敗「斯杰夫・奧斯汀」(Stone Cold Steve
+                                                        Austin)，稱霸WWE。
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-center">
+                                            <a href="/Match/TrainerResume?id=1" class="btn btn-dark"
+                                               style="border-radius:8px">立即預約</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- 詳細資訊End -->
                         </div>
-                        <!-- 詳細資訊End -->
                     </div>
                 </div>
             </div>
@@ -361,94 +364,27 @@
     </div>
     <!-- 實際上課照片End -->
     <!-- 尋找你想媒合的課程內容Start -->
-    <div class="course-photo container-xxl wow fadeInUp pt-3" data-wow-delay="0.1s">
-        <h3>尋找你想媒合的課程內容</h3>
-        <div class="row g-4">
-            <div class="col-lg-2 col-md-4">
+    <div class="course-photo container-xxl wow fadeInUp pt-3" data-wow-delay="0.1s" id="classtypes">
+        <h3>尋找你想媒合的課程</h3>
+        <div class="row g-4 justify-content-between">
+            <div class="col-lg-2 col-md-2" v-for="classtype in classtypes" :key="classtype.classTypeId">
                 <div class="team-item mx-auto">
                     <div class="team-img position-relative overflow-hidden align-items-center">
-                        <img class="img-fluid" src="~/images/課程/戰繩.jpg" alt="">
+                        <img class="img-fluid" :src="'data:image/jpeg;base64,' + classtype.photo"
+                             :alt="classtype.className">
                         <div class="team-social">
-                            <a class="btn btn-primary" href="course3.html">我要預約</a>
+                            <a class="btn btn-primary" :href="'/Classtype/Classtype?id=' + classtype.classTypeId">我要預約</a>
                         </div>
                     </div>
-                    <div class="bg-darkgray text-center p-2">
-                        <h5 class="text-uppercase">戰繩</h5>
-                    </div>
-                </div>
 
-            </div>
-            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="team-item mx-auto">
-                    <div class="team-img position-relative overflow-hidden align-items-center">
-                        <img class="img-fluid" src="~/images/課程/有氧.jpg" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-primary" href="course2.html">我要預約</a>
-                        </div>
-                    </div>
-                    <div class="bg-darkgray text-center p-2">
-                        <h5 class="text-uppercase">有氧</h5>
-                    </div>
                 </div>
-
-            </div>
-            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="team-item mx-auto">
-                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
-                        <img class="img-fluid" src="~/images/課程/核心訓練.jpg" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-primary" href="course6.html">我要預約</a>
-                        </div>
-                    </div>
-                    <div class="bg-darkgray text-center p-2">
-                        <h5 class="text-uppercase">核心訓練</h5>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="team-item mx-auto">
-                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
-                        <img class="img-fluid" src="~/images/課程/格鬥.jpg" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-primary" href="course5.html">我要預約</a>
-                        </div>
-                    </div>
-                    <div class="bg-darkgray text-center p-2">
-                        <h5 class="text-uppercase">格鬥</h5>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="team-item mx-auto">
-                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
-                        <img class="img-fluid" src="~/images/課程/瑜珈.jpg" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-primary" href="course4.html">我要預約</a>
-                        </div>
-                    </div>
-                    <div class="bg-darkgray text-center p-2">
-                        <h5 class="text-uppercase">瑜珈</h5>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-lg-2 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="team-item mx-auto">
-                    <div class="team-img position-relative overflow-hidden d-flex align-items-center">
-                        <img class="img-fluid" src="~/images/課程/重量訓練.jpg" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-primary" href="course1.html">我要預約</a>
-                        </div>
-                    </div>
-                    <div class="bg-darkgray text-center p-2">
-                        <h5 class="text-uppercase">重量訓練</h5>
-                    </div>
+                <div class="bg-darkgray text-center p-2">
+                    <h5 class="text-uppercase">{{ classtype.className }}</h5>
                 </div>
 
             </div>
         </div>
+       
     </div>
     <!-- 尋找你想媒合的課程內容End -->
     <!-- 學員評價Start -->
@@ -513,7 +449,8 @@
     const app1 = Vue.createApp({
         data() {
             return {
-                trainerteams: []
+                trainerteams: [],
+                trainer1Photo:null
             };
         },
         mounted() {
@@ -525,6 +462,12 @@
                     const response = await fetch('https://localhost:7011/api/Match/TrainerTOP5');
                     const data = await response.json();
                     this.trainerteams = data;
+                    // 找到 trainerId 為 1 的教練
+                    const trainer1 = data.find(trainer => trainer.trainerId === 1);
+
+                    if (trainer1) {
+                        this.trainer1Photo = trainer1.photo;
+                    }
                 } catch (error) {
                     console.error('Error:', error);
                 }
@@ -597,24 +540,6 @@
 
                     requestAnimationFrame(move);
                 };
-                // const move1 = () => {
-                //     this.currentPosition1 -= this.scrollSpeed;
-                //     if (this.currentPosition1 <= -this.itemWidth * this.reviews.length) {
-                //         this.currentPosition1 = 0;
-                //     }
-                //     this.$refs.list1.style.transform = `translateX(${this.currentPosition1}px)`;
-                //     requestAnimationFrame(move1);
-                // };
-
-                // const move2 = () => {
-                //     this.currentPosition2 += this.scrollSpeed;
-                //     if (this.currentPosition2 >= 0) {
-                //         this.currentPosition2 = -this.itemWidth * this.reviews.length;
-                //     }
-                //     this.$refs.list2.style.transform = `translateX(${this.currentPosition2}px)`;
-                //     requestAnimationFrame(move2);
-                // };
-
                 move();
                 // move2();
             },
@@ -626,15 +551,34 @@
             }
         }
     }).mount("#reviews");
+    //課程
+    const app4 = Vue.createApp({
+        data() {
+            return {
+                classtypes: []
+            };
+        },
+        mounted() {
+            this.fetchTrainers();
+        },
+        methods: {
+            async fetchTrainers() {
+                try {
+                    const response = await fetch('https://localhost:7011/api/Match/ClassTypesTOP6');
+                    const data = await response.json();
+                    this.classtypes = data;
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        }
+    }).mount("#classtypes");
 
     // 上課照片輪播
-    var images = [
-        "/images/課程/戰繩.jpg",
-        "/images/課程/瑜珈3.jpg",
-        "/images/課程/深蹲.jpg",
-        "/images/課程/TRX.jpg",
-        "/images/課程/格鬥2.jpg"
-    ];
+    var images = [];
+    for (var i = 1; i <= 32; i++) {
+        images.push(`/images/上課照片/${i}.jpg`);
+    }
 
     function loadImages() {
         var list = document.querySelector('.image-list');
