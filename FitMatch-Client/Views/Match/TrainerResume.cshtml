@@ -7,170 +7,165 @@
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 
 <style>
-        /* 健身房模擬視窗 */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
+    /* 健身房模擬視窗 */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
 
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            background-color: #fff;
-            width: 80%;
-            max-width: 400px;
-        }
-
-
-        .section.bg-gray {
-            background-color: #12121C;
-        }
-
-        h2,
-        .card-body>.text-color {
-            color: #ddd;
-        }
-
-        .no-gutters {
-            background: linear-gradient(90deg, #F24B88 0%, #BD00FF 100%);
-            border-radius: 5px
-        }
-
-        .star {
-            width: 20px;
-        }
+    .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #fff;
+        width: 80%;
+        max-width: 400px;
+    }
 
 
-        @@media (min-width: 1200px) {
-            .trainerfilter .container {
-                display: flex;
-                max-width: 1800px;
-                justify-content: center;
-                margin: 0 auto;
-            }
+    .section.bg-gray {
+        background-color: #12121C;
+    }
+
+    h2,
+    .card-body > .text-color {
+        color: #ddd;
+    }
+
+    .no-gutters {
+        background: linear-gradient(90deg, #F24B88 0%, #BD00FF 100%);
+        border-radius: 5px
+    }
+
+    .star {
+        width: 20px;
+    }
 
 
-        }
-
-        .trainerfilter .left {
-            width: 30%;
-            /* 左邊區塊的寬度 */
+    @@media (min-width: 1200px) {
+        .trainerfilter .container {
             display: flex;
-            flex-direction: column;
-        }
-
-        .trainerfilter .course-widget {
-            width: 70%;
-        }
-
-        .trainerfilter .right {
-            width: 70%;
-            /* 右邊區塊的寬度 */
-            display: flex;
-            flex-direction: column;
-
-        }
-
-        .trainerfilter .row {
-            margin: 10px 0;
-            /* 行與行之間的間隙 */
-            min-width: 1200px;
-
-        }
-
-        .left .row {
-            display: flex;
+            max-width: 1800px;
             justify-content: center;
             margin: 0 auto;
         }
+    }
 
-        .trainerfilter .circle-container {
-            width: 300px;
-            /* 圓的寬度 */
-            height: 300px;
-            /* 圓的高度，應與寬度相同以產生完美的圓形 */
-            border-radius: 50%;
-            overflow: hidden;
-            /* 隱藏超出的部分 */
-            position: relative;
-            /* 使內部的 img 元素能夠使用絕對定位 */
+    .trainerfilter .left {
+        width: 30%;
+        /* 左邊區塊的寬度 */
+        display: flex;
+        flex-direction: column;
+    }
 
-        }
+    .trainerfilter .course-widget {
+        width: 70%;
+    }
 
-        .trainerfilter .trainer-img {
-            /* position: absolute; */
-            /* 使用絕對定位來定位圖片 */
-            /* left: 50%; */
-            /* 從左側的50%開始，這會使圖片的左側與容器的中央對齊 */
-            /* top: 50%; */
-            /* 從頂部的50%開始，這會使圖片的頂部與容器的中央對齊 */
-            /* transform: translate(-50%, -50%); */
+    .trainerfilter .right {
+        width: 70%;
+        /* 右邊區塊的寬度 */
+        display: flex;
+        flex-direction: column;
+    }
 
-            width: 100%;
-            height: auto;
-        }
+    .trainerfilter .row {
+        margin: 10px 0;
+        /* 行與行之間的間隙 */
+        min-width: 1200px;
+    }
 
-        /* 使圖片置中 */
-        .trainerfilter .form-check-input {
-            margin-left: 0;
-            margin-top: 10px;
-        }
+    .left .row {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+    }
 
-        .trainerfilter .form-check-label {
-            margin-left: 20px;
-        }
+    .trainerfilter .circle-container {
+        width: 300px;
+        /* 圓的寬度 */
+        height: 300px;
+        /* 圓的高度，應與寬度相同以產生完美的圓形 */
+        border-radius: 50%;
+        overflow: hidden;
+        /* 隱藏超出的部分 */
+        position: relative;
+        /* 使內部的 img 元素能夠使用絕對定位 */
+    }
+
+    .trainerfilter .trainer-img {
+        /* position: absolute; */
+        /* 使用絕對定位來定位圖片 */
+        /* left: 50%; */
+        /* 從左側的50%開始，這會使圖片的左側與容器的中央對齊 */
+        /* top: 50%; */
+        /* 從頂部的50%開始，這會使圖片的頂部與容器的中央對齊 */
+        /* transform: translate(-50%, -50%); */
+
+        width: 100%;
+        height: auto;
+    }
+
+    /* 使圖片置中 */
+    .trainerfilter .form-check-input {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .trainerfilter .form-check-label {
+        margin-left: 20px;
+    }
 
 
-        .trainerfilter .card-title {
-            position: absolute;
-            top: 50px;
-            left: 100px;
-            font-size: 55px;
-            /* text-shadow: 5px 5px 0 black; */
-            color: #fff;
-        }
+    .trainerfilter .card-title {
+        position: absolute;
+        top: 50px;
+        left: 100px;
+        font-size: 55px;
+        /* text-shadow: 5px 5px 0 black; */
+        color: #fff;
+    }
 
 
-        .pl-7 {
-            padding-left: 7em;
-        }
+    .pl-7 {
+        padding-left: 7em;
+    }
 
-        .trainerfilter .coursefee {
-            font-size: 20px;
-        }
+    .trainerfilter .coursefee {
+        font-size: 20px;
+    }
 
-        .fc-232323 {
-            color: #232323;
-        }
+    .fc-232323 {
+        color: #232323;
+    }
 
-        /* 我要預約 */
-        .btn-1-container {
-            display: flex;
-            justify-content: center;
-        }
+    /* 我要預約 */
+    .btn-1-container {
+        display: flex;
+        justify-content: center;
+    }
 
-        .btn-1 {
-            border-radius: 4px;
-            border: 2px solid #BC00FF;
-            color: #ffff;
-            display: inline-block;
-            margin: 0 .25em;
-            overflow: hidden;
-            padding: 24px 60px 24px 16px;
-            position: relative;
-            text-decoration: none;
-            line-height: 1;
-
-        }
+    .btn-1 {
+        border-radius: 4px;
+        border: 2px solid #BC00FF;
+        color: #ffff;
+        display: inline-block;
+        margin: 0 .25em;
+        overflow: hidden;
+        padding: 24px 60px 24px 16px;
+        position: relative;
+        text-decoration: none;
+        line-height: 1;
+        background-color: transparent;
+    }
 
         .btn-1 .btn-content {
             font-size: 1em;
@@ -195,11 +190,11 @@
             height: 70%;
         }
 
-        .btn-1 .icon i {
-            position: relative;
-            top: 50%;
-            transform: translateY(-50%);
-        }
+            .btn-1 .icon i {
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+            }
 
         .btn-1:after {
             content: '';
@@ -227,127 +222,126 @@
             opacity: .2;
         }
 
-        /* 預約區塊 */
-        .fc-scrollgrid {
-            background-color: #12121C;
+    /* 預約區塊 */
+    .fc-scrollgrid {
+        background-color: #12121C;
+    }
 
-        }
+    .fc-theme-standard .fc-scrollgrid,
+    .fc td,
+    .fc th {
+        border-color: #6C7293;
+    }
 
-        .fc-theme-standard .fc-scrollgrid,
-        .fc td,
-        .fc th {
-            border-color: #6C7293;
-        }
-
-        .fc-col-header-cell-cushion {
-            color: #fff;
-        }
+    .fc-col-header-cell-cushion {
+        color: #fff;
+    }
 
         .fc-col-header-cell-cushion:hover {
             color: #dbdbdb;
         }
 
-        .fc-scrollgrid-shrink-frame {
-            color: #a7a7b8;
-        }
+    .fc-scrollgrid-shrink-frame {
+        color: #a7a7b8;
+    }
 
-        .fc-timegrid-slot-label-cushion {
-            margin-top: 10px;
-        }
+    .fc-timegrid-slot-label-cushion {
+        margin-top: 10px;
+    }
 
 
-        .reservation table th {
-            text-align: center;
-            white-space: pre-line;
-            /* 換行保留 */
-            color: #ffff;
-            font-weight: normal;
-        }
+    .reservation table th {
+        text-align: center;
+        white-space: pre-line;
+        /* 換行保留 */
+        color: #ffff;
+        font-weight: normal;
+    }
 
-        .reservation .time-cell {
-            text-align: center;
-            font-size: 18px;
-            color: #ffff;
-        }
+    .reservation .time-cell {
+        text-align: center;
+        font-size: 18px;
+        color: #ffff;
+    }
 
-        .reservation .btn-primary:focus {
-            color: #fff;
-            background-color: #BF3B6C;
-            border-color: #BF3B6C;
-            box-shadow: 0 0 0 .25rem #582337;
-        }
+    .reservation .btn-primary:focus {
+        color: #fff;
+        background-color: #BF3B6C;
+        border-color: #BF3B6C;
+        box-shadow: 0 0 0 .25rem #582337;
+    }
 
-        .fc-timegrid-slot-label-cushion {
-            height: 40px;
-        }
+    .fc-timegrid-slot-label-cushion {
+        height: 40px;
+    }
 
-        .fc-day-today {
-            background-color: transparent !important;
-        }
+    .fc-day-today {
+        background-color: transparent !important;
+    }
 
-        .fc-event-main {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .fc-event-main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-        .reservation .available {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: green;
-            color: #ffff;
-            outline: 2px solid green;
-            border: none;
-            /* 移除邊框 */
-            box-shadow: none;
-            /* 移除陰影 */
-            /* border-color: transparent; */
-            /* 將邊線顏色設為透明 */
-            border-radius: 3px;
-        }
+    .reservation .available {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: green;
+        color: #ffff;
+        outline: 2px solid green;
+        border: none;
+        /* 移除邊框 */
+        box-shadow: none;
+        /* 移除陰影 */
+        /* border-color: transparent; */
+        /* 將邊線顏色設為透明 */
+        border-radius: 3px;
+    }
 
-        .fc-timegrid-event .fc-event-main {
-            padding: 0;
-        }
+    .fc-timegrid-event .fc-event-main {
+        padding: 0;
+    }
 
-        .reservation .available:hover {
-            background-color: rgb(1, 100, 1);
-        }
+    .reservation .available:hover {
+        background-color: rgb(1, 100, 1);
+    }
 
-        .reservation .booked {
-            background-color: grey;
-            pointer-events: none;
-        }
+    .reservation .booked {
+        background-color: grey;
+        pointer-events: none;
+    }
 
-        .reservation .booked {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: grey;
-            color: #ffff;
-            outline: 2px solid rgb(100, 100, 100);
-            border: none;
-            /* 移除邊框 */
-            box-shadow: none;
-            /* 移除陰影 */
-            /* border-color: transparent; */
-            /* 將邊線顏色設為透明 */
-            border-radius: 3px;
-        }
+    .reservation .booked {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: grey;
+        color: #ffff;
+        outline: 2px solid rgb(100, 100, 100);
+        border: none;
+        /* 移除邊框 */
+        box-shadow: none;
+        /* 移除陰影 */
+        /* border-color: transparent; */
+        /* 將邊線顏色設為透明 */
+        border-radius: 3px;
+    }
 
-        /* .swal2-popup .available {
-            width: auto;
-            /* 自動調整高度以適應內容 */
-        /* 設定最大高度 */
-        /* padding: 0;
-            margin: 0;
-        }  */
-    </style>
+    /* .swal2-popup .available {
+                            width: auto;
+                            /* 自動調整高度以適應內容 */
+    /* 設定最大高度 */
+    /* padding: 0;
+                            margin: 0;
+                        }  */
+</style>
 
 <!-- Page Header Start -->
 <div class="container-fluid page-header py-5  wow fadeIn" data-wow-delay="0.1s">
@@ -642,19 +636,12 @@
                         html: '<button class="booked">已結束</button>'
                     };
                 }
-                // if (memberId > 0) {
-                //     return {
-                //         html: '<button class="booked">已結束</button>'
-                //     };
-                // } else {
-                //     return {
-                //         html: '<button class="available">尚可預約</button>'
-                //     };
-                // }
+
             },
             eventClick: function (info) {
                 let memberId = info.event.extendedProps.memberId;
-                if (!memberId) {
+                let courseStatus = info.event.extendedProps.courseStatus;
+                if (!memberId && courseStatus === '進行中') {
                     showModal(info.event);
                 }
             }
@@ -687,7 +674,7 @@
                         classId: event.classId,
                         gymId: event.gymId,
                         classTypeId: event.classTypeId,
-                        courseStatus: event.courseStatus
+                        courseStatus: event.courseStatus,
                     }
                 })));
 
@@ -723,6 +710,9 @@
         //接收場館
         // 使用fetch、axios或其他HTTP庫從API獲取健身房信息
         var gymId = event.extendedProps.gymId;
+        var startTime = event.extendedProps.startTime;
+        var endTime = event.extendedProps.endTime;
+
         // 從獲取到的API數據中找出對應的健身房
         var gymInfo = globalData.gyms.find(gym => gym.gymId === gymId);
         // 獲取教練ID和課程類型ID
@@ -733,17 +723,17 @@
         Swal.fire({
             title: '預約資訊',
             html: `
-                <div class="row m-0 p-0">
-                    <div class="col me-0 pe-0" style="text-align: left;">
-                      <p><strong>課程名稱:</strong><br> ${matchedClassTypeInfo ? matchedClassTypeInfo.className : "課程未知"}</p>
-                      <p><strong>場館名稱:</strong><br> ${gymInfo ? gymInfo.gymName : "場館名稱未知"}</p>
-                      <p><strong>場館電話:</strong><br> ${gymInfo ? gymInfo.phone : "場館電話未知"}</p>
-                      <p><strong>場館地址:</strong><br>  <span style="white-space: nowrap;">${gymInfo ? gymInfo.address : "場館地址未知"}</span></p>
+                    <div class="row m-0 p-0">
+                        <div class="col me-0 pe-0" style="text-align: left;">
+                          <p><strong>課程名稱:</strong><br> ${matchedClassTypeInfo ? matchedClassTypeInfo.className : "課程未知"}</p>
+                          <p><strong>場館名稱:</strong><br> ${gymInfo ? gymInfo.gymName : "場館名稱未知"}</p>
+                          <p><strong>場館電話:</strong><br> ${gymInfo ? gymInfo.phone : "場館電話未知"}</p>
+                          <p><strong>場館地址:</strong><br>  <span style="white-space: nowrap;">${gymInfo ? gymInfo.address : "場館地址未知"}</span></p>
+                        </div>
+                    <div class="col m-auto m-0 p-0">
+                        <img src="data:image/jpeg;base64,${gymInfo ? gymInfo.photo : ''}" alt="場館照片" width="200">
                     </div>
-                <div class="col m-auto m-0 p-0">
-                    <img src="data:image/jpeg;base64,${gymInfo ? gymInfo.photo : ''}" alt="場館照片" width="200">
-                </div>
-            `,
+                `,
             showCancelButton: true,
             confirmButtonColor: '#F24B88',
             cancelButtonColor: '#2c3e50',
@@ -754,39 +744,9 @@
                 confirmReservation(event);
             }
         });
-        // if (gymInfo) {
-        //     document.getElementById('gym-info').innerText = "場館名稱: " + gymInfo.gymName + "\r\n" + "場館電話: " + gymInfo.phone + "\r\n" + "場館地址: " + gymInfo.address;
-        // } else {
-        //     document.getElementById('gym-info').innerText = "場館未知";
-        // }
-        // if (matchedClassTypeInfo) {
-        //     // 更新模態視窗的課程
-        //     document.getElementById('class-type-info').innerText = "課程名稱: " + matchedClassTypeInfo.className;
-        // } else {
-        //     document.getElementById('class-type-info').innerText = "課程未知";
-        // }
 
-        // // 顯示模態視窗
-        // var modal = document.getElementById('myModal');
-        // modal.style.display = "block";
-
-        // var confirmBtn = document.getElementById('confirmBtn');
-        // confirmBtn.onclick = function () {
-        //     confirmReservation(event);
-        // };
     }
-    //模擬視窗的功能
-    //// 關閉模態視窗
-    //document.getElementById("closeModal").onclick = function () {
-    //    var modal = document.getElementById("myModal");
-    //    modal.style.display = "none";
-    //}
 
-    //// 取消按钮
-    //document.getElementById("cancelBtn").onclick = function () {
-    //    var modal = document.getElementById("myModal");
-    //    modal.style.display = "none";
-    //}
     // 確認預約
     function confirmReservation(event) {
         // 隱藏模態視窗
