@@ -1683,27 +1683,35 @@ Products Area Style
 }
 
 .single-products .product-content .products-cart-wish-view li {
-  /* border-color: #F24B88; */
-  /* background-color: #F24B88; */
+/*   border-color: #F24B88; 
+   background-color: #F24B88; */
   color: #ffffff;
+}
+.products-cart-wish-view .btn-primary {
+    border-color: #F24B88;
+    background-color: #F24B88;
+}
+.products-cart-wish-view .btn-primary:hover {
+    background-color: #BF3B6C;
+    border-color: #BF3B6C;
 }
 
 .single-products .product-content .products-cart-wish-view li .eye-btn {
-  width: 42px;
-  height: 42px;
-  line-height: 41px;
-  text-align: center;
-  border: 1px solid #dddddd;
-  display: block;
-  position: relative;
-  top: 5px;
-  border-radius: 50px;
-  font-size: 22px;
-  background-color: transparent;
-  color: #9C9C9C;
-  -webkit-transition: all ease 0.5s;
-  transition: all ease 0.5s;
-  cursor: pointer;
+    width: 42px;
+    height: 42px;
+    line-height: 41px;
+    text-align: center;
+    border: 1px solid #dddddd;
+    display: block;
+    position: relative;
+    top: 5px;
+    border-radius: 50px;
+    font-size: 22px;
+    background-color: transparent;
+    color: #9C9C9C;
+    -webkit-transition: all ease 0.5s;
+    transition: all ease 0.5s;
+    cursor: pointer;
 }
 
 .single-products .product-content .products-cart-wish-view li .eye-btn:hover {
