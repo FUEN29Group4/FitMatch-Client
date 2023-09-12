@@ -30,19 +30,29 @@ app.MapControllerRoute(
 var lifetime = app.Services.GetService<IHostApplicationLifetime>();
 if (lifetime != null)
 {
-    lifetime.ApplicationStarted.Register(() =>
+    lifetime.ApplicationStarted.Register(async () =>
     {
-        HttpClient httpClient = new HttpClient();
-        var response = httpClient.GetAsync("https://localhost:7011/api/CourseStatusUpdater/updateStatus").Result;
-        if (response.IsSuccessStatusCode)
+        try
         {
-            Console.WriteLine("成功更新課程狀態");
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync("https://localhost:7011/api/CourseStatusUpdater/updateStatus");
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("成功更新課程狀態");
+                }
+                else
+                {
+                    Console.WriteLine("更新課程狀態失敗");
+                }
+            }
         }
-        else
+        catch (Exception ex)
         {
-            Console.WriteLine("更新課程狀態失敗");
+            Console.WriteLine($"發生異常：{ex.Message}");
         }
     });
 }
+
 
 app.Run();
