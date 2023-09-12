@@ -1,0 +1,413 @@
+﻿@{
+    ViewData["Title"] = "ShopTest";
+}
+
+@*  ======  增加之後待使用 start ====== *@
+<!-- 增加Vue跟axios跟jQuery 函式庫CDN-->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.js"></script>
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/vuex@4"></script>
+
+@*  ======  增加style start ====== *@
+<style>
+    .product-img {
+        height: 300px;
+    }
+
+        .product-img a {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+    .products-row-view .single-products {
+        max-height: 200px;
+    }
+
+    .products-row-view .product-content {
+        padding: 0;
+    }
+
+    .products-collections-listing.products-row-view .single-products .product-content {
+        background-color: transparent !important;
+    }
+</style>
+
+
+
+
+
+@* ====== 原先Html樣式 start ====== *@
+<!--Mall的樣式css-->
+<link rel="stylesheet" href="~/css/Mall.css/bootstrap.min.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/owl.theme.default.min.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/owl.carousel.min.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/remixicon.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/meanmenu.min.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/animate.min.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/style.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/responsive.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+
+@*  ======  body start ====== *@
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">SHOP</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center text-uppercase mb-0">
+                <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                <li class="breadcrumb-item text-primary active" aria-current="page">Shop</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+
+
+
+
+
+<!-- 创建Vue实例 -->
+<div id="app">
+    <section class="products-area ptb-54">
+        <div class="container">
+            <div class="row">
+
+
+                <div class="col-lg-4">
+                    <div class="widget-sidebar mr-15">
+                        <div class="sidebar-widget categories">
+                            <ul>
+                                <li>
+                                    <h3>產品</h3>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        精選商品
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        超值專區
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        蛋白飲系列
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        保健食品
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        運動用品
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        冷凍餐盒
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        熱銷商品
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="sidebar-widget filter">
+                            <h3>預算</h3>
+                            <form class="price-range-content">
+                                <div class="price-range-bar" id="range-slider"></div>
+                                <div class="price-range-filter">
+                                    <div class="price-range-filter-item">
+                                        <input type="text" id="price-amount" readonly="">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="sidebar-widget brand">
+                            <ul>
+                                <li>
+                                    <h3>品牌分類</h3>
+                                </li>
+                                <li>
+                                    <div class="form-group checkboxs">
+                                        <input type="checkbox" class="chb2">
+                                        義美生醫
+                                        <span>(21)</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-group checkboxs">
+                                        <input type="checkbox" class="chb2">
+                                        果果堅果
+                                        <span>(10)</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-group checkboxs">
+                                        <input type="checkbox" class="chb2">
+                                        BSN 畢斯恩
+                                        <span>(15)</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-group checkboxs">
+                                        <input type="checkbox" class="chb2">
+                                        THE VEGAN 樂維根
+                                        <span>(05)</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-group checkboxs">
+                                        <input type="checkbox" class="chb2">
+                                        MYPROTEIN
+                                        <span>(13)</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-group checkboxs">
+                                        <input type="checkbox" class="chb2">
+                                        紅牛
+                                        <span>(17)</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="trendingss">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+
+                    <div class="showing-result">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="products-filter-options">
+                                    <div class="view-list-row">
+                                        <div class="view-column">
+                                            <a href="#" class="icon-view-three active">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </a>
+                                            <a href="#" class="view-grid-switch">
+                                                <span></span>
+                                                <span></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="showing-result-count">
+                                    <p>Showing 16 of 60 products</p>
+                                </div> -->
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="showing-top-bar-ordering">
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected="" value="0">熱門</option>
+                                        <option value="1">最新</option>
+                                        <option value="2">價格低至高</option>
+                                        <option value="3">價格高至低</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @* <div id="products-filter" class="products-collections-listing row justify-content-center">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="single-products">
+                                <div class="product-img">
+                                    <a href="ProductDetails.html">
+                                        <img src="images/商城/cup.jpg" alt="Image">
+                                    </a>
+                                </div> *@
+
+
+
+
+                   @*  =====對照資料=====
+                    productId:75
+                    productName:"B群"
+                    productDescription:"打造天然萃取B群，一顆滿足一日有神"
+                    price:360
+                    typeId:2
+                    productInventory:99
+                    approved:true
+                    status:true
+                    photo: *@
+
+
+
+                <div class="col-lg-8">
+                    <div id="products-filter" class="products-collections-listing row justify-content-center">
+                        <div v-for="product in products" :key="product.ProductID" class="col-lg-6 col-md-6">
+                            <div class="single-products">
+                                <div class="product-img">
+                                    
+                                       @*  <img :src="Product.photo" alt="Image"> *@
+
+                                        <img :src="'data:image/jpeg;base64,' + product.photo" alt="product Image" style="width: 200px; height: 200px; object-fit: cover;" />
+                                   
+                                </div>
+                                <div class="product-content">
+                                    <a class="title">
+                                            {{ product.productName }}
+                                    </a>
+                                    <ul class="products-rating">
+                                        <li v-for="n in 5" :key="n">
+                                            <i :class="['fa-regular', 'fa-star', { 'fa-solid': n <= product.Rating }]"></i>
+                                        </li>
+                                        <li>
+                                            <a >
+                                                ({{ product.ReviewCount }} Review)
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="products-price">
+                                        <li>
+                                            {{ product.price }}
+                                            @* <del>{{ product.OriginalPrice }}</del> *@
+                                        </li>
+                                    </ul>
+                                    <ul class="products-cart-wish-view d-flex">
+                                        <li class="btn btn-primary">
+                                            <a :href="'ShoppingCart.html?id=' + product.ProductID">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                                加入購物車
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="wishlist.html" class="wish-btn">
+                                                <div class="icon-container">
+                                                    <i class="fa-regular fa-heart" style="color: #f24b88;"></i>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- 创建Vue实例并将产品数据传递给它 -->
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+@* ======== 原先JS樣式 start ======== *@
+<!--Mall的效果JS-->
+<script src="~/js/Mail.js/jquery.min.js"></script>
+<script src="~/js/Mail.js/bootstrap.bundle.min.js"></script>
+<script src="~/js/Mail.js/meanmenu.min.js"></script>
+<script src="~/js/Mail.js/owl.carousel.min.js"></script>
+<script src="~/js/Mail.js/wow.min.js"></script>
+<script src="~/js/Mail.js/range-slider.min.js"></script>
+<script src="~/js/Mail.js/form-validator.min.js"></script>
+<script src="~/js/Mail.js/contact-form-script.js"></script>
+<script src="~/js/Mail.js/ajaxchimp.min.js"></script>
+<script src="~/js/Mail.js/custom.js"></script>
+
+
+@* ======== 商城JavaScript動態效果 start ======== *@
+<script>
+    // 愛心
+    $(document).ready(function () {
+        // 您的圖標容器
+        var iconContainer = $('.icon-container');
+
+        // 當鼠標指向圖標時，更換圖標樣式
+        iconContainer.hover(function () {
+            $(this).find('.fa-heart').removeClass('fa-regular').addClass('fa-solid');
+        }, function () {
+            $(this).find('.fa-heart').removeClass('fa-solid').addClass('fa-regular');
+        });
+
+        // 點擊圖標時，固定圖標樣式
+        iconContainer.click(function () {
+            $(this).find('.fa-heart').addClass('fa-heart-clicked');
+        });
+    });
+    //星星
+    $(document).ready(function () {
+        // 您的圖標容器
+        var iconContainer = $('.products-rating');
+
+        // 當鼠標指向圖標時，更換圖標樣式
+        iconContainer.hover(function () {
+            $(this).find('.fa-star').removeClass('fa-regular').addClass('fa-solid');
+        }, function () {
+            $(this).find('.fa-star').removeClass('fa-solid').addClass('fa-regular');
+        });
+
+        // 點擊圖標時，固定圖標樣式
+        iconContainer.click(function () {
+            $(this).find('.fa-heart').addClass('fa-heart-clicked');
+        });
+    });
+</script>
+
+
+
+
+@* ======== Vue & axios start ======== *@
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                products: [], // 存储商品数据的数组
+            };
+        },
+        mounted() {
+            // 在组件加载后调用方法来获取商品数据
+            this.fetchProducts();
+        },
+        methods: {
+            async fetchProducts() {
+                try {
+                    // 发起GET请求获取商品数据
+                    const response = await axios.get('https://localhost:7011/api/ProductAPI');
+
+                    // 将获取的商品数据存储到Vue实例的数据属性中
+                    this.products = response.data;
+                } catch (error) {
+                    console.error('获取商品数据时出现错误：', error);
+                }
+            },
+        },
+    });
+
+    app.mount('#app');
+</script>
+
+
+
+
+

@@ -16,6 +16,24 @@ namespace FitMatch_Client.Controllers
             return View();
         }
 
+
+        public IActionResult ShoppingCartTest()
+        {
+            return View();
+        }
+
+
+        public IActionResult Shop()
+        {
+            return View();
+        }
+
+        public IActionResult ShopTest()
+        {
+            return View();
+        }
+
+
         // GET: /<controller>/
         public IActionResult Checkout()
         {

@@ -1,0 +1,214 @@
+﻿@{
+    ViewData["Title"] = "ShoppingCartTest";
+}
+
+@*  ======  增加之後待使用 start ====== *@
+<!-- 增加Vue跟axios跟jQuery 函式庫CDN-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.js"></script>
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/vuex@4"></script>
+
+
+
+@* ====== 原先Html樣式 start ====== *@
+<!--Mall的樣式css-->
+<link rel="stylesheet" href="~/css/Mall.css/bootstrap.min.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/owl.theme.default.min.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/owl.carousel.min.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/remixicon.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/meanmenu.min.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/animate.min.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/style.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/responsive.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+
+@*  ======  body start ====== *@
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">ShoppingCart</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center text-uppercase mb-0">
+                <li class="breadcrumb-item"><a class="text-white" href="#">首頁</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="#">商城</a></li>
+                <li class="breadcrumb-item text-primary active" aria-current="page">購物車</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Team Start -->
+<section class="cart-area ptb-54" id="app">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <!-- ... -->
+                <form class="cart-controller">
+                    <div class="cart-table table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">商品</th>
+                                    <th scope="col"></th>
+                                    <th scope="col">金額</th>
+                                    <th scope="col">數量</th>
+                                    <th scope="col">小計</th>
+                                    <th scope="col" class="ps-4">刪除</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(item, index) in cartItems" :key="item.productId">
+                                    <td class="product-thumbnail">
+                                        <a :href="'product-details.html?id=' + item.productId">
+                                            <img :src="item.imageUrl" alt="Image">
+                                        </a>
+                                    </td>
+                                    <td class="product-name">
+                                        <a :href="'product-details.html?id=' + item.productId">
+                                            {{ item.productName }}
+                                        </a>
+                                    </td>
+                                    <td class="product-price">
+                                        <span class="unit-amount">{{ currency(item.unitPrice) }}</span>
+                                    </td>
+                                    <td class="product-quantity">
+                                        <div class="input-counter">
+                                            <span class="minus-btn" @@click="decrementQuantity(index)">
+                                                <i class="fa-solid fa-minus"></i>
+                                            </span>
+                                            <input type="text" v-model="item.quantity" :min="0">
+                                            <span class="plus-btn" @@click="incrementQuantity(index)">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="product-subtotal">
+                                        <span class="subtotal-amount">{{ currency(item.unitPrice * item.quantity) }}</span>
+                                    </td>
+                                    <td class="trash">
+                                        <a href="" class="remove" @@click="removeFromCart(index)">
+                                            <i class="fa-solid fa-trash" style="color: #f24b88;"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+                <div class="coupon-cart">
+                    <!-- ... -->
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="cart-totals">
+                    <h3 class="cart-checkout-title">結帳金額</h3>
+                    <ul>
+                        <li>小計 <span>{{ currency(subtotal) }}</span></li>
+                        <li>稅金 <span>{{ currency(tax) }}</span></li>
+                        <li>總金額 <span>{{ currency(total) }}</span></li>
+                        <li><b>折扣後金額</b> <span><b>{{ currency(discountedTotal) }}</b></span></li>
+                    </ul>
+                    <div class="text-center">
+                        <a href="checkout.html" class="btn btn-primary" style="min-width: 200px; margin: auto;">
+                            結帳
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Team End -->
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+@* ======== 原先JS樣式 start ======== *@
+<!--Mall的效果JS-->
+<script src="~/js/Mail.js/jquery.min.js"></script>
+<script src="~/js/Mail.js/bootstrap.bundle.min.js"></script>
+<script src="~/js/Mail.js/meanmenu.min.js"></script>
+<script src="~/js/Mail.js/owl.carousel.min.js"></script>
+<script src="~/js/Mail.js/wow.min.js"></script>
+<script src="~/js/Mail.js/range-slider.min.js"></script>
+<script src="~/js/Mail.js/form-validator.min.js"></script>
+<script src="~/js/Mail.js/contact-form-script.js"></script>
+<script src="~/js/Mail.js/ajaxchimp.min.js"></script>
+<script src="~/js/Mail.js/custom.js"></script>
+
+
+@* ======== JavaScript監聽按鈕數量 start ======== *@
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                cartItems: [], // 购物车商品列表
+            };
+        },
+        computed: {
+            subtotal() {
+                // 计算小计
+                return this.cartItems.reduce((total, item) => total + item.unitPrice * item.quantity, 0);
+            },
+            tax() {
+                // 计算税金（假设为0）
+                return 0;
+            },
+            total() {
+                // 计算总金额
+                return this.subtotal + this.tax;
+            },
+            discountedTotal() {
+                // 折扣后金额（如果有折扣）
+                return this.total; // 这里可以根据需要修改折扣逻辑
+            },
+        },
+        methods: {
+            currency(value) {
+                // 格式化金额
+                return new Intl.NumberFormat('zh-TW', {
+                    style: 'currency',
+                    currency: 'TWD',
+                    minimumFractionDigits: 0,
+                }).format(value);
+            },
+            incrementQuantity(index) {
+                // 增加数量
+                this.cartItems[index].quantity++;
+            },
+            decrementQuantity(index) {
+                // 减少数量，不能小于0
+                if (this.cartItems[index].quantity > 0) {
+                    this.cartItems[index].quantity--;
+                }
+            },
+            removeFromCart(index) {
+                // 从购物车中移除商品
+                this.cartItems.splice(index, 1);
+            },
+        },
+    });
+
+    app.mount('#app');
+</script>>
+
+
+
+
+

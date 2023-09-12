@@ -16,7 +16,4 @@
   <ItemGroup>
     <None Remove="Views\Order\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Order\" />
-  </ItemGroup>
 </Project>

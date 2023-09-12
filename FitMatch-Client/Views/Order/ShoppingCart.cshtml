@@ -91,6 +91,8 @@
                                     <td class="product-price">
                                         <span class="unit-amount">$90.00</span>
                                     </td>
+
+                                    @* 用JS計算監聽數量  start *@
                                     <td class="product-quantity">
                                         <div class="input-counter">
                                             <span class="minus-btn">
@@ -102,6 +104,8 @@
                                             </span>
                                         </div>
                                     </td>
+                                    @* 用JS計算監聽數量  end *@
+
                                     <td class="product-subtotal">
                                         <span class="subtotal-amount">$90.00</span>
                                     </td>
@@ -274,9 +278,68 @@
 <script src="~/js/Mail.js/custom.js"></script>
 
 
+@* ======== JavaScript監聽按鈕數量 start ======== *@
+<script>
+const quantityInputs = document.querySelectorAll('.product-quantity input');
+const plusButtons = document.querySelectorAll('.product-quantity .plus-btn');
+const minusButtons = document.querySelectorAll('.product-quantity .minus-btn');
+
+// 遍历每个数量输入框，为加减按钮添加点击事件监听器
+quantityInputs.forEach((input, index)  => {
+    plusButtons[index].addEventListener('click', () => {
+        // 增加数量
+        input.value = parseInt(input.value) + 1;
+        // 更新本地存储
+        updateLocalStorage(index, input.value);
+    });
+
+    minusButtons[index].addEventListener('click', () => {
+        // 减少数量，但不能小于0
+        input.value = parseInt(input.value) - 1 >= 0 ? parseInt(input.value) - 1 : 0;
+        // 更新本地存储
+        updateLocalStorage(index, input.value);
+    });
+
+    // 从本地存储中获取之前保存的数量
+    const savedQuantity = localStorage.getItem(`quantity_${index}`);
+    if (savedQuantity) {
+        input.value = savedQuantity;
+    }
+});
+
+// 更新本地存储
+function updateLocalStorage(index, quantity) {
+    localStorage.setItem(`quantity_${index}`, quantity);
+}
+
+</script>
+
+
+
 
 @* ======== Vue & axios start ======== *@
+<script>
+// 假设在点击结账按钮时触发以下代码
+document.querySelector('.checkout-button').addEventListener('click', () => {
+    // 构建订单数据，假设你有一个存储商品信息的数组
+    const orderItems = [
+        { productId: 1, quantity: 2 },
+        { productId: 2, quantity: 1 },
+        // ...其他订单项
+    ];
 
+    // 发送POST请求到后端API
+        axios.post('https://localhost:7011/api/OrderCheckout', orderItems)
+        .then(response => {
+            // 处理响应，可能显示订单成功创建的消息
+            alert(response.data.message);
+        })
+        .catch(error => {
+            // 处理错误
+            console.error('结账失败', error);
+        });
+});
+</script>
 
 
 
