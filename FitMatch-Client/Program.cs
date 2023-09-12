@@ -22,7 +22,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Login}/{id?}");
 
 // 在應用啟動時呼叫更新課程狀態API
 var lifetime = app.Services.GetService<IHostApplicationLifetime>();
