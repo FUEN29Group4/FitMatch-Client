@@ -106,7 +106,7 @@
 </div>
 <!-- Page Header End -->
 <!-- Team Start -->
-<section class="bgc" id="app">
+<section class="bgc">
     <div class="section container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
@@ -114,14 +114,11 @@
                 <h1 class="text-uppercase">OUR TRAINER</h1>
             </div>
             <!-- 教練篩選開始 -->
-            <div class="trainerfilter">
+            <div class="trainerfilter"id="app">
                 <div class="container ">
                     <!-- 左邊篩選區域開始 -->
                     <div class="left col-lg-4 col-md-8 pt-5" style="margin-top: 21px;">
                         <div class="row">
-                            <!-- 好像是排序 -->
-                            <button @@click="sortOrder = 'asc'">升序排列</button>
-                            <button @@click="sortOrder = 'desc'">降序排列</button>
                             <!-- 篩選地區開始 -->
                             <div class="course-widget border py-4 px-2 mt-5 mt-lg-0">
                                 <h3 class="mb-3 text-light">
@@ -129,12 +126,9 @@
                                        style="color: #ffffff;"></i>地區
                                 </h3>
                                 <div class="list-group list-group-flush">
-                                    <select class="p-2">
-                                        <option disabled selected>請選擇地區</option>
-                                        <option value="Taipei">台北</option>
-                                        <option value="Taichung">台中</option>
-                                        <option value="Tainan">台南</option>
-                                        <option value="Kaohsiung">高雄</option>
+                                    <select v-model="selectedArea" class="p-2">
+                                        <option disabled>請選擇地區</option>
+                                        <option v-for="area in areas" :key="area" :value="area">{{ area }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -146,19 +140,19 @@
                                        style="color: #ffffff;"></i>教練性別
                                 </h3>
                                 <div class="list-group-item">
-                                    <input class="form-check-input" id="userGender1" name="userGender" type="radio"
+                                    <input class="form-check-input" id="userGender1" v-model="selectedGender" type="radio"
                                            value="全部" checked>
                                     <label class="form-check-label pt-1 ps-1" for="userGender1">全部</label>
                                 </div>
                                 <div class="list-group-item">
-                                    <input class="form-check-input" id="userGender2" name="userGender" type="radio"
+                                    <input class="form-check-input" id="userGender2" v-model="selectedGender" type="radio"
                                            value="男">
-                                    <label class="form-check-label pt-1 ps-1" for="userGender1">男</label>
+                                    <label class="form-check-label pt-1 ps-1" for="userGender2">男</label>
                                 </div>
                                 <div class="list-group-item">
-                                    <input class="form-check-input" id="userGender3" name="userGender" type="radio"
+                                    <input class="form-check-input" id="userGender3" v-model="selectedGender" type="radio"
                                            value="女">
-                                    <label class="form-check-label pt-1 ps-1" for="userGender0">女</label>
+                                    <label class="form-check-label pt-1 ps-1" for="userGender3">女</label>
                                 </div>
                             </div>
                             <!-- 篩選性別結束 -->
@@ -220,26 +214,26 @@
                                 </button>
                             </div>
                             <!-- 篩選出的教練開始 -->
-                            <div v-for="trainers in filterAndSort()" :key="trainers.id" class="card border-0 bg-transparent rounded-0 mb-4">
-                                <a :href="'./trainer_resume.html?id=' + trainers.id">
-                                    <div class="row no-gutters">
+                            <div v-for="trainer in filterAndSort()" :key="trainers.trainerId" class="card border-0 bg-transparent rounded-0 mb-4">
+                                <a :href="'./trainerResume?id=' + trainers.trainerId">
+                                    <div class="row no-gutters p-2">
                                         <!-- 教練大頭貼 -->
                                         <div class="col-md-4 d-flex justify-content-center align-items-center">
                                             <div class="circle-container">
-                                                <img src="images/教練/team-1.jpg" alt="" class="trainer-img">
+                                                <img v-if="trainer && trainer.photo" :src="'data:image/jpeg;base64,' + trainer.photo" :alt="trainer.trainerName" class="trainer-img">
                                             </div>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body team-wrap pl-4">
                                                 <!-- 教練名字 -->
-                                                <h3 class="card-title text-color">{{ trainers.name }}</h3>
+                                                <h3 class="card-title text-color">{{ trainers.trainerName }}</h3>
                                                 <!-- 專長 -->
                                                 <div class="d-flex align-items-center">
                                                     <h5>專長：</h5>
-                                                    <h5 style="color: #ddd;">肌肥大課程規劃、拳擊訓練、功能性訓練</h5>
+                                                    <h5 style="color: #ddd;">{{ trainers.expertise }}</h5>
                                                 </div>
                                                 <p class="mb-5" style="color: #ddd;">
-                                                    教練致力於幫助學員達到身心的平衡，注重全面性的訓練和個人化的指導，激勵學員發揮潛力。
+                                                    {{ trainers.introduce }}
                                                 </p>
                                             </div>
                                         </div>
@@ -295,34 +289,45 @@
         data() {
             return {
                 trainers: [],
+                areas: [],
                 filterText: '',
-                sortOrder: 'asc',
                 selectedArea: '',
                 selectedGender: '全部',
                 selectedSkills: []
             };
         },
         mounted() {
-            // 當 Vue 實例掛載完成後，呼叫 API 來取得資料
             this.fetchtrainers();
-            consolelog(trainers);
+            // 從 trainers 數據中提取不同的地區前三個字
+            const areaSet = new Set();
+            this.trainers.forEach(trainer => {
+                const areaPrefix = trainer.address.substring(0, 3);
+                areaSet.add(areaPrefix);
+            });
+            this.areas = Array.from(areaSet);
         },
         methods: {
             async fetchtrainers() {
-                const res = await fetch('https://localhost:7011/api/Match/Trainer'); // 你的 .NET API 的 URL
+                try {
+                const res = await fetch('https://localhost:7011/api/Match/Trainer');
                 this.trainers = await res.json();
+                } catch (error) {
+                    console.error("找不到Api:", error);
+                }
+                this.trainers.forEach(trainer => {
+                    trainer.genderText = trainer.gender ? '女' : '男';
+                    trainer.areaPrefix = trainer.address.substring(0, 3);
+                });
             },
             filterAndSort() {
                 return this.trainers
-                    .filter(c => c.name.includes(this.filterText))
-                    .filter(c => this.selectedGender === '全部' || c.gender === this.selectedGender)
-                    .filter(c => !this.selectedArea || c.area === this.selectedArea)
-                    .filter(c => !this.selectedSkills.length || this.selectedSkills.some(skill => c.skills.includes(skill)))
-                    .sort((a, b) => this.sortOrder === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+                    .filter(c => c.trainerName.includes(this.filterText) || c.expertise.includes(this.filterText))
+                    .filter(c => this.selectedGender === '全部' || c.genderText === this.selectedGender)
+                    .filter(c => !this.selectedArea || c.areaPrefix === this.selectedArea)
+                    .filter(c => !this.selectedSkills.length || this.selectedSkills.some(skill => c.expertise.includes(skill)));
             },
             clearFilters() {
                 this.filterText = '';
-                this.sortOrder = 'asc';
                 this.selectedArea = '';
                 this.selectedGender = '全部';
                 this.selectedSkills = [];
