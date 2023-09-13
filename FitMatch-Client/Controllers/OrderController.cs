@@ -9,7 +9,28 @@ using Microsoft.AspNetCore.Mvc;
 namespace FitMatch_Client.Controllers
 {
     public class OrderController : Controller
+
     {
+        //=================================
+
+        public IActionResult TeddyCart()
+        {
+            return View();
+        }
+
+
+
+        public IActionResult TeddyEdit()
+        {
+            return View();
+        }
+
+
+
+        //=================================
+
+
+
         // GET: /<controller>/
         public IActionResult ShoppingCart()
         {
