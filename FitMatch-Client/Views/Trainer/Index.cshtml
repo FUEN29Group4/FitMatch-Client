@@ -8,23 +8,51 @@
 *@
 @{
 }
+
+<!-- personal 樣式 -->
+<link rel="stylesheet" href="~/css/PersonalStyle.css">
 <style>
-    body{
-        background-color: #fefefe
+    .rounded-image-container {
+        width: 350px;
+        height: 350px;
+        border-radius: 50%;
+        overflow: hidden;
     }
-    .col-form-label{
-        width:auto;
+
+    .rounded-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
+    /*專長欄位*/
+    .checkbox-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .checkbox-item {
+        flex-basis: 50%;
+        display: flex;
+        align-items: center;
+    }
+
+        .checkbox-item::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-right: 8px;
+        }
 </style>
 <!-- Page Header Start -->
 <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
-        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Our Barber</h1>
+        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Personal</h1>
         <nav aria-label="breadcrumb animated slideInDown">
             <ol class="breadcrumb justify-content-center text-uppercase mb-0">
                 <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
                 <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                <li class="breadcrumb-item text-primary active" aria-current="page">Our Barber</li>
+                <li class="breadcrumb-item text-primary active" aria-current="page">Personal</li>
             </ol>
         </nav>
     </div>
@@ -42,7 +70,7 @@
                     <li class="breadcrumb-item">
                         <a href="personal_member.html" style="color: rgb(0, 0, 0);">教練專區</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">基本資料</li>
+                    <li class="breadcrumb-item" aria-current="page">基本資料</li>
                 </ol>
             </nav>
         </div>
@@ -53,7 +81,7 @@
                     <div class="container member line">
                         <div class="nav" style="color: rgb(0, 0, 0);">
                             <a style="color: rgb(0, 0, 0);" href="personal_trainer_Basic_Information.html"
-                               class="nav-link nav-item ">基本資料</a>
+                               class="nav-link nav-item a-active">基本資料</a>
                             <a style="color: rgb(0, 0, 0);" href="personal_trainer_Schedule_Time.html"
                                class="nav-link nav-item">課程</a>
                             <a style="color: rgb(0, 0, 0);" href="personal_trainer_Schedule.html"
@@ -66,171 +94,126 @@
             </nav>
         </div>
     </div>
-    <hr>
     <!-- 會員基本資料 Start -->
     <div class="container">
         <div class="container-fluid pt-4 px-4">
-            <div class="row g-4">
-                <div class="col-sm-12">
-                    <div class=" rounded h-100 p-4">
-
-                        <form class="" style="background-color: #fff;">
-                            <div class="row">
-                                <div class="col">
-
-                                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-
-                                    </div>
-                                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                        <div class="col-1">
-                                            <label for="trainerNameInput" class="col-form-label">中文姓名</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input class="form-control mb-3" type="text"  id="trainerNameInput" disabled>
-                                        </div>
-                                    </div>
-
-                                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                    </div>
-
-
-
-                                    <!-- 希望待遇 -->
-                                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                        <div class="col-1">
-                                            <label for="trainercourseFeeInput" class="col-form-label">希望待遇</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input class="form-control mb-3" type="text" 
-                                                   aria-label="希望待遇" id="trainercourseFeeInput" disabled>
-                                        </div>
-                                    </div>
-                                    <!-- 電話 -->
-                                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                        <div class="col-1">
-                                            <label for="trainerPhoneInput" class="col-form-label">電話</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input class="form-control mb-3" type="text" 
-                                                   aria-label="電話" id="trainerPhoneInput" disabled>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                        <div class="col-1">
-                                            <label for="trainerAddressInput" class="col-form-label">地址</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input class="form-control mb-3" type="text"
-                                                   placeholder="台南市陀螺灣扛三路二段80號" aria-label="請輸入地址"
-                                                   id="trainerAddressInput" disabled>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="row">
-                                        <form>
-                                            <div class="col">
-                                                <img class="member img-head rounded-circle"
-                                                     src="images/會員/user3.jpg" alt="">
-                                            </div>
-
-
-                                            <div class="row-sm-12 row-lg-6 mb-3 d-flex ps"
-                                                 style="margin-top: 50px;">
-                                                <div class="col-1">
-                                                    <label for="inputname" class="col-form-label">申請時間</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input class="form-select" style="background-color:#f1f1f1;"
-                                                           type="date" name="birth" id="" value="2023-01-01" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                                <div class="col-1">
-                                                    <label for="inputname" class="col-form-label">
-                                                        履歷狀態
-                                                    </label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <select class="form-select" style="background-color: #55f325;"
-                                                            aria-label="縣市" name="add1" size="1" disabled>
-                                                        <option value="1">公開</option>
-                                                        <option value="2" select>隱藏</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-
-                                        </form>
-                                    </div>
-                                </div>
+            <form>
+                <div class="row justify-content-between">
+                    <!--左攔-->
+                    <div class="col-6">
+                        <!-- 申請時間 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="inputname" class="col-3 text-center col-form-label">申請時間</label>
+                            <div class="col-9">
+                                <input class="form-select" style="background-color:#f1f1f1;"
+                                       type="date" name="birth" id="" value="2023-01-01" disabled>
                             </div>
-                            <div class="col bg-white">
-                                <div class="row">
-                                    <!-- <div class="col"></div> -->
-                                    <div class="col" style="margin-left: 50px;">
-                                        <form>
-                                            <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                                <div class="col-1">
-                                                    <label for="inputname" class="col-form-label">專長</label>
-                                                </div>
-                                                <div class="col-8" id="checkboxContainer">
-                                                </div>
-                                            </div>
-
-                                            <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                                <div class="col-1">
-                                                    <label for="trainerCertificateInput">專業證照</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <textarea class="form-control" id="trainerCertificateInput"
-                                                              style="height: 200px;" name="mytext" rows="10" cols="40"
-                                                              required disabled></textarea>
-                                                </div>
-                                            </div>
-
-
-                                        </form>
-                                    </div>
-
-                                    <div class="col">
-                                        <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                            <div class="col-1">
-                                                <label for="trainerAwardsInput">獎項事蹟</label>
-                                            </div>
-                                            <div class="col-8">
-                                                <textarea class="form-control" id="trainerAwardsInput"
-                                                          style="height: 100px;" name="mytext" rows="5" cols="40" required
-                                                          disabled></textarea>
-                                            </div>
-
-                                        </div>
-                                        <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                            <div class="col-1">
-                                                <label for="trainerIntroduceInput">簡介</label>
-                                            </div>
-                                            <div class="col-8">
-                                                <textarea class="form-control" id="trainerIntroduceInput"
-                                                          style="height: 400px;" name="mytext" rows="6" cols="80" required
-                                                          disabled></textarea>
-                                            </div>
-                                        </div>
-
-                                    <div class="container text-center">
-                                        <button type="button" class="btn rounded-pill m-2"
-                                                style="background-color: #F24B88;">
-                                            <a href="personal_trainer_Basic_Information_Data_Modification.html"
-                                               style="color: #fff;">修改</a>
-                                        </button>
-                                    </div>
-                                </div>
+                        </div>
+                        <!-- 履歷狀態 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="inputname" class="col-3 text-center col-form-label">
+                                履歷狀態
+                            </label>
+                            <div class="col-9">
+                                <select class="form-select"
+                                        aria-label="縣市" name="add1" size="1" disabled>
+                                    <option value="1">公開</option>
+                                    <option value="2" select>隱藏</option>
+                                </select>
                             </div>
-                        </form>
+                        </div>
+                        <!-- 姓名 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="trainerNameInput" class="col-3 text-center col-form-label">中文姓名</label>
+                            <div class="col-9">
+                                <input class="form-control mb-3" type="text" id="trainerNameInput" disabled>
+                            </div>
+                        </div>
+                        <!-- 希望待遇 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="trainercourseFeeInput" class="col-3 text-center col-form-label">希望待遇</label>
+                            <div class="col-9">
+                                <input class="form-control mb-3" type="text" aria-label="希望待遇" id="trainercourseFeeInput" disabled>
+                            </div>
+                        </div>
+                        <!-- 電話 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="trainerPhoneInput" class="col-3 text-center col-form-label">電話</label>
+                            <div class="col-9">
+                                <input class="form-control mb-3" type="text"
+                                       aria-label="電話" id="trainerPhoneInput" disabled>
+                            </div>
+                        </div>
+                        <!-- 地址 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="trainerAddressInput" class="col-3 text-center col-form-label">地址</label>
+                            <div class="col-9">
+                                <input class="form-control mb-3" type="text"
+                                       placeholder="台南市陀螺灣扛三路二段80號" aria-label="請輸入地址"
+                                       id="trainerAddressInput" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 第二攔 -->
+                    <!-- 照片 -->
+                    <div class="col-6 d-flex justify-content-center ps-5">
+                        <div class="rounded-image-container">
+                            <img class="rounded-image" src="~/images/會員/user3.jpg" alt="">
+                        </div>
                     </div>
                 </div>
-            </div>
+                <hr>
+                <!-- 第二區塊 -->
+                <div class="row justify-content-between">
+                    <!-- 第一攔 -->
+                    <div class="col-6">
+                        <!-- 專長 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="inputname" class="col-3 text-center col-form-label">專長</label>
+                            <div class="col-9" id="checkboxContainer">
+                            </div>
+                        </div>
+                        <!-- 專業證照 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="trainerCertificateInput" class="col-3 text-center col-form-label">專業證照</label>
+                            <div class="col-9">
+                                <textarea class="form-control" id="trainerCertificateInput"
+                                          style="height: 200px;" name="mytext" rows="10" cols="40"
+                                          required disabled></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第二攔 -->
+                    <div class="col-6">
+                        <!-- 獎項事蹟 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="trainerAwardsInput" class="col-3 text-center col-form-label">獎項事蹟</label>
+                            <div class="col-9">
+                                <textarea class="form-control" id="trainerAwardsInput"
+                                          style="height: 100px;" name="mytext" rows="5" cols="40" required
+                                          disabled></textarea>
+                            </div>
+                        </div>
+                        <!-- 簡介 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="trainerIntroduceInput" class="col-3 text-center col-form-label">簡介</label>
+                            <div class="col-9">
+                                <textarea class="form-control" id="trainerIntroduceInput"
+                                          style="height: 400px;" name="mytext" rows="6" cols="80" required
+                                          disabled></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container text-center">
+                        <button type="button" class="btn rounded-pill m-2"
+                                style="background-color: #F24B88;">
+                            <a href="personal_trainer_Basic_Information_Data_Modification.html"
+                               style="color: #fff;">修改</a>
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -242,10 +225,14 @@
 <script>
     function populateCheckboxes(data) {
         const container = $('#checkboxContainer');
+        container.addClass('checkbox-container'); // Add class for styling
+
         data.forEach(item => {
             const checkbox = $(`<input type="checkbox" name="expertise" value="${item.className}" disabled>`);
             const label = $('<label></label>').text(item.className).prepend(checkbox);
-            container.append(label);
+            const checkboxItem = $('<div class="checkbox-item pb-1"></div>').append(label);
+
+            container.append(checkboxItem);
         });
     }
 
