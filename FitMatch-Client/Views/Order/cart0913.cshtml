@@ -12,8 +12,29 @@
 <script src="https://unpkg.com/vuex@4"></script>
 
 
+@* ====== 原先Html樣式 start ====== *@
+<!--Mall的樣式css-->
+<link rel="stylesheet" href="~/css/Mall.css/bootstrap.min.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/owl.theme.default.min.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/owl.carousel.min.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/remixicon.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/meanmenu.min.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/animate.min.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/style.css">
+
+<link rel="stylesheet" href="~/css/Mall.css/responsive.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
+@* ====== 泰迪Html樣式 start ====== *@
 <style>
     body {
         font: normal 18px Tahoma,Arial,Verdana;
@@ -55,6 +76,22 @@
 </style>
 
 
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">ShoppingCart</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center text-uppercase mb-0">
+                <li class="breadcrumb-item"><a class="text-white" href="#">首頁</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="#">商城</a></li>
+                <li class="breadcrumb-item text-primary active" aria-current="page">購物車</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+@*======= 泰迪cart start =======*@
 <div id="myCart">
     <h1>
         Shopping Cart
@@ -62,40 +99,146 @@
     <header id="cartList">
         <table style="border-bottom:1px solid #ddd;">
             <tr class="itemHead">
+                @*改改到這裡*@
                 <td style="width:200px;">Item List</td>
-                <td style="width:280px;"></td>
+                <td style="width:280px;">品名</td>
                 <td style="width:170px;">Price($)</td>
                 <td style="width:60px;">Item(s)</td>
             </tr>
         </table>
-        <!-- ===動態新增=== -->
-        <!--
-        <div>
-            <table>
-                <tr class="item">
-                    <td style="width:200px;">
-                        <img src="imgs/formosa.jpg" width="70">
-                    </td>
-                    <td style="width:280px;" id="A1001">
-                        <p>Formosa</p>
-                        <button>Delete</button>
-                    </td>
-                    <td style="width:170px;">
-                        5000
-                    </td>
-                    <td style="width:60px;">
-                        <input type="number" value="1" min="1">
-                    </td>
-                </tr>
-            </table>
-        </div>
-        -->
+        @*動態自動加在底下這裡*@
+
     </header>
     <footer style="text-align:right;">
         Total : <span id="total">0</span>
     </footer>
 </div>
+@*======= 泰迪cart end =======*@
 
+
+
+@*  ======  body start ====== *@
+<!-- Team Start -->
+<section class="cart-area ptb-54">
+    <div class="container">
+        <div class="row ">
+            <div class="col-lg-9">
+                <div class="text-end">
+
+                </div>
+                <div class="col-lg-4 col-md-4">
+
+                </div>
+                <div id="myCart">
+                    @*加：id="myCart"*@
+                    <form class="cart-controller">
+                        <div class="cart-table table-responsive">
+
+                            <table class="table table-bordered">
+                                <thead id="cartList">
+                                    @*加：id="cartList"*@
+                                    <tr class="itemHead">
+                                        <th scope="col">商品</th>
+                                        <th scope="col"></th>
+                                        <th scope="col">小計</th>
+                                        <th scope="col">數量</th>
+                                        @*<th scope="col">小計</th>*@
+                                        <th scope="col" class="ps-4">刪除</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @*<tr>
+                            <td class="product-thumbnail">
+                                <a href="product-details.html">
+                                    <img src="images/商城/peeta.jpg" alt="Image">
+                                </a>
+                            </td>
+                            <td class="product-name">
+                                <a href="product-details.html">
+                                    DFMALB 20V Max XX Oscillating Multi <br> Tool
+                                    Variable Speed Tool
+                                </a>
+                            </td>
+                            <td class="product-price">
+                                <span class="unit-amount">$90.00</span>
+                            </td>
+                            <td class="product-subtotal">
+                                <span class="subtotal-amount">$90.00</span>
+                            </td>
+                            <td class="trash">
+                                <a href="" class="remove">
+                                    <i class="fa-solid fa-trash" style="color: #f24b88;"></i>
+                                </a>
+                            </td>
+                        </tr>*@
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+
+
+                    <div class="coupon-cart">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8">
+                                <div class="form-group mb-0">
+                                    <input type="text" class="form-control" placeholder="Coupon code">
+                                    <button class="btn btn-primary">
+                                        Apply Coupon
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="cart-totals">
+                        <h3 class="cart-checkout-title">結帳金額</h3>
+                        <ul>
+                           
+
+                            <li>總金額 <span id="total">$ 0 </span></li>    @*這裡加id="total"*@
+                            <li><b>折扣後金額</b> <span><b>$ 0 </b></span></li>
+                        </ul>
+                        <div class="text-center">
+                            <a href="checkout.html" class="btn btn-primary" style="min-width: 200px;
+    margin: auto;">
+                                結帳
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+</section>
+
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+
+
+@* ======== 原先JS樣式 start ======== *@
+<!--Mall的效果JS-->
+<script src="~/js/Mail.js/jquery.min.js"></script>
+<script src="~/js/Mail.js/bootstrap.bundle.min.js"></script>
+<script src="~/js/Mail.js/meanmenu.min.js"></script>
+<script src="~/js/Mail.js/owl.carousel.min.js"></script>
+<script src="~/js/Mail.js/wow.min.js"></script>
+<script src="~/js/Mail.js/range-slider.min.js"></script>
+<script src="~/js/Mail.js/form-validator.min.js"></script>
+<script src="~/js/Mail.js/contact-form-script.js"></script>
+<script src="~/js/Mail.js/ajaxchimp.min.js"></script>
+<script src="~/js/Mail.js/custom.js"></script>
+
+
+
+@* ======== 泰迪localstorge start ======== *@
 
 
 <script>let storage = localStorage
@@ -211,6 +354,9 @@
         alert('這是作業')
     }
     window.addEventListener('load', doFirst);</script>
+
+@* ======== Vue & axios start ======== *@
+
 
 @{
 }

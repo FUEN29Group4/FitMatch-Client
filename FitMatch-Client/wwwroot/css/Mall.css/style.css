@@ -5193,12 +5193,12 @@ Blog Details Content Style
   color: #F24B88;
 }
 
-.map iframe {
+/*.map iframe {
   width: 100%;
   display: block;
   height: 348px;
 }
-
+*/
 /* 
 Main Contact Area Style
 =====================================================*/
@@ -6897,4 +6897,3 @@ Keyframes Area Style
   }
 }
 
-/*# sourceMappingURL=style.css.map */
