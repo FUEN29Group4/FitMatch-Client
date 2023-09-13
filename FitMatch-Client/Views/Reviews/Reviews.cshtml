@@ -1,142 +1,144 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Reviews";
 }
 
 
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/vuex@4"></script>
+<div style="background-color: #fff" id="app">
+    <div class="container" style="background-color: #fff"s>
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4" >
+                <div class="col-sm-12">
+                    <div class="bg-secondary rounded h-100 p-4" style="padding: 50px; margin-bottom:50px;background-color:white">
 
+                        <form class="" style="padding: 50px; margin-bottom:50px">
 
-<div class="container-fluid pt-4 px-4">
-    <div class="row g-4">
-        <div class="col-sm-12">
-            <div class="bg-secondary rounded h-100 p-4">
+                            <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
+                                <div class="col-1">
+                                    <label for="inputname" class="col-form-label">問題時間</label>
+                                </div>
+                                <div class="col-4">
+                                    <input class="form-control mb-3" type="text" placeholder="2007.01.01 15:00"
+                                           aria-label="2007.01.01 15:00" id="inputname" disabled>
+                                </div>
+                            </div>
+                            <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
+                                <div class="col-1">
+                                    <label for="inputname" class="col-form-label">客訴單編號</label>
+                                </div>
+                                <div class="col-4">
+                                    <input class="form-control mb-3" type="text" placeholder="CODE01"
+                                           aria-label="CODE01" id="inputname" disabled>
+                                </div>
+                            </div>
+                            <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
+                                <div class="col-1">
+                                    <label for="inputname" class="col-form-label">類型</label>
+                                </div>
+                                <div class="col-4">
+                                    <input class="form-control mb-3" type="text" placeholder="器材問題"
+                                           aria-label="器材問題" id="inputname" disabled>
+                                </div>
+                            </div>
+                            <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
+                                <div class="col-1">
+                                    <label for="inputname" class="col-form-label">姓名</label>
+                                </div>
+                                <div class="col-4">
+                                    <input class="form-control mb-3" type="text" placeholder="王董" aria-label="王董"
+                                           id="inputname" disabled>
+                                </div>
+                            </div>
 
-                <form class="" style="padding: 50px;">
+                            <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
+                                <div class="col-1">
+                                    <label for="inputname" class="col-form-label">Email</label>
+                                </div>
+                                <div class="col-4">
+                                    <input class="form-control mb-3" type="text" placeholder="dhs@gmail.com"
+                                           aria-label="dhs@gmail.com" id="inputname" disabled>
+                                </div>
+                            </div>
+                            <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
+                                <div class="col-1">
+                                    <label for="inputname" class="col-form-label">電話</label>
+                                </div>
+                                <div class="col-4">
+                                    <input class="form-control mb-3" type="text" placeholder="0981-151-333"
+                                           aria-label="0981-151-333" id="inputname" disabled>
+                                </div>
+                            </div>
+                            <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
+                                <div class="col-1">
+                                    <label for="inputname" class="col-form-label">訂單編號</label>
+                                </div>
+                                <div class="col-4">
+                                    <input class="form-control mb-3" type="text" placeholder="" aria-label=""
+                                           id="inputname" disabled>
+                                </div>
+                            </div>
 
-                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                        <div class="col-1">
-                            <label for="inputname" class="col-form-label">問題時間</label>
-                        </div>
-                        <div class="col-4">
-                            <input class="form-control mb-3" type="text" placeholder="2007.01.01 15:00"
-                                   aria-label="2007.01.01 15:00" id="inputname" disabled>
-                        </div>
-                    </div>
-                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                        <div class="col-1">
-                            <label for="inputname" class="col-form-label">客訴單編號</label>
-                        </div>
-                        <div class="col-4">
-                            <input class="form-control mb-3" type="text" placeholder="CODE01"
-                                   aria-label="CODE01" id="inputname" disabled>
-                        </div>
-                    </div>
-                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                        <div class="col-1">
-                            <label for="inputname" class="col-form-label">類型</label>
-                        </div>
-                        <div class="col-4">
-                            <input class="form-control mb-3" type="text" placeholder="器材問題"
-                                   aria-label="器材問題" id="inputname" disabled>
-                        </div>
-                    </div>
-                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                        <div class="col-1">
-                            <label for="inputname" class="col-form-label">姓名</label>
-                        </div>
-                        <div class="col-4">
-                            <input class="form-control mb-3" type="text" placeholder="王董" aria-label="王董"
-                                   id="inputname" disabled>
-                        </div>
-                    </div>
+                            <div class="row-sm-12 row-lg-6 mb-3 d-flex">
+                                <div class="col-1">
+                                    <legend class="col-form-label pt-3 pe-4">問題內容</legend>
+                                </div>
+                                <div class="col-6 form-floating pt-1">
+                                    <textareadisabled class="form-control" placeholder="Leave a comment here"
+                                                      id="floatingTextarea" style="height: 150px;"></textareadisabled>
+                                    <label for="floatingTextarea" disabled>器材也太....</label>
+                                </div>
+                            </div>
 
-                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                        <div class="col-1">
-                            <label for="inputname" class="col-form-label">Email</label>
-                        </div>
-                        <div class="col-4">
-                            <input class="form-control mb-3" type="text" placeholder="dhs@gmail.com"
-                                   aria-label="dhs@gmail.com" id="inputname" disabled>
-                        </div>
-                    </div>
-                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                        <div class="col-1">
-                            <label for="inputname" class="col-form-label">電話</label>
-                        </div>
-                        <div class="col-4">
-                            <input class="form-control mb-3" type="text" placeholder="0981-151-333"
-                                   aria-label="0981-151-333" id="inputname" disabled>
-                        </div>
-                    </div>
-                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                        <div class="col-1">
-                            <label for="inputname" class="col-form-label">訂單編號</label>
-                        </div>
-                        <div class="col-4">
-                            <input class="form-control mb-3" type="text" placeholder="" aria-label=""
-                                   id="inputname" disabled>
-                        </div>
-                    </div>
+                            <div class="row-sm-12 row-lg-6 mb-3 d-flex">
+                                <div class="col-1">
+                                    <legend class="col-form-label pt-3 pe-4">回覆</legend>
+                                </div>
+                                <div class="col-6 form-floating pt-1">
+                                    <textarea class="form-control" placeholder="Leave a comment here"
+                                              id="floatingTextarea"
+                                              style="height: 150px;background-color: white;"></textarea>
+                                    <label for="floatingTextarea">請輸入文字</label>
+                                </div>
+                            </div>
+                            <div class="col-8 d-flex text-center mx-auto pt-5">
+                                <button type="submit" class="btn btn-primary me-5"
+                                        style="background-color: #2BC17B;">
+                                    新增
+                                </button>
+                                <button type="submit" class="btn btn-primary ms-5"
+                                        style="background-color: #2BC17B;">
+                                    修改
+                                </button>
+                            </div>
 
-                    <div class="row-sm-12 row-lg-6 mb-3 d-flex">
-                        <div class="col-1">
-                            <legend class="col-form-label pt-3 pe-4">問題內容</legend>
-                        </div>
-                        <div class="col-6 form-floating pt-1">
-                            <textareadisabled class="form-control" placeholder="Leave a comment here"
-                                              id="floatingTextarea" style="height: 150px;"></textareadisabled>
-                            <label for="floatingTextarea" disabled>器材也太....</label>
-                        </div>
+                        </form>
                     </div>
-
-                    <div class="row-sm-12 row-lg-6 mb-3 d-flex">
-                        <div class="col-1">
-                            <legend class="col-form-label pt-3 pe-4">回覆</legend>
-                        </div>
-                        <div class="col-6 form-floating pt-1">
-                            <textarea class="form-control" placeholder="Leave a comment here"
-                                      id="floatingTextarea"
-                                      style="height: 150px;background-color: white;"></textarea>
-                            <label for="floatingTextarea">請輸入文字</label>
-                        </div>
-                    </div>
-                    <div class="col-8 d-flex text-center mx-auto pt-5">
-                        <button type="submit" class="btn btn-primary me-5"
-                                style="background-color: #2BC17B;">
-                            新增
-                        </button>
-                        <button type="submit" class="btn btn-primary ms-5"
-                                style="background-color: #2BC17B;">
-                            修改
-                        </button>
-                    </div>
-
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 
-<script>
-const App = Vue.createApp({
-            data() {
-                return {
-                    Reviews: [],
-                };
-            },
-            mounted() {
-                // 使用axios來抓取API
-                axios.get('https://localhost:7011/api/Reviews/')
-                    .then(response => {
-                        this.Reviews = response.data;
-                    })
-                    .catch(error => {
-                        console.error('無法獲取評論:', error);
-                    });
-            },
-        });
 
-        App.mount('#app');</script>
+<script>
+    const App = Vue.createApp({
+        data() {
+            return {
+                Reviews: [],
+            };
+        },
+        mounted() {
+            // 使用axios來抓取API
+            axios.get('https://localhost:7011/api/Reviews/')
+                .then(response => {
+                    this.Reviews = response.data;
+                })
+                .catch(error => {
+                    console.error('無法獲取評論:', error);
+                });
+        },
+    });
+
+    App.mount('#app');</script>
