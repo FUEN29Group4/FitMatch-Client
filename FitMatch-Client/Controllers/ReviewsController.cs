@@ -2,9 +2,9 @@
 
 namespace FitMatch_Client.Controllers
 {
-    public class Member_Trainer_EvaluateController1 : Controller
+    public class ReviewsController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Reviews()
         {
             return View();
         }
