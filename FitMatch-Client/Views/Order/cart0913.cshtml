@@ -1,97 +1,104 @@
 ﻿@{
-    ViewData["Title"] = "cart_0913";
+    ViewData["Title"] = "cart0913";
 }
 
 
-@* <script src="~/wwwroot/js/Order.js/6_new.js"></script>
- *@
+
+@*  ======  增加之後待使用 start ====== *@
+<!-- 增加Vue跟axios跟jQuery 函式庫CDN-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.js"></script>
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/vuex@4"></script>
+
+
+
+
 <style>
-	body {
-		font: normal 18px Tahoma,Arial,Verdana;
-	}
+    body {
+        font: normal 18px Tahoma,Arial,Verdana;
+    }
 
-	#myCart {
-		margin: 0 auto;
-		width: 900px;
-		border: 1px solid #fff;
-	}
+    #myCart {
+        margin: 0 auto;
+        width: 900px;
+        border: 1px solid #fff;
+    }
 
-	input {
-		width: 60px;
-	}
+    input {
+        width: 60px;
+    }
 
-	tr {
-		border-bottom: 1px dotted #aaa;
-	}
+    tr {
+        border-bottom: 1px dotted #aaa;
+    }
 
-	td {
-		margin: 0px;
-		padding: 1px 10px 4px 10px;
-		border-bottom: 1px dotted #ccc;
-		text-align: left;
-		vertical-align: top;
-	}
+    td {
+        margin: 0px;
+        padding: 1px 10px 4px 10px;
+        border-bottom: 1px dotted #ccc;
+        text-align: left;
+        vertical-align: top;
+    }
 
-	#cartList {
-		font-size: medium;
-		font-weight: 800;
-		border-bottom: 1px solid #aaa;
-	}
+    #cartList {
+        font-size: medium;
+        font-weight: 800;
+        border-bottom: 1px solid #aaa;
+    }
 
-	#subtotal {
-		font-size: medium;
-		font-weight: 600;
-		color: Maroon;
-	}
-
+    #subtotal {
+        font-size: medium;
+        font-weight: 600;
+        color: Maroon;
+    }
 </style>
 
 
-	<div id="myCart">
-		<h1>
-			Shopping Cart
-		</h1>
-		<header id="cartList">
-			<table style="border-bottom:1px solid #ddd;">
-				<tr class="itemHead">
-					<td style="width:200px;">Item List</td>
-					<td style="width:280px;"></td>
-					<td style="width:170px;">Price($)</td>
-					<td style="width:60px;">Item(s)</td>
-				</tr>
-			</table>
-			<!-- ===動態新增=== -->
-			<!--
-			<div>
-				<table>
-					<tr class="item">
-						<td style="width:200px;">
-							<img src="imgs/formosa.jpg" width="70">
-						</td>
-						<td style="width:280px;" id="A1001">
-							<p>Formosa</p>
-							<button>Delete</button>
-						</td>
-						<td style="width:170px;">
-							5000
-						</td>
-						<td style="width:60px;">
-							<input type="number" value="1" min="1">
-						</td>
-					</tr>
-				</table>
-			</div>
-			-->
-		</header>
-		<footer style="text-align:right;">
-			Total : <span id="total">0</span>
-		</footer>
-	</div>
+<div id="myCart">
+    <h1>
+        Shopping Cart
+    </h1>
+    <header id="cartList">
+        <table style="border-bottom:1px solid #ddd;">
+            <tr class="itemHead">
+                <td style="width:200px;">Item List</td>
+                <td style="width:280px;"></td>
+                <td style="width:170px;">Price($)</td>
+                <td style="width:60px;">Item(s)</td>
+            </tr>
+        </table>
+        <!-- ===動態新增=== -->
+        <!--
+        <div>
+            <table>
+                <tr class="item">
+                    <td style="width:200px;">
+                        <img src="imgs/formosa.jpg" width="70">
+                    </td>
+                    <td style="width:280px;" id="A1001">
+                        <p>Formosa</p>
+                        <button>Delete</button>
+                    </td>
+                    <td style="width:170px;">
+                        5000
+                    </td>
+                    <td style="width:60px;">
+                        <input type="number" value="1" min="1">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        -->
+    </header>
+    <footer style="text-align:right;">
+        Total : <span id="total">0</span>
+    </footer>
+</div>
 
 
 
-	<script>
-    let storage = localStorage
+<script>let storage = localStorage
     function doFirst() {
         let itemString = storage.getItem('addItemList')
         let items = itemString.substring(0, itemString.length - 2).split(', ')
@@ -203,8 +210,7 @@
     function changeItemCount() {
         alert('這是作業')
     }
-    window.addEventListener('load', doFirst);
-	</script>
+    window.addEventListener('load', doFirst);</script>
 
 @{
 }
