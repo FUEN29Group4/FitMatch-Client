@@ -386,3 +386,19 @@ ACE-CPT美國運動委員會認證私人教練</textarea>
 <!-- Form End -->
 <!-- 會員基本資料 End -->
 <!-- body end -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:7011/api/Trainer", // 例如: '/api/yourController/yourAction'
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                // 根據需要更新你的 View
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+</script>
