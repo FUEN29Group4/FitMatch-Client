@@ -13,6 +13,32 @@ namespace FitMatch_Client.Controllers
     {
         //=================================
 
+
+        public IActionResult sho0913()
+        {
+            return View();
+        }
+
+
+        public IActionResult cart0913()
+        {
+            return View();
+        }
+
+
+
+        public IActionResult testmall()
+        {
+            return View();
+        }
+
+        
+        public IActionResult testcart()
+        {
+            return View();
+        }
+
+
         public IActionResult TeddyCart()
         {
             return View();
