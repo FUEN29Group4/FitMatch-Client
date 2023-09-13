@@ -1,8 +1,407 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Index";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+<style>
+    /*** Facts 數據的背景 ***/
+    .facts {
+        background: rgb(245, 66, 135);
+    }
+
+    /* 教練照片尺寸固定 */
+    .trainerpic {
+        width: 216px;
+        height: 216px;
+        overflow: hidden;
+        /* 隱藏超出的部分 */
+        position: relative;
+        /* 使內部的 img 元素能夠使用絕對定位 */
+    }
+
+    /* 首頁照片加的CSS樣式  */
+    .background-container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        /* 使用視窗高度作為背景容器的高度 */
+        background-image: url('images/bg/bg-7.jpg');
+        /* 替換成你想要的背景圖片的URL */
+        background-size: cover;
+        /* 調整背景圖片大小以填滿容器 */
+        background-position: center;
+        /* 將背景圖片置中 */
+        background-repeat: no-repeat;
+        /* 避免背景圖片重複顯示 */
+        transition: background-image 0.5s ease;
+        /* 設定遷入效果，0.5秒的過渡時間 */
+    }
+
+        /* 首頁照片加的CSS樣式  */
+        .background-container:hover {
+            background-image: url('images/bg/bg-5.jpg');
+            /* 遷入效果觸發時切換到新的背景圖片 */
+        }
+
+
+    .testimonialbgc {
+        background-color: #12121C;
+    }
+
+    /* 尋找健身房 */
+    .t-photo .team-item {
+        /* display: inline-block; */
+        position: relative;
+        width: 300px;
+        height: 300px;
+        overflow: hidden;
+    }
+
+        .t-photo .team-item img {
+            width: 100%;
+            height: auto;
+        }
+</style>
+
+
+<!-- 首頁照片加的CSS樣式 -->
+<link rel="stylesheet" type="text/css" href="styles.css">
+
+
+
+
+
+
+    
+    <div class="container-xxl py-5 page-header">
+        <div class="container ">
+
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <p class="fs-5 fw-bold text-primary">一起打造個人化的健身計劃</p>
+                    <h1 class="display-5 mb-4">
+                        找到最適合的私人教練
+                        <br>
+                        開啟專屬於你的健身旅程
+                    </h1>
+                    <p class="mb-4  text-light">
+                        想透過訓練得到好身材
+                        <br>又不想因為錯誤訓練方式來弄傷自己
+                        <br>
+                        <span class="text-primary">FitMatch</span> 有最專業的教練幫助你正確訓練
+                    </p>
+                    <a class="btn btn-primary py-3 px-4" href="">開始預約</a>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-md-6">
+                            <div class="row g-4">
+                                <div class="col-12 wow fadeIn" data-wow-delay="0.3s">
+                                    <div class="text-center rounded py-5 px-4"
+                                         style="box-shadow: 0 0 45px rgba(0,0,0,.08);">
+                                        <div class="btn-square bg-light rounded-circle mx-auto mb-4"
+                                             style="width: 50px; height: 50px;">
+                                            <i class="fa fa-medal fa-2x text-primary"></i>
+                                        </div>
+                                        <h5 class="mb-0">全台首創健身媒合服務</h5>
+                                    </div>
+                                </div>
+                                <div class="col-12 wow fadeIn" data-wow-delay="0.5s">
+                                    <div class="text-center rounded py-5 px-4"
+                                         style="box-shadow: 0 0 45px rgba(0,0,0,.08);">
+                                        <div class="btn-square bg-light rounded-circle mx-auto mb-4"
+                                             style="width: 50px; height: 50px;">
+                                            <i class="fa fa-dumbbell fa-2x text-primary"></i>
+                                        </div>
+                                        <h5 class="mb-0">最安全可靠的健身場所</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 wow fadeIn" data-wow-delay="0.7s">
+                            <div class="text-center rounded py-5 px-4" style="box-shadow: 0 0 45px rgba(0,0,0,.08);">
+                                <div class="btn-square bg-light rounded-circle mx-auto mb-4"
+                                     style="width: 50px; height: 50px;">
+                                    <i class="fa  fa-2x  fa-users text-primary"></i>
+
+                                </div>
+                                <h5 class="mb-0">最專業的精選教練團隊</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Features End -->
+    <!-- Facts Start -->
+    <div class="container-fluid facts  py-5" data-parallax="scroll" data-image-src="images/bg/bg-cta">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-sm-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
+                    <h1 class="display-4 text-white" data-toggle="counter-up">3000+</h1>
+                    <span class="fs-5 fw-semi-bold text-light">運動愛好者</span>
+                </div>
+                <div class="col-sm-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
+                    <h1 class="display-4 text-white" data-toggle="counter-up">1000+</h1>
+                    <span class="fs-5 fw-semi-bold text-light">專業教練</span>
+                </div>
+                <div class="col-sm-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
+                    <h1 class="display-4 text-white" data-toggle="counter-up">4000+</h1>
+                    <span class="fs-5 fw-semi-bold text-light">媒合成功案件</span>
+                </div>
+                <div class="col-sm-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.9s">
+                    <h1 class="display-4 text-white" data-toggle="counter-up">500+</h1>
+                    <span class="fs-5 fw-semi-bold text-light">健身場所</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Facts End -->
+    <!-- Service Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <p class="d-inline-block bg-darkgray text-primary py-1 px-4">多元課程任您挑選</p>
+                <h1 class="text-uppercase">熱門預約項目</h1>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item position-relative overflow-hidden bg-darkgray d-flex h-100 p-5 ps-0">
+                        <div class="bg-dark d-flex flex-shrink-0 align-items-center justify-content-center"
+                             style="width: 150px; height: 200px;">
+                            <img class="img-fluid" src="images/about/img-2.jpg" alt="">
+                        </div>
+                        <div class="ps-4">
+                            <h3 class="text-uppercase mb-3">強力戰繩</h3>
+                            <p>戰繩提供全身性高強度運動，約10分鐘的戰繩訓練可以提高心率和能量消耗，提升心肺的健康還能訓練體能。</p>
+
+                        </div>
+                        <a class="btn btn-square" href="">more<br>...<i class="text-primary"></i></a>
+                        <!-- class: fa-plus(加號) -->
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item position-relative overflow-hidden bg-darkgray d-flex h-100 p-5 ps-0">
+                        <div class="bg-dark d-flex flex-shrink-0 align-items-center justify-content-center"
+                             style="width: 150px; height: 200px;">
+                            <img class="img-fluid" src="images/about/img-5.jpg" alt="">
+                        </div>
+                        <div class="ps-4">
+                            <h3 class="text-uppercase mb-3">身心瑜伽</h3>
+                            <p>瑜伽已經成為很多人修身養性、鍛鍊健身最受歡迎的運動方式之一。瑜伽講究身心合一又能強身保健。</p>
+
+                        </div>
+                        <a class="btn btn-square" href="">more<br>...<i class="text-primary"></i></a>
+                        <!-- class: fa-plus(加號) -->
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="service-item position-relative overflow-hidden bg-darkgray d-flex h-100 p-5 ps-0">
+                        <div class="bg-dark d-flex flex-shrink-0 align-items-center justify-content-center"
+                             style="width: 150px; height: 200px;">
+                            <img class="img-fluid" src="images/about/img-6.jpg" alt="">
+                        </div>
+                        <div class="ps-4">
+                            <h3 class="text-uppercase mb-3">重量訓練</h3>
+                            <p>重量訓練（重訓）是一種適合所有人的運動，屬於力量訓練的一種，訓練會使肌肉形成抵抗某種力量的阻力。</p>
+
+                        </div>
+                        <a class="btn btn-square" href="">more<br>...<i class="text-primary"></i></a>
+                        <!-- class: fa-plus(加號) -->
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+    <!-- Team Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <p class="d-inline-block bg-darkgray text-primary py-1 px-4">全台金牌教練都在FitMatch</p>
+                <h1 class="text-uppercase">優秀的教練陣容</h1>
+            </div>
+            <div class="row g-4">
+
+
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="team-item">
+                        <div class="team-img mx-auto position-relative overflow-hidden align-items-center trainerpic">
+                            <img class="img-fluid" src="images/教練/team-1.jpg" alt="">
+
+                            <div class="team-social">
+                                <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="bg-darkgray text-center p-4">
+                            <h5 class="text-uppercase">The Rock</h5>
+                            <span class="text-primary">功能性訓練</span>
+                            <br>
+                            <input class="btn btn-primary mt-2 " type="button" value="預約教練">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="team-item">
+                        <div class="team-img mx-auto position-relative overflow-hidden trainerpic">
+                            <img class="img-fluid" src="images/教練/team-2.jpg" alt="">
+
+                            <div class="team-social">
+                                <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="bg-darkgray text-center p-4">
+                            <h5 class="text-uppercase">Biao Han Chen</h5>
+                            <span class="text-primary">拳擊訓練</span>
+                            <br>
+                            <input class="btn btn-primary mt-2 " type="button" value="預約教練">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="team-item">
+                        <div class="team-img mx-auto position-relative overflow-hidden trainerpic">
+                            <img class="img-fluid" src="images/教練/team-3.jpg" alt=""> <!-- 照片尺寸怪怪 -->
+
+                            <div class="team-social">
+                                <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="bg-darkgray text-center p-4">
+                            <h5 class="text-uppercase">DON SALADINO</h5>
+                            <span class="text-primary">增肌減脂</span>
+                            <br>
+                            <input class="btn btn-primary mt-2 " type="button" value="預約教練">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="team-item">
+                        <div class="team-img mx-auto position-relative overflow-hidden trainerpic">
+                            <img class="img-fluid" src="images/教練/team-4.jpg" alt="">
+                            <div class="team-social">
+                                <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="bg-darkgray text-center p-4">
+                            <h5 class="text-uppercase">Candice</h5>
+                            <span class="text-primary">有氧專家</span>
+                            <br>
+                            <input class=" btn btn-primary mt-2 " type="button" value="預約教練">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Team End -->
+    <!-- Testimonial Start -->
+    <div class="container-xxl py-5">
+        <div class="container  ">
+            <div class="text-center mx-auto mb-1 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <p class="d-inline-block bg-darkgray text-primary py-1 px-4">上千位學員好評推薦</p>
+                <!-- <h1 class="text-uppercase">一起來看看會員對我們的看法吧</h1> -->
+            </div>
+
+            <!-- 下方小圓點的樣式：search style.css => .testimonial-carousel .owl-dots  -->
+            <div class="testimonialbgc owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+                <div class="testimonial-item text-center "
+                     data-dot="<img class='img-fluid' src='images/會員/usermale1.png' alt=''>">
+                    <!-- 原本頭像 src='images/testimonial-3.jpg'  -->
+                    <h4 class="text-uppercase py-2">石Ｏ聖</h4>
+                    <p class="text-primary">咖啡師傅（台中人 28歲 ）</p>
+
+
+                    <!-- mb-4  改變字感言的大小  （原先：fs-5） -->
+                    <span class=" mb-4 text-light  ">
+                        對於一個曾經的宅男，使用FitMatch是我迄今為止做過最正確的決定。<br> 每次的運動課程都充滿挑戰，但也都帶來滿滿的成就感。<br>
+                        我發現運動讓我的精神狀態變得更加穩定，工作效率也提升了許多。
+
+                    </span>
+                </div>
+                <div class="testimonial-item text-center"
+                     data-dot="<img class='img-fluid' src='images/會員/userfemale1.png' alt=''>">
+
+                    <h4 class="text-uppercase">賴Ｏ綺</h4>
+                    <p class="text-primary">資料分析師（台北人 32歲 ）</p>
+                    <span class="fmb-4 text-light">作為一名上班族，長時間的久坐對健康造成了很大的威脅。<br>加入FitMatch後，我找到了改變這種情況的方法。<br>每周的運動課程讓我重新感受到了活力和活躍的身體。</span>
+                </div>
+                <div class="testimonial-item text-center"
+                     data-dot="<img class='img-fluid' src='images/會員/userfemale2.png' alt=''>">
+                    <h4 class="text-uppercase">張Ｏ怡</h4>
+                    <p class="text-primary">家庭主婦（台南人 45歲 ）</p>
+                    <span class="mb-4 text-light">進入健身房前，我一直對運動持有懷疑態度。<br>但使用FitMatch後，我感受到了前所未有的變化。<br>教練的耐心指導讓我不再覺得運動是負擔，反而享受每一次的鍛煉！</span>
+                </div>
+                <div class="testimonial-item text-center"
+                     data-dot="<img class='img-fluid' src='images/會員/usermale2.png' alt=''>">
+                    <h4 class="text-uppercase">楊Ｏ賢</h4>
+                    <p class="text-primary">軟體工程師（新竹人 43歲 ）</p>
+                    <span class="mb-4 text-light">這個媒合平台不僅僅是身體的鍛煉，更是對自我的挑戰。<br>在這裡FitMatch我學會了堅持、毅力和自律。<br>教練們的專業指導讓我每次都能有效率地進行訓練，達到事半功倍的效果。</span>>
+                </div>
+                <div class="testimonial-item text-center"
+                     data-dot="<img class='img-fluid' src='images/會員/usermale3.png' alt=''>">
+                    <h4 class="text-uppercase">張Ｏ中</h4>
+                    <p class="text-primary">英文教師（高雄人 37歲 ）</p>
+                    <span class="mb-4 text-light">我從未想過健身可以這麼好玩，而且使用FitMatch認識好多很優質的教練。<br>態度優良也會鼓勵我，無私分享健身心得，讓每次的運動都充滿動力，<br>這裡絕對能找到適合自己的訓練方式。</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
+    <!-- About  us more Start -->
+    <div class="container-xxl py-5">
+        <div class="container ">
+            <div class="row g-5 align-items-end ">
+                <div class="col-lg-3 col-md-5 wow fadeInUp" data-wow-delay="0.1s">
+                    <img class="img-fluid rounded" data-wow-delay="0.1s" src="images/about/img-4.jpg">
+                </div>
+                <div class="col-lg-6 col-md-7 wow fadeInUp" data-wow-delay="0.3s">
+                    <h4 class="display-1 text-primary mb-0">4000+</h4>
+                    <p class="text-primary mb-4">媒合成功案例</p>
+                    <h6 class="display-5 mb-4">我們陪你打造健康新人生</h6>
+                    <p class="mb-4">
+                        我們是一個致力於幫助人們找到合適健身教練的媒合平台。無論你是剛開始健身的新手還是想要進一步提升你的體能，我們都在這裡為你提供最專業的服務。
+                    </p>
+                    <a class="btn btn-primary py-1 px-2" href="">關於我們</a>
+                </div>
+                <div class="col-lg-3 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="row g-5">
+                        <div class="col-12 col-sm-6 col-lg-12">
+                            <div class="border-start ps-4">
+
+                                <i class="fa fa-shop  text-primary mb-2"></i>
+                                <h5 class="mb-3">健康產品商城</h5>
+                                <p class="mb-4">我們提供多樣化的優質產品，包括營養補充品、運動器材等，助您踏上健康之路。</p>
+                                <a class="btn btn-primary py-1 px-2" href="">我要購買</a>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-12">
+                            <div class="border-start ps-4">
+                                <i class="fa fa-utensils text-primary mb-2"></i>
+                                <h5 class="mb-3">健康餐合作餐館</h5>
+                                <p class="mb-4">
+                                    全台優質合作健康餐廳，與您一起共享美味與活力。呈獻營養豐富的健康餐，滿足您對美味與健康的雙重追求。
+                                </p>
+                                <a class="btn btn-primary py-1 px-2" href="">查看更多</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
