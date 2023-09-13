@@ -12,6 +12,10 @@ namespace FitMatch_Client.Controllers
         {
             return View();
         }
+        public IActionResult SearchTrainer()
+        {
+            return View();
+        }
 
     }
 }

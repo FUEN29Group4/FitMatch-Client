@@ -1,0 +1,436 @@
+﻿
+@{
+    ViewData["Title"] = "SearchTrainer";
+}
+
+
+ <style>
+        body {
+            color: #ffff;
+        }
+
+        a,
+        a:hover,
+        a:visited,
+        a:link,
+        a:active {
+            text-decoration: none;
+        }
+
+
+
+        h2,
+        .card-body>.text-color {
+            color: #ddd;
+        }
+
+        .no-gutters {
+            background: linear-gradient(90deg, #F24B88 0%, #BD00FF 100%);
+            border-radius: 5px
+        }
+
+        .card-body img {
+            width: 20px;
+        }
+
+
+        @@media (min-width: 1200px) {
+            .trainerfilter .container {
+                display: flex;
+                max-width: 1800px;
+                justify-content: center;
+                margin: 0 auto;
+            }
+
+
+        }
+
+        .trainerfilter .left {
+            width: 30%;
+            /* 左邊區塊的寬度 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .trainerfilter .course-widget {
+            width: 70%;
+        }
+
+        .trainerfilter .right {
+            width: 70%;
+            /* 右邊區塊的寬度 */
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .trainerfilter .row {
+            margin: 10px 0;
+            /* 行與行之間的間隙 */
+
+        }
+
+        .left .row {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .trainerfilter .circle-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 50%;
+
+        }
+
+        .trainerfilter .trainer-img {
+            width: 100%;
+            height: auto;
+        }
+
+
+        .trainerfilter .form-check-label {
+            margin-left: 20px;
+        }
+    </style>
+
+<!-- Page Header Start -->
+    <div class="container-fluid page-header py-5  wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">TRAINER</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center text-uppercase mb-0">
+                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                    <li class="breadcrumb-item text-primary active" aria-current="page">TRAINER</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Team Start -->
+    <section class="bgc">
+        <div class="section container-xxl py-5">
+            <div class="container">
+                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                    <p class="d-inline-block bg-light text-primary py-1 px-4"></p>
+                    <h1 class="text-uppercase">OUR TRAINER</h1>
+                </div>
+                <!-- 教練篩選開始 -->
+                <div class="trainerfilter">
+                    <div class="container ">
+                        <!-- 左邊篩選區域開始 -->
+                        <div class="left col-lg-4 col-md-8 pt-5" style="margin-top: 21px;">
+                            <div class="row">
+                                <!-- 篩選地區開始 -->
+                                <div class="course-widget border py-4 px-2 mt-5 mt-lg-0">
+                                    <h3 class="mb-3 text-light"><i class="fa-solid fa-chevron-right pe-3"
+                                            style="color: #ffffff;"></i>地區</h3>
+                                    <div class="list-group list-group-flush">
+                                        <select class="p-2">
+                                            <option disabled selected>請選擇地區</option>
+                                            <option value="Taipei">台北</option>
+                                            <option value="Taichung">台中</option>
+                                            <option value="Tainan">台南</option>
+                                            <option value="Kaohsiung">高雄</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- 篩選地區結束 -->
+
+                                <!-- 篩選性別開始 -->
+                                <div class="course-widget border py-4 px-2 mt-3">
+                                    <h3 class="mb-3 text-light"><i class="fa-solid fa-chevron-right pe-3"
+                                            style="color: #ffffff;"></i>教練性別</h3>
+                                    <div class="list-group-item">
+                                        <input class="form-check-input" id="userGender1" name="userGender" type="radio"
+                                            value="全部" checked>
+                                        <label class="form-check-label pt-1 ps-1" for="userGender1">全部</label>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <input class="form-check-input" id="userGender2" name="userGender" type="radio"
+                                            value="男">
+                                        <label class="form-check-label pt-1 ps-1" for="userGender1">男</label>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <input class="form-check-input" id="userGender3" name="userGender" type="radio"
+                                            value="女">
+                                        <label class="form-check-label pt-1 ps-1" for="userGender0">女</label>
+                                    </div>
+                                </div>
+                                <!-- 篩選性別結束 -->
+
+                                <!-- 專長開始 -->
+                                <div class="course-widget border py-4 px-2 mt-3">
+                                    <h3 class="text-light">
+                                        <i class="fa-solid fa-chevron-right pe-3" style="color: #ffffff;"></i>專長項目
+                                    </h3>
+                                    <div class="d-flex justify-content-end align-items-center text-light">
+                                        <input class="form-check-input me-1 mb-1" type="checkbox" name="all"
+                                            onclick="check_all(this,'c')" class="me-1" />
+                                        全選
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+
+                                        <li class="list-group-item">
+                                            <input class="form-check-input" type="checkbox" name="c" value="1" />
+                                            重量訓練
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input" type="checkbox" name="c" value="2" />
+                                            有氧課程
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <input class="form-check-input" type="checkbox" name="c" value="3" />
+                                            戰繩
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <input class="form-check-input" type="checkbox" name="c" value="4" />
+                                            格鬥訓練
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <input class="form-check-input" type="checkbox" name="c" value="5" />
+                                            核心訓練
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- 專長結束 -->
+
+                                <!-- 可上課時段開始 -->
+                                <!-- <div class="course-widget border py-4 px-2 mt-3">
+								<h3 class="text-light">
+									<i class="ti-angle-right mr-2"></i>可上課時段
+								</h3>
+								<div class="text-right text-light">
+									<input type="checkbox" name="all" onclick="check_all(this,'c')" />
+									全選
+								</div>
+								<ul class="list-group list-group-flush">
+
+									<li class="list-group-item">
+										<input type="checkbox" name="c" value="1" />
+										平日上午
+									</li>
+									<li class="list-group-item">
+										<input type="checkbox" name="c" value="2" />
+										平日下午
+									</li>
+
+									<li class="list-group-item">
+										<input type="checkbox" name="c" value="3" />
+										平日晚上
+									</li>
+
+									<li class="list-group-item">
+										<input type="checkbox" name="c" value="4" />
+										假日上此
+									</li>
+
+									<li class="list-group-item">
+										<input type="checkbox" name="c" value="5" />
+										假日下午
+									</li>
+									<li class="list-group-item">
+										<input type="checkbox" name="c" value="5" />
+										假日晚上
+									</li>
+								</ul>
+							</div> -->
+                                <!-- 可上課時段結束 -->
+                                <!-- 清除篩選條件開始 -->
+                                <!-- <div class="course-widget pt-2 text-center"> -->
+                                <div class="btn btn-primary p-3 m-2 course-widget" id="clearFilters">清除篩選條件</div>
+                                <!-- </div> -->
+                            </div>
+                            <!-- 清除篩選條件結束 -->
+
+
+                        </div>
+                        <!-- 左邊篩選區域結束 -->
+
+                        <!-- 右邊顯示篩選後的教練 -->
+
+                        <div class="right col-lg-8 col-md-12">
+                            <div class="row">
+                                <div class="card border-0 bg-transparent rounded-0 mb-4">
+                                    <!-- 搜尋教練名字框 -->
+                                    <div class="d-flex justify-content-end">
+                                        <i class="fa-solid fa-magnifying-glass d-flex align-items-center"
+                                            style="margin-right: 5px; color: #ffff;"></i>
+                                        <input type="text" placeholder="請輸入教練姓名">
+                                        <button class="btn btn-small"
+                                            style="transform: translateY(0px);cursor: pointer;">
+                                            <span class="p-2" style="font-size: 16px;">搜尋</span>
+                                        </button>
+
+                                    </div>
+                                    <!-- 第一位教練開始 -->
+                                    <a href="./trainer_resume.html">
+                                        <div class="row no-gutters">
+                                            <!-- 教練大頭貼 -->
+                                            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                                                <div class="circle-container">
+                                                    <img src="images/教練/team-1.jpg" alt="" class="trainer-img">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body team-wrap pl-4">
+                                                    <!-- 教練名字 -->
+                                                    <h3 class="card-title text-color">The Rock</h3>
+                                                    <!-- 評分 -->
+                                                    <p class="card-subtitle pb-4 mb-4 letter-spacing">
+                                                        <img src="./images/icon/star.png" alt="">
+                                                        <img src="./images/icon/star.png" alt="">
+                                                        <img src="./images/icon/star.png" alt="">
+                                                        <img src="./images/icon/star.png" alt="">
+                                                        <img src="./images/icon/star_dark.png" alt="">
+                                                    </p>
+                                                    <!-- 授課地區 -->
+                                                    <div class="d-flex align-items-center">
+                                                        <h5>授課地區：</h5>
+                                                        <h5 style="color: #ddd;">台北市</h5>
+                                                    </div>
+                                                    <!-- 專長 -->
+                                                    <div class="d-flex align-items-center">
+                                                        <h5>專長：</h5>
+                                                        <h5 style="color: #ddd;">肌肥大課程規劃、拳擊訓練、功能性訓練</h5>
+                                                    </div>
+                                                    <p class="mb-5" style="color: #ddd;">
+                                                        教練致力於幫助學員達到身心的平衡，注重全面性的訓練和個人化的指導，激勵學員發揮潛力。</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </a>
+                                    <!-- 第一位教練結束 -->
+
+                                    <!-- 第二位教練開始 -->
+                                    <a href="./trainer_resume.html">
+                                        <div class="row no-gutters">
+                                            <!-- 教練大頭貼 -->
+                                            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                                                <div class="circle-container d-flex justify-content align-items-center">
+                                                    <img src="images/教練/team-2.jpg" alt="" class="trainer-img">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body team-wrap pl-4">
+                                                    <!-- 教練名字 -->
+                                                    <h3 class="card-title text-color">Biao Han</h3>
+                                                    <!-- 評分 -->
+                                                    <p class="card-subtitle pb-4 mb-4 letter-spacing">
+                                                        <img src="./images/icon/star.png" alt="">
+                                                        <img src="./images/icon/star.png" alt="">
+                                                        <img src="./images/icon/star_dark.png" alt="">
+                                                        <img src="./images/icon/star_dark.png" alt="">
+                                                        <img src="./images/icon/star_dark.png" alt="">
+                                                    </p>
+                                                    <!-- 授課地區 -->
+                                                    <div class="d-flex align-items-center">
+                                                        <h5>授課地區：</h5>
+                                                        <h5 style="color: #ddd;">台南市</h5>
+                                                    </div>
+                                                    <!-- 專長 -->
+                                                    <div class="d-flex align-items-center">
+                                                        <h5>專長：</h5>
+                                                        <h5 style="color: #ddd;">銀髮族訓練、拳擊訓練、胡鈴課程訓練</h5>
+                                                    </div>
+                                                    <p class="mb-5" style="color: #ddd;">
+                                                        專業健身教練，擁有豐富經驗，致力於助您塑造理想體態。我將提供量身訂製的運動計劃，引領您走向健康、自信的人生。</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- 第二位教練結束 -->
+
+                                    <!-- 第三位教練開始 -->
+                                    <a href="./trainer_resume.html">
+                                        <div class="row no-gutters">
+                                            <!-- 教練大頭貼 -->
+                                            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                                                <div class="circle-container d-flex justify-content align-items-center">
+                                                    <img src="images/教練/team-3.jpg" alt="" class="trainer-img">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body team-wrap pl-4">
+                                                    <!-- 教練名字 -->
+                                                    <h3 class="card-title text-color">Larry</h3>
+                                                    <!-- 評分 -->
+                                                    <p class="card-subtitle pb-4 mb-4 letter-spacing">
+                                                        <img src="./images/icon/star.png" alt="">
+                                                        <img src="./images/icon/star.png" alt="">
+                                                        <img src="./images/icon/star.png" alt="">
+                                                        <img src="./images/icon/star.png" alt="">
+                                                        <img src="./images/icon/star_dark.png" alt="">
+                                                    </p>
+                                                    <!-- 授課地區 -->
+                                                    <div class="d-flex align-items-center">
+                                                        <h5>授課地區：</h5>
+                                                        <h5 style="color: #ddd;">台中市</h5>
+                                                    </div>
+                                                    <!-- 專長 -->
+                                                    <div class="d-flex align-items-center">
+                                                        <h5>專長：</h5>
+                                                        <h5 style="color: #ddd;">功能性訓練、增肌減脂</h5>
+                                                    </div>
+                                                    <p class="mb-5" style="color: #ddd;">
+                                                        健康生活的關鍵在運動，我會帶您享受鍛鍊的樂趣，同時塑造身材。讓我們攜手邁向健康、活力充沛的未來。</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- 第三位教練結束 -->
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- 教練篩選結束 -->
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Section Team End -->
+<!-- 專長項目的checkbox全選功能 -->
+<script type="text/javascript">
+    function check_all(obj, cName) {
+        var checkboxs = document.getElementsByName(cName);
+        for (var i = 0; i < checkboxs.length; i++) { checkboxs[i].checked = obj.checked; }
+    }
+</script>
+
+<script>
+    // 清除篩選
+    document.addEventListener("DOMContentLoaded", function () {
+        const clearFiltersButton = document.getElementById("clearFilters");
+        const checkboxes = document.querySelectorAll("input[type='checkbox']");
+        const selectBox = document.querySelector("select");
+        const genderRadios = document.querySelectorAll("input[name='userGender']");
+
+        clearFiltersButton.addEventListener("click", function () {
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+
+            selectBox.selectedIndex = 0;
+
+            genderRadios.forEach(radio => {
+                if (radio.value === "全部") {
+                    radio.checked = true;
+                } else {
+                    radio.checked = false;
+                }
+            });
+        });
+    });
+</script>
