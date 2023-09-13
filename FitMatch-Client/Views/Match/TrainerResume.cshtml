@@ -334,13 +334,6 @@
         border-radius: 3px;
     }
 
-    /* .swal2-popup .available {
-                            width: auto;
-                            /* 自動調整高度以適應內容 */
-    /* 設定最大高度 */
-    /* padding: 0;
-                            margin: 0;
-                        }  */
 </style>
 
 <!-- Page Header Start -->
@@ -468,19 +461,8 @@
     <div class="reservation" id="calendar">
     </div>
 </div>
-
 <!-- 預約日期顯示結束 -->
-<!-- 顯示場館 -->
-@*<div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close" id="closeModal">&times;</span>
-        <p id="gym-info">健身房資訊將顯示在這裡</p>
-        <div id="class-type-info"></div>
-        <button id="confirmBtn">確認預約</button>
-        <button id="cancelBtn">取消</button>
-    </div>
-</div>*@
-<!-- 顯示場館結束 -->
+
 <!-- Section Team End -->
 <!-- 教練履歷 -->
 <script>
@@ -567,17 +549,13 @@
     let calendarInstance;  // Store the FullCalendar instance
 
     document.addEventListener("DOMContentLoaded", function () {
-        // fetchClassTypeAPI();
+         //fetchClassTypeAPI();
         initShowButton();
-        // initCalendar();
-        // 使用Promise.all来确保两个API调用都完成后再进行下一步
-        Promise.all([fetchEventsFromAPI(), fetchClassTypeAPI()])
-            .then(() => {
-                initCalendar();
-            })
-            .catch(error => {
-                console.log("初始化失敗: " + error.message);
-            });
+        initCalendar();
+         //使用Promise.all来确保两个API调用都完成后再进行下一步
+        fetchEventsFromAPI().then(() => {
+            calendarInstance.render();
+        });
     });
     // 我要預約按鈕
     function initShowButton() {
@@ -623,6 +601,7 @@
             eventContent: function (arg) {
                 let memberId = arg.event.extendedProps.memberId;
                 let courseStatus = arg.event.extendedProps.courseStatus;
+
                 if (courseStatus === '進行中' && memberId === 0) {
                     return {
                         html: '<button class="available">尚可預約</button>'
@@ -682,28 +661,8 @@
             .catch(function (error) {
                 // 處理錯誤情況
                 console.log("找不到預約資料: " + error.message);
-            });
-    }
-    var classTypeData = null;
+                Swal.fire('錯誤', '此教練尚未開課', 'error');
 
-    //  從API獲取事件數據
-    function fetchClassTypeAPI() {
-        // 從API獲取課程類型
-        // var classInfo = globalData.classes;
-        fetch("https://localhost:7011/api/ClassType")
-            .then(function (response) {
-                if (!response.ok) {
-                    throw new Error("課程資訊API請求失敗" + response);
-                }
-                return response.json();
-            })
-            .then(function (data) {
-                classTypeData = data; // 儲存數據到全局變量
-                // 將獲取的事件數據添加到日曆中
-            })
-            .catch(function (error) {
-                // 處理錯誤情況
-                alert("課程資訊API請求失敗: " + error.message);
             });
     }
     function showModal(event) {
@@ -717,7 +676,7 @@
         var gymInfo = globalData.gyms.find(gym => gym.gymId === gymId);
         // 獲取教練ID和課程類型ID
         const classTypeId = event.extendedProps.classTypeId;
-        const matchedClassTypeInfo = classTypeData.find(type => type.classTypeId === classTypeId);
+        //const matchedClassTypeInfo = classTypeData.find(type => type.classTypeId === classTypeId);
         // 放進健身房模擬視窗
         // 使用SweetAlert2显示模态窗口
         Swal.fire({
@@ -725,7 +684,6 @@
             html: `
                     <div class="row m-0 p-0">
                         <div class="col me-0 pe-0" style="text-align: left;">
-                          <p><strong>課程名稱:</strong><br> ${matchedClassTypeInfo ? matchedClassTypeInfo.className : "課程未知"}</p>
                           <p><strong>場館名稱:</strong><br> ${gymInfo ? gymInfo.gymName : "場館名稱未知"}</p>
                           <p><strong>場館電話:</strong><br> ${gymInfo ? gymInfo.phone : "場館電話未知"}</p>
                           <p><strong>場館地址:</strong><br>  <span style="white-space: nowrap;">${gymInfo ? gymInfo.address : "場館地址未知"}</span></p>
