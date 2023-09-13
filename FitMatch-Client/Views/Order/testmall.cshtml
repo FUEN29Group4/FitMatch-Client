@@ -1,0 +1,515 @@
+@{
+
+    ViewData["Title"] = "testmall";
+}
+
+<!-- 搜尋列 / 分頁 / 排序(新舊.價格) -->
+<nav class="bd-subnavbar py-2 mt-5 mb-2" aria-label="Secondary navigation">
+    <div class="container-xxl d-flex align-items-md-center">
+        <!-- 關鍵字搜尋 -->
+        <form class="bd-search position-relative me-auto col-md-6" id="keywordsearch" style="align-items: center;">
+            <div class="row">
+                <div class="input-group">
+                    <!-- 選擇搜尋條件 -->
+                    <label class="input-group-text" for="selectSearchCondition">選擇搜尋條件</label>
+                    <select class="form-select conditionname" name="selectSearchCondition">
+                        <option value="1">商品名稱</option>
+                        <option value="2">品牌名稱</option>
+                        <option value="3">類別名稱</option>
+                    </select>
+                    <!-- 輸入關鍵字 -->
+                    <input type="search" class="form-control ds-input" name="txtKeyword" id="search-input"
+                        placeholder="搜尋關鍵字" aria-label="Text input with dropdown button">
+                    <input type="submit" value="尋找商品" class="btn btn-secondary" />
+                </div>
+            </div>
+        </form>
+        <button id="demo_keyword" class="btn btn-outline-secondary btn-sm mt-2" style="float:left">Demo 關鍵字</button>
+
+        <div class="dropdown ms-md-auto d-flex col-md-4">
+            <!-- 每頁顯示筆數 -->
+            <div class="d-flex select-limit js-select-limit mx-5"
+                style="white-space: nowrap; align-items: center; float:right; border:solid 1px #D0D0D0; border-radius:5px; padding:0 10px">
+                每頁顯示 :
+                <button type="button" class="btn btn-link pageSize" style="margin: -5px" value="20">20</button>
+                <button type="button" class="btn btn-link pageSize" style="margin: -5px" value="40">40</button>
+                <button type="button" class="btn btn-link pageSize" style="margin: -5px" value="60">60</button>
+                筆
+            </div>
+
+            @using (Html.BeginForm())
+            {
+                <!-- 排序方式 -->
+                <div class="dropdown ms-md-auto">
+                    <select class="form-select" name="displayorder" id="displayorder" style="min-width:150px"
+                        aria-label="Floating label select example">
+                        <option value="0">最新商品</option>
+                        <option value="1">由舊到新</option>
+                        <option value="2">熱門商品</option>
+                        <option value="3">價格由低至高</option>
+                        <option value="4">價格由高至低</option>
+                    </select>
+                </div>
+            }
+        </div>
+</nav>
+
+
+<div class="container">
+    <div class="row">
+        <!-- 側邊工具列 -->
+        <div class="col-12 col-md-2 my-3">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light flex-column">
+                <div class="container-fluid ">
+                    <!-- 小視窗時摺疊按鈕 -->
+                    <button class="navbar-toggler" href="#sublist" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="true"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <!-- 小視窗時摺疊區域 -->
+                    <div class="navbar-collapse collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav flex-column" id="sublist" style="margin-top:10px">
+                            <!-- 摺疊選單 for 商品類別 -->
+                            <li>
+                                <div>商品類別</div>
+                                <ul id="categoryOptions" class="mx-4">
+                                    @*<li class="my-1 ">
+                                    <a href="#" class="selectCategory" val-category="類別ID">類別名稱 (商品數)</a>
+                                    </li>*@
+                                </ul>
+                            </li>
+                            <!-- 摺疊選單 for 寵物類型 -->
+                            <li>
+                                <div>寵物類型</div>
+                                <ul id="tagOptions" class="mx-4">
+                                    @*<li class="my-1">
+                                    <a href="#" class="selectTag" val-tag="標籤ID">寵物類別 (商品數)</a>
+                                    </li>*@
+                                </ul>
+                            </li>
+                            <!-- 摺疊選單 for 價格區間 -->
+                            <li>
+                                <div>價格區間</div>
+                                <div id="sublist3" class="mx-4">
+                                    <input type="number" min="0" id="minPrice" placeholder="最低價"
+                                        style="width:75px; height:32px" /> -
+                                    <input type="number" min="0" id="maxPrice" placeholder="最高價"
+                                        style="width:75px; height:32px" />
+                                    <br />
+                                    <button type="button" id="sendPriceRange" class="btn btn-secondary my-2"
+                                        style="float:right">查詢</button>
+                                    <br />
+                                    <button id="demo_price" class="btn btn-outline-secondary btn-sm mx-2"
+                                        style="float:right">Demo 價格區間</button>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- 中間商品欄 -->
+        <div class="col-12 col-md-10 my-3">
+            <!-- 搜尋所有商品(重置搜尋條件) -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item" id="defaultSearch"><a href="#">商品總覽</a></li>
+                </ol>
+            </nav>
+
+            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 row-cols-xl-5 my-3 mx-5"
+                id="showThisPageMerchandise">
+                <!-- 透過Ajax產生商品櫥窗 -->
+            </div>
+
+            <!-- 分頁 -->
+            <nav aria-label="Page navigation example ">
+                <ul class="pagination justify-content-center mt-4 " id="pagingContainer">
+                    <!-- 透過Ajax產生分頁標籤 -->
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- DEMO按鈕 -->
+<script>
+    $("#demo_keyword").on("click", (e) => {
+        e.preventDefault();
+        $("#search-input").val("鼠");
+    })
+    $("#demo_price").on("click", (e) => {
+        e.preventDefault();
+        $("#minPrice").val(250);
+        $("#maxPrice").val(1000);
+    })
+</script>
+<!-- 產生商城內容 -->
+
+
+<script>
+    // #region 呈現初始頁面
+    //給予初值
+    let txtKeyword = "@ViewBag.txtKeyword";
+    let searchCondition = @ViewBag.searchCondition;
+    let sideCategoryId = @ViewBag.sideCategoryId;
+    let pageSize = @ViewBag.pageSize;
+    let displayorder = @ViewBag.displayorder;
+    let pageindex = @ViewBag.PageIndex;
+    let minPrice = @(ViewBag.minPrice ?? "null");
+    let maxPrice = @(ViewBag.maxPrice ?? "null");
+    let tagId = @ViewBag.tagId;
+    //呈現初始頁面
+    SearchProducts();
+    //設定搜尋條件初值呈現
+    $(() => {
+        $(`.conditionname > option[value=${searchCondition}]`).attr("Selected", true);
+        $(`#displayorder > option[value=${displayorder}]`).attr("Selected", true);
+        $(`.pageSize[value="${pageSize}"]`).attr("style", "color: #4B0091; font-weight: bold; margin: -5px")
+    })
+    // #endregion
+
+    // #region 設定搜尋參數
+    //搜尋條件
+    $(".conditionname").on("change", (e) => {
+        searchCondition = $(".conditionname").val();
+    });
+    //關鍵字
+    $("#keywordsearch").on("submit", (e) => {
+        txtKeyword = $("#search-input").val();
+        pageindex = 1;
+        sideCategoryId = 0;
+        tagId = 0;
+        e.preventDefault();
+        SearchProducts();
+    });
+    //排序方式
+    $("#displayorder").on("change", (e) => {
+        displayorder = $("#displayorder").val();
+        pageindex = 1;
+        SearchProducts();
+    });
+    //每頁顯示筆數
+    $(".pageSize").on("click", (e) => {
+        pageSize = $(e.currentTarget).val();
+        pageindex = 1;
+        $(`.pageSize`).attr("style", "margin: -5px")
+        $(`.pageSize[value="${pageSize}"]`).attr("style", "color: #4B0091; font-weight: bold; margin: -5px")
+        SearchProducts();
+    });
+    //價格區間
+    $("#sendPriceRange").on("click", () => {
+        minPrice = $("#minPrice").val();
+        maxPrice = $("#maxPrice").val();
+        pageindex = 1;
+        SearchProducts();
+    });
+    //搜尋所有商品(重置搜尋條件)
+    $("#defaultSearch").on("click", () => {
+        txtKeyword = "";
+        $("#search-input").val("");
+        sideCategoryId = 0;
+        pageindex = 1;
+        minPrice = null;
+        maxPrice = null;
+        $("#minPrice").val(null);
+        $("#maxPrice").val(null);
+        tagId = 0;
+        SearchProducts();
+    });
+    // #endregion
+
+    async function SearchProducts() {
+        $(async () => {
+            // #region 產生分頁標籤
+            const responseforlength = await fetch(`@Url.Content("~/ApiMall/GetSearchResultLength/")?txtKeyword=${txtKeyword}&`
+                + `searchCondition=${searchCondition}&pageSize=${pageSize}&PageIndex=${pageindex}&`
+                + `sideCategoryId=${sideCategoryId}&minPrice=${minPrice}&maxPrice=${maxPrice}&tagId=${tagId}`);
+            const returnLengthBag = await responseforlength.text();
+            const resultLength = JSON.parse(returnLengthBag);
+            const totalpage = Math.ceil(resultLength / pageSize);
+            const pagingContainer = document.querySelector("#pagingContainer");
+
+            let indexRow = `<li class="page-item border-light toPrevious">\
+                                            <a class="page-link" href="#" aria-label="Previous">\
+                                                <span aria-hidden="true">&laquo;</span>\
+                                            </a>\
+                                        </li>`;
+            let indexArray = "";
+            let start, end;
+            if (totalpage <= 5) {
+                start = 1; end = totalpage;
+                for (var i = start; i <= end; i++) {
+                    indexArray += `<li class="page-item showIndex" val-index="${i}"><a class="page-link" href="#">${i}</a></li>`;
+                }
+            }
+            if (totalpage > 5) {
+                if (pageindex < 4) {
+                    start = 1; end = 5;
+                    for (var i = start; i <= end; i++) {
+                        indexArray += `<li class="page-item showIndex" val-index="${i}"><a class="page-link" href="#">${i}</a></li>`;
+                    }
+                    indexArray += `<li class="page-item"><a class="page-link" >...</a></li>`
+                }
+                if (pageindex == 4) {
+                    start = 2; end = 6;
+                    for (var i = start; i <= end; i++) {
+                        indexArray += `<li class="page-item showIndex" val-index="${i}"><a class="page-link" href="#">${i}</a></li>`;
+                    }
+                    indexArray += `<li class="page-item"><a class="page-link" >...</a></li>`
+                }
+                if (pageindex > 4) {
+                    if (pageindex + 3 <= totalpage) {
+                        start = pageindex - 2; end = parseInt(pageindex) + 2;//未轉型會默認為字串串接
+                        indexArray += `<li class="page-item showIndex" val-index="1"><a class="page-link" href="#">1</a></li>`
+                            + `<li class="page-item"><a class="page-link" >...</a></li>`
+                        for (var i = start; i <= end; i++) {
+                            indexArray += `<li class="page-item showIndex" val-index="${i}"><a class="page-link" href="#">${i}</a></li>`;
+                        }
+                        indexArray += `<li class="page-item"><a class="page-link" >...</a></li>`
+                    }
+                    if (pageindex + 3 > totalpage) {
+                        start = pageindex - 2; end = totalpage;
+                        indexArray += `<li class="page-item showIndex" val-index="1"><a class="page-link" href="#">1</a></li>`
+                            + `<li class="page-item"><a class="page-link" >...</a></li>`
+                        for (var i = start; i <= end; i++) {
+                            indexArray += `<li class="page-item showIndex" val-index="${i}"><a class="page-link" href="#">${i}</a></li>`;
+                        }
+                    }
+                }
+            }
+
+            indexRow += indexArray + `<li class="page-item toNext">
+                                                    <a class="page-link" href="#" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                  </li>`;
+            pagingContainer.innerHTML = indexRow;
+            // #endregion
+
+            // #region 分頁標籤按鈕
+            //改變當前頁籤格式
+            $(`.showIndex[val-index=${pageindex}]`).attr("class", "page-item showIndex active");
+            //點選分頁標籤
+            $(".showIndex").on("click", (e) => {
+                pageindex = $(e.currentTarget).attr("val-index");
+                SearchProducts();
+            })
+            //前後頁按鈕
+            $(".toPrevious").on("click", () => {
+                if (pageindex > 1) {
+                    pageindex--;
+                    SearchProducts();
+                }
+            })
+            $(".toNext").on("click", () => {
+                if (pageindex < totalpage) {
+                    pageindex++;
+                    SearchProducts();
+                }
+            })
+            // #endregion
+
+            // #region 產生商品櫥窗
+            const pageContent = document.querySelector("#showThisPageMerchandise");
+            pageContent.innerHTML = "<h4>找不到符合的商品</h4>";
+
+            if (resultLength > 0) {         // ↓ C#語法，連接系統路徑                         // ↓ Js語法，串接參數(※換行要用 "+"，不然容易出莫名其妙的問題)
+                const response = await fetch(`@Url.Content("~/ApiMall/DisplaySearchResult/")?txtKeyword=${txtKeyword}&`
+                    + `searchCondition=${searchCondition}&displayorder=${displayorder}&pageSize=${pageSize}&PageIndex=${pageindex}&`
+                    + `sideCategoryId=${sideCategoryId}&minPrice=${minPrice}&maxPrice=${maxPrice}&tagId=${tagId}`);
+                const returnJsonBag = await response.text();
+                const searchResult = JSON.parse(returnJsonBag);
+
+                /*(改用方法生成商品卡片)
+                var windows = searchResult.map(window => {
+                    const { price, specId, merchandiseId, brandName } = window;
+                    const showName = (window.fullName.length > 11) ? window.fullName.substring(0, 10) + "  ..." : window.fullName;
+                    const imageUrl = (window.imageUrl == null) ? "default.png" : window.imageUrl;
+                    return (
+                        `<div class="col">\
+                                            <div class="card my-3 mx-2 text-center border-light ">\
+                                                <img src="@Url.Content("~/uploads/merchandisePicture/")${imageUrl}" data-specid="${specId}" data-merchandisid="${merchandiseId}"`
+                                                                                + ` class="w-100 img-thumbnail hover-overlay gotoViewpage">\
+                                                <div class="card-body ">\
+                                                    <h6 class="card-text ">《 ${brandName} 》</h6>\
+                                                    <h6 class="card-title ">${showName}</h6>\
+                                                    <h5 class="card-text ">${price} 元</h5>\
+                                                    <a href="#" class="btn btn-outline-secondary add_to_Cart" data-specid="${specId}" style="float:right"><i class="fa fa-shopping-cart"></i></a>\
+                                                </div>\
+                                            </div>\
+                                        </div>`)
+                            })
+                pageContent.innerHTML = windows.join("");*/
+                let thispageContent = generateProductCard(searchResult);
+                pageContent.innerHTML = thispageContent;
+                bindHoverEvents();  //叫用hover特效
+
+                //進入商品檢視頁
+                $(".gotoViewpage").on("click", (e) => {
+                    const targetMerchandisid = $(e.currentTarget).attr("data-merchandisid");
+                    const targetSpecid = $(e.currentTarget).attr("data-specid");
+                    window.location.href = `/Mall/Viewpage/?MerchandiseId=${targetMerchandisid}&SpecId=${targetSpecid}`;
+                });
+
+                /*加入購物車功能(已取消)
+                const loginModal = new bootstrap.Modal(document.querySelector('#loginModal'));
+                $(".add_to_Cart").on("click", async (e) => {
+                    if (ROLE != "會員") {
+                        await Swal.fire('請登入以使用購物車');
+                        loginModal.show();   //使用js檔中的登入方法，登入成功則刷新原頁面//
+                    }
+                    if (ROLE == "會員") {  //傳送資料
+                        const specIdforCart = $(e.currentTarget).attr("data-specid");
+                        const responseCart = await fetch(`@Url.Content("~/ApiMall/AddtoCart/")?SpecId=${specIdforCart}`, {
+                            method: "POST"
+                        });
+                        const returnJsonBag = await responseCart.text();
+                        const isSuccess = JSON.parse(returnJsonBag);
+
+                        if (isSuccess) {
+                            Swal.fire({
+                                position: 'center',
+                                title: '成功加入購物車！',
+                                showConfirmButton: false,
+                                timer: 600,
+                                allowOutsideClick: false
+                            })
+                            refreshNavbarCart();
+                        }
+                        if (!isSuccess) {
+                            Swal.fire({
+                                position: 'center',
+                                title: '加入購物車失敗，請稍後再試！',
+                                showConfirmButton: false,
+                                timer: 1000,
+                            })
+                        }
+                    }
+                })*/
+            }
+            // #endregion
+        })
+
+        //呈現側邊商品類別選項
+        $(async () => {
+            const CategoryOptions = document.querySelector("#categoryOptions")
+            const responseforCategory = await fetch(`@Url.Content("~/ApiMall/GenerateSideCategoryOptions")?txtKeyword=${txtKeyword}&`
+                + `searchCondition=${searchCondition}&minPrice=${minPrice}&maxPrice=${maxPrice}&tagId=${tagId}`);
+            const returnCategoryBag = await responseforCategory.text();
+            const CategoryResult = JSON.parse(returnCategoryBag);
+
+            var categoryList = CategoryResult.map(category => {
+                const { categoryId, categoryName, matchedMerchandiseNumber } = category;
+                return (`<li class="my-1 "><a href="#" class="selectCategory" val-category="${categoryId}">${categoryName} (${matchedMerchandiseNumber})</a></li>`)
+            })
+            CategoryOptions.innerHTML = categoryList.join("");
+
+            $(".selectCategory").on("click", (e) => {
+                sideCategoryId = $(e.currentTarget).attr("val-category");
+                SearchProducts();
+            })
+
+            //改變側邊選項格式
+            $(`.selectCategory[val-category="${sideCategoryId}"]`).attr("style", "color: #4B0091; font-weight: bold");
+        })
+
+        //呈現側邊寵物類別選項
+        $(async () => {
+            const TagOptions = document.querySelector("#tagOptions")
+            const responseforTag = await fetch(`@Url.Content("~/ApiMall/GenerateSideTagOptions")?txtKeyword=${txtKeyword}&`
+                + `searchCondition=${searchCondition}&sideCategoryId=${sideCategoryId}&minPrice=${minPrice}&maxPrice=${maxPrice}`);
+            const returnTagBag = await responseforTag.text();
+            const TagResult = JSON.parse(returnTagBag);
+
+            var tagList = TagResult.map(tag => {
+                const { tagId, tagName, matchedMerchandiseNumber } = tag;
+                return (`<li class="my-1 "><a href="#" class="selectTag" val-tag="${tagId}">${tagName} (${matchedMerchandiseNumber})</a></li>`)
+            })
+            TagOptions.innerHTML = tagList.join("");
+
+            $(".selectTag").on("click", (e) => {
+                tagId = $(e.currentTarget).attr("val-tag");
+                SearchProducts();
+            })
+
+            //改變側邊選項格式
+            $(`.selectTag[val-tag="${tagId}"]`).attr("style", "color: #4B0091; font-weight: bold");
+        })
+    }
+
+    //產生商品卡片
+    function generateProductCard(searchResult) {
+        return searchResult.map(value => {
+            const { merchandiseImageUrl, specImageUrl, discountPercentage, price, popularity, merchandiseId, specId, merchandiseName, specName, brandName, score } = value;
+            let imageUrl = 'specPicture/default.png'
+            if (!!merchandiseImageUrl) imageUrl = 'merchandisePicture/' + merchandiseImageUrl
+            if (!!specImageUrl) imageUrl = 'specPicture/' + specImageUrl
+            const canceledPrice = (discountPercentage == 100) ? '' :
+                `<del class="text-secondary mt-auto" style="font-size:3px">$<span>${price}</span></del>`
+            const showscore = (Math.round(score * 10) / 10).toFixed(1);
+            const href = `${ROOT}/Mall/Viewpage/?MerchandiseId=${merchandiseId}&SpecId=${specId}`
+            return `
+                                   <div class="p-2 position-relative mx-4 my-3 displayedSpec gotoViewpage"
+                                                                        data-specid="${specId}" data-merchandisid="${merchandiseId}">                                   
+                                        <figure class="partial-image-container">
+                                        <img src="${ROOT}/uploads/${imageUrl}" alt="...">                                           
+                                        </figure>
+                                        <div class="px-1 my-0" style="height:80px;overflow:hidden">
+                                            <h6 class="card-text ">《 ${brandName} 》</h6>
+                                            <h5 class="card-text ">${merchandiseName}</h5>
+                                            <h6 class="card-title ">- ${specName}</h6>
+                                        </div>
+                                        <div class="my-0 d-flex px-1">
+                                            ${canceledPrice}
+                                            <i class="fa-solid fa-star text-warning me-1 ms-auto my-auto"></i>
+                                            <span>${showscore}</span>
+                                        </div>
+                                        <div class="text-danger px-1">
+                                            NTD$<span>${Math.round(price * discountPercentage / 100)}</span>
+                                        </div>
+                                    </div>
+                                `
+        }).join('')
+    }
+
+    //商品卡片hover特效
+    function bindHoverEvents() {
+        $('.displayedSpec').hover(
+            e => {
+                $(e.currentTarget).find('figure').addClass('border-danger')
+                e.currentTarget.customAnimate('headShake')
+            }
+            , e => $(e.currentTarget).find('figure').removeClass('border-danger'))
+    }
+</script>
+
+
+
+<link rel="stylesheet" href="~/css/recommend/partialview.css" />
+<style>
+    li {
+        list-style: none;
+    }
+
+    select {
+        max-width: 120px;
+        min-width: 120px
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .pageSize {
+        text-decoration: none;
+    }
+</style>

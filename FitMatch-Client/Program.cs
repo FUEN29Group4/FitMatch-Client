@@ -26,33 +26,33 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// ¦bÀ³¥Î±Ò°Ê®É©I¥s§ó·s½Òµ{ª¬ºAAPI
-var lifetime = app.Services.GetService<IHostApplicationLifetime>();
-if (lifetime != null)
-{
-    lifetime.ApplicationStarted.Register(async () =>
-    {
-        try
-        {
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var response = await httpClient.GetAsync("https://localhost:7011/api/CourseStatusUpdater/updateStatus");
-                if (response.IsSuccessStatusCode)
-                {
-                    Console.WriteLine("¦¨¥\§ó·s½Òµ{ª¬ºA");
-                }
-                else
-                {
-                    Console.WriteLine("§ó·s½Òµ{ª¬ºA¥¢±Ñ");
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"µo¥Í²§±`¡G{ex.Message}");
-        }
-    });
-}
+//// ï¿½bï¿½ï¿½ï¿½Î±Ò°Ê®É©Iï¿½sï¿½ï¿½sï¿½Òµ{ï¿½ï¿½ï¿½AAPI
+//var lifetime = app.Services.GetService<IHostApplicationLifetime>();
+//if (lifetime != null)
+//{
+//    lifetime.ApplicationStarted.Register(async () =>
+//    {
+//        try
+//        {
+//            using (HttpClient httpClient = new HttpClient())
+//            {
+//                var response = await httpClient.GetAsync("https://localhost:7011/api/CourseStatusUpdater/updateStatus");
+//                if (response.IsSuccessStatusCode)
+//                {
+//                    Console.WriteLine("ï¿½ï¿½ï¿½\ï¿½ï¿½sï¿½Òµ{ï¿½ï¿½ï¿½A");
+//                }
+//                else
+//                {
+//                    Console.WriteLine("ï¿½ï¿½sï¿½Òµ{ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½");
+//                }
+//            }
+//        }
+//        catch (Exception ex)
+//        {
+//            Console.WriteLine($"ï¿½oï¿½Í²ï¿½ï¿½`ï¿½G{ex.Message}");
+//        }
+//    });
+//}
 
 
 app.Run();
