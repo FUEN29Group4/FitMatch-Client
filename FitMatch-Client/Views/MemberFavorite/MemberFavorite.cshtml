@@ -98,7 +98,7 @@
         <button type="button" class="btn btn-primary">
             <a class="text-light" href=" personal_member_favorite_list.html">我的教練</a>
         </button>
-        <button type="button" class="btn btn-primary">
+        <button type="button" class="btn btn-primary" v-on:click="toggleDisplay">
             <a class="text-light" href=" personal_member_favorite_list_Gym.html">我的健身房</a>
         </button>
         <button type="button" class="btn btn-primary">
@@ -131,7 +131,10 @@
                                 </a>
                             </div> *@
                             <div class="card-footer bg-white border-top-0 fz-12px d-flex align-items-center p-2 ">
-                                <span class="me-auto">{{trainer.trainerName || '無姓氏'}}</span>
+
+                                <div v-if="showTrainer">{{ trainer.trainerName }}</div>
+                                <div v-else>{{ product.ProductId }}</div>
+
                                 <i class="fa-solid fa-heart" style="color:red;"></i>
                             </div>
                         </div>
@@ -154,11 +157,11 @@
 
 <script>
     Vue.createApp({
-
         data() {
             return {
                 MemberFavorites: [],
                 favoritesWithTrainersAndProducts: [],  // 添加此行
+                showTrainer: true  // Added this line
             };
         },
         mounted() {
@@ -190,11 +193,13 @@
                         console.error("API 請求失敗: " + error.message);
                     });
             },
-
+            toggleDisplay() { // 把這個函數移出 MemberFavorite 函數的範圍
+                this.showTrainer = !this.showTrainer;
+            }
         },
     }).mount('#app')
-
 </script>
+
 
 
 
