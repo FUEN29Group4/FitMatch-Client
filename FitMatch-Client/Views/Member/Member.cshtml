@@ -98,22 +98,17 @@
             </nav>
         </div>
     </div>
- @*    <hr>
+    <hr>
     <div class="container ">
         <ul class="list-style-type-none" style="color: black;">
-            <li>
-                <label id="memberId"></label>
-            </li>
-            <li>
-                <label id="memberNameInput"></label>
-            </li>
+            <li>ID: <span class="memberIDInput"></span></li>
+            <li>姓名: <span class="memberNameInput"></span></li>
             <li>一般會員</li>
-            <li>
-                <label id="memberEmailInput"></label>
-            </li>
+            <li>Email: <span class="memberEmailInput"></span></li>
             <li>年度累積消費金額 NT.3,509</li>
         </ul>
-    </div> *@
+    </div>
+    <hr>
     <!-- 會員基本資料 Start -->
     <div class="container">
         <div class="container-fluid pt-4 px-4">
@@ -125,18 +120,18 @@
                         <div class="row align-items-center mb-3">
                             <label for="memberNameInput" class="col-3 text-center col-form-label">中文姓名</label>
                             <div class="col-9">
-                                <input class="form-control mb-3" type="text" id="memberNameInput" disabled>
+                                <input class="form-control mb-3 memberNameInput" type="text" disabled>
                             </div>
                         </div>
-                        <!-- 申請時間 -->
+                        <!-- 生日 -->
                         <div class="row align-items-center mb-3">
                             <label for="inputname" class="col-3 text-center col-form-label">生日</label>
                             <div class="col-9">
-                                <input class="form-select" style="background-color:#f1f1f1;"
-                                       type="date" name="birth" id="memberBirthInput" value="2023-01-01" disabled>
+                                <input class="form-select memberBirthInput" style="background-color:#f1f1f1;"
+                                       type="date" name="birth" value="2023-01-01" disabled>
                             </div>
                         </div>
-                        <!-- 履歷狀態 -->
+                        <!-- 性別 -->
                         <div class="row align-items-center mb-3">
                             <label for="inputname" class="col-3 text-center col-form-label">
                                 性別
@@ -149,26 +144,26 @@
                                 </select>
                             </div>
                         </div>
-                        <!-- 希望待遇 -->
+                        <!-- Email -->
                         <div class="row align-items-center mb-3">
                             <label for="membercourseFeeInput" class="col-3 text-center col-form-label">Email</label>
                             <div class="col-9">
-                                <input class="form-control mb-3" type="text" id="memberEmailInput" disabled>
+                                <input class="form-control mb-3 memberEmailInput" type="text" disabled>
                             </div>
                         </div>
                         <!-- 電話 -->
                         <div class="row align-items-center mb-3">
                             <label for="memberPhoneInput" class="col-3 text-center col-form-label">電話</label>
                             <div class="col-9">
-                                <input class="form-control mb-3" type="text"
-                                       aria-label="電話" id="memberPhoneInput" disabled>
+                                <input class="form-control mb-3 memberPhoneInput" type="text"
+                                       aria-label="電話" disabled>
                             </div>
                         </div>
                         <!-- 地址 -->
                         <div class="row align-items-center mb-3">
                             <label for="memberAddressInput" class="col-3 text-center col-form-label">地址</label>
                             <div class="col-9">
-                                <input class="form-control mb-3" type="text" aria-label="請輸入地址" id="memberAddressInput" disabled>
+                                <input class="form-control mb-3 memberAddressInput" type="text" aria-label="請輸入地址"  disabled>
                             </div>
                         </div>
                         <!-- 會員狀態 -->
@@ -188,8 +183,8 @@
                         <div class="row align-items-center mb-3">
                             <label for="inputname" class="col-3 text-center col-form-label">入會時間</label>
                             <div class="col-9">
-                                <input class="form-select" style="background-color:#f1f1f1;"
-                                       type="date" name="birth" id="memberCreateAtInput" value="2023-01-01" disabled>
+                                <input class="form-select memberCreateAtInput" style="background-color:#f1f1f1;"
+                                       type="date" name="birth" value="2023-01-01" disabled>
                             </div>
                         </div>
                     </div>
@@ -197,7 +192,7 @@
                     <!-- 照片 -->
                     <div class="col-6 d-flex justify-content-center ps-5">
                         <div class="rounded-image-container">
-                            <img src="~/images/nopersonal.jpg"  class="rounded-image" id="member-img" />
+                            <img src="~/images/nopersonal.jpg" class="rounded-image" id="member-img" />
                         </div>
                     </div>
                 </div>
@@ -232,22 +227,31 @@
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-                $('#memberNameInput').val(data.memberName);
-                $('#memberAddressInput').val(data.address);
-                $('#memberBirthInput').val(data.birth); // 這裡需要確認
-                $('#memberPhoneInput').val(data.phone);
-                $('#memberGenderInput').val(data.gender);
-                $('#memberEmailInput').val(data.email);
-                $('#memberCreatedAtInput').val(data.createdAt);
-                $('#memberStatusInput').val(data.status);
-                $('#memberPasswordInput').val(data.password);
+                $('.memberNameInput').val(data.memberName);
+                $('.memberAddressInput').val(data.address);
+                $('.memberBirthInput').val(data.birth); // 這裡需要確認
+                $('.memberPhoneInput').val(data.phone);
+                $('.memberGenderInput').val(data.gender);
+                $('.memberEmailInput').val(data.email);
+                $('.memberCreatedAtInput').val(data.createdAt);
+                $('.memberStatusInput').val(data.status);
+                $('.memberPasswordInput').val(data.password);
+
+
+               var ID = memberId;
+                $('.memberIDInput').text(ID);
+                var name = data.memberName;
+                $('.memberNameInput').text(name); 
+                // 假設你已經成功獲取到 Email，存在變數 data.email 中
+                var email = data.email;
+                $('.memberEmailInput').text(email);
 
                 var Photo = data.photo; //照片
                 // 更新會員照片
                 var memberPhotoElement = document.querySelector("#member-img");
 
-                if (memberImageBase64) { 
-                var memberImageBase64 = data.photo; // 從API獲取的Base64編碼的照片
+                if (Photo) {
+                    var memberImageBase64 = Photo; // 從API獲取的Base64編碼的照片
                 memberPhotoElement.src = "data:image/jpeg;base64," + memberImageBase64; // 直接將圖像設置為src
                
                 }
