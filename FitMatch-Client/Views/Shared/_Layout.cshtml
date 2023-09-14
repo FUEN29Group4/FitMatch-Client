@@ -89,8 +89,19 @@
                     </div>
                 </div>
 
-                <a asp-controller="Order" asp-action="ShopTest" class="nav-item nav-link">商城</a>
-                
+
+                @* 商成與購物車NAVBAR *@
+                @* <a asp-controller="Order" asp-action="ShopTest" class="nav-item nav-link">商城</a> *@
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">商城</a>
+                    <div class="dropdown-menu m-0">
+                        <a asp-controller="Order" asp-action="sho0913" class="dropdown-item">商城首頁</a>
+                        <a asp-controller="Order" asp-action="cart0913" class="dropdown-item">我的購物車</a>
+                        @* <a href="blog_activity.html" class="dropdown-item">活動專區</a>
+                        <a href="blog_announcement.html" class="dropdown-item">系統公告</a> *@
+                    </div>
+                </div>
+
 
                 <a href="restaurant.html" class="nav-item nav-link">尋找健康餐</a>
             </div>
