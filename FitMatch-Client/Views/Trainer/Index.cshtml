@@ -101,27 +101,7 @@
                 <div class="row justify-content-between">
                     <!--左攔-->
                     <div class="col-6">
-                        <!-- 申請時間 -->
-                        <div class="row align-items-center mb-3">
-                            <label for="inputname" class="col-3 text-center col-form-label">申請時間</label>
-                            <div class="col-9">
-                                <input class="form-select" style="background-color:#f1f1f1;"
-                                       type="date" name="birth" id="" value="2023-01-01" disabled>
-                            </div>
-                        </div>
-                        <!-- 履歷狀態 -->
-                        <div class="row align-items-center mb-3">
-                            <label for="inputname" class="col-3 text-center col-form-label">
-                                履歷狀態
-                            </label>
-                            <div class="col-9">
-                                <select class="form-select"
-                                        aria-label="縣市" name="add1" size="1" disabled>
-                                    <option value="1">公開</option>
-                                    <option value="2" select>隱藏</option>
-                                </select>
-                            </div>
-                        </div>
+
                         <!-- 姓名 -->
                         <div class="row align-items-center mb-3">
                             <label for="trainerNameInput" class="col-3 text-center col-form-label">中文姓名</label>
@@ -158,7 +138,8 @@
                     <!-- 照片 -->
                     <div class="col-6 d-flex justify-content-center ps-5">
                         <div class="rounded-image-container">
-                            <img class="rounded-image" id="trainer-img" alt="Trainer Image" />
+
+                            <img src="~/images/nopersonal.jpg" class="rounded-image" id="trainer-img" alt="Trainer Image" />
                         </div>
                     </div>
                 </div>
@@ -223,76 +204,75 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <script>
+    // 生成專長的核取框
     function populateCheckboxes(data) {
         const container = $('#checkboxContainer');
         data.forEach(item => {
-            const checkbox = $(`<input type="checkbox" name="expertise" value="${item.className}" disabled>`);
+            const checkbox = $(`<input type="checkbox" name="expertise" value="${item.className}">`);
             const label = $('<label></label>').text(item.className).prepend(checkbox);
             container.append(label);
         });
     }
 
+    // 用於根據教練數據勾選專長
+    function checkExpertisesForTrainer(data) {
+        const expertiseArray = data.expertise.split(",");
+        expertiseArray.forEach(exp => {
+            $(`input[name="expertise"][value="${exp.trim()}"]`).prop('checked', true);
+        });
+    }
 
     $(document).ready(function () {
-        const trainerId = 1;
+        const trainerId = sessionStorage.getItem('trainerId') || 1;
 
-        // 第一個 AJAX 請求
-        $.ajax({
-            url: 'https://localhost:7011/api/Trainer/' + trainerId,
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                $('#trainerNameInput').val(data.trainerName);
-                $('#trainerAddressInput').val(data.address);
-                $('#trainerBirthdayInput').val(data.birthday); // 這裡需要確認
-                $('#trainerPhoneInput').val(data.phone); // 這裡需要確認
-                // 將逗號替換為換行符，然後設定到文本區域
-                let certificateText = data.certificate.replace(/,/g, '\n');
-                $('#trainerCertificateInput').val(certificateText);
-                $('#trainerexpertiseInput').val(data.expertise); // 這裡需要確認
-                // 將experience字段中的逗號替換為換行符
-                let experienceText = data.experience.replace(/,/g, '\n');
-                $('#trainerAwardsInput').val(experienceText);
-                $('#trainercourseFeeInput').val(data.courseFee); // 這裡需要確認
-                $('#trainerIntroduceInput').val(data.introduce);
-                const expertiseArray = data.expertise.split(",");
-                expertiseArray.forEach(exp => {
-                    $(`input[name="expertise"][value="${exp.trim()}"]`).prop('checked', true);
-                });
-                //let blobData = data.photo;
-                //let blob = new Blob([blobData], { type: 'image/jpeg' });
-                //let reader = new FileReader();
-                //reader.readAsDataURL(blob);
-                //reader.onloadend = function () {
-                //    let base64data = reader.result;
-                //    $('.member').attr('src', base64data);
-                //}
-                var Photo = data.photo; //照片
-                // 更新教練照片
-                var trainerPhotoElement = document.querySelector("#trainer-img");
-
-                trainerPhotoElement.onerror = function () {
-                    trainerPhotoElement.src = "./images/nopersonal.jpg";
-                };
-
-                var trainerImageBase64 = data.photo; // 從API獲取的Base64編碼的照片
-                trainerPhotoElement.src = "data:image/jpeg;base64," + trainerImageBase64; // 直接將圖像設置為src
-
-
-                // ... 其他的資料設定
-            },
-            error: function (error) {
-                console.log("Error:", error);
-            }
-        });
-
-        // 第二個 AJAX 請求
+        // 第一個 AJAX 請求: 生成核取框
         $.ajax({
             url: 'https://localhost:7011/api/ClassType',
             type: 'GET',
             dataType: 'json',
             success: function (data) {
                 populateCheckboxes(data);
+
+                // 核取框生成後，進行第二個 AJAX 請求: 獲取教練詳細資料並進行勾選
+                $.ajax({
+                    url: 'https://localhost:7011/api/Trainer/' + trainerId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (trainerData) {
+                        $('#trainerNameInput').val(trainerData.trainerName);
+                        $('#trainerAddressInput').val(trainerData.address);
+                        $('#trainerBirthdayInput').val(trainerData.birthday);
+                        $('#trainerPhoneInput').val(trainerData.phone);
+
+                        // 將逗號替換為換行符，然後設定到文本區域
+                        let certificateText = trainerData.certificate.replace(/,/g, '\n');
+                        $('#trainerCertificateInput').val(certificateText);
+
+                        // 將experience字段中的逗號替換為換行符
+                        let experienceText = trainerData.experience.replace(/,/g, '\n');
+                        $('#trainerAwardsInput').val(experienceText);
+
+                        $('#trainercourseFeeInput').val(trainerData.courseFee);
+                        $('#trainerIntroduceInput').val(trainerData.introduce);
+
+                        // 使用專門的函數進行核取框的勾選
+                        checkExpertisesForTrainer(trainerData);
+
+                        var Photo = trainerData.photo;
+                        // 更新會員照片
+                        var trainerPhotoElement = document.querySelector("#trainer-img");
+                        if (Photo) {
+                            var trainerImageBase64 = Photo;
+                            trainerPhotoElement.src = "data:image/jpeg;base64," + trainerImageBase64;
+                        }
+                        // 在這裡添加代碼來設置唯讀和禁用屬性
+                        $("input[type='text'], textarea").attr('readonly', true);
+                        $("input[type='checkbox'], input[type='radio']").attr('disabled', true);
+                    },
+                    error: function (error) {
+                        console.log("Error:", error);
+                    }
+                });
             },
             error: function (error) {
                 console.log("Error:", error);
