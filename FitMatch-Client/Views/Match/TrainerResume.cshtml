@@ -365,7 +365,7 @@
                         <!-- 教練大頭貼 -->
                         <div class="col-md-6 p-5">
                             <div class="circle-container mx-auto">
-                                <img alt="" class="trainer-img" id="trainer-img">
+                                <img src="~/images/nopersonal.jpg" class="trainer-img" id="trainer-img">
                             </div>
                             <!-- 教練名字 -->
                             <h3 class="card-title text-light" id="trainer-name"></h3>
@@ -482,13 +482,13 @@
                 // 更新教練照片
                 var trainerPhotoElement = document.querySelector("#trainer-img");
 
-                trainerPhotoElement.onerror = function () {
-                    trainerPhotoElement.src = "./images/nopersonal.jpg";
-                };
-
-                var trainerImageBase64 = data.photo; // 從API獲取的Base64編碼的照片
+                //trainerPhotoElement.onerror = function () {
+                //    trainerPhotoElement.src = "./images/nopersonal.jpg";
+                //};
+                if (Photo) {
+                    var trainerImageBase64 = Photo; // 從API獲取的Base64編碼的照片
                 trainerPhotoElement.src = "data:image/jpeg;base64," + trainerImageBase64; // 直接將圖像設置為src
-
+                }
 
                 // 更新教練名字
                 var trainerNameElement = document.querySelector("#trainer-name");
