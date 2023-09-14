@@ -1,28 +1,60 @@
-﻿@{
-    ViewData["Title"] = "memebr";
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
 }
 
-
-<script src="https://unpkg.com/vue@3"></script>
-
+<!-- personal 樣式 -->
+<link rel="stylesheet" href="~/css/PersonalStyle.css">
 <style>
-    body {
-        background-color: #fefefe
+    .rounded-image-container {
+        width: 350px;
+        height: 350px;
+        border-radius: 50%;
+        overflow: hidden;
     }
 
-    .col-form-label {
-        width: auto;
+    .rounded-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
+    /*專長欄位*/
+    .checkbox-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .checkbox-item {
+        flex-basis: 50%;
+        display: flex;
+        align-items: center;
+    }
+
+        .checkbox-item::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-right: 8px;
+        }
+
 </style>
+
 <!-- Page Header Start -->
 <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
-        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Our Barber</h1>
+        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Personal</h1>
         <nav aria-label="breadcrumb animated slideInDown">
             <ol class="breadcrumb justify-content-center text-uppercase mb-0">
                 <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
                 <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                <li class="breadcrumb-item text-primary active" aria-current="page">Our Barber</li>
+                <li class="breadcrumb-item text-primary active" aria-current="page">Personal</li>
             </ol>
         </nav>
     </div>
@@ -30,7 +62,7 @@
 <!-- Page Header End -->
 <!-- body start -->
 
-<div class="container">
+<div class="container bg-white">
     <div class="container-fluid py-5 ">
         <div class="container text-center">
             <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
@@ -38,10 +70,9 @@
                 <ol class="breadcrumb" style="color: rgb(0, 0, 0);">
                     <li class="breadcrumb-item"><a href="index.html" style="color: rgb(0, 0, 0);">首頁</a></li>
                     <li class="breadcrumb-item">
-                        <a href="personal_member.html"
-                           style="color: rgb(0, 0, 0);">我的會員專區</a>
+                        <a href="personal_member.html" style="color: rgb(0, 0, 0);">我的會員專區</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">基本資料</li>
+                    <li class="breadcrumb-item" aria-current="page">基本資料</li>
                 </ol>
             </nav>
         </div>
@@ -67,223 +98,167 @@
             </nav>
         </div>
     </div>
-    <!-- 會員簡歷 Start -->
-    <hr>
-    <div id="app">
-        <div class="container ">
-            <ul class="list-style-type-none" style="color: black;">
-                <li id="MemberId">
-                    {{memberId}}
-                </li>
-                <li id="MemberName">
-                    {{Member.memberName}}
-                </li>
-                <li>一般會員</li>
-                <li id="Email">ispan@yahoo.com.tw</li>
-                <li>年度累積消費金額 NT.3,509</li>
-            </ul>
-        </div>
-        <!-- 會員簡歷 End -->
-        <hr>
-        <!-- 會員基本資料 Start -->
-        <div class="container">
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12">
-                        <div class=" rounded h-100 p-4">
-
-                            <form class="" style="padding: 50px;">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div>
-                                            <ul>
-                                                <li id="MemberId2">
-                                                    {{ Member.memberId }}
-                                                </li>
-                                            </ul>
-                                        </div>
-
-
-                                        <div class="row-sm-12 row-lg-6 mb-3 d-flex">
-                                            <div class="col-2">
-                                                <label for="inputname" class="col-form-label">姓名</label>
-                                            </div>
-                                            <div class="col-8">
-                                                <input id="MemberName2" class="form-control mb-3" type="text">
-                                                {{ Member.memberName }}
-                                                <!-- disabled是鎖定表格 -->
-
-
-
-                                            </div>
-                                        </div>
-                                        <div class="row-sm-12 row-lg-6 mb-3 d-flex">
-                                            <div class="col-2">
-                                                <label for="inputname" class="col-form-label">生日</label>
-                                            </div>
-                                            <div class="col-8">
-                                                <input id="Birth" class="form-select" type="date">
-                                            </div>
-                                        </div>
-
-                                        <div class="row-sm-12 row-lg-6 mb-3 d-flex">
-                                            <div class="col-2">
-                                                <label class="col-form-label">性別</label>
-                                            </div>
-                                            <div class="col-8 d-flex justify-content-start pt-2">
-                                                <div class="form-check me-3">
-                                                    <input class="form-check-input" type="radio" name="stateRadios"
-                                                           id="gridRadios5" value="option5" checked disabled>
-                                                    <label class="form-check-label" for="gridRadios5">
-                                                        男
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="stateRadios"
-                                                           id="gridRadios6" value="option6" disabled>
-                                                    <label class="form-check-label" for="gridRadios6">
-                                                        女
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                            <div class="col-2">
-                                                <label for="inputname" class="col-form-label">Email</label>
-                                            </div>
-                                            <div class="col-8">
-                                                <input id="Email" class="form-control mb-3" type="text"
-                                                       placeholder="afaf@gmail.com" aria-label="請輸入密碼" 
-                                                       disabled>
-                                            </div>
-                                        </div>
-                                        <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                            <div class="col-2">
-                                                <label for="inputname" class="col-form-label">電話</label>
-                                            </div>
-                                            <div class="col-8">
-                                                <input id="Phone" class="form-control mb-3" type="text"
-                                                       aria-label="請輸入密碼">
-                                            </div>
-                                        </div>
-                                        <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                            <div class="col-2">
-                                                <label for="inputname" class="col-form-label">縣市</label>
-                                            </div>
-                                            <div class="col-8">
-                                                <select id="Address" class="form-select" aria-label="縣市" name="add1"
-                                                        size="1" disabled>
-                                                    <option value="1">台北市</option>
-                                                    <option value="2">新北市</option>
-                                                    <option value="3">高雄市</option>
-                                                    <option value="3">台中市</option>
-                                                    <option value="3">台南市</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                            <div class="col-2">
-                                                <label for="inputname" class="col-form-label">地址</label>
-                                            </div>
-                                            <div class="col-8">
-                                                <input id="Address" class="form-control mb-3" type="text"
-                                                       placeholder="台南市陀螺灣扛三路二段80號" aria-label="請輸入地址" 
-                                                       disabled>
-                                            </div>
-                                        </div>
-                                        <!--
-                                        <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                            <div class="col-2">
-                                                <label for="inputname" class="col-form-label">電子信箱</label>
-                                            </div>
-                                            <div class="col-8">
-                                                <input class="form-control mb-3" type="text" placeholder="請輸入電子信箱"
-                                                    aria-label="請輸入電子信箱" id="inputemail" disabled>
-                                            </div>
-                                        </div> -->
-                                        <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                            <div class="col-2">
-                                                <label for="inputname" class="col-form-label">
-                                                    會員狀態
-                                                </label>
-                                            </div>
-                                            <div class="col-8">
-                                                <select id="Status" class="form-select" aria-label="權限" name="add1"
-                                                        size="1" disabled>
-                                                    <option value="2">有效會員</option>
-                                                    <option value="2">無效會員</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                            <div class="col-2">
-                                                <label for="inputname" class="col-form-label">入會時間</label>
-                                            </div>
-                                            <div class="col-8">
-                                                <input id="CreateAt" class="form-select" type="date" name="birth" 
-                                                       value="2023-03-08" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="round-image">
-                                            <img src="data:image/jpeg;base64,' + Member.photo" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <hr>
-                            <div class="text-center">
-                                <button type="button" class="btn btn-primary">
-                                    <a href="personal_member_data_modification.html">
-                                        <h5>修改</h5>
-                                    </a>
-                                </button>
+ @*    <hr>
+    <div class="container ">
+        <ul class="list-style-type-none" style="color: black;">
+            <li>
+                <label id="memberId"></label>
+            </li>
+            <li>
+                <label id="memberNameInput"></label>
+            </li>
+            <li>一般會員</li>
+            <li>
+                <label id="memberEmailInput"></label>
+            </li>
+            <li>年度累積消費金額 NT.3,509</li>
+        </ul>
+    </div> *@
+    <!-- 會員基本資料 Start -->
+    <div class="container">
+        <div class="container-fluid pt-4 px-4">
+            <form>
+                <div class="row justify-content-between">
+                    <!--左攔-->
+                    <div class="col-6">                      
+                        <!-- 姓名 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="memberNameInput" class="col-3 text-center col-form-label">中文姓名</label>
+                            <div class="col-9">
+                                <input class="form-control mb-3" type="text" id="memberNameInput" disabled>
+                            </div>
+                        </div>
+                        <!-- 申請時間 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="inputname" class="col-3 text-center col-form-label">生日</label>
+                            <div class="col-9">
+                                <input class="form-select" style="background-color:#f1f1f1;"
+                                       type="date" name="birth" id="memberBirthInput" value="2023-01-01" disabled>
+                            </div>
+                        </div>
+                        <!-- 履歷狀態 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="inputname" class="col-3 text-center col-form-label">
+                                性別
+                            </label>
+                            <div class="col-9">
+                                <select class="form-select"
+                                        aria-label="性別" name="add1" size="1" disabled>
+                                    <option value="1">男</option>
+                                    <option value="2" select>女</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- 希望待遇 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="membercourseFeeInput" class="col-3 text-center col-form-label">Email</label>
+                            <div class="col-9">
+                                <input class="form-control mb-3" type="text" id="memberEmailInput" disabled>
+                            </div>
+                        </div>
+                        <!-- 電話 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="memberPhoneInput" class="col-3 text-center col-form-label">電話</label>
+                            <div class="col-9">
+                                <input class="form-control mb-3" type="text"
+                                       aria-label="電話" id="memberPhoneInput" disabled>
+                            </div>
+                        </div>
+                        <!-- 地址 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="memberAddressInput" class="col-3 text-center col-form-label">地址</label>
+                            <div class="col-9">
+                                <input class="form-control mb-3" type="text" aria-label="請輸入地址" id="memberAddressInput" disabled>
+                            </div>
+                        </div>
+                        <!-- 會員狀態 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="inputname" class="col-3 text-center col-form-label">
+                                會員狀態
+                            </label>
+                            <div class="col-9">
+                                <select class="form-select"
+                                        aria-label="會員狀態" name="add2" size="1" disabled>
+                                    <option value="1">有效會員</option>
+                                    <option value="2" select>無效會員</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- 入會時間 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="inputname" class="col-3 text-center col-form-label">入會時間</label>
+                            <div class="col-9">
+                                <input class="form-select" style="background-color:#f1f1f1;"
+                                       type="date" name="birth" id="memberCreateAtInput" value="2023-01-01" disabled>
                             </div>
                         </div>
                     </div>
+                    <!-- 第二攔 -->
+                    <!-- 照片 -->
+                    <div class="col-6 d-flex justify-content-center ps-5">
+                        <div class="rounded-image-container">
+                            <img src="~/images/nopersonal.jpg"  class="rounded-image" id="member-img" />
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <hr>
+                <!-- 第二區塊 -->
+                <div class="row justify-content-between">
+                    <div class="container text-center">
+                        <button type="button" class="btn rounded-pill m-2"
+                                style="background-color: #F24B88;">
+                            <a href="personal_member_Basic_Information_Data_Modification.html"
+                               style="color: #fff;">修改</a>
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <!-- Form End -->
-        <!-- 會員基本資料 End -->
     </div>
 </div>
+<!-- Form End -->
+<!-- 會員基本資料 End -->
+<!-- body end -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <script>
-    const app = Vue.createApp({
-        data() {
-            return {
-                Member: {}, // 存储单一数据的对象
-            };
-        },
-        mounted() {
-            // 在组件加载后调用方法来获取单一数据
-            this.fetchMember();
-        },
-        methods: {
-            async fetchMember() {
-                try {
-                    // 获取URL中的ID参数
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const memberId = urlParams.get('id');
 
-                    // 发起GET请求获取特定ID的数据
-                    const response = await axios.get(`https://localhost:7011/api/Member/` + memberId);
+    $(document).ready(function () {
+        const memberId = 64;
 
-                    // 将获取的数据存储到Vue实例的数据属性中
-                    this.Member = response.data;
-                    console.log(response)
-                } catch (error) {
-                    console.error('获取数据时出现错误：', error);
+        // 第一個 AJAX 請求
+        $.ajax({
+            url: 'https://localhost:7011/api/Member/' + memberId,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                $('#memberNameInput').val(data.memberName);
+                $('#memberAddressInput').val(data.address);
+                $('#memberBirthInput').val(data.birth); // 這裡需要確認
+                $('#memberPhoneInput').val(data.phone);
+                $('#memberGenderInput').val(data.gender);
+                $('#memberEmailInput').val(data.email);
+                $('#memberCreatedAtInput').val(data.createdAt);
+                $('#memberStatusInput').val(data.status);
+                $('#memberPasswordInput').val(data.password);
+
+                var Photo = data.photo; //照片
+                // 更新會員照片
+                var memberPhotoElement = document.querySelector("#member-img");
+
+                if (memberImageBase64) { 
+                var memberImageBase64 = data.photo; // 從API獲取的Base64編碼的照片
+                memberPhotoElement.src = "data:image/jpeg;base64," + memberImageBase64; // 直接將圖像設置為src
+               
                 }
+
+                // ... 其他的資料設定
             },
-        }
-    }).mount('#app');
+            error: function (error) {
+                console.log("Error:", error);
+            }
+        });
 
-
-
-
+    });
 </script>
 
