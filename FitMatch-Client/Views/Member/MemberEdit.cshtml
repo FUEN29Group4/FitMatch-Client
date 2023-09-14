@@ -137,7 +137,7 @@
                                 性別
                             </label>
                             <div class="col-9">
-                                <select class="form-select"
+                                <select class="form-select memberGenderInput"
                                         aria-label="性別" name="add1" size="1">
                                     <option value="1">男</option>
                                     <option value="2" select>女</option>
@@ -172,16 +172,13 @@
                     <div class="col-6 d-flex justify-content-center ps-5">
                         <div class="rounded-image-container">
                             <img src="~/images/nopersonal.jpg" class="rounded-image" id="member-img" />
-                            <input class="form-control form-control-sm" id="formFileSm" type="file">
-                            <label for="formFileSm"
-                                   class="form-label">只能上傳jpg/png文件，且不超過500kb</label>
                         </div>
                     </div>
                     <!-- 新照片上傳和預覽 -->
                     <div class="col-sm-12 col-xl-6 mb-3">
                         <div class="card">
                             <div class="card-header d-flex justify-content-center">
-                                新封面照片
+                                照片
                             </div>
                             <div class="card-body d-flex flex-column align-items-center">
                                 <!-- 預覽新上傳的照片 -->
@@ -195,7 +192,6 @@
                             </div>
                         </div>
                     </div>
-                  
                 </div>
                 <hr>
                 <!-- 第二區塊 -->
@@ -228,7 +224,7 @@
             success: function (data) {
                 $('.memberNameInput').val(data.memberName);
                 $('.memberAddressInput').val(data.address);
-                $('.memberBirthInput').val(data.birth); // 這裡需要確認
+             /*    $('.memberBirthInput').val(data.birth); */ // 這裡需要確認
                 $('.memberPhoneInput').val(data.phone);
                 $('.memberGenderInput').val(data.gender);
                 $('.memberEmailInput').val(data.email);
@@ -244,6 +240,15 @@
                 // 假設你已經成功獲取到 Email，存在變數 data.email 中
                 var email = data.email;
                 $('.memberEmailInput').text(email);
+
+                var birthDate = new Date(data.birth); // 假設 data.birth 包含日期時間值
+                var formattedBirthDate = birthDate.toISOString().split('T')[0]; // 格式化為 YYYY-MM-DD
+                $('.memberBirthInput').val(formattedBirthDate);
+
+                var gender = data.gender ? "男" : "女";
+                $('.memberGenderInput').val(gender);
+
+
 
                 var Photo = data.photo; //照片
                 // 更新會員照片
