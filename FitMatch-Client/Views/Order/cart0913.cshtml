@@ -109,9 +109,9 @@
         @*動態自動加在底下這裡*@
 
     </header>
-    <footer style="text-align:right;">
+   @*  <footer style="text-align:right;">
         Total : <span id="total">0</span>
-    </footer>
+    </footer> *@
 </div>
 @*======= 泰迪cart end =======*@
 
@@ -123,95 +123,201 @@
     <div class="container">
         <div class="row ">
             <div class="col-lg-9">
-                <div class="text-end">
-
-                </div>
                 <div class="col-lg-4 col-md-4">
-
                 </div>
-                <div id="myCart">
-                    @*加：id="myCart"*@
-                    <form class="cart-controller">
-                        <div class="cart-table table-responsive">
-
-                            <table class="table table-bordered">
-                                <thead id="cartList">
-                                    @*加：id="cartList"*@
-                                    <tr class="itemHead">
-                                        <th scope="col">商品</th>
-                                        <th scope="col"></th>
-                                        <th scope="col">小計</th>
-                                        <th scope="col">數量</th>
-                                        @*<th scope="col">小計</th>*@
-                                        <th scope="col" class="ps-4">刪除</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    @*<tr>
-                            <td class="product-thumbnail">
-                                <a href="product-details.html">
-                                    <img src="images/商城/peeta.jpg" alt="Image">
-                                </a>
-                            </td>
-                            <td class="product-name">
-                                <a href="product-details.html">
-                                    DFMALB 20V Max XX Oscillating Multi <br> Tool
-                                    Variable Speed Tool
-                                </a>
-                            </td>
-                            <td class="product-price">
-                                <span class="unit-amount">$90.00</span>
-                            </td>
-                            <td class="product-subtotal">
-                                <span class="subtotal-amount">$90.00</span>
-                            </td>
-                            <td class="trash">
-                                <a href="" class="remove">
-                                    <i class="fa-solid fa-trash" style="color: #f24b88;"></i>
-                                </a>
-                            </td>
-                        </tr>*@
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </form>
-
-
-                    <div class="coupon-cart">
-                        <div class="row">
-                            <div class="col-lg-8 col-md-8">
-                                <div class="form-group mb-0">
-                                    <input type="text" class="form-control" placeholder="Coupon code">
-                                    <button class="btn btn-primary">
-                                        Apply Coupon
-                                    </button>
-                                </div>
+                <form class="cart-controller">
+                    <div class="cart-table table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">商品</th>
+                                    <th scope="col"></th>
+                                    <th scope="col">金額</th>
+                                    <th scope="col">數量</th>
+                                    <th scope="col">小計</th>
+                                    <th scope="col" class="ps-4">刪除</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="product-thumbnail">
+                                        <a href="product-details.html">
+                                            <img src="images/商城/peeta.jpg" alt="Image">
+                                        </a>
+                                    </td>
+                                    <td class="product-name">
+                                        <a href="product-details.html">
+                                            DFMALB 20V Max XX Oscillating Multi <br> Tool
+                                            Variable Speed Tool
+                                        </a>
+                                    </td>
+                                    <td class="product-price">
+                                        <span class="unit-amount">$90.00</span>
+                                    </td>
+                                    <td class="product-quantity">
+                                        <div class="input-counter">
+                                            <span class="minus-btn">
+                                                <i class="fa-solid fa-minus"></i>
+                                            </span>
+                                            <input id="counter" type="text" value="0" min="0">
+                                            <span class="plus-btn">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="product-subtotal">
+                                        <span class="subtotal-amount">$90.00</span>
+                                    </td>
+                                    <td class="trash">
+                                        <a href="" class="remove">
+                                            <i class="fa-solid fa-trash" style="color: #f24b88;"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="product-thumbnail">
+                                        <a href="product-details.html">
+                                            <img src="images/商城/brand.jpg" alt="Image">
+                                        </a>
+                                    </td>
+                                    <td class="product-name">
+                                        <a href="product-details.html">
+                                            Power Tools Set Chinese Manufacturer <br>
+                                            Production 50V Lithu Battery
+                                        </a>
+                                    </td>
+                                    <td class="product-price">
+                                        <span class="unit-amount">$50.00</span>
+                                    </td>
+                                    <td class="product-quantity">
+                                        <div class="input-counter">
+                                            <span class="minus-btn">
+                                                <i class="fa-solid fa-minus"></i>
+                                            </span>
+                                            <input id="counter" type="text" value="0" min="0">
+                                            <span class="plus-btn">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="product-subtotal">
+                                        <span class="subtotal-amount">$50.00</span>
+                                    </td>
+                                    <td class="trash">
+                                        <a href="" class="remove">
+                                            <i class="fa-solid fa-trash" style="color: #f24b88;"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="product-thumbnail">
+                                        <a href="product-details.html">
+                                            <img src="images/商城/肌酸.jpg" alt="Image">
+                                        </a>
+                                    </td>
+                                    <td class="product-name">
+                                        <a href="product-details.html">
+                                            Electrical Magnetic Impact Power <br> Hammer
+                                            Drills Machine
+                                        </a>
+                                    </td>
+                                    <td class="product-price">
+                                        <span class="unit-amount">$30.00</span>
+                                    </td>
+                                    <td class="product-quantity">
+                                        <div class="input-counter">
+                                            <span class="minus-btn">
+                                                <i class="fa-solid fa-minus"></i>
+                                            </span>
+                                            <input id="counter" type="text" value="0" min="0">
+                                            <span class="plus-btn">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="product-subtotal">
+                                        <span class="subtotal-amount">$30.00</span>
+                                    </td>
+                                    <td class="trash">
+                                        <a href="" class="remove">
+                                            <i class="fa-solid fa-trash" style="color: #f24b88;"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="product-thumbnail">
+                                        <a href="product-details.html">
+                                            <img src="images/商城/B.webp" alt="Image">
+                                        </a>
+                                    </td>
+                                    <td class="product-name">
+                                        <a href="product-details.html">
+                                            Professional Cordless Drill Power Tools <br>
+                                            Set Competitive Price
+                                        </a>
+                                    </td>
+                                    <td class="product-price">
+                                        <span class="unit-amount">$45.00</span>
+                                    </td>
+                                    <td class="product-quantity">
+                                        <div class="input-counter">
+                                            <span class="minus-btn">
+                                                <i class="fa-solid fa-minus"></i>
+                                            </span>
+                                            <input id="counter" type="text" value="0" min="0">
+                                            <span class="plus-btn">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="product-subtotal">
+                                        <span class="subtotal-amount">$45.00</span>
+                                    </td>
+                                    <td class="trash">
+                                        <a href="" class="remove">
+                                            <i class="fa-solid fa-trash" style="color: #f24b88;"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+                <div class="coupon-cart">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8">
+                            <div class="form-group mb-0">
+                                <input type="text" class="form-control" placeholder="Coupon code">
+                                <button class="btn btn-primary">
+                                    Apply Coupon
+                                </button>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="cart-totals">
-                        <h3 class="cart-checkout-title">結帳金額</h3>
-                        <ul>
-                           
+            </div>
 
-                            <li>總金額 <span id="total">$ 0 </span></li>    @*這裡加id="total"*@
-                            <li><b>折扣後金額</b> <span><b>$ 0 </b></span></li>
-                        </ul>
-                        <div class="text-center">
-                            <a href="checkout.html" class="btn btn-primary" style="min-width: 200px;
+
+            <div class="col-lg-3">
+                <div class="cart-totals">
+                    <h3 class="cart-checkout-title">結帳金額</h3>
+                    <ul>
+                       @*  <li>小計 <span>0</span></li> *@
+                       @*  <li>稅金 <span>$00.00</span></li> *@
+                        <li>總金額 <span id="total">0</span></li>
+                        <li>優惠折扣 <span id="優惠id">0</span></li>
+                        <li><b>折扣後金額</b><span id="折扣後id"><b>0</b></span></li>
+                    </ul>
+                    <div class="text-center">
+                        <a href="checkout.html" class="btn btn-primary" style="min-width: 200px;
     margin: auto;">
-                                結帳
-                            </a>
-                        </div>
+                            結帳
+                        </a>
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
     </div>
 </section>
 
@@ -353,7 +459,66 @@
     function changeItemCount() {
         alert('這是作業')
     }
-    window.addEventListener('load', doFirst);</script>
+    window.addEventListener('load', doFirst);
+
+
+
+
+
+
+
+    @* ========= API 串接區: 結帳將資料用post方式傳入資庫中 ========= *@
+
+        function checkout() {
+            let cartItems = []; // 用來存儲購物車商品信息的陣列
+
+            // 獲取本地存儲中的商品信息
+            for (let i = 0; i < localStorage.length; i++) {
+                let key = localStorage.key(i);
+                if (key !== 'addItemList') {
+                    let itemInfo = localStorage.getItem(key).split('|');
+                    let productId = key;
+                    let productName = itemInfo[0];
+                    let price = parseFloat(itemInfo[2]);
+
+                    cartItems.push({ productId, productName, price });
+                }
+            }
+
+            // 發送POST請求到後端API
+            fetch('/api/order/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(cartItems)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // 清空本地存儲
+                        localStorage.clear();
+                        // 在此處執行訂單提交成功後的操作，例如顯示成功消息
+                    } else {
+                        // 在此處處理錯誤情況
+                    }
+                })
+                .catch(error => {
+                    // 在此處處理網絡錯誤
+                });
+        }
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
 
 @* ======== Vue & axios start ======== *@
 
