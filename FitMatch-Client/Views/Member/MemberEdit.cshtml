@@ -1,30 +1,60 @@
-﻿@{
-    ViewData["Title"] = "memebredit";
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
 }
 
-
-<script src="https://unpkg.com/vue@3"></script>
-<script src="https://unpkg.com/vuex@4"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAx81rlSCMsRIUbaL06l0OqVm5tSYkvDA&callback=initMap" async defer></script>
-
-
+<!-- personal 樣式 -->
+<link rel="stylesheet" href="~/css/PersonalStyle.css">
 <style>
-    body{
-        background-color: #fefefe
+    .rounded-image-container {
+        width: 350px;
+        height: 350px;
+        border-radius: 50%;
+        overflow: hidden;
     }
-    .col-form-label{
-        width:auto;
+
+    .rounded-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
+    /*專長欄位*/
+    .checkbox-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .checkbox-item {
+        flex-basis: 50%;
+        display: flex;
+        align-items: center;
+    }
+
+        .checkbox-item::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-right: 8px;
+        }
+
 </style>
+
 <!-- Page Header Start -->
 <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
-        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Our Barber</h1>
+        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Personal</h1>
         <nav aria-label="breadcrumb animated slideInDown">
             <ol class="breadcrumb justify-content-center text-uppercase mb-0">
                 <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
                 <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                <li class="breadcrumb-item text-primary active" aria-current="page">Our Barber</li>
+                <li class="breadcrumb-item text-primary active" aria-current="page">Personal</li>
             </ol>
         </nav>
     </div>
@@ -33,25 +63,21 @@
 <!-- body start -->
 
 <div class="container bg-white">
-    <div class="container-fluid py-5 bg-white">
+    <div class="container-fluid py-5 ">
         <div class="container text-center">
             <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
                  aria-label="breadcrumb">
-                <ol class="breadcrumb memeber ac">
+                <ol class="breadcrumb" style="color: rgb(0, 0, 0);">
                     <li class="breadcrumb-item"><a href="index.html" style="color: rgb(0, 0, 0);">首頁</a></li>
-                    <li class=" breadcrumb-item">
-                        <a href="personal_member.html"
-                           style="color: rgb(0, 0, 0);">我的會員專區</a>
+                    <li class="breadcrumb-item">
+                        <a href="personal_member.html" style="color: rgb(0, 0, 0);">我的會員專區</a>
                     </li>
-                    <li class=" breadcrumb-item active" aria-current="page" style="color: rgb(0, 0, 0);">
-                        基本資料
-                        <strong>(修改)</strong>
-                    </li>
+                    <li class="breadcrumb-item" aria-current="page">基本資料</li>
                 </ol>
             </nav>
         </div>
 
-        <div class=" container">
+        <div class="container">
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <div class="container member line">
@@ -68,198 +94,174 @@
                                class="nav-link nav-item">客服紀錄</a>
                         </div>
                     </div>
+                </div>
             </nav>
         </div>
     </div>
-    <!-- 會員簡歷 Start -->
     <hr>
     <div class="container ">
-        <ul class="list-style-type-none" style="color: #000000;">
-            <li><strong>李大明</strong></li>
-            <li><strong>一般會員</strong></li>
-            <li><strong>ispan@yahoo.com.tw</strong></li>
-            <li><strong>年度累積消費金額 NT.3,509</strong></li>
+        <ul class="list-style-type-none" style="color: black;">
+            <li>ID: <span class="memberIDInput"></span></li>
+            <li>姓名: <span class="memberNameInput"></span></li>
+            <li>一般會員</li>
+            <li>Email: <span class="memberEmailInput"></span></li>
+            <li>年度累積消費金額 NT.3,509</li>
         </ul>
     </div>
-    <!-- 會員簡歷 End -->
     <hr>
     <!-- 會員基本資料 Start -->
     <div class="container">
         <div class="container-fluid pt-4 px-4">
-            <div class="row g-4">
-                <div class="col-sm-12">
-                    <div class=" rounded h-100 p-4">
-
-                        <form class="" style="padding: 50px;background-color: #fff;">
-                            <div class="row">
-                                <div class="col">
-
-                                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                        <div class="col-1">
-                                            <label for="inputname" class="col-form-label">姓名</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input class="form-control mb-3" type="text" placeholder="李大明"
-                                                   aria-label="請輸入帳號" id="inputname">
-                                        </div>
-                                    </div>
-                                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                        <div class="col-1">
-                                            <label for="inputname" class="col-form-label">生日</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input class="form-select" style="background-color:#ffffff;" type="date"
-                                                   name="birth" id="" value="2000-01-01">
-                                        </div>
-                                    </div>
-
-                                    <div class="row-sm-12 row-lg-6 mb-3 d-flex">
-                                        <div class="col-1">
-                                            <legend class="col-form-label pt-0 pe-4">性別</legend>
-                                        </div>
-                                        <div class="col-8 d-flex justify-content-start">
-                                            <div class="form-check me-3">
-                                                <input class="form-check-input" type="radio" name="stateRadios"
-                                                       id="gridRadios5" value="option5">
-                                                <label class="form-check-label" for="gridRadios5">
-                                                    男
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="stateRadios"
-                                                       id="gridRadios6" value="option6">
-                                                <label class="form-check-label" for="gridRadios6">
-                                                    女
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                        <div class="col-1">
-                                            <label for="inputname" class="col-form-label">Email</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input class="form-control mb-3" type="text"
-                                                   placeholder="afaf@gmail.com" aria-label="請輸入密碼" id="inputname">
-                                        </div>
-                                    </div>
-                                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                        <div class="col-1">
-                                            <label for="inputname" class="col-form-label">電話</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input class="form-control mb-3" type="text" placeholder="0999-666-666"
-                                                   aria-label="請輸入密碼" id="inputname">
-                                        </div>
-                                    </div>
-                                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                        <div class="col-1">
-                                            <label for="inputname" class="col-form-label">縣市</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <select class="form-select" style="background-color: #ffffff;"
-                                                    aria-label="縣市" name="add1" size="1">
-                                                <option value="1">台北市</option>
-                                                <option value="2">新北市</option>
-                                                <option value="3">高雄市</option>
-                                                <option value="3">台中市</option>
-                                                <option value="3">台南市</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                        <div class="col-1">
-                                            <label for="inputname" class="col-form-label">地址</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input class="form-control mb-3" type="text"
-                                                   placeholder="台南市陀螺灣扛三路二段80號" aria-label="請輸入地址" id="inputname">
-                                        </div>
-                                    </div>
-
-                                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                        <div class="col-1">
-                                            <label for="inputname" class="col-form-label">電子信箱</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input class="form-control mb-3" type="text"
-                                                   placeholder="acmki@gmail.com" aria-label="請輸入電子信箱" id="inputemail">
-                                        </div>
-                                    </div>
-                                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                        <div class="col-1">
-                                            <label for="inputname" class="col-form-label">
-                                                會員狀態
-                                            </label>
-                                        </div>
-                                        <div class="col-8">
-                                            <select class="form-select" style="background-color: #ffffff;"
-                                                    aria-label="權限" name="add1" size="1">
-                                                <option value="2">有效會員</option>
-                                                <option value="2">無效會員</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="row-sm-12 row-lg-6 mb-3 d-flex ps">
-                                        <div class="col-1">
-                                            <label for="inputname" class="col-form-label">入會時間</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input class="form-select" style="background-color:#ffffff;" type="date"
-                                                   name="birth" id="" value="2023-03-08">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <form>
-                                        <div class="col">
-                                            <img class="member img-head rounded-circle" src="data:image/jpeg;base64,' + Member.photo"
-                                                 alt="">
-                                        </div>
-                                        <div class="col-6" style="margin-top: 10px;">
-                                            <input class="form-control form-control-sm" id="formFileSm" type="file">
-                                            <label for="formFileSm"
-                                                   class="form-label">只能上傳jpg/png文件，且不超過500kb</label>
-                                        </div>
-                                    </form>
-                                </div>
+            <form>
+                <div class="row justify-content-between">
+                    <!--左攔-->
+                    <div class="col-6">
+                        <!-- 姓名 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="memberNameInput" class="col-3 text-center col-form-label">中文姓名</label>
+                            <div class="col-9">
+                                <input class="form-control mb-3 memberNameInput" type="text">
                             </div>
-                        </form>
-                        <hr>
-                        <div class="container text-center">
-                            <button type="button" class="btn rounded-pill m-2" style="background-color: #F24B88;">
-                                <a href="personal_member.html" style="color: #fff;">儲存</a>
-                            </button>
+                        </div>
+                        <!-- 生日 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="inputname" class="col-3 text-center col-form-label">生日</label>
+                            <div class="col-9">
+                                <input class="form-select memberBirthInput" style="background-color:#f1f1f1;"
+                                       type="date" name="birth" value="2023-01-01">
+                            </div>
+                        </div>
+                        <!-- 性別 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="inputname" class="col-3 text-center col-form-label">
+                                性別
+                            </label>
+                            <div class="col-9">
+                                <select class="form-select"
+                                        aria-label="性別" name="add1" size="1">
+                                    <option value="1">男</option>
+                                    <option value="2" select>女</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Email -->
+                        <div class="row align-items-center mb-3">
+                            <label for="membercourseFeeInput" class="col-3 text-center col-form-label">Email</label>
+                            <div class="col-9">
+                                <input class="form-control mb-3 memberEmailInput" type="text">
+                            </div>
+                        </div>
+                        <!-- 電話 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="memberPhoneInput" class="col-3 text-center col-form-label">電話</label>
+                            <div class="col-9">
+                                <input class="form-control mb-3 memberPhoneInput" type="text"
+                                       aria-label="電話">
+                            </div>
+                        </div>
+                        <!-- 地址 -->
+                        <div class="row align-items-center mb-3">
+                            <label for="memberAddressInput" class="col-3 text-center col-form-label">地址</label>
+                            <div class="col-9">
+                                <input class="form-control mb-3 memberAddressInput" type="text" aria-label="請輸入地址">
+                            </div>
                         </div>
                     </div>
+                    <!-- 第二攔 -->
+                    <!-- 照片 -->
+                    <div class="col-6 d-flex justify-content-center ps-5">
+                        <div class="rounded-image-container">
+                            <img src="~/images/nopersonal.jpg" class="rounded-image" id="member-img" />
+                            <input class="form-control form-control-sm" id="formFileSm" type="file">
+                            <label for="formFileSm"
+                                   class="form-label">只能上傳jpg/png文件，且不超過500kb</label>
+                        </div>
+                    </div>
+                    <!-- 新照片上傳和預覽 -->
+                    <div class="col-sm-12 col-xl-6 mb-3">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-center">
+                                新封面照片
+                            </div>
+                            <div class="card-body d-flex flex-column align-items-center">
+                                <!-- 預覽新上傳的照片 -->
+                                <div class="d-flex justify-content-center">
+                                    <img id="newPreview" src="" alt="New Image Preview" style="display:none;" width="330" height="210">
+                                </div>
+                                <!-- 上傳按鈕 -->
+                                <div class="d-flex justify-content-center mt-3 w-100">
+                                    <input type="file" id="FileToUpload" name="photo" accept="image/*" onchange="previewNewImage(event)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
                 </div>
-            </div>
+                <hr>
+                <!-- 第二區塊 -->
+                <div class="row justify-content-between">
+                    <div class="container text-center">
+                        <button type="button" class="btn rounded-pill m-2" style="background-color: #F24B88;">
+                            <a href="personal_member.html" style="color: #fff;">儲存</a>
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 <!-- Form End -->
 <!-- 會員基本資料 End -->
+<!-- body end -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
+<script>
 
-
-
-
-
-
-<script type="text/javascript">
     $(document).ready(function () {
+        const memberId = 64;
+
+        // 第一個 AJAX 請求
         $.ajax({
-            url: "https://localhost:7011/api/Member", // 例如: '/api/yourController/yourAction'
+            url: 'https://localhost:7011/api/Member/' + memberId,
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-                console.log(data);
-                // 根據需要更新你的 View
+                $('.memberNameInput').val(data.memberName);
+                $('.memberAddressInput').val(data.address);
+                $('.memberBirthInput').val(data.birth); // 這裡需要確認
+                $('.memberPhoneInput').val(data.phone);
+                $('.memberGenderInput').val(data.gender);
+                $('.memberEmailInput').val(data.email);
+                $('.memberCreatedAtInput').val(data.createdAt);
+                $('.memberStatusInput').val(data.status);
+                $('.memberPasswordInput').val(data.password);
+
+
+                var ID = memberId;
+                $('.memberIDInput').text(ID);
+                var name = data.memberName;
+                $('.memberNameInput').text(name);
+                // 假設你已經成功獲取到 Email，存在變數 data.email 中
+                var email = data.email;
+                $('.memberEmailInput').text(email);
+
+                var Photo = data.photo; //照片
+                // 更新會員照片
+                var memberPhotoElement = document.querySelector("#member-img");
+
+                if (Photo) {
+                    var memberImageBase64 = Photo; // 從API獲取的Base64編碼的照片
+                    memberPhotoElement.src = "data:image/jpeg;base64," + memberImageBase64; // 直接將圖像設置為src
+
+                }
+
+                // ... 其他的資料設定
             },
             error: function (error) {
-                console.log(error);
+                console.log("Error:", error);
             }
         });
+
     });
 </script>
+
