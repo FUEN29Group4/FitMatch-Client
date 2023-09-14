@@ -123,27 +123,8 @@
                                 <input class="form-control mb-3 memberNameInput" type="text">
                             </div>
                         </div>
-                        <!-- 生日 -->
-                        <div class="row align-items-center mb-3">
-                            <label for="inputname" class="col-3 text-center col-form-label">生日</label>
-                            <div class="col-9">
-                                <input class="form-select memberBirthInput" style="background-color:#f1f1f1;"
-                                       type="date" name="birth" value="2023-01-01">
-                            </div>
-                        </div>
-                        <!-- 性別 -->
-                        <div class="row align-items-center mb-3">
-                            <label for="inputname" class="col-3 text-center col-form-label">
-                                性別
-                            </label>
-                            <div class="col-9">
-                                <select class="form-select memberGenderInput"
-                                        aria-label="性別" name="add1" size="1">
-                                    <option value="1">男</option>
-                                    <option value="2" select>女</option>
-                                </select>
-                            </div>
-                        </div>
+                    
+                        
                         <!-- Email -->
                         <div class="row align-items-center mb-3">
                             <label for="membercourseFeeInput" class="col-3 text-center col-form-label">Email</label>
@@ -166,7 +147,16 @@
                                 <input class="form-control mb-3 memberAddressInput" type="text" aria-label="請輸入地址">
                             </div>
                         </div>
+                        <!-- 密碼 -->
+                        <div class="row align-items-center mb-3">
+                            <label class="col-3 text-center col-form-label">密碼</label>
+                            <div class="col-9">
+                                <input class="form-control mb-3" type="text">
+                            </div>
+                        </div>
+
                     </div>
+                   
                     <!-- 第二攔 -->
                     <!-- 照片 -->
                     <div class="col-6 d-flex justify-content-center ps-5">
@@ -197,8 +187,8 @@
                 <!-- 第二區塊 -->
                 <div class="row justify-content-between">
                     <div class="container text-center">
-                        <button type="button" class="btn rounded-pill m-2" style="background-color: #F24B88;">
-                            <a href="personal_member.html" style="color: #fff;">儲存</a>
+                        <button id="saveButton" class="btn rounded-pill m-2" style="background-color: #F24B88;">
+                            儲存
                         </button>
                     </div>
                 </div>
@@ -219,17 +209,13 @@
         // 第一個 AJAX 請求
         $.ajax({
             url: 'https://localhost:7011/api/Member/' + memberId,
-            type: 'GET',
+            type: 'Get',
             dataType: 'json',
             success: function (data) {
                 $('.memberNameInput').val(data.memberName);
                 $('.memberAddressInput').val(data.address);
-             /*    $('.memberBirthInput').val(data.birth); */ // 這裡需要確認
                 $('.memberPhoneInput').val(data.phone);
-                $('.memberGenderInput').val(data.gender);
                 $('.memberEmailInput').val(data.email);
-                $('.memberCreatedAtInput').val(data.createdAt);
-                $('.memberStatusInput').val(data.status);
                 $('.memberPasswordInput').val(data.password);
 
 
@@ -240,15 +226,6 @@
                 // 假設你已經成功獲取到 Email，存在變數 data.email 中
                 var email = data.email;
                 $('.memberEmailInput').text(email);
-
-                var birthDate = new Date(data.birth); // 假設 data.birth 包含日期時間值
-                var formattedBirthDate = birthDate.toISOString().split('T')[0]; // 格式化為 YYYY-MM-DD
-                $('.memberBirthInput').val(formattedBirthDate);
-
-                var gender = data.gender ? "男" : "女";
-                $('.memberGenderInput').val(gender);
-
-
 
                 var Photo = data.photo; //照片
                 // 更新會員照片
@@ -268,5 +245,41 @@
         });
 
     });
+    $(document).ready(function () {
+        const memberId = 65;
+
+        // 點擊儲存按鈕時觸發的事件處理程序
+        $('#saveButton').click(function () {
+            // 收集表單數據或需要更新的資料
+            var updatedData = {
+                memberName: $('.memberNameInput').val(),
+                email: $('.memberEamilInput').val(),
+                address: $('.memberAddressInput').val(),
+                Phone: $('.memberPhoneInput').val(),
+                Password: $('.memberPasswordInput').val(),
+                Photo: $('#newPreview').val(),
+                // 其他字段的更新
+            };
+
+            // 發送AJAX PUT請求以更新資料
+            $.ajax({
+                url: 'https://localhost:7011/api/Member/' + memberId,
+                type: 'PUT',
+                dataType: 'json',
+                data: updatedData, // 發送更新的資料
+                success: function (data) {
+                    // 更新成功後的處理
+                    console.log("Data updated successfully:", data);
+                },
+                error: function (error) {
+                    // 錯誤處理
+                    console.log("Error:", error);
+                }
+            });
+        });
+
+        // 其他代碼...
+    });
+
 </script>
 

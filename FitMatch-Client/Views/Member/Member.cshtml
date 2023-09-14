@@ -137,10 +137,10 @@
                                 性別
                             </label>
                             <div class="col-9">
-                                <select class="form-select"
+                                <select class="form-select memberGenderInput"
                                         aria-label="性別" name="add1" size="1" disabled>
-                                    <option value="1">男</option>
-                                    <option value="2" select>女</option>
+                                    <option>男</option>
+                                    <option selected>女</option>
                                 </select>
                             </div>
                         </div>
@@ -172,10 +172,10 @@
                                 會員狀態
                             </label>
                             <div class="col-9">
-                                <select class="form-select"
+                                <select class="form-select memberStatusInput"
                                         aria-label="會員狀態" name="add2" size="1" disabled>
-                                    <option value="1">有效會員</option>
-                                    <option value="2" select>無效會員</option>
+                                    <option>有效會員</option>
+                                    <option selected>無效會員</option>
                                 </select>
                             </div>
                         </div>
@@ -219,7 +219,7 @@
 <script>
 
     $(document).ready(function () {
-        const memberId = 64;
+        const memberId = 1;
 
         // 第一個 AJAX 請求
         $.ajax({
@@ -229,9 +229,9 @@
             success: function (data) {
                 $('.memberNameInput').val(data.memberName);
                 $('.memberAddressInput').val(data.address);
-                $('.memberBirthInput').val(data.birth); // 這裡需要確認
+               /*  $('.memberBirthInput').val(data.birth); */ // 這裡需要確認
                 $('.memberPhoneInput').val(data.phone);
-                $('.memberGenderInput').val(data.gender);
+                // $('.memberGenderInput').val(data.gender);
                 $('.memberEmailInput').val(data.email);
                 $('.memberCreatedAtInput').val(data.createdAt);
                 $('.memberStatusInput').val(data.status);
@@ -245,6 +245,20 @@
                 // 假設你已經成功獲取到 Email，存在變數 data.email 中
                 var email = data.email;
                 $('.memberEmailInput').text(email);
+
+
+
+                var birthDate = new Date(data.birth); // 假設 data.birth 包含日期時間值
+                var formattedBirthDate = birthDate.toISOString().split('T')[0]; // 格式化為 YYYY-MM-DD
+                $('.memberBirthInput').val(formattedBirthDate);
+
+                var gender = data.gender ? "男" : "女";
+                $('.memberGenderInput').val(gender);
+
+                var status = data.status ? "有效會員" : "無效會員";
+                $('.memberStatusInput').val(status);
+
+
 
                 var Photo = data.photo; //照片
                 // 更新會員照片
