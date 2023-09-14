@@ -96,28 +96,32 @@
 
 
 
-                    <tbody class="class tr">
-                        
-                        <tr v-for="classApi in ClassAPIWithTrainersAndClassTyoeAndGyms" :key="classApi.ClassId">
-                            <td>{{classApi.ClassId}}</td>
-                            <td>{{trainer.trainerName }}</td>
-                            <td>{{gym.GymId}}</td>
-                            <td>{{classApi.CourseStatus}}</td>
-                            <td>{{classApi.BuildTime}}</td>
+                    <tbody class="class tr" v-for="classApi in MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms" :key="classApi.ClassId">
+
+
+                        <tr v-for="trainer in classApi.trainers" :key="trainer.trainerId">
+
+                            <td>{{classApi.classId}}</td>
+                            <td>{{classApi.trainers[0].trainerName}}</td>
+                            <td>{{classApi.gyms[0].gymName}}</td>
+                            <td>{{classApi.courseStatus}}</td>
+
+                            <td>{{classApi.buildTime}}</td>
                             <td>
-                                <button type="button" style="background-color: #F24B88;color: aliceblue;"
-                                        class="btn btn-primary personalBtn">
-                                    聯繫教練
-                                </button>
-                                <button type="button" style="background-color: #F24B88;color: aliceblue;"
-                                        class="btn btn-primary personalBtn" disabled>
+                                <button type="button" style="background-color: #F24B88;color: aliceblue;" class="btn btn-primary personalBtn">聯繫教練</button>
+
+                                <button type="button"
+                                        :style="classApi.courseStatus === '已完成' ? {'background-color': '#ff005d', 'color': 'aliceblue'} : {'background-color': '#F24B88', 'color': 'aliceblue'}"
+                                        class="btn btn-primary personalBtn"
+                                        disabled>
                                     我要評價
                                 </button>
+
                             </td>
                         </tr>
-                                    
-                        
 
+
+                        
                     </tbody>
                 </table>
                 <div class="container" style="padding-bottom: 50px;">
@@ -145,25 +149,36 @@
     <!-- body end -->
 </div>
 
+
 <script>
     Vue.createApp({
+
         data() {
             return {
-                MemberClassAPIs: [],
-                ClassAPIWithTrainersAndClassTyoeAndGyms: [],
-                memberClassapi: {
-                    ClassId: '',
-                    CourseStatus: '',
-                    BuildTime: ''
-                },
-                trainer: {
-                    trainerName: ''
-                },
-                gym: {
-                    GymId: ''
+                MemberClassAPIs: {
+                    "classAPIWithTrainersAndClassTyoeAndGyms": [
+                        {
+                            "classId": 1,
+                            "trainers": [
+                                {
+                                    "trainerId": 123,
+                                    "trainerName": "John"
+                                }
+                            ],
+                            "gyms": [
+                                {
+                                    "gymName": "Gym A"
+                                }
+                            ],
+                            "courseStatus": "Active",
+                            "buildTime": "10:00 AM"
+                        }
+                    ]
                 }
+                ,
             };
         },
+
         mounted() {
             this.MemberClassAPI();
         },
@@ -173,7 +188,7 @@
                 let id = urlParams.get('id');  // 從URL中獲取id
 
                 if (!id) {
-                    console.error("URL中未提供ID");
+                    console.error("ID not provided in the URL");
                     return;
                 }
 
@@ -181,14 +196,15 @@
                     .then((response) => {
                         if (!response.ok) {
                             return response.text().then(text => {
-                                throw new Error(`API請求失敗，狀態為 ${response.status}: ${text}`);
+                                throw new Error(`API request failed with status ${response.status}: ${text}`);
                             });
                         }
                         return response.json();
                     })
                     .then((data) => {
-                        this.MemberClassAPIs = data.ClassAPIWithTrainersAndClassTyoeAndGyms;  // 在這裡設定
+                        this.MemberClassAPIs = data;
                     })
+
                     .catch((error) => {
                         console.error("API 請求失敗: " + error.message);
                     });
@@ -196,8 +212,8 @@
 
         },
     }).mount('#app')
-</script>
 
+</script>
 
 <style scoped>
 
