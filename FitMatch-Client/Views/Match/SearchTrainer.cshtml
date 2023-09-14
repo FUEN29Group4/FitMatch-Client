@@ -89,6 +89,9 @@
     .trainerfilter .form-check-label {
         margin-left: 20px;
     }
+  
+  
+
 </style>
 
 <!-- Page Header Start -->
@@ -116,30 +119,14 @@
             <!-- 教練篩選開始 -->
             <div class="trainerfilter" id="app">
                 <div class="container ">
-                   
                     <!-- 左邊篩選區域開始 -->
-                    <div class="left col-lg-4 col-md-8 pt-5" style="margin-top: 21px;">
+                    <div class="left col-lg-4 col-md-8">
                         <div class="row">
-                            <!-- 篩選地區開始 -->
-                            <div class="course-widget border py-4 px-2 mt-5 mt-lg-0">
-                                <h3 class="mb-3 text-light">
-                                    <i class="fa-solid fa-chevron-right pe-3"
-                                       style="color: #ffffff;"></i>Course Fee:
-                                </h3>
-                                <div class="list-group list-group-flush">
-                                    <select v-model="selectedCourseFee">
-                                        <option value="">All</option>
-                                        <option value="0~1000">0~1000</option>
-                                        <option value="1001~2000">1001~2000</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- 篩選地區結束 -->
                             <!-- 篩選性別開始 -->
                             <div class="course-widget border py-4 px-2 mt-3">
                                 <h3 class="mb-3 text-light">
                                     <i class="fa-solid fa-chevron-right pe-3"
-                                       style="color: #ffffff;"></i>教練性別
+                                       style="color: #ffffff;"></i>性別
                                 </h3>
                                 <div class="list-group-item">
                                     <input class="form-check-input" id="userGender1" v-model="selectedGender" type="radio"
@@ -160,23 +147,32 @@
                             <!-- 篩選性別結束 -->
                             <!-- 專長開始 -->
                             <div class="course-widget border py-4 px-2 mt-3">
-                                <h3 class="text-light">
+                                <h3 class="mb-3 text-light">
                                     <i class="fa-solid fa-chevron-right pe-3" style="color: #ffffff;"></i>專長項目
                                 </h3>
-                                <div class="d-flex justify-content-end align-items-center text-light">
-                                    <input class="form-check-input me-1 mb-1" type="checkbox" v-model="allExpertisesSelected" @@click="selectAllExpertise" />
-                                    全選
-                                </div>
                                 <ul class="list-group list-group-flush">
-
                                     <li class="list-group-item" v-for="expertise in Array.from(expertises)">
                                         <input class="form-check-input" type="checkbox" :value="expertise" v-model="selectedExpertise" />
                                         {{ expertise }}
                                     </li>
-
                                 </ul>
                             </div>
                             <!-- 專長結束 -->
+                            <!-- 篩選課程費用開始 -->
+                            <div class="course-widget border py-4 px-2 mt-3">
+                                <h3 class="mb-3 text-light">
+                                    <i class="fa-solid fa-chevron-right pe-3"
+                                       style="color: #ffffff;"></i>課程費用
+                                </h3>
+                                <div class="list-group list-group-flush">
+                                    <select v-model="selectedCourseFee" class="p-2">
+                                        <option value="">All</option>
+                                        <option value="0~1000">0~1000</option>
+                                        <option value="1001~2000">1001~2000</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- 篩選課程費用結束 -->
                             <!-- 清除篩選條件開始 -->
                             <div class="btn btn-primary p-3 m-2 course-widget" @@click="clearFilters">清除篩選條件</div>
                         </div>
@@ -186,24 +182,26 @@
                     <!-- 右邊顯示篩選後的教練 -->
                     <div class="right col-lg-8 col-md-12">
                         <div class="row">
-                            <!-- 下拉選項來選擇排序方式 -->
-                            <select v-model="sortBy">
-                                <option value="classCount">最熱門</option>
-                                <option value="trainerId">最新</option>
-                            </select>
-                            <!-- 搜尋教練名字框 -->
-                            <div class="d-flex justify-content-end">
-                                <i class="fa-solid fa-magnifying-glass d-flex align-items-center"
-                                   style="margin-right: 5px; color: #ffff;"></i>
-                                <input v-model="filterText" placeholder="請輸入搜尋資料">
-                                <button class="btn btn-small"
-                                        style="transform: translateY(0px);cursor: pointer;">
-                                    <span class="p-2" style="font-size: 16px;">搜尋</span>
-                                </button>
+                            <div class="col">
+                                <!-- 下拉選項來選擇排序方式 -->
+                                <div>
+                                    <select class="p-2" v-model="sortBy">
+                                        <option value="classCount">最熱門</option>
+                                        <option value="trainerId">最新</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <!-- 搜尋教練名字框 -->
+                                <div class="d-flex justify-content-end">
+                                    <i class="fa-solid fa-magnifying-glass d-flex align-items-center"
+                                       style="margin-right: 5px; color: #ffff;"></i>
+                                    <input class="p-2" v-model="filterText" placeholder="輸入教練名字或專長">
+                                </div>
                             </div>
                             <!-- 篩選出的教練開始 -->
                             <div v-for="trainer in filteredTrainers" :key="trainer.trainerId" class="card border-0 bg-transparent rounded-0 mb-4">
-                                <a :href="'./trainerResume?id=' + trainers.trainerId">
+                                <a :href="'./trainerResume?id=' + trainer.trainerId">
                                     <div class="row no-gutters p-2">
                                         <!-- 教練大頭貼 -->
                                         <div class="col-md-4 d-flex justify-content-center align-items-center">
@@ -215,17 +213,22 @@
                                             <div class="card-body team-wrap pl-4">
                                                 <!-- 教練名字 -->
                                                 <h3 class="card-title text-color">{{ trainer.trainerName }}</h3>
+                                                <!-- 課程費用 -->
+                                                <div class="d-flex align-items-center">
+                                                    <h5>課程費用：</h5>
+                                                    <h5 style="color: #ddd;">{{ trainer.courseFee }} / hr</h5>
+                                                </div>
                                                 <!-- 專長 -->
                                                 <div class="d-flex align-items-center">
                                                     <h5>專長：</h5>
                                                     <h5 style="color: #ddd;">{{ trainer.expertise }}</h5>
                                                 </div>
-                                                <p class="mb-5" style="color: #ddd;">
+                                                <!-- 介紹 -->
+                                                <p class="pt-4" style="color: #ddd;">
                                                     {{ trainer.introduce }}
                                                 </p>
                                             </div>
                                         </div>
-
                                     </div>
                                 </a>
                                 <!-- 篩選出的教練結束 -->
@@ -239,33 +242,26 @@
     </div>
 </section>
 <!-- Section Team End -->
-<!-- 專長項目的checkbox全選功能 -->
-@*<script type="text/javascript">
-    function check_all(obj, cName) {
-        var checkboxs = document.getElementsByName(cName);
-        for (var i = 0; i < checkboxs.length; i++) { checkboxs[i].checked = obj.checked; }
-    }
-</script>*@
+
 
 <script>
     //開始Vue嚕
     const app = Vue.createApp({
         data() {
             return {
-                trainers: [], //教練列表
-                expertises: new Set(),
+                trainers: [], //儲存教練列表
+                expertises: new Set(), //儲存所有專長
                 selectedGender: null, //選擇性別
                 selectedExpertise: [], //選擇專長
                 selectedCourseFee: "", // 選擇課程費用範圍
-                sortBy: 'classCount', // 排序方式：'classCount' 或 'trainerId'
-                filterText: "",  // Assuming you would need this for search
-                allExpertisesSelected: false,//判斷是否全選專長
+                sortBy: 'classCount', // 設置排序方式，預設為按課程數量排序
+                filterText: "",  //搜尋
             };
         },
         mounted() {
             this.fetchtrainers();
-            //this.fetchExpertises();
             this.fetchtrainers().then(() => {
+                // 從每個教練的專長中提取所有不同的專長
                 this.trainers.forEach(trainer => {
                     if (trainer.expertise) {  // 檢查是否為 null 或 undefined
                         trainer.expertise.split(',').forEach(expertise => {
@@ -276,6 +272,7 @@
             });
         },
         methods: {
+            // 非同步方法來從 API 獲取教練數據
             async fetchtrainers() {
                 try {
                     const res = await fetch('https://localhost:7011/api/Match/Trainer');
@@ -286,25 +283,42 @@
                     console.error("找不到Api:", error);
                 }
             },
+            // 過濾和排序教練列表
             filterAndSort() {
+                // 從原始教練數據創建一個新的教練列表
                 let filtered = [...this.trainers];
-
+                // 按選定的性別過濾
                 if (this.selectedGender !== null) {
                     filtered = filtered.filter(trainer => trainer.gender === this.selectedGender);
                 }
-
+                // 按選定的專長過濾，只有一個配對就可以了
+                //if (this.selectedExpertise.length > 0) {
+                //    filtered = filtered.filter(trainer => {
+                //        const trainerExpertiseArray = trainer.expertise ? trainer.expertise.split(',') : [];
+                //        return this.selectedExpertise.some(e => trainerExpertiseArray.includes(e));
+                //    });
+                //}
+                // 按選定的專長過濾，所有選項都必須完全配對
                 if (this.selectedExpertise.length > 0) {
                     filtered = filtered.filter(trainer => {
-                        const trainerExpertiseArray = trainer.expertise.split(',');
-                        return this.selectedExpertise.some(e => trainerExpertiseArray.includes(e));
+                        const trainerExpertiseArray = trainer.expertise ? trainer.expertise.split(',') : [];
+                        return this.selectedExpertise.every(e => trainerExpertiseArray.includes(e));
                     });
                 }
-
+                // 按選定的課程費用範圍過濾
                 if (this.selectedCourseFee) {
                     const [min, max] = this.selectedCourseFee.split('~').map(Number);
                     filtered = filtered.filter(trainer => trainer.courseFee >= min && trainer.courseFee <= max);
                 }
-
+                // 可以搜尋教練名稱與專長的字
+                if (this.filterText.trim() !== "") {
+                    const searchLower = this.filterText.trim().toLowerCase();
+                    filtered = filtered.filter(trainer => {
+                        return (trainer.trainerName && trainer.trainerName.toLowerCase().includes(searchLower)) ||
+                            (trainer.expertise && trainer.expertise.toLowerCase().includes(searchLower));
+                    });
+                }
+                // 根據選定的排序方式進行排序
                 filtered.sort((a, b) => {
                     if (this.sortBy === 'classCount') {
                         return b.classCount - a.classCount;
@@ -316,21 +330,15 @@
 
                 return filtered;
             },
+            // 清除所有過濾條件
             clearFilters() {
                 this.selectedGender = null;
                 this.selectedExpertise = [];
                 this.selectedCourseFee = "";
                 this.sortBy = 'classCount';
             },
-            selectAllExpertise() {
-                if (this.allExpertisesSelected) {
-                    this.selectedExpertise = [];
-                } else {
-                    this.selectedExpertise = this.expertises.map(e => e.name);
-                }
-                this.allExpertisesSelected = !this.allExpertisesSelected;  // 更新全選狀態
-            },
         },
+        // 計算屬性，用來顯示出過濾和排序後的教練列表
         computed: {
             filteredTrainers() {
                 return this.filterAndSort();
@@ -347,5 +355,4 @@
 4.以性別radio做篩選 true-女 false-男
 5.以expertise做checkbox篩選
 6.以courseFee做下拉式選單排序 0~1000、1001~2000
-7.在全選的複選框框上添加逻辑。
-8.清空筛选条件的按钮应该清空所有选择。*@
+7.清空篩選條件按钮清空所有選擇*@

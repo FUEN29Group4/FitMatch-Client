@@ -14,5 +14,9 @@ namespace FitMatch_Client.Controllers
             return View();
         }
 
+        public IActionResult MemberClass()
+        {
+            return View();
+        }
     }
 }

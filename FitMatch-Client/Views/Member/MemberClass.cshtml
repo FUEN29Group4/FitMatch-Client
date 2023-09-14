@@ -57,16 +57,17 @@
             </nav>
         </div>
 
+        @* 會員資料 *@
         <hr>
-        <div class="container">
-            <ul class="list-style-type-none">
-                <ul class="list-style-type-none">
-                    <li>李大明</li>
-                    <li>一般會員</li>
-                    <li>ispan@yahoo.com.tw</li>
-                    <li>年度累積消費金額 NT.3,509</li>
-                </ul>
+        <div class="container" v-for="classItem  in MemberClassAPIs.classAPIWithMembers" :key="classItem .memberClassAPIId">
+            <ul v-for="member in classItem .members" :key="member.memberId">
+                <li>{{ member.memberName }}</li>
+                <li>一般會員</li>
+                <li>{{ member.email }}</li>
+
+                <li v-for="order in classItem .orders" :key="order.memberId">年度累積消費金額 NT.{{ order.totalPrice }}</li>
             </ul>
+            <hr />
         </div>
         <hr>
         <div class="container">
@@ -85,7 +86,6 @@
                     <thead style="background-color: #F24B88;">
                         <tr>
                             <th>預約編號</th>
-                            <th>課程名稱</th>
                             <th>教練</th>
                             <th>場館</th>
                             <th>課程狀態</th>
@@ -93,14 +93,17 @@
                             <th>聯繫/評價</th>
                         </tr>
                     </thead>
-                    <tbody class="class tr ">
-                        <tr>
-                            <td>112070601</td>
-                            <td>增肌減脂</td>
-                            <td>The Rock</td>
-                            <td>五股國民運動中心</td>
-                            <td>進行中</td>
-                            <td>2021.07.01 15:00</td>
+
+
+
+                    <tbody class="class tr">
+                        
+                        <tr v-for="classApi in ClassAPIWithTrainersAndClassTyoeAndGyms" :key="classApi.ClassId">
+                            <td>{{classApi.ClassId}}</td>
+                            <td>{{trainer.trainerName }}</td>
+                            <td>{{gym.GymId}}</td>
+                            <td>{{classApi.CourseStatus}}</td>
+                            <td>{{classApi.BuildTime}}</td>
                             <td>
                                 <button type="button" style="background-color: #F24B88;color: aliceblue;"
                                         class="btn btn-primary personalBtn">
@@ -112,78 +115,9 @@
                                 </button>
                             </td>
                         </tr>
-                        <tr class="table-danger">
-                            <td>112070602</td>
-                            <td>肌肥大訓練</td>
-                            <td>Peter</td>
-                            <td>南屯國民運動中心</td>
-                            <td>進行中</td>
-                            <td>2021.07.01 15:00</td>
-                            <td>
-                                <button type="button" style="background-color: #F24B88;color: aliceblue;"
-                                        class="btn btn-primary personalBtn">
-                                    聯繫教練
-                                </button>
-                                <button type="button" style="background-color: #F24B88;color: aliceblue;"
-                                        class="btn btn-primary personalBtn" disabled>
-                                    我要評價
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>112070603</td>
-                            <td>體態雕塑</td>
-                            <td>Peter</td>
-                            <td>五股國民運動中心</td>
-                            <td>已完課</td>
-                            <td>2021.07.01 15:00</td>
-                            <td>
-                                <button type="button" style="background-color: #F24B88;color: aliceblue;"
-                                        class="btn btn-primary personalBtn">
-                                    聯繫教練
-                                </button>
-                                <button type="button" style="background-color: #F24B88;color: aliceblue;"
-                                        class="btn btn-primary personalBtn">
-                                    我要評價
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="table-danger">
-                            <td>112070601</td>
-                            <td>增肌減脂</td>
-                            <td>The Rock</td>
-                            <td>五股國民運動中心</td>
-                            <td>已完課</td>
-                            <td>2021.07.01 15:00</td>
-                            <td>
-                                <button type="button" style="background-color: #F24B88;color: aliceblue;"
-                                        class="btn btn-primary personalBtn">
-                                    聯繫教練
-                                </button>
-                                <button type="button" style="background-color: #F24B88;color: aliceblue;"
-                                        class="btn btn-primary personalBtn">
-                                    我要評價
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>112070601</td>
-                            <td>增肌減脂</td>
-                            <td>The Rock</td>
-                            <td>五股國民運動中心</td>
-                            <td>已完課</td>
-                            <td>2021.07.01 15:00</td>
-                            <td>
-                                <button type="button" style="background-color: #F24B88;color: aliceblue;"
-                                        class="btn btn-primary personalBtn">
-                                    聯繫教練
-                                </button>
-                                <button type="button" style="background-color: #F24B88;color: aliceblue;"
-                                        class="btn btn-primary personalBtn">
-                                    我要評價
-                                </button>
-                            </td>
-                        </tr>
+                                    
+                        
+
                     </tbody>
                 </table>
                 <div class="container" style="padding-bottom: 50px;">
@@ -211,15 +145,23 @@
     <!-- body end -->
 </div>
 
-
-
 <script>
     Vue.createApp({
-
         data() {
             return {
                 MemberClassAPIs: [],
-                ClassAPIWithTrainersAndClassTyoeAndGyms: [],  // 添加此行
+                ClassAPIWithTrainersAndClassTyoeAndGyms: [],
+                memberClassapi: {
+                    ClassId: '',
+                    CourseStatus: '',
+                    BuildTime: ''
+                },
+                trainer: {
+                    trainerName: ''
+                },
+                gym: {
+                    GymId: ''
+                }
             };
         },
         mounted() {
@@ -231,7 +173,7 @@
                 let id = urlParams.get('id');  // 從URL中獲取id
 
                 if (!id) {
-                    console.error("ID not provided in the URL");
+                    console.error("URL中未提供ID");
                     return;
                 }
 
@@ -239,13 +181,13 @@
                     .then((response) => {
                         if (!response.ok) {
                             return response.text().then(text => {
-                                throw new Error(`API request failed with status ${response.status}: ${text}`);
+                                throw new Error(`API請求失敗，狀態為 ${response.status}: ${text}`);
                             });
                         }
                         return response.json();
                     })
                     .then((data) => {
-                        this.MemberClassAPIs = data;
+                        this.MemberClassAPIs = data.ClassAPIWithTrainersAndClassTyoeAndGyms;  // 在這裡設定
                     })
                     .catch((error) => {
                         console.error("API 請求失敗: " + error.message);
@@ -254,8 +196,8 @@
 
         },
     }).mount('#app')
-
 </script>
+
 
 <style scoped>
 
@@ -374,9 +316,9 @@
     }
 
     /* table {
-                    margin: 50px;
-                    padding: 50px;
-                } */
+                                margin: 50px;
+                                padding: 50px;
+                            } */
 
     thead {
         background-color: #2b2b2b;
@@ -472,8 +414,8 @@
     }
 
     /* .card {
-                    width: 250px;
-                } */
+                                width: 250px;
+                            } */
 
     /* personal 超連結 */
     a:hover,
@@ -538,9 +480,9 @@
     }
 
     /* table {
-                    margin: 50px;
-                    padding: 50px;
-                } */
+                                margin: 50px;
+                                padding: 50px;
+                            } */
 
     thead {
         color: #ffffff;
@@ -558,9 +500,9 @@
     }
 
     /* tbody tr:hover {
-                    background-color: aqua;
-                    color: rgb(241, 241, 241);
-                } */
+                                background-color: aqua;
+                                color: rgb(241, 241, 241);
+                            } */
 
     .tableclass tbody td:hover {
         background-color: rgba(145, 145, 145, 0.603);
@@ -584,14 +526,14 @@
     }
 
     /* personal 課程紀錄
-                .tableRecord.tt tbody tr:nth-child(2n) {
-                    background-color: #FDEDF3
-                } */
+                            .tableRecord.tt tbody tr:nth-child(2n) {
+                                background-color: #FDEDF3
+                            } */
 
     /* .plot.ho ul li a:hover,
-                a:active {
-                    background: #F24B88;
-                } */
+                            a:active {
+                                background: #F24B88;
+                            } */
 
     .st1 {
         width: 450px;
@@ -614,7 +556,7 @@
     }
 
     /* td ul li {
-                    float: left
-                } */
+                                float: left
+                            } */
 
 </style>
