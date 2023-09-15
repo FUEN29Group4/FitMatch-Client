@@ -57,21 +57,16 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <div class="container member line">
-                    <div class="nav">
-                        <a style="color: black"
-                           href="personal_member.html"
-                           class="nav-link nav-item">基本資料</a>
-                        <a style="color: black"
-                           href="personal_member_Order_Traking.html"
+                    <div class="nav" style="color: rgb(0, 0, 0);">
+                        <a style="color: rgb(0, 0, 0);" href="personal_member.html"
+                           class="nav-link nav-item ">基本資料</a>
+                        <a style="color: rgb(0, 0, 0);" href="personal_member_Order_Traking.html"
                            class="nav-link nav-item">訂單查詢</a>
-                        <a style="color: black"
-                           href="personal_member_favorite_list.html"
+                        <a asp-area="" asp-controller="MemberFavorite" asp-action="MemberFavorite"
                            class="nav-link nav-item">收藏清單</a>
-                        <a style="color: black"
-                           href="personal_member_My_Schedule.html"
+                        <a asp-area="" asp-controller="Member" asp-action="MemberClass"
                            class="nav-link nav-item">我的課表</a>
-                        <a style="color: black"
-                           href="personal_member_Customer_Service_Records.html"
+                        <a style="color: rgb(0, 0, 0);" href="personal_member_Customer_Service_Records.html"
                            class="nav-link nav-item">客服紀錄</a>
                     </div>
                 </div>
@@ -132,10 +127,12 @@
                             </div> *@
                             <div class="card-footer bg-white border-top-0 fz-12px d-flex align-items-center p-2 ">
 
-                                <div v-if="showTrainer">{{ trainer.trainerName }}</div>
-                                <div v-else>{{ product.ProductId }}</div>
+                                <span class="me-auto" style="font-weight: bold;   /* 字體變粗 */    font-size: 20px;  ">
+                                    {{ trainer.trainerName }}
+                                </span>
+                                @* <div v-else>{{ product.ProductId }}</div> *@
 
-                                <i class="fa-solid fa-heart" style="color:red;"></i>
+                                <i class="fa-solid fa-heart" style="color:red; transform: scale(1.3);"></i>
                             </div>
                         </div>
                     </div>
