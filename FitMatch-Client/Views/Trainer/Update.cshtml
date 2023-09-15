@@ -48,6 +48,43 @@
             height: 6px;
             margin-right: 8px;
         }
+
+    .rounded-image-container {
+        position: relative;
+        width: 350px; /* 可根据需要修改 */
+        height: 350px; /* 可根据需要修改 */
+    }
+
+    .file-input {
+        display: none;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.5); /* 透明背景 */
+        opacity: 0;
+        transition: .5s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .rounded-image-container:hover .overlay {
+        opacity: 1;
+    }
+
+    .edit-photo-button {
+        color: white;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
 </style>
 <!-- Page Header Start -->
 <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
@@ -160,7 +197,11 @@
                     <!-- 照片 -->
                     <div class="col-6 d-flex justify-content-center ps-5">
                         <div class="rounded-image-container">
+                            <input type="file" id="imageInput" onchange="encodeImageToBase64()" class="file-input">
                             <img class="rounded-image" id="trainer-img" alt="Trainer Image" />
+                            <div class="overlay">
+                                <button class="edit-photo-button" type="button">更改照片</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -213,6 +254,8 @@
 <!-- body end -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
+        const trainerId = sessionStorage.getItem('trainerId') || 1;
+        console.log("Retrieved trainerId on edit page:", trainerId);
         // 生成專長的核取框
         function populateCheckboxes(data) {
             const container = $('#checkboxContainer');
@@ -229,6 +272,19 @@
             expertiseArray.forEach(exp => {
                 $(`input[name="expertise"][value="${exp.trim()}"]`).prop('checked', true);
             });
+        }
+
+        function encodeImageToBase64() {
+            const file = document.querySelector('#imageInput').files[0];
+            const reader = new FileReader();
+
+            reader.onloadend = function () {
+                document.querySelector("#trainer-img").src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
         }
         function collectFormData() {
             const formData = {
@@ -253,15 +309,19 @@
         }
         function saveAllInfo() {
             const data = collectFormData();
-            const trainerId = 1; // 這裡請確保使用正確的教練ID，或者從某個元素或變量中獲取
 
+            // 請注意，我們使用模板字符串將trainerId直接放入URL中
             $.ajax({
                 url: `https://localhost:7011/api/Trainer/${trainerId}`,
                 type: 'PUT',
-                contentType: "application/json", // 指定我們正在發送JSON
-                data: JSON.stringify(data),  // 將資料轉換為JSON格式
+                contentType: "application/json",
+                data: JSON.stringify(data),
                 success: function (response) {
-                    alert('資訊已保存成功！');
+                    if (response.status === "success") {
+                        alert(response.message);  // 這裡將顯示 "教練資訊已成功更新"
+                    } else {
+                        alert('保存失敗，請稍後再試。');
+                    }
                 },
                 error: function (error) {
                     console.log("Error:", error);
@@ -271,7 +331,10 @@
         }
 
         $(document).ready(function () {
-            const trainerId = 1;
+            $(".edit-photo-button").click(function (event) {
+                event.preventDefault();
+                $("#imageInput").click();
+            });
 
             // 第一個 AJAX 請求：加載專長列表
             $.ajax({

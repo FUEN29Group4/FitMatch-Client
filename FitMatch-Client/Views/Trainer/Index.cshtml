@@ -187,11 +187,10 @@
                         </div>
                     </div>
                     <div class="container text-center">
-                        <button type="button" class="btn rounded-pill m-2"
-                                style="background-color: #F24B88;">
-                            <a href="personal_trainer_Basic_Information_Data_Modification.html"
-                               style="color: #fff;">修改</a>
+                        <button type="button" class="btn rounded-pill m-2" id="editTrainerButton" data-href="@Url.Action("Update", "Trainer")" style="background-color: #F24B88; color: #fff;">
+                            修改
                         </button>
+
                     </div>
                 </div>
             </form>
@@ -223,7 +222,7 @@
     }
 
     $(document).ready(function () {
-        const trainerId = sessionStorage.getItem('trainerId') || 1;
+        const trainerId = sessionStorage.getItem('trainerId') || 3;
 
         // 第一個 AJAX 請求: 生成核取框
         $.ajax({
@@ -278,7 +277,13 @@
                 console.log("Error:", error);
             }
         });
+        $('#editTrainerButton').click(function () {
+            sessionStorage.setItem('trainerId', trainerId);
+            console.log("Saved trainerId:", sessionStorage.getItem('trainerId'));
+            window.location.href = $(this).data('href');
+        });
     });
+
 </script>
 
 
