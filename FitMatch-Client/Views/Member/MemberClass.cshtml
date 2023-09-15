@@ -59,17 +59,22 @@
 
         @* 會員資料 *@
         <hr>
+
         <div class="container" v-for="classItem  in MemberClassAPIs.classAPIWithMembers" :key="classItem .memberClassAPIId">
             <ul v-for="member in classItem .members" :key="member.memberId">
                 <li>{{ member.memberName }}</li>
                 <li>一般會員</li>
                 <li>{{ member.email }}</li>
 
-                <li v-for="order in classItem .orders" :key="order.memberId">年度累積消費金額 NT.{{ order.totalPrice }}</li>
+                <li>年度累積消費金額 NT.{{ MemberClassAPIs.totalOrderAmount }}</li>
+
             </ul>
             <hr />
         </div>
+
+
         <hr>
+
         <div class="container">
             <button type="button" style="background-color: #F24B88" class="btn btn-primary personalBtn">
                 <a style="color: aliceblue;" href="personal_member_My_Schedule.html">我的課表</a>
@@ -170,6 +175,7 @@
                         }
                     ]
                 },
+
             };
         },
 
