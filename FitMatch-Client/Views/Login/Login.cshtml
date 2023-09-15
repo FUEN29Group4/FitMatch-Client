@@ -76,7 +76,8 @@
                         const data = await response.json();
                         console.log('登入成功', data);
 
-                        localStorage.setItem('token', data.Token);
+                        console.log(data.Token);
+                        sessionStorage.setItem('token', data.Token);
 
                         window.location.href = "/Home/Index"; 
                     } else if (response.status === 404) {

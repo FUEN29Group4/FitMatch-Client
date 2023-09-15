@@ -66,7 +66,8 @@
                     <div class="dropdown-menu m-0">
                         <a asp-area="" asp-controller="Match" asp-action="Match" class="dropdown-item">我要媒合</a>
                         <a asp-area="" asp-controller="Match" asp-action="SearchTrainer" class="dropdown-item">
-                            教練陣容</a>
+                            教練陣容
+                        </a>
                         <a href="course.html" class="dropdown-item">課程介紹</a>
                         <a asp-area="" asp-controller="Gym" asp-action="Gym" class="dropdown-item">場館介紹</a>
                     </div>
@@ -109,7 +110,8 @@
             <a asp-controller="Login" asp-action="Login" class="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block">
                 登入<i class="fa fa-arrow-right ms-3"></i>
             </a>
-
+            <span id="userName"></span>
+            <span id="userEmail"></span>
         </div>
     </nav>
     <!-- Navbar End -->
@@ -209,17 +211,46 @@
 </html>
 
 <script>
-    // 从 localStorage 中获取 token
-    const token = localStorage.getItem('token');
+    // 取得儲存的 token
+    const token = sessionStorage.getItem('token');
 
-    // 检查是否有 token
     if (token) {
-        // 如果有 token，可以执行相应的操作，例如显示用户信息、显示注销按钮等
-        // 在这个示例中，我们仅仅在控制台打印一条消息
-        console.log('用户已登录，可以执行特定操作');
+        // 如果有 token, 用它來請求用戶資訊
+        fetch('https://localhost:7011/api/Login/getUserInfo', { // 更新這裡的 URL
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                } else if (response.status === 401) {
+                    throw new Error('Unauthorized');
+                } else if (response.status === 404) {
+                    throw new Error('Not Found');
+                } else {
+                    throw new Error('Failed to fetch user info');
+                }
+            })
+            .then(data => {
+                // 這裡假設 data 是一個包含用戶資訊的 JSON 物件
+                // 更新前端界面
+                if (data.MemberName) {
+                    document.getElementById('userName').textContent = data.MemberName;
+                }
+                if (data.TrainerName) {
+                    document.getElementById('userName').textContent = data.TrainerName;
+                }
+                if (data.Email) {
+                    document.getElementById('userEmail').textContent = data.Email;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     } else {
-        // 如果没有 token，可以执行其他操作，例如显示登录按钮
-        // 在这个示例中，我们仅仅在控制台打印一条消息
-        console.log('用户未登录，显示登录按钮');
+        // 如果沒有 token，可能需要導向登入頁面
+        console.log('No token found. User is not logged in.');
     }
+
 </script>
