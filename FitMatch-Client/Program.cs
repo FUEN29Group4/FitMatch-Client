@@ -26,33 +26,33 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-//// �b���αҰʮɩI�s��s�ҵ{���AAPI
-//var lifetime = app.Services.GetService<IHostApplicationLifetime>();
-//if (lifetime != null)
-//{
-//    lifetime.ApplicationStarted.Register(async () =>
-//    {
-//        try
-//        {
-//            using (HttpClient httpClient = new HttpClient())
-//            {
-//                var response = await httpClient.GetAsync("https://localhost:7011/api/CourseStatusUpdater/updateStatus");
-//                if (response.IsSuccessStatusCode)
-//                {
-//                    Console.WriteLine("���\��s�ҵ{���A");
-//                }
-//                else
-//                {
-//                    Console.WriteLine("��s�ҵ{���A����");
-//                }
-//            }
-//        }
-//        catch (Exception ex)
-//        {
-//            Console.WriteLine($"�o�Ͳ��`�G{ex.Message}");
-//        }
-//    });
-//}
+// 在應用啟動時呼叫更新"課程狀態"API
+var lifetime = app.Services.GetService<IHostApplicationLifetime>();
+if (lifetime != null)
+{
+    lifetime.ApplicationStarted.Register(async () =>
+    {
+        try
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync("https://localhost:7011/api/CourseStatusUpdater/updateStatus");
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("成功更新課程狀態");
+                }
+                else
+                {
+                    Console.WriteLine("更新課程狀態失敗");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"發生異常：{ex.Message}");
+        }
+    });
+}
 
 
 app.Run();
