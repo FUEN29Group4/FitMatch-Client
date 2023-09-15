@@ -96,46 +96,47 @@
 
                     <tbody>
 
-                    <template v-for="classApi in MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms">
-                        <!-- 如果某些關鍵數據是空的，就只顯示"未添加課程" -->
-                        <tr v-if="isEmptyClassData(classApi)">
-                            <td colspan="6">未添加課程</td>
-                        </tr>
+                        <template v-for="classApi in MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms">
+                            <!-- 如果某些關鍵數據是空的，就只顯示"未添加課程" -->
+                            <tr v-if="isEmptyClassData(classApi)">
+                                <td colspan="6">未添加課程</td>
+                            </tr>
 
-                        <!-- 否則，顯示數據 -->
-                        <tr v-else v-for="trainer in classApi.trainers" :key="trainer.trainerId">
-                            <td>{{classApi.classId}}</td>
-                            <td>{{classApi.trainers[0].trainerName}}</td>
-                            <td>{{classApi.gyms[0].gymName}}</td>
-                            <td>{{classApi.courseStatus}}</td>
-                            <td>{{ formatTimeToDetailedDate(classApi.buildTime) }}</td>
-                            <td>
-                                <button type="button" style="background-color: #F24B88;color: aliceblue;" class="btn btn-primary personalBtn">聯繫教練</button>
-                            </td>
-                        </tr>
-                    </template>
+                            <!-- 否則，顯示數據 -->
+                            <tr v-else v-for="trainer in classApi.trainers" :key="trainer.trainerId">
+                                <td>{{classApi.classId}}</td>
+                                <td>{{classApi.trainers[0].trainerName}}</td>
+                                <td>{{classApi.gyms[0].gymName}}</td>
+                                <td>{{classApi.courseStatus}}</td>
+                                <td>{{ formatTimeToDetailedDate(classApi.buildTime) }}</td>
+                                <td>
+                                    <button type="button" style="background-color: #F24B88;color: aliceblue;" class="btn btn-primary personalBtn">聯繫教練</button>
+                                </td>
+                            </tr>
+                        </template>
+
 
                     </tbody>
 
                 </table>
-               @*  <div class="container" style="padding-bottom: 50px;">
-                    <nav aria-label="" style="float: right; margin-top: 20px;" class="plot ho">
-                        <ul class="pagination plot ho" style="color:#F24B88">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                @*  <div class="container" style="padding-bottom: 50px;">
+                <nav aria-label="" style="float: right; margin-top: 20px;" class="plot ho">
+                <ul class="pagination plot ho" style="color:#F24B88">
+                <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                </a>
+                </li>
+                </ul>
+                </nav>
                 </div> *@
             </div>
         </div>
@@ -218,12 +219,15 @@
             // ... within the Vue app's methods
 
             isEmptyClassData(classApi) {
+                const formattedDate = this.formatTimeToDetailedDate(classApi.buildTime);
                 return !classApi.classId ||
                     !classApi.trainers || classApi.trainers.length === 0 || !classApi.trainers[0].trainerName ||
                     !classApi.gyms || classApi.gyms.length === 0 || !classApi.gyms[0].gymName ||
                     !classApi.courseStatus ||
-                    !classApi.buildTime;
-            },
+                    !classApi.buildTime ||
+                    formattedDate.includes("NaN");
+            }
+            ,
 
 
 
@@ -349,9 +353,9 @@
     }
 
     /* table {
-                                margin: 50px;
-                                padding: 50px;
-                            } */
+                                    margin: 50px;
+                                    padding: 50px;
+                                } */
 
     thead {
         background-color: #2b2b2b;
@@ -447,8 +451,8 @@
     }
 
     /* .card {
-                                width: 250px;
-                            } */
+                                    width: 250px;
+                                } */
 
     /* personal 超連結 */
     a:hover,
@@ -513,9 +517,9 @@
     }
 
     /* table {
-                                margin: 50px;
-                                padding: 50px;
-                            } */
+                                    margin: 50px;
+                                    padding: 50px;
+                                } */
 
     thead {
         color: #ffffff;
@@ -533,9 +537,9 @@
     }
 
     /* tbody tr:hover {
-                                background-color: aqua;
-                                color: rgb(241, 241, 241);
-                            } */
+                                    background-color: aqua;
+                                    color: rgb(241, 241, 241);
+                                } */
 
     .tableclass tbody td:hover {
         background-color: rgba(145, 145, 145, 0.603);
@@ -559,14 +563,14 @@
     }
 
     /* personal 課程紀錄
-                            .tableRecord.tt tbody tr:nth-child(2n) {
-                                background-color: #FDEDF3
-                            } */
+                                .tableRecord.tt tbody tr:nth-child(2n) {
+                                    background-color: #FDEDF3
+                                } */
 
     /* .plot.ho ul li a:hover,
-                            a:active {
-                                background: #F24B88;
-                            } */
+                                a:active {
+                                    background: #F24B88;
+                                } */
 
     .st1 {
         width: 450px;
@@ -589,7 +593,7 @@
     }
 
     /* td ul li {
-                                float: left
-                            } */
+                                    float: left
+                                } */
 
 </style>
