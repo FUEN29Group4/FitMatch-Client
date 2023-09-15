@@ -207,3 +207,19 @@
 </body>
 
 </html>
+
+<script>
+    // 从 localStorage 中获取 token
+    const token = localStorage.getItem('token');
+
+    // 检查是否有 token
+    if (token) {
+        // 如果有 token，可以执行相应的操作，例如显示用户信息、显示注销按钮等
+        // 在这个示例中，我们仅仅在控制台打印一条消息
+        console.log('用户已登录，可以执行特定操作');
+    } else {
+        // 如果没有 token，可以执行其他操作，例如显示登录按钮
+        // 在这个示例中，我们仅仅在控制台打印一条消息
+        console.log('用户未登录，显示登录按钮');
+    }
+</script>
