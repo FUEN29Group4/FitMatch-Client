@@ -6,10 +6,11 @@
 <!-- 周曆 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
-<!-- SweetAlert2 -->
+@*<!-- SweetAlert2 -->
 <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>*@
+<!-- personal 樣式 -->
+<link rel="stylesheet" href="~/css/PersonalStyle.css">
 
     <style>
         /* 預約區塊 */
@@ -38,22 +39,8 @@
 
         }
 
-        .reservation .booked-button {
-            display: block;
-            background-color: #808080;
-            color: #fff;
-            text-align: center;
-            border: none;
-            width: 100%;
-            height: 100%;
-            border-radius: 5px;
-            /* 可選，增加一點圓角 */
-            pointer-events: none;
-            /* 禁用 */
-            /* cursor: not-allowed; */
-        }
-
-        .reservation table th {
+     
+         table th {
             text-align: center;
             white-space: pre-line;
             /* 換行保留 */
@@ -61,13 +48,13 @@
             font-weight: normal;
         }
 
-        .reservation .time-cell {
+         .time-cell {
             text-align: center;
             font-size: 18px;
             color: #ffff;
         }
 
-        .reservation .btn-primary:focus {
+         .btn-primary:focus {
             color: #fff;
             background-color: #BF3B6C;
             border-color: #BF3B6C;
@@ -80,14 +67,17 @@
 
         .fc-toolbar-title {
             color: #f24b88;
+          
         }
-
+        .fc .fc-toolbar-title{
+             text-align: center;
+        }
         .fc-day {
             background-color: #fff;
         }
 
         .fc-day-today {
-            background-color: #f24b88 !important;
+            background-color: #afafaf88 !important;
 
         }
 
@@ -98,34 +88,17 @@
 
         }
 
-        .reservation .available {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: green;
-            color: #ffff;
-            outline: 2px solid green;
-            border: none;
-            /* 移除邊框 */
-            box-shadow: none;
-            /* 移除陰影 */
-            /* border-color: transparent; */
-            /* 將邊線顏色設為透明 */
-            border-radius: 3px;
-
-        }
+        
 
         .fc-timegrid-event .fc-event-main {
             padding: 0;
         }
 
-        .reservation .available:hover {
+         .available:hover {
             background-color: rgb(1, 100, 1);
         }
 
-        .reservation .booked {
+         .booked {
             background-color: grey;
             pointer-events: none;
         }
@@ -139,41 +112,6 @@
             z-index: 1;
             /* 确保按钮位于日历的上方 */
             /* 其他样式属性 */
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-            padding-top: 60px;
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 60%;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
         }
 
         input[type="text"] {
@@ -195,9 +133,7 @@
         button:hover {
             background-color: #45a049;
         }
-        body{
-            background-color:#fefefe;
-        }
+        
     </STyle>
         <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
@@ -240,7 +176,7 @@
                         <a style="color: rgb(0, 0, 0);" href="personal_trainer_Schedule_Time.html"
                             class="nav-link nav-item">課程</a>
                         <a style="color: rgb(0, 0, 0);" href="personal_trainer_Schedule.html"
-                            class="nav-link nav-item">課表時程</a>
+                            class="nav-link nav-item a-active">課表時程</a>
                         <a style="color: rgb(0, 0, 0);" href="personal_trainer_Schedule_Record.html"
                             class="nav-link nav-item">教課紀錄</a>
                     </div>
@@ -251,7 +187,7 @@
     <hr>
 
     <div class="container">
-        <div class="container">
+        @*<div class="container">
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div>
                     <span class="float-right">排休</span>
@@ -272,19 +208,19 @@
 
                 </div>
             </nav>
-        </div>
+        </div>*@
         <div class="date" id="calendar">
 
         </div>
 
 
-        <div class="container text-center">
+        @*<div class="container text-center pt-2">
             <button type="button" class="btn btn-primary" style="background-color: #F24B88;"><a
                     href="personal_trainer_Schedule.html" style="color: #fff;">儲存</a></button>
-        </div>
+        </div>*@
     </div>
 
-    <hr>
+    @*<hr>*@
     <!-- body end -->
     <hr>
 
@@ -536,6 +472,11 @@ document.addEventListener('DOMContentLoaded', function () {
         slotMaxTime: '21:00:00',   // 注意，这是下一小时的开始，所以是21:00，表示最后一个时间槽是20:00-21:00
         displayEventTime: false,
         allDayText: '场馆',
+         headerToolbar: {
+                        left: 'prev',
+                        center: 'title',
+                        right: 'next today'
+                    },
 dayHeaderContent: function (headerInfo) {
     var container = document.createElement('div');
     container.style.display = 'flex';

@@ -6,12 +6,12 @@ body {
 .container .navbar-expand-lg {
     border: 1px solid #ececec;
 }
-
+/*
 button {
     background-color: #F24B88;
     color: #ffffff;
 }
-
+*/
 active .cc {
     border-bottom: 3px solid #F24B88;
 }
@@ -70,19 +70,8 @@ th {
     margin: 50px;
     padding: 50px;
 } */
+/*
 
-thead {
-    background-color: #2b2b2b;
-    color: #ffffff;
-    text-transform: capitalize;
-    margin: 60px;
-    padding: 60px;
-    text-align: center;
-}
-
-tbody {
-    text-align: center;
-}
 
 .cc.vv td:hover {
     background-color: rgba(145, 145, 145, 0.603);
@@ -237,7 +226,7 @@ th {
     margin: 50px;
     padding: 50px;
 } */
-
+/*
 thead {
     color: #ffffff;
     text-transform: capitalize;
@@ -252,17 +241,17 @@ tbody {
     align-items: center;
     text-align: center;
 }
-
+*/
 /* tbody tr:hover {
     background-color: aqua;
     color: rgb(241, 241, 241);
 } */
-
+/*
 .tableclass tbody td:hover {
     background-color: rgba(145, 145, 145, 0.603);
     color: rgb(26, 26, 26);
 }
-
+*/
 .favotitelist.img1 {
     width: 100px;
 }
@@ -297,10 +286,10 @@ a:active {
 }
 
 /* Personal Coach */
-
+/*
 textarea {
     resize: none;
-}
+}*/
 
 .t1 {
     width: 100px;
