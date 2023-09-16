@@ -5,200 +5,6 @@
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/vuex@4"></script>
 
-<div style="background-color: #fff" id="app">
-    <!-- Page Header Start -->
-    <div class="container-fluid page-header py-5 mb-5 wow fadeIn"
-         data-wow-delay="0.1s">
-        <div class="container text-center py-5">
-            <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">
-                FAVORITE
-            </h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb justify-content-center text-uppercase mb-0">
-                    <li class="breadcrumb-item">
-                        <a class="text-white" href="#">Home</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a class="text-white" href="#">Pages</a>
-                    </li>
-                    <li class="breadcrumb-item text-primary active" aria-current="page">
-                        MEMBER
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <!-- Page Header End -->
-    <!-- body start -->
-
-    <div class="container">
-        <div class="container text-center">
-            <nav style="
-            --bs-breadcrumb-divider: url(
-              &#34;data:image/svg + xml,
-              %3Csvgxmlns='http://www.w3.org/2000/svg'width='8'height='8'%3E%3Cpathd='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z'fill='currentColor'/%3E%3C/svg%3E&#34;
-            );
-          "
-                 aria-label="breadcrumb">
-                <ol class="breadcrumb" style="color: rgb(0, 0, 0)">
-                    <li class="breadcrumb-item">
-                        <a href="index.html" style="color: rgb(0, 0, 0)">首頁</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="personal_member.html" style="color: rgb(0, 0, 0)">我的會員專區</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">收藏清單</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-
-    <div class="container">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <div class="container member line">
-                    <div class="nav" style="color: rgb(0, 0, 0);">
-                        <a style="color: rgb(0, 0, 0);" href="personal_member.html"
-                           class="nav-link nav-item ">基本資料</a>
-                        <a style="color: rgb(0, 0, 0);" href="personal_member_Order_Traking.html"
-                           class="nav-link nav-item">訂單查詢</a>
-                        <a asp-area="" asp-controller="MemberFavorite" asp-action="MemberFavorite"
-                           class="nav-link nav-item">收藏清單</a>
-                        <a asp-area="" asp-controller="Member" asp-action="MemberClass"
-                           class="nav-link nav-item">我的課表</a>
-                        <a style="color: rgb(0, 0, 0);" href="personal_member_Customer_Service_Records.html"
-                           class="nav-link nav-item">客服紀錄</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <hr />
-    </div>
-
-
-    <div class="container" v-for="favorite in MemberFavorites.favoritesWithMembers" :key="favorite.memberFavoriteId">
-        <ul v-for="member in favorite.members" :key="member.memberId">
-            <li>{{ member.memberName }}</li>
-            <li>一般會員</li>
-            <li>{{ member.email }}</li>
-
-            <li v-for="order in favorite.orders" :key="order.memberId">年度累積消費金額 NT.{{ order.totalPrice }}</li>
-        </ul>
-        <hr />
-    </div>
-
-
-
-    <div class="container">
-        <button type="button" class="btn btn-primary">
-            <a class="text-light" href=" personal_member_favorite_list.html">我的教練</a>
-        </button>
-        <button type="button" class="btn btn-primary" v-on:click="toggleDisplay">
-            <a class="text-light" href=" personal_member_favorite_list_Gym.html">我的健身房</a>
-        </button>
-        <button type="button" class="btn btn-primary">
-            <a class="text-light"
-               href="personal_member_favorite_list_Restaurant.html">我的餐廳</a>
-        </button>
-        <hr />
-    </div>
-
-
-    <main>
-        <div class="container-md pt-3" style="padding-bottom: 50px">
-            <div class="row g-2 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5">
-                <!-- 使用v-for來迭代每個MemberFavorite -->
-
-                <div class="col" v-for="memberFavorite in MemberFavorites.favoritesWithTrainersAndProducts" :key="memberFavorite.memberFavoriteId">
-                    <div v-for="trainer in memberFavorite.trainers" :key="trainer.trainerId">
-
-                        <div class="card mh-250px card1 overflow-hidden">
-                            <div class="card-image">
-                                <img :src="'data:image/jpeg;base64,' + trainer.photo" alt="Trainer Image" style="width: 330px; height: 250px; object-fit: cover;" />
-                               @*  <img :src="'/images/教練/' + trainer.photo" alt="Trainer Image" /> *@
-
-
-                            </div>
-                            <div class="card-header bg-white border-bottom-0 fz-12px ps-2 d-flex align-items-center"></div>
-                          @*   <div class="card-body">
-                                <a class="text-black text-decoration-none stretched-link" href="#">
-                                    {{ trainer.introduce || '無介紹可用。' }}
-                                </a>
-                            </div> *@
-                            <div class="card-footer bg-white border-top-0 fz-12px d-flex align-items-center p-2 ">
-
-                                <span class="me-auto" style="font-weight: bold;   /* 字體變粗 */    font-size: 20px;  ">
-                                    {{ trainer.trainerName }}
-                                </span>
-                                @* <div v-else>{{ product.ProductId }}</div> *@
-
-                                <i class="fa-solid fa-heart" style="color:red; transform: scale(1.3);"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-
-
-
-    <!-- body end -->
-</div>
-
-
-
-
-
-
-<script>
-    Vue.createApp({
-        data() {
-            return {
-                MemberFavorites: [],
-                favoritesWithTrainersAndProducts: [],  // 添加此行
-                showTrainer: true  // Added this line
-            };
-        },
-        mounted() {
-            this.MemberFavorite();
-        },
-        methods: {
-            MemberFavorite() {
-                let urlParams = new URLSearchParams(window.location.search);
-                let id = urlParams.get('id');  // 從URL中獲取id
-
-                if (!id) {
-                    console.error("ID not provided in the URL");
-                    return;
-                }
-
-                fetch(`https://localhost:7011/api/MemberFavorite/${id}`)
-                    .then((response) => {
-                        if (!response.ok) {
-                            return response.text().then(text => {
-                                throw new Error(`API request failed with status ${response.status}: ${text}`);
-                            });
-                        }
-                        return response.json();
-                    })
-                    .then((data) => {
-                        this.MemberFavorites = data;
-                    })
-                    .catch((error) => {
-                        console.error("API 請求失敗: " + error.message);
-                    });
-            },
-            toggleDisplay() { // 把這個函數移出 MemberFavorite 函數的範圍
-                this.showTrainer = !this.showTrainer;
-            }
-        },
-    }).mount('#app')
-</script>
-
-
-
 
 <style scoped>
 
@@ -317,9 +123,9 @@
     }
 
     /* table {
-            margin: 50px;
-            padding: 50px;
-        } */
+                                margin: 50px;
+                                padding: 50px;
+                            } */
 
     thead {
         background-color: #2b2b2b;
@@ -415,8 +221,8 @@
     }
 
     /* .card {
-            width: 250px;
-        } */
+                                width: 250px;
+                            } */
 
     /* personal 超連結 */
     a:hover,
@@ -480,10 +286,6 @@
         text-align: center;
     }
 
-    /* table {
-            margin: 50px;
-            padding: 50px;
-        } */
 
     thead {
         color: #ffffff;
@@ -500,10 +302,7 @@
         text-align: center;
     }
 
-    /* tbody tr:hover {
-            background-color: aqua;
-            color: rgb(241, 241, 241);
-        } */
+
 
     .tableclass tbody td:hover {
         background-color: rgba(145, 145, 145, 0.603);
@@ -526,15 +325,7 @@
         color: #000000;
     }
 
-    /* personal 課程紀錄
-        .tableRecord.tt tbody tr:nth-child(2n) {
-            background-color: #FDEDF3
-        } */
 
-    /* .plot.ho ul li a:hover,
-        a:active {
-            background: #F24B88;
-        } */
 
     .st1 {
         width: 450px;
@@ -556,8 +347,202 @@
         text-align: right;
     }
 
-    /* td ul li {
-            float: left
-        } */
 
 </style>
+
+<div style="background-color: #fff" id="app">
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn"
+         data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">
+                FAVORITE
+            </h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center text-uppercase mb-0">
+                    <li class="breadcrumb-item">
+                        <a class="text-white" href="#">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a class="text-white" href="#">Pages</a>
+                    </li>
+                    <li class="breadcrumb-item text-primary active" aria-current="page">
+                        MEMBER
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+    <!-- body start -->
+
+    <div class="container">
+        <div class="container text-center">
+            <nav style="
+            --bs-breadcrumb-divider: url(
+              &#34;data:image/svg + xml,
+              %3Csvgxmlns='http://www.w3.org/2000/svg'width='8'height='8'%3E%3Cpathd='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z'fill='currentColor'/%3E%3C/svg%3E&#34;
+            );
+          "
+                 aria-label="breadcrumb">
+                <ol class="breadcrumb" style="color: rgb(0, 0, 0)">
+                    <li class="breadcrumb-item">
+                        <a href="index.html" style="color: rgb(0, 0, 0)">首頁</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="personal_member.html" style="color: rgb(0, 0, 0)">我的會員專區</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">收藏清單</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <div class="container member line">
+                    <div class="nav" style="color: rgb(0, 0, 0);">
+                        <a style="color: rgb(0, 0, 0);" href="personal_member.html"
+                           class="nav-link nav-item ">基本資料</a>
+                        <a style="color: rgb(0, 0, 0);" href="personal_member_Order_Traking.html"
+                           class="nav-link nav-item">訂單查詢</a>
+                        <a asp-area="" asp-controller="MemberFavorite" asp-action="MemberFavorite"
+                           class="nav-link nav-item">收藏清單</a>
+                        <a asp-area="" asp-controller="Member" asp-action="MemberClass"
+                           class="nav-link nav-item">我的課表</a>
+                        <a style="color: rgb(0, 0, 0);" href="personal_member_Customer_Service_Records.html"
+                           class="nav-link nav-item">客服紀錄</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <hr />
+    </div>
+
+
+    <div class="container" v-for="favorite in MemberFavorites.favoritesWithMembers" :key="favorite.memberFavoriteId">
+        <ul v-for="member in favorite.members" :key="member.memberId">
+            <li>{{ member.memberName }}</li>
+            <li>一般會員</li>
+            <li>{{ member.email }}</li>
+
+            <li>年度累積消費金額 NT.{{ MemberFavorites.totalOrderAmount }}</li>
+        </ul>
+        <hr />
+    </div>
+
+
+    <div class="container col-6">
+        <div class=" container btn-group" >
+
+            <!-- 教練選項 -->
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked v-model="showTrainer" value="trainer">
+            <label class="btn" for="btnradio1" style="background-color:#F24B88;color:#fff;border-radius:15px" checked>教練</label>
+
+            <!-- 商品選項 -->
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" v-model="showTrainer" value="product">
+            <label class="btn" for="btnradio2" style="margin-left:50px;border-radius:15px;background-color:#F24B88;color:#fff">商品</label>
+
+        </div>
+    </div>
+
+
+    <hr />
+
+
+    <div class="container-md pt-3" style="padding-bottom: 50px">
+        <div class="row g-2 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5">
+
+            <!-- 當 showTrainer 為 'trainer' 時顯示以下內容 start-->
+            <div v-if="showTrainer === 'trainer'" v-for="memberFavorite in MemberFavorites.favoritesWithTrainersAndProducts1" :key="memberFavorite.memberFavoriteId">
+                <div v-for="trainer in memberFavorite.trainers" :key="trainer.trainerId">
+                    <!-- 教練的內容  start -->
+                    <div class="card mh-250px card1 overflow-hidden">
+                        <div class="card-image">
+                            <img :src="'data:image/jpeg;base64,' + trainer.photo" alt="Trainer Image" style="width: 220px; height: 220px; object-fit: cover;" />
+                        </div>
+                        <div class="card-footer bg-white border-top-0 fz-12px d-flex align-items-center p-2 ">
+                            <span class="me-auto" style="font-weight: bold; font-size: 20px;">
+                                {{ trainer.trainerName }}
+                            </span>
+                            <i class="fa-solid fa-heart" style="color:red; transform: scale(1.3);"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 教練的內容 end -->
+            <!-- 當 showTrainer 為 'trainer' 時顯示以下內容 end -->
+            <!-- 當 showTrainer 為 'product' 時顯示以下內容 start -->
+            <div v-else v-for="memberFavorite in MemberFavorites.favoritesWithTrainersAndProducts2" :key="memberFavorite.memberFavoriteId">
+                <div v-for="product in memberFavorite.products" :key="product.productId">
+                    <!-- 商品的內容 start -->
+                    <div class="card mh-250px card1 overflow-hidden">
+                        <div class="card-image">
+                            <img :src="'data:image/jpeg;base64,' + product.photo" alt="Product Image" style="width: 220px; height: 220px; object-fit: cover;" />
+                        </div>
+                        <div class="card-footer bg-white border-top-0 fz-12px d-flex align-items-center p-2 ">
+                            <span class="me-auto" style="font-weight: bold; font-size: 20px;">
+                                {{ product.productName }}
+                            </span>
+                            <i class="fa-solid fa-heart" style="color:red; transform: scale(1.3);"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- 商品的內容 end -->
+            <!-- 當 showTrainer 為 'product' 時顯示以下內容 end -->
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                MemberFavorites: [],
+
+                favoritesWithTrainersAndProducts1: [],
+                favoritesWithTrainersAndProducts2: [],
+                showTrainer: 'trainer' // 新增這行
+
+            };
+        },
+        mounted() {
+            this.MemberFavorite();
+        },
+        methods: {
+            MemberFavorite() {
+                let urlParams = new URLSearchParams(window.location.search);
+                let id = urlParams.get('id');  // 從URL中獲取id
+
+                if (!id) {
+                    console.error("ID not provided in the URL");
+                    return;
+                }
+
+                fetch(`https://localhost:7011/api/MemberFavorite/${id}`)
+                    .then((response) => {
+                        if (!response.ok) {
+                            return response.text().then(text => {
+                                throw new Error(`API request failed with status ${response.status}: ${text}`);
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        console.log(data);  // 加這一行
+                        this.MemberFavorites = data;
+                    })
+                    .catch((error) => {
+                        console.error("API 請求失敗: " + error.message);
+                    });
+            },
+        },
+    }).mount('#app')
+</script>
