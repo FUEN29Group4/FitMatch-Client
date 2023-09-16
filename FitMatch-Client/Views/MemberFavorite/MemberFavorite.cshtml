@@ -504,6 +504,13 @@
 
 
 <script>
+
+    const memberIdFromSession = sessionStorage.getItem('memberId');
+    if (!memberIdFromSession) {
+        console.error("memberId not found in session storage");
+        // You can also redirect the user or show an error message, if necessary.
+    }
+
     Vue.createApp({
         data() {
             return {
@@ -511,23 +518,40 @@
 
                 favoritesWithTrainersAndProducts1: [],
                 favoritesWithTrainersAndProducts2: [],
+                memberId: sessionStorage.getItem('memberId'),
+                token: sessionStorage.getItem('token'),
                 showTrainer: 'trainer'
             };
         },
         mounted() {
+            if (!this.memberId || !this.token) {
+                console.error("memberId or token not found in session storage");
+                // You can also redirect the user or show an error message, if necessary.
+                return;
+            }
             this.MemberFavorite();
         },
         methods: {
             MemberFavorite() {
-                let urlParams = new URLSearchParams(window.location.search);
-                let id = urlParams.get('id');
-                console.log("ID retrieved from URL:", id);
-                if (!id) {
-                    console.error("ID not provided in the URL");
+
+                 const headers = new Headers();
+            headers.append('Authorization', `Bearer ${this.token}`);
+
+                if (!memberIdFromSession) {
+                    console.error("memberId not provided in the session");
                     return;
                 }
 
-                fetch(`https://localhost:7011/api/MemberFavorite/${id}`)
+                // Assuming the token is stored in the session storage.
+                // Adjust if it's stored elsewhere.
+                const token = sessionStorage.getItem('token');
+                if (token) {
+                    headers.append('Authorization', `Bearer ${token}`);
+                }
+
+                fetch(`https://localhost:7011/api/MemberFavorite/${this.memberId}`, {
+                    headers: headers
+                })
                     .then((response) => {
                         if (!response.ok) {
                             return response.text().then(text => {
@@ -546,13 +570,14 @@
             },
             async deleteFavorite(type, id) {
                 console.log(type, id);
+                console.log(sessionStorage.getItem('memberId'));
                 let url;
                 let memberId = new URLSearchParams(window.location.search).get('id');
 
                 if (type === 'trainer') {
-                    url = `https://localhost:7011/api/MemberFavorite/${memberId}/trainer/${id}`;
+                    url = `https://localhost:7011/api/MemberFavorite/${this.memberId}/trainer/${id}`;
                 } else {
-                    url = `https://localhost:7011/api/MemberFavorite/${memberId}/product/${id}`;
+                    url = `https://localhost:7011/api/MemberFavorite/${this.memberId}/product/${id}`;
                 }
 
                 try {
