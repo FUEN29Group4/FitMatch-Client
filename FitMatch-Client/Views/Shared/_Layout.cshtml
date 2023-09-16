@@ -282,9 +282,13 @@
 
                 // 綁定登出按鈕事件
                 document.getElementById('logoutBtn').addEventListener('click', function () {
-                    sessionStorage.removeItem('token');
-                    document.getElementById('loginBtn').style.display = 'block';
-                    document.getElementById('userDropdown').style.display = 'none';
+                    //sessionStorage.removeItem('token');
+                    // 改為移除所有 sessionStorage
+                    sessionStorage.clear();
+                    //強制重新整理
+                    location.reload();
+                    //document.getElementById('loginBtn').style.display = 'block';
+                    //document.getElementById('userDropdown').style.display = 'none';
                 });
             })
             .catch(error => {

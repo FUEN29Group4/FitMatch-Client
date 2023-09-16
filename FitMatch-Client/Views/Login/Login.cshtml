@@ -78,7 +78,12 @@
 
                         console.log(data.Token);
                         sessionStorage.setItem('token', data.token);
-
+                        if (data.data.memberId) {
+                            sessionStorage.setItem('memberId', data.data.memberId);  // 存 memberId 到 sessionStorage
+                        }
+                        else if (data.data.trainerId) {
+                            sessionStorage.setItem('trainerId', data.data.trainerId);
+                        }
                         window.location.href = "/Home/Index"; 
                     } else if (response.status === 404) {
                         console.log('帳號或密碼錯誤');

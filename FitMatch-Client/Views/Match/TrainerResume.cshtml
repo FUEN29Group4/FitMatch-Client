@@ -536,6 +536,9 @@
     });
 
     //  預約周曆
+    //讀取session中存的memberId
+    const memberIdFromSession = sessionStorage.getItem('memberId');
+
     //const { createApp, ref } = Vue;
     const { ref } = Vue;
     const app = Vue.createApp({
@@ -598,6 +601,10 @@
 
                     },
                     eventClick: function (info) {
+                        if (!memberIdFromSession) {
+                            Swal.fire('提示', '尚未成為會員，無法進行預約', 'info');
+                            return;
+                        }
                         let memberId = info.event.extendedProps.memberId;
                         let courseStatus = info.event.extendedProps.courseStatus;
                         if (!memberId && courseStatus === '進行中') {
@@ -690,13 +697,13 @@
                 if (modal !== null) {
                     modal.style.display = "none";
                 }
-                var memberId = 1; //預設 之後要從網站帶入
+
                 // 構建要發送到後端的數據
                 const reservationData = {
                     "classId": event.extendedProps.classId,
                     // "trainerId": event.trainerId,
                     // "gymId": event.extendedProps.gymId,
-                    "memberId": memberId,  // 還沒設
+                    "memberId": memberIdFromSession, 
                     // "startTime": event.startStr,
                     // "endTime": event.endStr,
                     // "buildTime": new Date().toISOString(),
@@ -747,3 +754,5 @@
     }).mount("#app");
 
 </script>
+
+         
