@@ -126,8 +126,19 @@
         </div>
     </nav>
     <!-- Navbar End -->
-    @RenderBody()
-
+    @if (ViewBag.SubLayout == "Member" && ViewBag.IsSubLayout == null)
+    {
+        @Html.Partial("_MemberLayout")
+    }
+    else if (ViewBag.SubLayout == "Trainer" && ViewBag.IsSubLayout == null)
+    {
+        @Html.Partial("_TrainerLayout")
+    }
+    else
+    {
+        @RenderBody()
+    }
+    @*@RenderBody()*@
     <!-- Footer Start -->
     <div class="container-fluid bg-darkgray text-light footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">

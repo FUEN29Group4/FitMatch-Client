@@ -1,18 +1,8 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewBag.SubLayout = "Trainer";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
 }
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+
 
 <!-- personal 樣式 -->
 <link rel="stylesheet" href="~/css/PersonalStyle.css">
@@ -86,311 +76,261 @@
     }
 
 </style>
-<!-- Page Header Start -->
-<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
-    <div class="container text-center py-5">
-        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Personal</h1>
-        <nav aria-label="breadcrumb animated slideInDown">
-            <ol class="breadcrumb justify-content-center text-uppercase mb-0">
-                <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                <li class="breadcrumb-item text-primary active" aria-current="page">Personal</li>
-            </ol>
-        </nav>
+
+<!-- 會員基本資料 Start -->
+<div class="container">
+    <div class="container-fluid pt-4 px-4">
+        <form action="your_server_endpoint_here" method="POST">
+            <div class="row justify-content-between">
+                <!-- 左攔 -->
+                <div class="col-6">
+                    <!-- 申請時間 -->
+                    <div class="row align-items-center mb-3">
+                        <label for="inputname" class="col-3 text-center col-form-label">申請時間</label>
+                        <div class="col-9">
+                            <input class="form-select" style="background-color:#f1f1f1;"
+                                   type="date" name="birth" id="" value="2023-01-01">
+                        </div>
+                    </div>
+                    <!-- 履歷狀態 -->
+                    <div class="row align-items-center mb-3">
+                        <label for="inputname" class="col-3 text-center col-form-label">
+                            履歷狀態
+                        </label>
+                        <div class="col-9">
+                            <select class="form-select"
+                                    aria-label="縣市" name="add1" size="1">
+                                <option value="1">公開</option>
+                                <option value="2" selected>隱藏</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- 姓名 -->
+                    <div class="row align-items-center mb-3">
+                        <label for="trainerNameInput" class="col-3 text-center col-form-label">中文姓名</label>
+                        <div class="col-9">
+                            <input class="form-control mb-3" type="text" id="trainerNameInput">
+                        </div>
+                    </div>
+                    <!-- 希望待遇 -->
+                    <div class="row align-items-center mb-3">
+                        <label for="trainercourseFeeInput" class="col-3 text-center col-form-label">希望待遇</label>
+                        <div class="col-9">
+                            <input class="form-control mb-3" type="text" aria-label="希望待遇" id="trainercourseFeeInput">
+                        </div>
+                    </div>
+                    <!-- 電話 -->
+                    <div class="row align-items-center mb-3">
+                        <label for="trainerPhoneInput" class="col-3 text-center col-form-label">電話</label>
+                        <div class="col-9">
+                            <input class="form-control mb-3" type="text" aria-label="電話" id="trainerPhoneInput">
+                        </div>
+                    </div>
+                    <!-- 地址 -->
+                    <div class="row align-items-center mb-3">
+                        <label for="trainerAddressInput" class="col-3 text-center col-form-label">地址</label>
+                        <div class="col-9">
+                            <input class="form-control mb-3" type="text" placeholder="台南市陀螺灣扛三路二段80號" aria-label="請輸入地址" id="trainerAddressInput">
+                        </div>
+                    </div>
+                </div>
+                <!-- 第二攔 -->
+                <!-- 照片 -->
+                <div class="col-6 d-flex justify-content-center ps-5">
+                    <div class="rounded-image-container">
+                        <input type="file" id="imageInput" onchange="encodeImageToBase64()" class="file-input">
+                        <img class="rounded-image" id="trainer-img" alt="Trainer Image" />
+                        <div class="overlay">
+                            <button class="edit-photo-button" type="button">更改照片</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <!-- 第二區塊 -->
+            <div class="row justify-content-between">
+                <!-- 第一攔 -->
+                <div class="col-6">
+                    <!-- 專長 -->
+                    <div class="row align-items-center mb-3">
+                        <label for="inputname" class="col-3 text-center col-form-label">專長</label>
+                        <div class="col-9" id="checkboxContainer">
+                        </div>
+                    </div>
+                    <!-- 專業證照 -->
+                    <div class="row align-items-center mb-3">
+                        <label for="trainerCertificateInput" class="col-3 text-center col-form-label">專業證照</label>
+                        <div class="col-9">
+                            <textarea class="form-control" id="trainerCertificateInput" style="height: 200px;" name="mytext" rows="10" cols="40" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- 第二攔 -->
+                <div class="col-6">
+                    <!-- 獎項事蹟 -->
+                    <div class="row align-items-center mb-3">
+                        <label for="trainerAwardsInput" class="col-3 text-center col-form-label">獎項事蹟</label>
+                        <div class="col-9">
+                            <textarea class="form-control" id="trainerAwardsInput" style="height: 100px;" name="mytext" rows="5" cols="40" required></textarea>
+                        </div>
+                    </div>
+                    <!-- 簡介 -->
+                    <div class="row align-items-center mb-3">
+                        <label for="trainerIntroduceInput" class="col-3 text-center col-form-label">簡介</label>
+                        <div class="col-9">
+                            <textarea class="form-control" id="trainerIntroduceInput" style="height: 400px;" name="mytext" rows="6" cols="80" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="container text-center">
+                    <button id="saveButton" class="btn rounded-pill m-2" style="background-color: #F24B88; color: #fff;">儲存</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
-<!-- Page Header End -->
-<!-- body start -->
-
-<div class="container bg-white">
-    <div class="container-fluid py-5 ">
-        <div class="container text-center">
-            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
-                 aria-label="breadcrumb">
-                <ol class="breadcrumb" style="color: rgb(0, 0, 0);">
-                    <li class="breadcrumb-item"><a href="index.html" style="color: rgb(0, 0, 0);">首頁</a></li>
-                    <li class="breadcrumb-item">
-                        <a href="personal_member.html" style="color: rgb(0, 0, 0);">教練專區</a>
-                    </li>
-                    <li class="breadcrumb-item" aria-current="page">基本資料</li>
-                </ol>
-            </nav>
-        </div>
-
-        <div class="container">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container-fluid">
-                    <div class="container member line">
-                        <div class="nav" style="color: rgb(0, 0, 0);">
-                            <a style="color: rgb(0, 0, 0);" href="personal_trainer_Basic_Information.html"
-                               class="nav-link nav-item a-active">基本資料</a>
-                            <a style="color: rgb(0, 0, 0);" href="personal_trainer_Schedule_Time.html"
-                               class="nav-link nav-item">課程</a>
-                            <a style="color: rgb(0, 0, 0);" href="personal_trainer_Schedule.html"
-                               class="nav-link nav-item">課表時程</a>
-                            <a style="color: rgb(0, 0, 0);" href="personal_trainer_Schedule_Record.html"
-                               class="nav-link nav-item">教課紀錄</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <!-- 會員基本資料 Start -->
-    <div class="container">
-        <div class="container-fluid pt-4 px-4">
-            <form action="your_server_endpoint_here" method="POST">
-                <div class="row justify-content-between">
-                    <!-- 左攔 -->
-                    <div class="col-6">
-                        <!-- 申請時間 -->
-                        <div class="row align-items-center mb-3">
-                            <label for="inputname" class="col-3 text-center col-form-label">申請時間</label>
-                            <div class="col-9">
-                                <input class="form-select" style="background-color:#f1f1f1;"
-                                       type="date" name="birth" id="" value="2023-01-01">
-                            </div>
-                        </div>
-                        <!-- 履歷狀態 -->
-                        <div class="row align-items-center mb-3">
-                            <label for="inputname" class="col-3 text-center col-form-label">
-                                履歷狀態
-                            </label>
-                            <div class="col-9">
-                                <select class="form-select"
-                                        aria-label="縣市" name="add1" size="1">
-                                    <option value="1">公開</option>
-                                    <option value="2" selected>隱藏</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- 姓名 -->
-                        <div class="row align-items-center mb-3">
-                            <label for="trainerNameInput" class="col-3 text-center col-form-label">中文姓名</label>
-                            <div class="col-9">
-                                <input class="form-control mb-3" type="text" id="trainerNameInput">
-                            </div>
-                        </div>
-                        <!-- 希望待遇 -->
-                        <div class="row align-items-center mb-3">
-                            <label for="trainercourseFeeInput" class="col-3 text-center col-form-label">希望待遇</label>
-                            <div class="col-9">
-                                <input class="form-control mb-3" type="text" aria-label="希望待遇" id="trainercourseFeeInput">
-                            </div>
-                        </div>
-                        <!-- 電話 -->
-                        <div class="row align-items-center mb-3">
-                            <label for="trainerPhoneInput" class="col-3 text-center col-form-label">電話</label>
-                            <div class="col-9">
-                                <input class="form-control mb-3" type="text" aria-label="電話" id="trainerPhoneInput">
-                            </div>
-                        </div>
-                        <!-- 地址 -->
-                        <div class="row align-items-center mb-3">
-                            <label for="trainerAddressInput" class="col-3 text-center col-form-label">地址</label>
-                            <div class="col-9">
-                                <input class="form-control mb-3" type="text" placeholder="台南市陀螺灣扛三路二段80號" aria-label="請輸入地址" id="trainerAddressInput">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 第二攔 -->
-                    <!-- 照片 -->
-                    <div class="col-6 d-flex justify-content-center ps-5">
-                        <div class="rounded-image-container">
-                            <input type="file" id="imageInput" onchange="encodeImageToBase64()" class="file-input">
-                            <img class="rounded-image" id="trainer-img" alt="Trainer Image" />
-                            <div class="overlay">
-                                <button class="edit-photo-button" type="button">更改照片</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <!-- 第二區塊 -->
-                <div class="row justify-content-between">
-                    <!-- 第一攔 -->
-                    <div class="col-6">
-                        <!-- 專長 -->
-                        <div class="row align-items-center mb-3">
-                            <label for="inputname" class="col-3 text-center col-form-label">專長</label>
-                            <div class="col-9" id="checkboxContainer">
-                            </div>
-                        </div>
-                        <!-- 專業證照 -->
-                        <div class="row align-items-center mb-3">
-                            <label for="trainerCertificateInput" class="col-3 text-center col-form-label">專業證照</label>
-                            <div class="col-9">
-                                <textarea class="form-control" id="trainerCertificateInput" style="height: 200px;" name="mytext" rows="10" cols="40" required></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 第二攔 -->
-                    <div class="col-6">
-                        <!-- 獎項事蹟 -->
-                        <div class="row align-items-center mb-3">
-                            <label for="trainerAwardsInput" class="col-3 text-center col-form-label">獎項事蹟</label>
-                            <div class="col-9">
-                                <textarea class="form-control" id="trainerAwardsInput" style="height: 100px;" name="mytext" rows="5" cols="40" required></textarea>
-                            </div>
-                        </div>
-                        <!-- 簡介 -->
-                        <div class="row align-items-center mb-3">
-                            <label for="trainerIntroduceInput" class="col-3 text-center col-form-label">簡介</label>
-                            <div class="col-9">
-                                <textarea class="form-control" id="trainerIntroduceInput" style="height: 400px;" name="mytext" rows="6" cols="80" required></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container text-center">
-                        <button id="saveButton" class="btn rounded-pill m-2" style="background-color: #F24B88; color: #fff;">儲存</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
 <!-- Form End -->
 <!-- 會員基本資料 End -->
 <!-- body end -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script>
-        const trainerId = sessionStorage.getItem('trainerId') || 1;
-        console.log("Retrieved trainerId on edit page:", trainerId);
-        // 生成專長的核取框
-        function populateCheckboxes(data) {
-            const container = $('#checkboxContainer');
-            data.forEach(item => {
-                const checkbox = $(`<input type="checkbox" name="expertise" value="${item.className}">`);
-                const label = $('<label></label>').text(item.className).prepend(checkbox);
-                container.append(label);
-            });
+<script>
+    const trainerId = sessionStorage.getItem('trainerId') || 1;
+    console.log("Retrieved trainerId on edit page:", trainerId);
+    // 生成專長的核取框
+    function populateCheckboxes(data) {
+        const container = $('#checkboxContainer');
+        data.forEach(item => {
+            const checkbox = $(`<input type="checkbox" name="expertise" value="${item.className}">`);
+            const label = $('<label></label>').text(item.className).prepend(checkbox);
+            container.append(label);
+        });
+    }
+
+    // 用於根據教練數據勾選專長
+    function checkExpertisesForTrainer(data) {
+        const expertiseArray = data.expertise.split(",");
+        expertiseArray.forEach(exp => {
+            $(`input[name="expertise"][value="${exp.trim()}"]`).prop('checked', true);
+        });
+    }
+
+    function encodeImageToBase64() {
+        const file = document.querySelector('#imageInput').files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = function () {
+            document.querySelector("#trainer-img").src = reader.result;
         }
 
-        // 用於根據教練數據勾選專長
-        function checkExpertisesForTrainer(data) {
-            const expertiseArray = data.expertise.split(",");
-            expertiseArray.forEach(exp => {
-                $(`input[name="expertise"][value="${exp.trim()}"]`).prop('checked', true);
-            });
+        if (file) {
+            reader.readAsDataURL(file);
         }
+    }
+    function collectFormData() {
+        const formData = {
+            trainerName: $('#trainerNameInput').val(),
+            address: $('#trainerAddressInput').val(),
+            birthday: $('#trainerBirthdayInput').val(),
+            phone: $('#trainerPhoneInput').val(),
+            certificate: $('#trainerCertificateInput').val().replace(/\n/g, ','),
+            expertise: [],
+            experience: $('#trainerAwardsInput').val().replace(/\n/g, ','),
+            courseFee: $('#trainercourseFeeInput').val(),
+            introduce: $('#trainerIntroduceInput').val(),
+            photo: document.querySelector("#trainer-img").src.split(",")[1]
+        };
 
-        function encodeImageToBase64() {
-            const file = document.querySelector('#imageInput').files[0];
-            const reader = new FileReader();
+        $(`input[name="expertise"]:checked`).each(function () {
+            formData.expertise.push($(this).val());
+        });
+        formData.expertise = formData.expertise.join(',');
 
-            reader.onloadend = function () {
-                document.querySelector("#trainer-img").src = reader.result;
-            }
+        return formData;
+    }
+    function saveAllInfo() {
+        const data = collectFormData();
 
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-        }
-        function collectFormData() {
-            const formData = {
-                trainerName: $('#trainerNameInput').val(),
-                address: $('#trainerAddressInput').val(),
-                birthday: $('#trainerBirthdayInput').val(),
-                phone: $('#trainerPhoneInput').val(),
-                certificate: $('#trainerCertificateInput').val().replace(/\n/g, ','),
-                expertise: [],
-                experience: $('#trainerAwardsInput').val().replace(/\n/g, ','),
-                courseFee: $('#trainercourseFeeInput').val(),
-                introduce: $('#trainerIntroduceInput').val(),
-                photo: document.querySelector("#trainer-img").src.split(",")[1]
-            };
-
-            $(`input[name="expertise"]:checked`).each(function () {
-                formData.expertise.push($(this).val());
-            });
-            formData.expertise = formData.expertise.join(',');
-
-            return formData;
-        }
-        function saveAllInfo() {
-            const data = collectFormData();
-
-            // 請注意，我們使用模板字符串將trainerId直接放入URL中
-            $.ajax({
-                url: `https://localhost:7011/api/Trainer/${trainerId}`,
-                type: 'PUT',
-                contentType: "application/json",
-                data: JSON.stringify(data),
-                success: function (response) {
-                    if (response.status === "success") {
-                        alert(response.message);  // 這裡將顯示 "教練資訊已成功更新"
-                    } else {
-                        alert('保存失敗，請稍後再試。');
-                    }
-                },
-                error: function (error) {
-                    console.log("Error:", error);
+        // 請注意，我們使用模板字符串將trainerId直接放入URL中
+        $.ajax({
+            url: `https://localhost:7011/api/Trainer/${trainerId}`,
+            type: 'PUT',
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function (response) {
+                if (response.status === "success") {
+                    alert(response.message);  // 這裡將顯示 "教練資訊已成功更新"
+                } else {
                     alert('保存失敗，請稍後再試。');
                 }
-            });
-        }
-
-        $(document).ready(function () {
-            $(".edit-photo-button").click(function (event) {
-                event.preventDefault();
-                $("#imageInput").click();
-            });
-
-            // 第一個 AJAX 請求：加載專長列表
-            $.ajax({
-                url: 'https://localhost:7011/api/ClassType',
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    populateCheckboxes(data);
-
-                    // 在專長列表加載成功後，載入教練資訊
-                    $.ajax({
-                        url: 'https://localhost:7011/api/Trainer/' + trainerId,
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function (trainerData) {
-                            $('#trainerNameInput').val(trainerData.trainerName);
-                            $('#trainerAddressInput').val(trainerData.address);
-                            $('#trainerBirthdayInput').val(trainerData.birthday);
-                            $('#trainerPhoneInput').val(trainerData.phone);
-
-                            // 將逗號替換為換行符，然後設定到文本區域
-                            let certificateText = trainerData.certificate.replace(/,/g, '\n');
-                            $('#trainerCertificateInput').val(certificateText);
-                            $('#trainerexpertiseInput').val(trainerData.expertise);
-
-                            // 將experience字段中的逗號替換為換行符
-                            let experienceText = trainerData.experience.replace(/,/g, '\n');
-                            $('#trainerAwardsInput').val(experienceText);
-                            $('#trainercourseFeeInput').val(trainerData.courseFee);
-                            $('#trainerIntroduceInput').val(trainerData.introduce);
-
-                            checkExpertisesForTrainer(trainerData);
-
-                            // 更新教練照片
-                            var trainerPhotoElement = document.querySelector("#trainer-img");
-
-                            trainerPhotoElement.onerror = function () {
-                                trainerPhotoElement.src = "./images/nopersonal.jpg";
-                            };
-
-                            var trainerImageBase64 = trainerData.photo;
-                            trainerPhotoElement.src = "data:image/jpeg;base64," + trainerImageBase64;
-                        },
-                        error: function (error) {
-                            console.log("Error:", error);
-                        }
-                    });
-                },
-                error: function (error) {
-                    console.log("Error:", error);
-                }
-            });
-            $('#saveButton').click(saveAllInfo);
-
+            },
+            error: function (error) {
+                console.log("Error:", error);
+                alert('保存失敗，請稍後再試。');
+            }
         });
-    </script>
+    }
+
+    $(document).ready(function () {
+        $(".edit-photo-button").click(function (event) {
+            event.preventDefault();
+            $("#imageInput").click();
+        });
+
+        // 第一個 AJAX 請求：加載專長列表
+        $.ajax({
+            url: 'https://localhost:7011/api/ClassType',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                populateCheckboxes(data);
+
+                // 在專長列表加載成功後，載入教練資訊
+                $.ajax({
+                    url: 'https://localhost:7011/api/Trainer/' + trainerId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (trainerData) {
+                        $('#trainerNameInput').val(trainerData.trainerName);
+                        $('#trainerAddressInput').val(trainerData.address);
+                        $('#trainerBirthdayInput').val(trainerData.birthday);
+                        $('#trainerPhoneInput').val(trainerData.phone);
+
+                        // 將逗號替換為換行符，然後設定到文本區域
+                        let certificateText = trainerData.certificate.replace(/,/g, '\n');
+                        $('#trainerCertificateInput').val(certificateText);
+                        $('#trainerexpertiseInput').val(trainerData.expertise);
+
+                        // 將experience字段中的逗號替換為換行符
+                        let experienceText = trainerData.experience.replace(/,/g, '\n');
+                        $('#trainerAwardsInput').val(experienceText);
+                        $('#trainercourseFeeInput').val(trainerData.courseFee);
+                        $('#trainerIntroduceInput').val(trainerData.introduce);
+
+                        checkExpertisesForTrainer(trainerData);
+
+                        // 更新教練照片
+                        var trainerPhotoElement = document.querySelector("#trainer-img");
+
+                        trainerPhotoElement.onerror = function () {
+                            trainerPhotoElement.src = "./images/nopersonal.jpg";
+                        };
+
+                        var trainerImageBase64 = trainerData.photo;
+                        trainerPhotoElement.src = "data:image/jpeg;base64," + trainerImageBase64;
+                    },
+                    error: function (error) {
+                        console.log("Error:", error);
+                    }
+                });
+            },
+            error: function (error) {
+                console.log("Error:", error);
+            }
+        });
+        $('#saveButton').click(saveAllInfo);
+
+    });
+</script>
 
 
 

@@ -1,16 +1,14 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewBag.SubLayout = "Trainer";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
 }
+
+
 <!-- 周曆 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
-@*<!-- SweetAlert2 -->
-<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>*@
-<!-- personal 樣式 -->
-<link rel="stylesheet" href="~/css/PersonalStyle.css">
+
+
 
     <style>
         /* 預約區塊 */
@@ -135,97 +133,14 @@
         }
         
     </STyle>
-        <!-- Page Header Start -->
-    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
-        <div class="container text-center py-5">
-            <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Our Barber</h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb justify-content-center text-uppercase mb-0">
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                    <li class="breadcrumb-item text-primary active" aria-current="page">Our Barber</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <!-- Page Header End -->
-
-    <!-- Personal Body Start -->
-
-    <!-- body start -->
-
-    <div class="container text-center">
-        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
-            aria-label="breadcrumb">
-            <ol class="breadcrumb" style="color: rgb(0, 0, 0);">
-                <li class="breadcrumb-item"><a href="index.html" style="color: rgb(0, 0, 0);">首頁</a></li>
-                <li class="breadcrumb-item"><a href="personal_member.html" style="color: rgb(0, 0, 0);">教練專區</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">課程</li>
-            </ol>
-        </nav>
-    </div>
-
-    <div class="container">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <div class="container member line">
-                    <div class="nav" style="color: rgb(0, 0, 0);">
-                        <a style="color: rgb(0, 0, 0);" href="personal_trainer_Basic_Information.html"
-                            class="nav-link nav-item ">基本資料</a>
-                        <a style="color: rgb(0, 0, 0);" href="personal_trainer_Schedule_Time.html"
-                            class="nav-link nav-item">課程</a>
-                        <a style="color: rgb(0, 0, 0);" href="personal_trainer_Schedule.html"
-                            class="nav-link nav-item a-active">課表時程</a>
-                        <a style="color: rgb(0, 0, 0);" href="personal_trainer_Schedule_Record.html"
-                            class="nav-link nav-item">教課紀錄</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
-    <hr>
-
-    <div class="container">
-        @*<div class="container">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div>
-                    <span class="float-right">排休</span>
-
-                    <span class="float-right"
-                        style="background-color:rgb(19, 19, 19);color: rgb(19, 19, 19);  border: 1px solid rgb(19, 19, 19); width: 30px;height: 30px; padding: 5px;">O
-                    </span>
-                    <span class="float-right">萬華運動中心
-                    </span>
-                    <span class="float-right"
-                        style="background-color:lightblue;color: lightblue;  border: 1px solid gray; width: 30px;height: 30px; padding: 5px;">O
-                    </span>
-                    <span class="float-right">金三角運動中心
-                    </span>
-                    <span class="float-right"
-                        style="background-color:rgb(172, 138, 138);color: rgb(172, 138, 138);  border: 1px solid gray; width: 30px;height: 30px; padding: 5px;">O
-                    </span>
-
-                </div>
-            </nav>
-        </div>*@
+     
+    
+    <div class="container bg-white">
         <div class="date" id="calendar">
-
         </div>
-
-
-        @*<div class="container text-center pt-2">
-            <button type="button" class="btn btn-primary" style="background-color: #F24B88;"><a
-                    href="personal_trainer_Schedule.html" style="color: #fff;">儲存</a></button>
-        </div>*@
     </div>
 
-    @*<hr>*@
-    <!-- body end -->
-    <hr>
 
-
-<!-- Personal Body End -->
 <script>
 var calendar;
 var todayGymName = "";

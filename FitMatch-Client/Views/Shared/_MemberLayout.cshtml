@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.IsSubLayout = true;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- personal 樣式 -->
+<link rel="stylesheet" href="~/css/PersonalStyle.css">
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Personal</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center text-uppercase mb-0">
+                <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="#">Member</a></li>
+                <li class="breadcrumb-item text-primary active" aria-current="page">Personal</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- body start -->
+
+<div class="container bg-white" id="app">
+    <div class="container-fluid py-5 ">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <div class="container member line">
+                        <div class="nav" style="color: rgb(0, 0, 0);">
+                            <a style="color: rgb(0, 0, 0);" asp-area="" asp-controller="Member" asp-action="Member"
+                               class="nav-link nav-item ">基本資料</a>
+                            <a style="color: rgb(0, 0, 0);"
+                               class="nav-link nav-item">訂單查詢</a>
+                            <a style="color: rgb(0, 0, 0);" asp-area="" asp-controller="MemberFavorite" asp-action="MemberFavorite"
+                               class="nav-link nav-item">收藏清單</a>
+                            <a style="color: rgb(0, 0, 0);"asp-area="" asp-controller="Member" asp-action="MemberClass"
+                               class="nav-link nav-item">我的課表</a>
+                            <a style="color: rgb(0, 0, 0);" 
+                               class="nav-link nav-item">客服紀錄</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    @*要改這裡*@
+    <div class="container" v-for="favorite in MemberFavorites.favoritesWithMembers" :key="favorite.memberFavoriteId">
+    <ul v-for="member in favorite.members" :key="member.memberId">
+    <li>{{ member.memberName }}</li>
+    <li>一般會員</li>
+    <li>{{ member.email }}</li>
+
+    <li v-for="order in favorite.orders" :key="order.memberId">年度累積消費金額 NT.{{ order.totalPrice }}</li>
+    </ul>
+    <hr />
+    </div>
+@RenderBody()
+</div>
+
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                MemberFavorites: [],
+                favoritesWithTrainersAndProducts: [],  // 添加此行
+                showTrainer: true  // Added this line
+            };
+        },
+        mounted() {
+            this.MemberFavorite();
+        },
+        methods: {
+            MemberFavorite() {
+                let urlParams = new URLSearchParams(window.location.search);
+                let id = urlParams.get('id');  // 從URL中獲取id
+
+                if (!id) {
+                    console.error("ID not provided in the URL");
+                    return;
+                }
+
+                fetch(`https://localhost:7011/api/MemberFavorite/${id}`)
+                    .then((response) => {
+                        if (!response.ok) {
+                            return response.text().then(text => {
+                                throw new Error(`API request failed with status ${response.status}: ${text}`);
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        this.MemberFavorites = data;
+                    })
+                    .catch((error) => {
+                        console.error("API 請求失敗: " + error.message);
+                    });
+            },
+            toggleDisplay() { // 把這個函數移出 MemberFavorite 函數的範圍
+                this.showTrainer = !this.showTrainer;
+            }
+        },
+    }).mount('#app')
+</script>
