@@ -5,7 +5,6 @@
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/vuex@4"></script>
 
-
 <style scoped>
 
     /* 圓形框框樣式 */
@@ -466,7 +465,9 @@
                             <span class="me-auto" style="font-weight: bold; font-size: 20px;">
                                 {{ trainer.trainerName }}
                             </span>
-                            <i class="fa-solid fa-heart" style="color:red; transform: scale(1.3);"></i>
+                            <!-- For 教練的刪除 -->
+                            
+                            <i class="fa-solid fa-heart" style="color:red; transform: scale(1.3);" v-on:click="showDeleteConfirmation('trainer', trainer.trainerId)"></i>
                         </div>
                     </div>
                 </div>
@@ -485,7 +486,8 @@
                             <span class="me-auto" style="font-weight: bold; font-size: 20px;">
                                 {{ product.productName }}
                             </span>
-                            <i class="fa-solid fa-heart" style="color:red; transform: scale(1.3);"></i>
+                            <!-- For 商品的刪除 -->
+                            <i class="fa-solid fa-heart" style="color:red; transform: scale(1.3);" v-on:click="showDeleteConfirmation('product', product.productId)"></i>
                         </div>
                     </div>
                 </div>
@@ -509,8 +511,7 @@
 
                 favoritesWithTrainersAndProducts1: [],
                 favoritesWithTrainersAndProducts2: [],
-                showTrainer: 'trainer' // 新增這行
-
+                showTrainer: 'trainer'
             };
         },
         mounted() {
@@ -519,8 +520,8 @@
         methods: {
             MemberFavorite() {
                 let urlParams = new URLSearchParams(window.location.search);
-                let id = urlParams.get('id');  // 從URL中獲取id
-
+                let id = urlParams.get('id');
+                console.log("ID retrieved from URL:", id);
                 if (!id) {
                     console.error("ID not provided in the URL");
                     return;
@@ -536,12 +537,64 @@
                         return response.json();
                     })
                     .then((data) => {
-                        console.log(data);  // 加這一行
+                        console.log(data);
                         this.MemberFavorites = data;
                     })
                     .catch((error) => {
                         console.error("API 請求失敗: " + error.message);
                     });
+            },
+            async deleteFavorite(type, id) {
+                console.log(type, id);
+                let url;
+                let memberId = new URLSearchParams(window.location.search).get('id');
+
+                if (type === 'trainer') {
+                    url = `https://localhost:7011/api/MemberFavorite/${memberId}/trainer/${id}`;
+                } else {
+                    url = `https://localhost:7011/api/MemberFavorite/${memberId}/product/${id}`;
+                }
+
+                try {
+                    const response = await fetch(url, {
+                        method: 'DELETE',
+                    });
+
+                    if (response.ok) {
+                        await Swal.fire({
+                            icon: "success",
+                            title: "成功移除",
+                            text: "已成功移除一筆資料",
+                            showConfirmButton: true,
+                            confirmButtonText: "確認"
+                        });
+                        this.MemberFavorite();
+                    } else {
+                        throw new Error("表單提交失敗");
+                    }
+                } catch (error) {
+                    await Swal.fire({
+                        icon: "error",
+                        title: "錯誤",
+                        text: error.message,
+                        confirmButtonText: "OK"
+                    });
+                }
+            },
+            showDeleteConfirmation(type, id) {
+                Swal.fire({
+                    title: '確定要刪除這筆資料嗎？',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#2BC17B',
+                    cancelButtonColor: '#dc3545',
+                    confirmButtonText: '確定',
+                    cancelButtonText: '取消'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.deleteFavorite(type, id);
+                    }
+                });
             },
         },
     }).mount('#app')
