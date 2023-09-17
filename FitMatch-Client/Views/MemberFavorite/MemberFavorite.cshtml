@@ -5,349 +5,10 @@
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/vuex@4"></script>
 
-<style scoped>
 
-    /* 圓形框框樣式 */
-    .card-image img {
-        width: 250px;
-        height: 330px;
-        object-fit: cover; /* 確保圖片在容器內完整顯示 */
-        overflow: hidden;
-    }
+<link rel="stylesheet" href="~/css/memberclass.css">
 
 
-    .card1:hover img {
-        transform: scale(1.1);
-    }
-
-
-
-    .card {
-        flex-direction: column;
-        border-radius: 20px;
-        height: 100%;
-        display: flex;
-    }
-
-    /* personal_member */
-    body {
-        background-color: #fff;
-    }
-
-    .container .navbar-expand-lg {
-        border: 1px solid #ececec;
-    }
-
-    button {
-        background-color: #F24B88;
-        color: #ffffff;
-    }
-
-    active .cc {
-        border-bottom: 3px solid #F24B88;
-    }
-
-    .member.line a:hover,
-    .member.line a:active {
-        border-bottom: 2px solid #F24B88;
-    }
-
-    .member.ac ol li a {
-        border-bottom: 2px solid #F24B88;
-    }
-
-    /* 分隔符 */
-
-    $breadcrumb-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E");
-
-    figure {
-        width: 35%;
-        padding: 5px;
-        float: right;
-        margin-right: 20px;
-    }
-
-
-    /* 圓形框框樣式 */
-    .round-image {
-        border-radius: 50%;
-        /* 50% 會將元素變成圓形 */
-        overflow: hidden;
-        /* 超出元素範圍的部分隱藏 */
-        width: 500px;
-        /* 調整圖片寬度 */
-        height: 500px;
-        /* 調整圖片高度 */
-        margin: 0 auto;
-        /* 水平居中 */
-    }
-
-        /* 圖片樣式 */
-        .round-image img {
-            width: 100%;
-            /* 讓圖片自適應容器大小 */
-            height: auto;
-        }
-
-    li label {
-        margin: 25px;
-    }
-
-    .personalBtn {
-        border-radius: 25px;
-        margin-left: 50px;
-    }
-
-    .serviceBtn button {
-        background-color: #F24B88;
-        /* border-radius: 25px; */
-    }
-
-    /* personal 表單元素 table */
-
-    ul li {
-        list-style-type: none;
-    }
-
-    .tb1 {
-        width: 400px;
-        border: 3px solid #0072E3;
-        border-collapse: collapse;
-    }
-
-    td,
-    th {
-        border-bottom: 1px solid gray;
-        text-align: center;
-    }
-
-    /* table {
-                                margin: 50px;
-                                padding: 50px;
-                            } */
-
-    thead {
-        background-color: #2b2b2b;
-        color: #ffffff;
-        text-transform: capitalize;
-        margin: 60px;
-        padding: 60px;
-        text-align: center;
-    }
-
-    tbody {
-        text-align: center;
-    }
-
-    .cc.vv td:hover {
-        background-color: rgba(145, 145, 145, 0.603);
-        color: rgb(26, 26, 26);
-    }
-
-    .favotitelist.img1 {
-        width: 100px;
-    }
-
-    /* personal 收藏清單 */
-
-
-
-    .favoriteTag {
-        border: 1px solid #acd6ff;
-        border-radius: 10px;
-    }
-
-    .h-150px {
-        height: 150px;
-    }
-
-    .mh-250px {
-        min-height: 250px;
-    }
-
-    .h-300px {
-        height: 300px;
-    }
-
-    .w-600px {
-        /* width: 600px; */
-    }
-
-    .fz-40px {
-        font-size: 40px;
-    }
-
-    .fz-12px {
-        font-size: 12px;
-    }
-
-    .op5 {
-        opacity: 0.5;
-    }
-
-    .cup {
-        cursor: pointer;
-    }
-
-    .card1 img {
-        transition: all 0.2s;
-    }
-
-    /* 圓形框框樣式 */
-    .card-image {
-        overflow: hidden;
-        /* 超出元素範圍的部分隱藏 */
-        width: 220px;
-        /* 調整圖片寬度 */
-        height: 220px;
-        /* 調整圖片高度 */
-        margin: 0 auto;
-        /* 水平居中 */
-    }
-
-        /* 圖片樣式 */
-        .card-image img {
-            width: 100%;
-            /* 讓圖片自適應容器大小 */
-            height: auto;
-        }
-
-
-
-
-    .card1:hover img {
-        transform: scale(1.1);
-    }
-
-    /* .card {
-                                width: 250px;
-                            } */
-
-    /* personal 超連結 */
-    a:hover,
-    a:visited,
-    a:link,
-    a:active {
-        text-decoration: none;
-    }
-
-    /* personal_course */
-
-    .text-center {
-        text-align: center;
-    }
-
-    .coursebody {
-        background-color: #000;
-    }
-
-    .course-single-body {
-        background-color: #000;
-    }
-
-
-    .list-group-item {
-        background: linear-gradient(90deg, #f24b88 0%, #bd00ff 100%);
-    }
-
-
-    /* personal_member */
-    figure {
-        width: 35%;
-        padding: 5px;
-        float: right;
-        margin-right: 20px;
-    }
-
-    .member.img-head {
-        width: 300px;
-    }
-
-    li label {
-        margin: 25px;
-    }
-
-    .personalBtn1 {
-        border-radius: 25px;
-    }
-
-    /* personal 表單元素 table */
-
-    .tb1 {
-        width: 400px;
-        border: 3px solid #0072E3;
-        border-collapse: collapse;
-    }
-
-    td,
-    th {
-        border-bottom: 1px solid gray;
-        text-align: center;
-    }
-
-
-    thead {
-        color: #ffffff;
-        text-transform: capitalize;
-        margin: 60px;
-        padding: 60px;
-        text-align: center;
-    }
-
-    tbody {
-        margin-right: auto;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-
-
-
-    .tableclass tbody td:hover {
-        background-color: rgba(145, 145, 145, 0.603);
-        color: rgb(26, 26, 26);
-    }
-
-    .favotitelist.img1 {
-        width: 100px;
-    }
-
-    td img {
-        width: 150px;
-    }
-
-    .class.tr td {
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        vertical-align: middle;
-        color: #000000;
-    }
-
-
-
-    .st1 {
-        width: 450px;
-        /* border-bottom: 3px dashed #9D9D9D; */
-        margin: 20px;
-        padding-bottom: 10px;
-    }
-
-    /* Personal Coach */
-
-    textarea {
-        resize: none;
-    }
-
-    .t1 {
-        width: 100px;
-        /* border: 1px solid red; */
-        float: left;
-        text-align: right;
-    }
-
-
-</style>
 
 <div style="background-color: #fff" id="app">
     <!-- Page Header Start -->
@@ -355,7 +16,7 @@
          data-wow-delay="0.1s">
         <div class="container text-center py-5">
             <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">
-                FAVORITE
+                Personal
             </h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center text-uppercase mb-0">
@@ -363,10 +24,10 @@
                         <a class="text-white" href="#">Home</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a class="text-white" href="#">Pages</a>
+                        <a class="text-white" href="#">Member</a>
                     </li>
                     <li class="breadcrumb-item text-primary active" aria-current="page">
-                        MEMBER
+                        Personal
                     </li>
                 </ol>
             </nav>
@@ -377,19 +38,12 @@
 
     <div class="container">
         <div class="container text-center">
-            <nav style="
-            --bs-breadcrumb-divider: url(
-              &#34;data:image/svg + xml,
-              %3Csvgxmlns='http://www.w3.org/2000/svg'width='8'height='8'%3E%3Cpathd='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z'fill='currentColor'/%3E%3C/svg%3E&#34;
-            );
-          "
+            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
                  aria-label="breadcrumb">
-                <ol class="breadcrumb" style="color: rgb(0, 0, 0)">
+                <ol class="breadcrumb" style="color: rgb(0, 0, 0);">
+                    <li class="breadcrumb-item"><a href="index.html" style="color: rgb(0, 0, 0);">首頁</a></li>
                     <li class="breadcrumb-item">
-                        <a href="index.html" style="color: rgb(0, 0, 0)">首頁</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="personal_member.html" style="color: rgb(0, 0, 0)">我的會員專區</a>
+                        <a href="personal_member.html" style="color: rgb(0, 0, 0);">我的會員專區</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">收藏清單</li>
                 </ol>
@@ -402,7 +56,7 @@
             <div class="container-fluid">
                 <div class="container member line">
                     <div class="nav" style="color: rgb(0, 0, 0);">
-                        <a style="color: rgb(0, 0, 0);" href="personal_member.html"
+                        <a style="color: rgb(0, 0, 0);" asp-area="" asp-controller="Member" asp-action="Member"
                            class="nav-link nav-item ">基本資料</a>
                         <a style="color: rgb(0, 0, 0);" href="personal_member_Order_Traking.html"
                            class="nav-link nav-item">訂單查詢</a>
@@ -589,7 +243,7 @@
                         await Swal.fire({
                             icon: "success",
                             title: "成功移除",
-                            text: "已成功移除一筆資料",
+                            text: "已成功移除一項收藏清單資料",
                             showConfirmButton: true,
                             confirmButtonText: "確認"
                         });
@@ -608,7 +262,7 @@
             },
             showDeleteConfirmation(type, id) {
                 Swal.fire({
-                    title: '確定要刪除這筆資料嗎？',
+                    title: '確定要移除一項收藏清單資料嗎？',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#2BC17B',

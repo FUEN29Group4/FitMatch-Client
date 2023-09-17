@@ -13,17 +13,11 @@
 @*彥儀用的勿刪*@
 
 
-<style scoped>
-
-    /* 圓形框框樣式 */
-    .card-image img {
-        width: 250px;
-        height: 330px;
-        object-fit: cover; /* 確保圖片在容器內完整顯示 */
-        overflow: hidden;
-    }
+<link rel="stylesheet" href="~/css/memberclass.css">
 
 
+
+<<<<<<< Updated upstream
     .card1:hover img {
         transform: scale(1.1);
     }
@@ -376,15 +370,27 @@
 </style>
 
 <div style="background-color: #fff">
+=======
+<div style="background-color: #fff" id="app">
+>>>>>>> Stashed changes
     <!-- Page Header Start -->
-    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn"
+         data-wow-delay="0.1s">
         <div class="container text-center py-5">
-            <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Our Barber</h1>
+            <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">
+                Personal
+            </h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center text-uppercase mb-0">
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                    <li class="breadcrumb-item text-primary active" aria-current="page">Our Barber</li>
+                    <li class="breadcrumb-item">
+                        <a class="text-white" href="#">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a class="text-white" href="#">Member</a>
+                    </li>
+                    <li class="breadcrumb-item text-primary active" aria-current="page">
+                        Personal
+                    </li>
                 </ol>
             </nav>
         </div>
@@ -411,7 +417,7 @@
                 <div class="container-fluid">
                     <div class="container member line">
                         <div class="nav" style="color: rgb(0, 0, 0);">
-                            <a style="color: rgb(0, 0, 0);" href="personal_member.html"
+                            <a style="color: rgb(0, 0, 0);" asp-area="" asp-controller="Member" asp-action="Member"
                                class="nav-link nav-item ">基本資料</a>
                             <a style="color: rgb(0, 0, 0);" href="personal_member_Order_Traking.html"
                                class="nav-link nav-item">訂單查詢</a>
@@ -439,26 +445,15 @@
                 <li>年度累積消費金額 NT.{{ MemberClassAPIs.totalOrderAmount }}</li>
 
             </ul>
-            <hr />
+
         </div>
 
-
-        <hr>
-
-        <div class="container">
-            <button type="button" style="background-color: #F24B88" class="btn btn-primary personalBtn">
-                <a style="color: aliceblue;" href="personal_member_My_Schedule.html">我的課表</a>
-            </button>
-            <button type="button" style="background-color: #ff005d" class="btn btn-primary personalBtn">
-                <a style="color: aliceblue;" href="personal_member_My_Schedule_Record.html">我的課程紀錄</a>
-            </button>
-        </div>
         <hr>
 
         <div class="container" id="app">
             <div class="container">
-                <table class="table table-bordered table-hover ">
-                    <thead style="background-color: #F24B88;">
+                <table class="table table-bordered table-hover table-centered">
+                    <thead style="background-color: #F24B88;color:#fff">
                         <tr>
                             <th>預約編號</th>
                             <th>教練</th>
@@ -471,10 +466,31 @@
 
                     <tbody v-for="classApi in MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms">
 
+<<<<<<< Updated upstream
                         <!-- 如果某些關鍵數據是空的，就只顯示"未添加課程" -->
                         <tr v-if="isEmptyClassData(classApi)">
                             <td colspan="6">未添加課程</td>
                         </tr>
+=======
+                        <template v-for="classApi in MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms">
+                            <!-- 如果某些關鍵數據是空的，就只顯示"未添加課程" -->
+                            <tr v-if="isEmptyClassData(classApi)">
+                                <td colspan="6">未添加課程</td>
+                            </tr>
+
+                            <!-- 否則，顯示數據 -->
+                            <tr v-else v-for="trainer in classApi.trainers" :key="trainer.trainerId">
+                                <td>{{classApi.classId}}</td>
+                                <td>{{classApi.trainers[0].trainerName}}</td>
+                                <td>{{classApi.gyms[0].gymName}}</td>
+                                <td>{{classApi.courseStatus}}</td>
+                                <td>{{ formatTimeToDetailedDate(classApi.buildTime) }}</td>
+                                <td>
+                                    <button type="button" style="background-color: #F24B88;color: aliceblue;margin-right:50px" class="btn btn-primary personalBtn">聯繫教練</button>
+                                </td>
+                            </tr>
+                        </template>
+>>>>>>> Stashed changes
 
                         <!-- 否則，顯示數據 -->
                         <tr v-else v-for="trainer in classApi.trainers" :key="trainer.trainerId">
