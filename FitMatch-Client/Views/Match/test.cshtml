@@ -2,150 +2,38 @@
     ViewData["Title"] = "test";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="~/css/Chat.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.js"></script>
 <script src="https://unpkg.com/vue@3"></script>
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
 
-<style>
-    .chat-modal {
-        display: block; /*可見*/
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        border: 1px solid #ccc;
-        width: 300px;
-        background-color: white;
-    }
 
-    .chat-header, .chat-footer {
-        padding: 15px;
-        background-color: #f1f1f1;
-    }
 
-    .chat-body {
-        max-height: 200px;
-        overflow-y: scroll;
-        padding: 10px;
-    }
-
-    .close {
-        float: right;
-    }
-
-    .message-sent {
-        text-align: right;
-    }
-
-    .message-received {
-        text-align: left;
-    }
-
-</style>
-<div id="app">
-
-    <button v-on:click="showChatHistory(1)">ChatHistory</button>
-    <div v-if="isChatHistoryVisible" class="chat-modal">
-        <div class="chat-header">
-            <span class="close" @@click="isChatHistoryVisible = false">X</span>
-        </div>
-        <div class="chat-body">
-            <li v-for="msg in chatHistory"
-                :class="{'message-sent': msg.role === role, 'message-received': msg.role !== role}">
-                {{ msg.senderId }}: {{ msg.messageContent }}
-                </li>
-        </div>
-        <div class="chat-footer">
-            <input v-model="message" placeholder="Type message..." />
-            <button v-on:click="sendMessage">發送消息</button>
+<div id="chat">
+    <button @@click="showChatHistory(79)">ChatHistory</button>
+    <div v-if="isChatHistoryVisible" class="overlay">
+        <div class="chat-modal">
+            <div class="chat-header">
+                <span class="close" @@click="isChatHistoryVisible = false">X</span>
+            </div>
+            <div class="chat-body">
+                <div v-for="msg in chatHistory"
+                     :class="{'chat-message-sent': msg.role === role, 'chat-message-received': msg.role !== role}">
+                    <div class="chat-avatar">
+                        <img v-if="msg.photo" :src="msg.photo" alt="Avatar">
+                        <div v-else> {{ String(msg.senderId) }}</div>
+                    </div>
+                    <span class="chat-content">
+                        {{ msg.messageContent }}
+                    </span>
+                </div>
+            </div>
+            <div class="chat-footer">
+                <input v-model="message" placeholder="輸入訊息" @@keyup.enter="sendMessage" />
+                <button @@click="sendMessage" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
         </div>
     </div>
 </div>
 
-@*<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.9/signalr.min.js"></script>
-*@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.js"></script>
-<script>
-    // 初始化 SignalR 连接
-    const connection = new signalR.HubConnectionBuilder()
-        .withUrl("https://localhost:7011/chatHub")
-        .configureLogging(signalR.LogLevel.Information)
-        .build();
-
-
-    const app = Vue.createApp({
-        data() {
-            return {
-                isChatHistoryVisible: false,
-                chatHistory: [],
-                message: "",
-                senderId: null,
-                receiverId: null,
-                role: "" // 初始化为 null
-            };
-        },
-        async created() {
-            this.connect();  // 啟動 SignalR 連接
-
-            // 從 sessionStorage 中獲取 senderId 和 role
-            this.senderId = sessionStorage.getItem('memberId') || sessionStorage.getItem('trainerId');
-            this.role = sessionStorage.getItem('memberId') ? 'Member' : 'Trainer';
-
-            // 啟動 SignalR 連線
-            this.connect();
-        },
-        methods: {
-            connect: async function () {
-                    if (connection.state === signalR.HubConnectionState.Disconnected) {
-                        // 處裡關閉事件
-                        if (!connection.connectionClosed) {
-                            connection.onclose((error) => {
-                                console.warn('連線已關閉:', error);
-                                this.connect();
-                            });
-                            connection.connectionClosed = true;
-                        }
-
-                        try {
-                            await connection.start();
-                            console.log('連線已啟動！');
-                        } catch (err) {
-                            console.error('建立連線時出錯 :', err);
-                        }
-                    } else {
-                        console.warn('連線失敗狀態:', connection.state);
-                    }
-                },
-            showChatHistory(receiverId) { 
-                this.receiverId = receiverId;
-                this.isChatHistoryVisible = true;
-                this.loadChatHistory();
-            },
-            async loadChatHistory() {
-                try {
-                    const response = await fetch(`https://localhost:7011/api/Chat/GetHistory/${this.senderId}/${this.receiverId}`);
-                    if (response.ok) {
-                        const data = await response.json();
-                        this.chatHistory = data;
-                    }
-                } catch (error) {
-                    console.error("找不到歷史對話紀錄:", error);
-                }
-            },
-            async sendMessage() {
-                if (connection.state === signalR.HubConnectionState.Connected) {
-                    try {
-                        await connection.invoke("SendMessage", this.receiverId, this.message, this.senderId, this.role);
-                        //console.log('傳送訊息成功:',this.receiverId, this.message, this.senderId, this.role);
-                        this.chatHistory.push({ sender: this.senderId, messageContent: this.message, role: this.role });
-                        //console.log('增加訊息成功:', this.senderId, this.message, this.role);
-                        this.message = "";
-                    } catch (err) {
-                        console.error("傳送訊息時出錯", err);
-                    }
-                } else {
-                    console.warn('SignalR沒連結成功');
-
-                }
-            }
-        }
-    }).mount("#app");
-</script>
-
+<script src="~/js/Chat.js"></script>
