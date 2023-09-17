@@ -9,7 +9,6 @@
 @*彥儀用的勿刪*@
 <link href="~/css/Chat.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.js"></script>
-
 @*彥儀用的勿刪*@
 
 
@@ -537,9 +536,7 @@
     //@@彥儀@@
     // 初始化 SignalR 连接
     const connection = new signalR.HubConnectionBuilder()
-        .withUrl("https://localhost:7011/chatHub", {
-            headers: { "senderId": sessionStorage.getItem('memberId') || sessionStorage.getItem('trainerId') }
-        })
+        .withUrl("https://localhost:7011/chatHub")
         .configureLogging(signalR.LogLevel.Information)
         .build();
 
@@ -676,19 +673,16 @@
                         });
                         connection.connectionClosed = true;
                     }
+
                     try {
                         await connection.start();
                         console.log('連線已啟動！');
-                        // 初始化 receiverId
-                        //connection.invoke("InitializeClient", this.senderId);
-
                     } catch (err) {
                         console.error('建立連線時出錯 :', err);
                     }
                 } else {
                     console.warn('連線失敗狀態:', connection.state);
-                }
-                // 訂閱接收消息事件
+                }// 訂閱接收消息事件
                 connection.on("ReceiveMessage", (senderId, message, role) => {
                     // 添加新消息到 chatHistory
                     this.chatHistory.push({ senderId, messageContent: message, role });
@@ -714,10 +708,14 @@
             },
             async loadChatHistory() {//@@彥儀@@
                 try {
-                    const response = await fetch(`https://localhost:7011/api/Chat/GetHistory/${this.senderId}/${this.receiverId}`);
+                    const response = await fetch(`https://localhost:7011/api/Chat/GetHistory/${this.senderId}/${this.receiverId}?role=${this.role}`);
                     if (response.ok) {
                         const data = await response.json();
                         this.chatHistory = data;
+                        // 加载照片
+                        for (const msg of data) {
+                            this.loadPhoto(msg.senderId, msg.role);
+                        }
                     }
                 } catch (error) {
                     console.error("找不到歷史對話紀錄:", error);
