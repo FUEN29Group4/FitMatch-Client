@@ -260,106 +260,134 @@ function formatDateToISO(date) {
     var day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
 }
+
 function openVenueModal(date) {
-    // 先获取场馆信息
+    const taiwanCities = ["未選擇", "台北市", "新北市", "桃園市", "台中市", "台南市", "高雄市", "基隆市"];
+
     fetch('https://localhost:7011/api/Match/Gym')
-    .then(response => response.json())
-    .then(data => {
-        // 假设 data 是一个场馆名称的数组
-        const gymOptions = data.map(gym => {
-            return `<option value="${gym.gymId}">${gym.gymName}</option>`;
-        }).join('');
+        .then(response => response.json())
+        .then(data => {
+            const cityOptions = taiwanCities.map(city => 
+    `<option value="${city}" ${city === "未選擇" ? 'disabled selected' : ''}>${city}</option>`
+    ).join('');
 
-        Swal.fire({
-            title: '新增场馆',
-            html: `
-                日期: <strong>${date.toLocaleDateString()}</strong><br>
-                場館名稱: 
-                <select id="gym-select">
-                    ${gymOptions}
-                </select>
-            `,
-            showCancelButton: true,
-            confirmButtonText: '添加',
-            cancelButtonText: '取消',
-            preConfirm: () => {
-            // 使用 Swal 获取 select 的选择的文本（即健身房的名稱）
-            const selectElement = document.getElementById('gym-select');
-            return selectElement.options[selectElement.selectedIndex].text;
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const venueName = result.value;
-                if (venueName) {
-                    const event = {
-                        title: venueName,
-                        start: date,
-                        allDay: true,
-                        extendedProps: {
-                            venue: venueName
-                        }
-                    };
+            const getGymsByCity = (city) => {
+                return data.filter(gym => city === "未選擇" || gym.address.includes(city)).map(gym => 
+                    `<option value="${gym.gymId}">${gym.gymName}</option>`
+                ).join('');
+            };
 
-                    calendar.addEvent(event);
-                    Swal.fire({
-                        icon: 'success',
-                        title: '場館已創建',
-                        text: '日期: ' + date.toLocaleDateString() + '，場館名稱: ' + venueName
-                    });
+            const initialGymOptions = getGymsByCity("未選擇");
+
+           Swal.fire({
+    title: '選擇場館',
+    html: `
+        <select id="city-select">
+            ${cityOptions}
+        </select>
+        <select id="gym-select">
+            <option value="" disabled selected>請選擇</option>
+            ${initialGymOptions}
+        </select>
+    `,
+    didOpen: () => {
+        document.getElementById('city-select').addEventListener('change', (e) => {
+            const selectedCity = e.target.value;
+            const gymOptions = getGymsByCity(selectedCity);
+            const gymSelectElement = document.getElementById('gym-select');
+            gymSelectElement.innerHTML = `<option value="" disabled selected>請選擇</option>${gymOptions}`;
+        });
+    },
+    preConfirm: () => {
+        const selectElement = document.getElementById('gym-select');
+        return selectElement.options[selectElement.selectedIndex].text;
+    }
+}).then((result) => {
+                if (result.isConfirmed) {
+                    const venueName = result.value;
+                    if (venueName && venueName !== "請選擇") {
+                        // 移除舊的場館事件
+                        calendar.getEvents().forEach(event => {
+                            if (event.start.toISOString().split('T')[0] === date.toISOString().split('T')[0] && event.allDay) {
+                                event.remove();
+                            }
+                        });
+
+                        // 加入新的場館事件
+                        const event = {
+                            title: venueName,
+                            start: date,
+                            allDay: true,
+                            extendedProps: {
+                                venue: venueName
+                            }
+                        };
+
+                        calendar.addEvent(event);
+                        Swal.fire({
+                            icon: 'success',
+                            title: '場館已更改',
+                            text: '日期: ' + date.toLocaleDateString() + '，場館名稱: ' + venueName
+                        });
+                    }
                 }
-            }
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching gyms:', error);
+            Swal.fire({
+                icon: 'error',
+                title: '錯誤',
+                text: '加載場館資料時發生錯誤，請刷新頁面重試。'
+            });
         });
-    })
-    .catch(error => {
-        console.error('Error fetching gyms:', error);
-        Swal.fire({
-            icon: 'error',
-            title: '错误',
-            text: '加载场馆数据时发生错误，请刷新页面重试。'
-        });
-    });
 }
+
+
+
+
+
+
+
+
+
 
 
 function openTimeSlotModal(date) {
-    // 计算结束时间，此处假定预约时间为1小时
+    // 計算結束時間，此處假定預約時間為1小時
     let endDate = new Date(date);
     endDate.setHours(endDate.getHours() + 1);
 
+    const startTimeStr = formatTime(date);
+    const endTimeStr = formatTime(endDate);
+
     Swal.fire({
-        title: '预约时段: ' + formatTime(date) + ' - ' + formatTime(endDate),
-        input: 'text',
-        inputLabel: '会员名称',
-        inputPlaceholder: '请输入会员名称',
+        title: '預約時段: ' + startTimeStr + ' - ' + endTimeStr,
+        text: '確定開課嗎？',
         showCancelButton: true,
-        confirmButtonText: '预约',
+        confirmButtonText: '確定開課',
         cancelButtonText: '取消'
     }).then((result) => {
         if (result.isConfirmed) {
-            const memberName = result.value;
-            if (memberName) {
-                const event = {
-                    title: '已预约: ' + memberName,
-                    start: date,
-                    end: endDate,
-                    backgroundColor: 'blue',
-                    borderColor: 'blue'
-                };
+            const event = {
+                title: startTimeStr + ' - ' + endTimeStr + ' 未匹配成功',
+                start: date,
+                end: endDate,
+                backgroundColor: 'red',  // 使用紅色表示該時間段已被註冊
+                borderColor: 'red'
+            };
 
-                calendar.addEvent(event);
-                Swal.fire({
-                    icon: 'success',
-                    title: '已预约'
-                });
-            } else {
-                Swal.fire({
-                    icon: 'warning',
-                    title: '请输入会员名称'
-                });
-            }
+            calendar.addEvent(event);
+            Swal.fire({
+                icon: 'success',
+                title: '該時間段已被註冊'
+            });
         }
     });
 }
+
+
+
 
 function formatTime(date) {
     let hours = date.getHours();
