@@ -212,3 +212,72 @@
     });
 </script>
 
+
+<script>
+
+    const memberIdFromSession = sessionStorage.getItem('memberId');
+    if (!memberIdFromSession) {
+        console.error("memberId not found in session storage");
+        // You can also redirect the user or show an error message, if necessary.
+    }
+
+    Vue.createApp({
+        data() {
+            return {
+                MemberFavorites: [],
+
+                favoritesWithTrainersAndProducts1: [],
+                favoritesWithTrainersAndProducts2: [],
+                memberId: sessionStorage.getItem('memberId'),
+                token: sessionStorage.getItem('token'),
+                showTrainer: 'trainer'
+            };
+        },
+        mounted() {
+            if (!this.memberId || !this.token) {
+                console.error("memberId or token not found in session storage");
+                // You can also redirect the user or show an error message, if necessary.
+                return;
+            }
+            this.MemberFavorite();
+        },
+        methods: {
+            MemberFavorite() {
+
+                const headers = new Headers();
+                headers.append('Authorization', `Bearer ${this.token}`);
+
+                if (!memberIdFromSession) {
+                    console.error("memberId not provided in the session");
+                    return;
+                }
+
+                // Assuming the token is stored in the session storage.
+                // Adjust if it's stored elsewhere.
+                const token = sessionStorage.getItem('token');
+                if (token) {
+                    headers.append('Authorization', `Bearer ${token}`);
+                }
+
+                fetch(`https://localhost:7011/api/MemberFavorite/${this.memberId}`, {
+                    headers: headers
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            return response.text().then(text => {
+                                throw new Error(`API request failed with status ${response.status}: ${text}`);
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        console.log(data);
+                        this.MemberFavorites = data;
+                    })
+                    .catch((error) => {
+                        console.error("API 請求失敗: " + error.message);
+                    });
+            },
+        },
+    }).mount('#app')
+</script>
