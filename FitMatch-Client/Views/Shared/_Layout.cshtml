@@ -261,25 +261,35 @@
                 const dropdownContent = document.getElementById('dropdownContent');
                 dropdownContent.innerHTML = ''; // 清空目前菜單
 
-                if (data.memberName) {
-                    document.getElementById('userName').textContent = data.memberName;
-                    dropdownContent.innerHTML += '<a href="/Member/Member" class="dropdown-item">學員專區</a>';
-                }
-
-                if (data.trainerName) {
-                    document.getElementById('userName').textContent = data.trainerName;
-                    dropdownContent.innerHTML += '<a href="/Trainer/Index" class="dropdown-item">教練專區</a>';
-                }
+                const userNameElement = document.getElementById('userName');
+                const userPhotoElement = document.getElementById('userPhoto');
 
                 // 如果data包含Photo欄位，則添加到用戶名旁邊
                 if (data.photo) {
                     const img = document.createElement('img');
                     img.src = `data:image/jpeg;base64, ${data.photo}`; // 使用Base64編碼的照片
                     img.alt = 'User Photo';
-                    img.width = 40;
-                    img.height = 40;
+                    img.width = 60;
+                    img.height = 60;
                     img.classList.add('rounded-circle', 'me-lg-2'); // 圓圓的CSS
-                    document.getElementById('userPhoto').appendChild(img);
+                    userPhotoElement.appendChild(img);
+                } else {
+                    // 如果沒有photo，顯示用戶名作為替代
+                    if (data.memberName) {
+                        userNameElement.textContent = data.memberName;
+                    }
+                    if (data.trainerName) {
+                        userNameElement.textContent = data.trainerName;
+                    }
+                }
+
+                // 填充 dropdownContent 根據用戶的角色（會員或教練）
+                if (data.memberName) {
+                    dropdownContent.innerHTML += '<a href="/Member/Member" class="dropdown-item">學員專區</a>';
+                }
+
+                if (data.trainerName) {
+                    dropdownContent.innerHTML += '<a href="/Trainer/Index" class="dropdown-item">教練專區</a>';
                 }
 
                 // 登出按鈕
@@ -293,13 +303,10 @@
 
                 // 綁定登出按鈕事件
                 document.getElementById('logoutBtn').addEventListener('click', function () {
-                    //sessionStorage.removeItem('token');
-                    // 改為移除所有 sessionStorage
+                    // 清除所有 sessionStorage
                     sessionStorage.clear();
-                    //強制重新整理
+                    // 強制重新整理
                     location.reload();
-                    //document.getElementById('loginBtn').style.display = 'block';
-                    //document.getElementById('userDropdown').style.display = 'none';
                 });
             })
             .catch(error => {
