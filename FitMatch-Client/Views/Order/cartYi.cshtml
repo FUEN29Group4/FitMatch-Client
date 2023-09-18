@@ -6,9 +6,11 @@
 
 @*  ======  增加之後待使用 start ====== *@
 <!-- 增加Vue跟axios跟jQuery 函式庫CDN-->
-@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.js"></script>*@
-<script src="https://unpkg.com/vue@3"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.js"></script>
+<script src="https://unpkg.com/vue@3"></script>*@
 @*<script src="https://unpkg.com/vuex@4"></script>*@
 
 
@@ -37,42 +39,42 @@
 @* ====== 泰迪Html樣式 start ====== *@
 <style>
     /*  body {
-            font: normal 18px Tahoma,Arial,Verdana;
-        }
+                        font: normal 18px Tahoma,Arial,Verdana;
+                    }
 
-        #myCart {
-            margin: 0 auto;
-            width: 900px;
-            border: 1px solid #fff;
-        }
+                    #myCart {
+                        margin: 0 auto;
+                        width: 900px;
+                        border: 1px solid #fff;
+                    }
 
-        input {
-            width: 60px;
-        }
+                    input {
+                        width: 60px;
+                    }
 
-        tr {
-            border-bottom: 1px dotted #aaa;
-        }
+                    tr {
+                        border-bottom: 1px dotted #aaa;
+                    }
 
-        td {
-            margin: 0px;
-            padding: 1px 10px 4px 10px;
-            border-bottom: 1px dotted #ccc;
-            text-align: left;
-            vertical-align: top;
-        }
+                    td {
+                        margin: 0px;
+                        padding: 1px 10px 4px 10px;
+                        border-bottom: 1px dotted #ccc;
+                        text-align: left;
+                        vertical-align: top;
+                    }
 
-        #cartList {
-            font-size: medium;
-            font-weight: 800;
-            border-bottom: 1px solid #aaa;
-        }
+                    #cartList {
+                        font-size: medium;
+                        font-weight: 800;
+                        border-bottom: 1px solid #aaa;
+                    }
 
-        #subtotal {
-            font-size: medium;
-            font-weight: 600;
-            color: Maroon;
-        }*/
+                    #subtotal {
+                        font-size: medium;
+                        font-weight: 600;
+                        color: Maroon;
+                    }*/
 </style>
 
 
@@ -140,18 +142,18 @@
                     </div>
                 </form>
                 @*<div class="coupon-cart">
-                    <div class="row">
-                    <div class="col-lg-8 col-md-8">
-                    <div class="form-group mb-0">
-                    <input type="text" class="form-control" placeholder="Coupon code">
-                    <button class="btn btn-primary">
-                    Apply Coupon
-                    </button>
-                    </div>
-                    </div>
+                <div class="row">
+                <div class="col-lg-8 col-md-8">
+                <div class="form-group mb-0">
+                <input type="text" class="form-control" placeholder="Coupon code">
+                <button class="btn btn-primary">
+                Apply Coupon
+                </button>
+                </div>
+                </div>
 
-                    </div>
-                    </div>*@
+                </div>
+                </div>*@
             </div>
 
 
@@ -163,7 +165,7 @@
                         <li>稅金 <span id="tax">$00.00</span></li>
                         <li>總金額 <span id="total">0</span></li>
                         @*       <li>優惠折扣 <span id="優惠id">0</span></li>
-                            <li><b>折扣後金額</b><span id="折扣後id"><b>0</b></span></li>*@
+                        <li><b>折扣後金額</b><span id="折扣後id"><b>0</b></span></li>*@
                     </ul>
                     <div class="text-center">
                         <a id="checkout-button" asp-action="Checkout" class="btn btn-primary" style="min-width: 200px;
@@ -426,23 +428,34 @@
 
 
 
-    @* ========= API 串接區: 結帳將資料用post方式傳入資庫中 ========= *@
+    // ========= API 串接區: 結帳將資料用post方式傳入資庫中 =========
 
 
-
+    //讀取session中存的memberId
+    // const memberIdFromSession = sessionStorage.getItem('memberId');
+    let cartItems = [];
 
     // 从购物车中获取商品信息
     function getCartItems() {
-        let cartItems = [];
-        let itemIds = storage.getItem('addItemList').split(', ');
+        let addItemList = localStorage.getItem('addItemList');
+        if (!addItemList) {
+            console.log("购物车是空的");
+            return [];
+        }
+
+        // let itemIds = storage.getItem('addItemList').split(', ');
+        let itemIds = addItemList.split(', ');
+
 
         for (let itemId of itemIds) {
-            let itemInfo = storage.getItem(itemId);
+            let itemInfo = localStorage.getItem(itemId);
+            if (!itemInfo) continue;
+
             let itemData = itemInfo.split('|');
             let productId = itemId;
             let productName = itemData[0];
             let price = parseFloat(itemData[2]);
-            let quantity = parseInt(storage.getItem(`${itemId}-quantity`));
+            let quantity = parseInt(localStorage.getItem(`${itemId}-quantity`));
 
             cartItems.push({ productId, productName, price, quantity });
         }
@@ -452,21 +465,41 @@
 
     // 发送购物车内容到后端创建订单
     function createOrder() {
-        let cartItems = getCartItems();
+        cartItems = getCartItems();
+        if (cartItems.length === 0) {
+            console.log("购物车是空的，不能创建订单");
+            return;
+        }
+
+        const memberIdFromSession = sessionStorage.getItem('memberId');
+        if (!memberIdFromSession) {
+            console.log("没有找到会员ID");
+            return;
+        }
+        // 构建要发送到后端的数据
+        const orderData = {
+            "memberId": memberIdFromSession,
+            "cartItems": cartItems
+        };
 
         fetch('https://localhost:7011/api/OrderAPI', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${DOMTokenList}` // 请替换成实际的JWT令牌 //DOMTokenList
+
 
             },
-            body: JSON.stringify(cartItems)
+            body: JSON.stringify(orderData)
         })
             .then(response => {
                 if (response.ok) {
-                    // 订单创建成功后的处理，例如清空购物车
+                    console.log("有抓到會員id");
                     localStorage.clear();
+                    // 清空購物車相關數據
+
+                    // 订单创建成功后的处理，例如清空购物车
+                    // localStorage.clear();
+
                     // 在此处添加其他成功处理逻辑
                 } else {
                     return ("錯誤")

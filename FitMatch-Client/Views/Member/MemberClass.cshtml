@@ -1,12 +1,11 @@
-﻿@* @{
-    ViewData["Title"] = "MemberClass";
-}
- *@
-
-@{
+﻿@{
     ViewBag.SubLayout = "MemberClass";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
+
+
+
+
 
 @*<script src="https://unpkg.com/vue@3"></script>*@
 <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
@@ -31,103 +30,85 @@
 </style>
 
 
-<div style="background-color: #fff">
-    
+<div style="background-color: #fff" id="app">
+    @* 會員資料 *@
+    <div class="container">
+        <table class="table table-bordered table-hover table-centered">
+            <thead style="background-color: #F24B88;color:#fff">
+                <tr>
+                    <th>預約編號</th>
+                    <th>教練</th>
+                    <th>場館</th>
+                    <th>課程狀態</th>
+                    <th>課程時間</th>
+                    <th>聯繫</th>
+                </tr>
+            </thead>
 
-        @* 會員資料 *@
-       
+            <tbody v-for="classApi in MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms">
 
-        <div class="container" v-for="classItem  in MemberClassAPIs.classAPIWithMembers" :key="classItem .memberClassAPIId">
-            <ul v-for="member in classItem .members" :key="member.memberId">
-                <li>{{ member.memberName }}</li>
-                <li>一般會員</li>
-                <li>{{ member.email }}</li>
-
-                <li>年度累積消費金額 NT.{{ MemberClassAPIs.totalOrderAmount }}</li>
-
-            </ul>
-
-        </div>
-
-        <hr>
-
-        <div class="container">
-            <table class="table table-bordered table-hover table-centered">
-                <thead style="background-color: #F24B88;color:#fff">
-                    <tr>
-                        <th>預約編號</th>
-                        <th>教練</th>
-                        <th>場館</th>
-                        <th>課程狀態</th>
-                        <th>課程時間</th>
-                        <th>聯繫</th>
-                    </tr>
-                </thead>
-
-                <tbody v-for="classApi in MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms">
-
-                    <!-- 如果某些關鍵數據是空的，就只顯示"未添加課程" -->
-                    <tr v-if="isEmptyClassData(classApi)">
-                        <td colspan="6">未添加課程</td>
-                    </tr>
+                <!-- 如果某些關鍵數據是空的，就只顯示"未添加課程" -->
+                <tr v-if="isEmptyClassData(classApi)">
+                    <td colspan="6">未添加課程</td>
+                </tr>
 
 
-                    <!-- 否則，顯示數據 -->
-                    <tr v-else v-for="trainer in classApi.trainers" :key="trainer.trainerId">
-                        <td>{{classApi.classId}}</td>
-                        <td>{{classApi.trainers[0].trainerName}}</td>
-                        <td>{{classApi.gyms[0].gymName}}</td>
-                        <td>{{classApi.courseStatus}}</td>
-                        <td>{{ formatTimeToDetailedDate(classApi.buildTime) }}</td>
-                        <td>
-                            <button class="btn btn-primary" style="border-radius:25px" @@click=" showChatHistory(classApi.trainers[0].trainerId)">聯繫教練</button>
+                <!-- 否則，顯示數據 -->
+                <tr v-else v-for="trainer in classApi.trainers" :key="trainer.trainerId">
+                    <td>{{classApi.classId}}</td>
+                    <td>{{classApi.trainers[0].trainerName}}</td>
+                    <td>{{classApi.gyms[0].gymName}}</td>
+                    <td>{{classApi.courseStatus}}</td>
+                    <td>{{ formatTimeToDetailedDate(classApi.buildTime) }}</td>
+                    <td>
+                        <button class="btn btn-primary" style="border-radius:25px" @@click=" showChatHistory(classApi.trainers[0].trainerId)">聯繫教練</button>
 
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-        @*對話視窗開始*@
-        <div v-if="isChatHistoryVisible" class="overlay">
-            <div class="chat-modal">
-                <div class="chat-header">
-                    <span class="close" @@click="isChatHistoryVisible = false">X</span>
-                </div>
-                <div class="chat-body">
-                    <div v-for="msg in chatHistory"
-                         :class="{'chat-message-sent': msg.role === role, 'chat-message-received': msg.role !== role}">
-                        <div class="chat-avatar">
-                            <!-- 如果msg.photo存在，則顯示照片 -->
-                            <img v-if="photoURLs[msg.senderId]" :src="photoURLs[msg.senderId]">
-                            <!-- 否則，顯示ID -->
-                            <div v-else>{{ msg.senderId }}</div>
+    @*對話視窗開始*@
+    <div v-if="isChatHistoryVisible" class="overlay">
+        <div class="chat-modal">
+            <div class="chat-header">
+                <span class="close" @@click="isChatHistoryVisible = false">X</span>
+            </div>
+            <div class="chat-body">
+                <div v-for="msg in chatHistory"
+                     :class="{'chat-message-sent': msg.role === role, 'chat-message-received': msg.role !== role}">
+                    <div class="chat-avatar">
+                        <!-- 如果msg.photo存在，則顯示照片 -->
+                        <img v-if="photoURLs[msg.senderId]" :src="photoURLs[msg.senderId]">
+                        <!-- 否則，顯示ID -->
+                        <div v-else>{{ msg.senderId }}</div>
 
-                        </div>
-                        <span class="chat-content">
-                            {{ msg.messageContent }}
-                        </span>
                     </div>
-                </div>
-                <div class="chat-footer">
-                    <input v-model="message" placeholder="輸入訊息" @@keyup.enter="sendMessage" />
-                    <button @@click="sendMessage" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+                    <span class="chat-content">
+                        {{ msg.messageContent }}
+                    </span>
                 </div>
             </div>
+            <div class="chat-footer">
+                <input v-model="message" placeholder="輸入訊息" @@keyup.enter="sendMessage" />
+                <button @@click="sendMessage" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
         </div>
-        @*對話視窗結束*@
     </div>
+    @*對話視窗結束*@
 </div>
 <!-- body end -->
 
 
 <script>
 
-    const memberIdFromSession = sessionStorage.getItem('memberId');
-    if (!memberIdFromSession) {
-        console.error("memberId not found in session storage");
-        // You can also redirect the user or show an error message, if necessary.
-    }
+    // const memberIdFromSession = sessionStorage.getItem('memberId');
+    // if (!memberIdFromSession) {
+    //     console.error("memberId not found in session storage");
+    //     // You can also redirect the user or show an error message, if necessary.
+    // }
+
 
     //@@彥儀@@
     // 初始化 SignalR 连接
@@ -180,6 +161,9 @@
 
             };
         },
+        mounted() {
+            this.MemberClassAPI();
+        },
         async created() {//@@彥儀@@
             // 從 sessionStorage 中獲取 senderId 和 role
             this.senderId = sessionStorage.getItem('memberId') || sessionStorage.getItem('trainerId');
@@ -187,9 +171,7 @@
             // 啟動 SignalR 連線
             this.connect();
         },
-        mounted() {
-            this.MemberClassAPI();
-        },
+
         methods: {
 
             sendTrainerIdToChat(trainerId) {
@@ -200,7 +182,7 @@
                 chatComponent.receiveTrainerId(trainerId);
             },
             MemberClassAPI() {
-                if (!memberIdFromSession) {
+                if (!this.memberId) {  // 修改這裡
                     console.error("memberId not provided in the session");
                     return;
                 }
@@ -211,7 +193,7 @@
                 if (token) {
                     headers.append('Authorization', `Bearer ${token}`);
                 }
-                fetch(`https://localhost:7011/api/MemberClassAPI/${memberIdFromSession}`, {
+                fetch(`https://localhost:7011/api/MemberClassAPI/${this.memberId}`, { // 修改這裡
                     method: 'GET',
                     headers: headers
                 })
@@ -345,7 +327,7 @@
                 } else {
                     console.warn('SignalR沒連結成功');
                 }
-            }
+            },
         },
     }).mount('#app')
 
