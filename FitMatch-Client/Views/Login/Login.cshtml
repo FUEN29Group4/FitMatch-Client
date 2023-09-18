@@ -94,6 +94,8 @@
                         }
                         else if (data.data.trainerId) {
                             sessionStorage.setItem('trainerId', data.data.trainerId);
+                            sessionStorage.setItem('salt', data.data.trainerId);
+
                         }
                         window.location.href = "/Home/Index"; 
                     } else if (response.status === 404) {

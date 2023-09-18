@@ -165,7 +165,9 @@
     }
 
     $(document).ready(function () {
-        const trainerId = sessionStorage.getItem('trainerId') || 3;
+        const TrainerIdFromSession = sessionStorage.getItem('trainerId');
+        const SaltFromSession = sessionStorage.getItem('Salt');
+
 
         // 第一個 AJAX 請求: 生成核取框
         $.ajax({
@@ -177,7 +179,7 @@
 
                 // 核取框生成後，進行第二個 AJAX 請求: 獲取教練詳細資料並進行勾選
                 $.ajax({
-                    url: 'https://localhost:7011/api/Trainer/' + trainerId,
+                    url: 'https://localhost:7011/api/Trainer/' + TrainerIdFromSession,
                     type: 'GET',
                     dataType: 'json',
                     success: function (trainerData) {
@@ -187,26 +189,42 @@
                         $('#trainerPhoneInput').val(trainerData.phone);
 
                         // 將逗號替換為換行符，然後設定到文本區域
-                        let certificateText = trainerData.certificate.replace(/,/g, '\n');
+                        let certificateText = "";
+                        if (trainerData.certificate) {
+                            certificateText = trainerData.certificate.replace(/,/g, '\n');
+                        }
                         $('#trainerCertificateInput').val(certificateText);
 
                         // 將experience字段中的逗號替換為換行符
-                        let experienceText = trainerData.experience.replace(/,/g, '\n');
+                        let experienceText = "";
+                        if (trainerData.experience) {
+                            experienceText = trainerData.experience.replace(/,/g, '\n');
+                        }
                         $('#trainerAwardsInput').val(experienceText);
 
                         $('#trainercourseFeeInput').val(trainerData.courseFee);
                         $('#trainerIntroduceInput').val(trainerData.introduce);
 
                         // 使用專門的函數進行核取框的勾選
-                        checkExpertisesForTrainer(trainerData);
+                        function checkExpertisesForTrainer(data) {
+                            if (data.expertise) {
+                                const expertiseArray = data.expertise.split(",");
+                                expertiseArray.forEach(exp => {
+                                    $(`input[name="expertise"][value="${exp.trim()}"]`).prop('checked', true);
+                                });
+                            }
+                        }
+
 
                         var Photo = trainerData.photo;
+                        console.log("Returned photo data:", Photo);
                         // 更新會員照片
                         var trainerPhotoElement = document.querySelector("#trainer-img");
                         if (Photo) {
                             var trainerImageBase64 = Photo;
                             trainerPhotoElement.src = "data:image/jpeg;base64," + trainerImageBase64;
                         }
+                        console.log("Image element src:", trainerPhotoElement.src);
                         // 在這裡添加代碼來設置唯讀和禁用屬性
                         $("input[type='text'], textarea").attr('readonly', true);
                         $("input[type='checkbox'], input[type='radio']").attr('disabled', true);
@@ -221,13 +239,15 @@
             }
         });
         $('#editTrainerButton').click(function () {
-            sessionStorage.setItem('trainerId', trainerId);
+            sessionStorage.setItem('trainerId', TrainerIdFromSession);
+            sessionStorage.setItem('salt', SaltFromSession);
+
             console.log("Saved trainerId:", sessionStorage.getItem('trainerId'));
             window.location.href = $(this).data('href');
         });
     });
-
 </script>
+
 
 
 

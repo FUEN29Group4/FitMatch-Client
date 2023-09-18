@@ -185,13 +185,14 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <script>
+    const TrainerIdFromSession = sessionStorage.getItem('trainerId');
 
-    const trainerId = sessionStorage.getItem('trainerId') || 1;
-    console.log("Retrieved trainerId on edit page:", trainerId);
+    console.log("Retrieved trainerId on edit page:", TrainerIdFromSession);
+
     // 生成專長的核取框
     function populateCheckboxes(data) {
         const container = $('#checkboxContainer');
-        const template = _.template($("#checkboxTemplate").html()); // 使用underscore.js的模板功能
+        const template = _.template($("#checkboxTemplate").html());
 
         data.forEach((item, index) => {
             container.append(template({ className: item.className, id: index }));
@@ -200,11 +201,17 @@
 
     // 用於根據教練數據勾選專長
     function checkExpertisesForTrainer(data) {
+        if (!data.expertise) {  // 檢查是否存在
+            console.warn("Expertise data is missing or null");
+            return;  // 如果不存在，直接返回
+        }
+
         const expertiseArray = data.expertise.split(",");
         expertiseArray.forEach(exp => {
             $(`input[name="expertise"][value="${exp.trim()}"]`).prop('checked', true);
         });
     }
+
 
     function encodeImageToBase64() {
         const file = document.querySelector('#imageInput').files[0];
@@ -218,18 +225,21 @@
             reader.readAsDataURL(file);
         }
     }
-    function collectFormData() {
-        const formData = {
-            trainerName: $('#trainerNameInput').val(),
-            address: $('#trainerAddressInput').val(),
-            phone: $('#trainerPhoneInput').val(),
-            certificate: $('#trainerCertificateInput').val().replace(/\n/g, ','),
-            expertise: [],
-            experience: $('#trainerAwardsInput').val().replace(/\n/g, ','),
-            courseFee: $('#trainercourseFeeInput').val(),
-            introduce: $('#trainerIntroduceInput').val(),
-            photo: document.querySelector("#trainer-img").src.split(",")[1]
 
+    function collectFormData() {
+        const certificateVal = $('#trainerCertificateInput').val() || "";
+        const awardsVal = $('#trainerAwardsInput').val() || "";
+
+        const formData = {
+            trainerName: $('#trainerNameInput').val() || "",
+            address: $('#trainerAddressInput').val() || "",
+            phone: $('#trainerPhoneInput').val() || "",
+            certificate: certificateVal.replace(/\n/g, ','),
+            expertise: [],
+            experience: awardsVal.replace(/\n/g, ','),
+            courseFee: parseInt($('#trainercourseFeeInput').val()) || null,
+            introduce: $('#trainerIntroduceInput').val() || "",
+            photo: document.querySelector("#trainer-img").src.split(",")[1] || null
         };
 
         $(`input[name="expertise"]:checked`).each(function () {
@@ -239,29 +249,42 @@
 
         return formData;
     }
-    function saveAllInfo() {
-        const data = collectFormData();
 
-        // 請注意，我們使用模板字符串將trainerId直接放入URL中
+    function saveAllInfo(callback) {
+        const data = collectFormData();
+        data.salt = SaltFromSession;
+
+        console.log("Using Salt from Session Storage:", SaltFromSession); // 打印正在使用的 salt 值
+
         $.ajax({
-            url: 'https://localhost:7011/api/Trainer/'+trainerId,
+            url: 'https://localhost:7011/api/Trainer/' + TrainerIdFromSession,
             type: 'PUT',
             contentType: "application/json",
             data: JSON.stringify(data),
             success: function (response) {
                 if (response.status === "success") {
-                    alert(response.message);  // 這裡將顯示 "教練資訊已成功更新"
+                    alert(response.message);
+
+                    // 資料儲存成功後進行跳轉
+                    sessionStorage.setItem('trainerId', TrainerIdFromSession);
+                    console.log("Saved trainerId:", sessionStorage.getItem('trainerId'));
+                    // 調用回調函數，將回應傳遞給回調函數處理
+                    callback(response);
+
+                    // 在成功回调中执行页面跳转
+                    window.location.href = $(this).data('href');
+                    callback(response);
                 } else {
                     alert('保存失敗，請稍後再試。');
                 }
             },
             error: function (error) {
                 console.log("Error:", error.responseText);
-
-                alert('我是大保存失敗，請稍後再試。');
+                alert('保存失敗，請稍後再試。');
             }
         });
     }
+
 
     $(document).ready(function () {
         $(".edit-photo-button").click(function (event) {
@@ -269,7 +292,6 @@
             $("#imageInput").click();
         });
 
-        // 第一個 AJAX 請求：加載專長列表
         $.ajax({
             url: 'https://localhost:7011/api/ClassType',
             type: 'GET',
@@ -277,30 +299,32 @@
             success: function (data) {
                 populateCheckboxes(data);
 
-                // 在專長列表加載成功後，載入教練資訊
+
                 $.ajax({
-                    url: 'https://localhost:7011/api/Trainer/' + trainerId,
+                    url: 'https://localhost:7011/api/Trainer/' + TrainerIdFromSession,
                     type: 'GET',
                     dataType: 'json',
+
                     success: function (trainerData) {
                         $('#trainerNameInput').val(trainerData.trainerName);
                         $('#trainerAddressInput').val(trainerData.address);
                         $('#trainerPhoneInput').val(trainerData.phone);
-
-                        // 將逗號替換為換行符，然後設定到文本區域
-                        let certificateText = trainerData.certificate.replace(/,/g, '\n');
+                        SaltFromSession = trainerData.salt;
+                        if (SaltFromSession) {
+                            sessionStorage.setItem('SaltFromSession', SaltFromSession);
+                            console.log("Retrieved Salt from API:", SaltFromSession); // 打印從API取得的salt值
+                        }
+                        let certificateText = trainerData.certificate ? trainerData.certificate.replace(/,/g, '\n') : "";
                         $('#trainerCertificateInput').val(certificateText);
                         $('#trainerexpertiseInput').val(trainerData.expertise);
 
-                        // 將experience字段中的逗號替換為換行符
-                        let experienceText = trainerData.experience.replace(/,/g, '\n');
+                        let experienceText = trainerData.experience ? trainerData.experience.replace(/,/g, '\n') : "";
                         $('#trainerAwardsInput').val(experienceText);
                         $('#trainercourseFeeInput').val(trainerData.courseFee);
                         $('#trainerIntroduceInput').val(trainerData.introduce);
 
                         checkExpertisesForTrainer(trainerData);
 
-                        // 更新教練照片
                         var trainerPhotoElement = document.querySelector("#trainer-img");
 
                         trainerPhotoElement.onerror = function () {
@@ -319,20 +343,19 @@
                 console.log("Error:", error);
             }
         });
+
         $('#saveButton').click(function () {
+            event.preventDefault();  // 阻止默認的跳轉行為
 
-            // 保存所有資訊
             saveAllInfo();
+            sessionStorage.setItem('trainerId', TrainerIdFromSession);
 
-            // 將教練ID存入sessionStorage
-            sessionStorage.setItem('trainerId', trainerId);
             console.log("Saved trainerId:", sessionStorage.getItem('trainerId'));
-
-            // 回到主頁
             window.location.href = $(this).data('href');
         });
     });
 </script>
+
 
 
 
