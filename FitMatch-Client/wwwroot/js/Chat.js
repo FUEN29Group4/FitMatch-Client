@@ -15,7 +15,8 @@
                 message: "",
                 senderId: null,
                 receiverId: null,
-                role: "" // 初始化为 null
+                role: "", // 初始化为 null
+                photoURLs: {}//@@彥儀@@
             };
         },
         async created() {
@@ -23,12 +24,26 @@
             this.senderId = sessionStorage.getItem('memberId') || sessionStorage.getItem('trainerId');
             this.role = sessionStorage.getItem('memberId') ? 'Member' : 'Trainer';
 
-            //// 啟動 SignalR 連線
+            // 啟動 SignalR 連線
             this.connect();
-           
-
         },
         methods: {
+            async loadPhoto(id, role) {//照片
+                if (!this.photoURLs[id]) {
+                    try {
+                        const response = await fetch(`https://localhost:7011/api/Chat/Photo/${id}/${role}`);
+                        if (response.ok) {
+                            //const url = await response.text();
+                            //this.photoURLs[id] = url;
+                            const jsonResponse = await response.json(); // 解析 JSON
+                            const base64String = jsonResponse.photo; // 從 JSON 中提取出 base64 字串
+                            this.photoURLs[id] = 'data:image/jpeg;base64,' + base64String;
+                        }
+                    } catch (error) {
+                        console.error("照片加載失敗:", error);
+                    }
+                }
+            },
             connect: async function () {
                 if (connection.state === signalR.HubConnectionState.Disconnected) {
                     // 處裡關閉事件
@@ -39,18 +54,16 @@
                         });
                         connection.connectionClosed = true;
                     }
+
                     try {
                         await connection.start();
                         console.log('連線已啟動！');
-
-                        
                     } catch (err) {
                         console.error('建立連線時出錯 :', err);
                     }
                 } else {
                     console.warn('連線失敗狀態:', connection.state);
-                }
-                // 訂閱接收消息事件
+                }// 訂閱接收消息事件
                 connection.on("ReceiveMessage", (senderId, message, role) => {
                     // 添加新消息到 chatHistory
                     this.chatHistory.push({ senderId, messageContent: message, role });
@@ -80,6 +93,10 @@
                     if (response.ok) {
                         const data = await response.json();
                         this.chatHistory = data;
+                        // 加载照片
+                        for (const msg of data) {
+                            this.loadPhoto(msg.senderId, msg.role);
+                        }
                     }
                 } catch (error) {
                     console.error("找不到歷史對話紀錄:", error);
