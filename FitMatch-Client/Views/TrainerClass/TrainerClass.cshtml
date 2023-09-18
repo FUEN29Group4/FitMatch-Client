@@ -195,27 +195,34 @@ function getGymsForDate(date) {
     return dateEvents.map(event => event.title).join(', ');
 }
 function populateEvents(data) {
-    const gymNamesByDate = {};
+    const gymDetailsByDate = {};
 
     data.forEach(eventData => {
         const eventDate = new Date(eventData.startTime);
-        const dateKey = eventDate.toISOString().split('T')[0]; // 獲得 YYYY-MM-DD 格式的日期
+        const dateKey = eventDate.toISOString().split('T')[0];
 
-        if (!gymNamesByDate[dateKey]) {
-            gymNamesByDate[dateKey] = new Set(); // 使用 Set 以確保健身房名稱不重複
+        if (!gymDetailsByDate[dateKey]) {
+            gymDetailsByDate[dateKey] = {
+                gymNames: new Set(),
+                addresses: new Set()
+            };
         }
 
-        gymNamesByDate[dateKey].add(eventData.gymName);
+        gymDetailsByDate[dateKey].gymNames.add(eventData.gymName);
+        gymDetailsByDate[dateKey].addresses.add(eventData.address);
     });
 
-    // 加入健身房名稱為全天事件
-    for (let [date, gymNamesSet] of Object.entries(gymNamesByDate)) {
-        const allGymNames = Array.from(gymNamesSet).join(', ');
+    for (let [date, gymDetails] of Object.entries(gymDetailsByDate)) {
+        const allGymNames = Array.from(gymDetails.gymNames).join(', ');
+        const allAddresses = Array.from(gymDetails.addresses).join(', ');
 
         calendar.addEvent({
             title: allGymNames,
             start: new Date(date),
-            allDay: true
+            allDay: true,
+            extendedProps: {
+                addresses: allAddresses
+            }
         });
     }
 
@@ -261,87 +268,110 @@ function formatDateToISO(date) {
     return `${year}-${month}-${day}`;
 }
 
+
 function openVenueModal(date) {
+    // 檢查calendar是否存在
+    if (!calendar) {
+        console.error('Calendar instance not initialized');
+        return;
+    }
+
     const taiwanCities = ["未選擇", "台北市", "新北市", "桃園市", "台中市", "台南市", "高雄市", "基隆市"];
+    
+    const existingVenueEvent = calendar.getEvents().find(event => 
+        event.start.toISOString().split('T')[0] === date.toISOString().split('T')[0] && event.allDay
+    );
 
+    console.log("Existing Venue Event:", existingVenueEvent);
+
+    let existingVenueName = existingVenueEvent ? existingVenueEvent.title : "還沒加入任何場館";
+    let existingVenueAddress = existingVenueEvent && existingVenueEvent.extendedProps 
+        ? existingVenueEvent.extendedProps.addresses
+        : "";
     fetch('https://localhost:7011/api/Match/Gym')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to fetch gym data");
+            return response.json();
+        })
         .then(data => {
+            console.log("Gym Data:", data);
+            
             const cityOptions = taiwanCities.map(city => 
-    `<option value="${city}" ${city === "未選擇" ? 'disabled selected' : ''}>${city}</option>`
-    ).join('');
+                `<option value="${city}" ${city === "未選擇" ? 'disabled selected' : ''}>${city}</option>`
+            ).join('');
 
-            const getGymsByCity = (city) => {
-                return data.filter(gym => city === "未選擇" || gym.address.includes(city)).map(gym => 
-                    `<option value="${gym.gymId}">${gym.gymName}</option>`
-                ).join('');
-            };
+            const getGymsByCity = (city) => data.filter(gym => city === "未選擇" || gym.address.includes(city)).map(gym => {
+                const isSelected = existingVenueName === gym.gymName ? 'selected' : '';
+                return `<option data-address="${gym.address}" value="${gym.gymId}" ${isSelected}>${gym.gymName}</option>`;
+            }).join('');
 
             const initialGymOptions = getGymsByCity("未選擇");
 
-           Swal.fire({
-    title: '選擇場館',
-    html: `
-        <select id="city-select">
-            ${cityOptions}
-        </select>
-        <select id="gym-select">
-            <option value="" disabled selected>請選擇</option>
-            ${initialGymOptions}
-        </select>
-    `,
-    didOpen: () => {
-        document.getElementById('city-select').addEventListener('change', (e) => {
-            const selectedCity = e.target.value;
-            const gymOptions = getGymsByCity(selectedCity);
-            const gymSelectElement = document.getElementById('gym-select');
-            gymSelectElement.innerHTML = `<option value="" disabled selected>請選擇</option>${gymOptions}`;
-        });
-    },
-    preConfirm: () => {
-        const selectElement = document.getElementById('gym-select');
-        return selectElement.options[selectElement.selectedIndex].text;
-    }
-}).then((result) => {
-                if (result.isConfirmed) {
-                    const venueName = result.value;
-                    if (venueName && venueName !== "請選擇") {
-                        // 移除舊的場館事件
-                        calendar.getEvents().forEach(event => {
-                            if (event.start.toISOString().split('T')[0] === date.toISOString().split('T')[0] && event.allDay) {
-                                event.remove();
-                            }
-                        });
+            Swal.fire({
+                title: '場館資訊',
+                html: `
+                    <div>當前場館名稱: ${existingVenueName}</div>
+                    <div>地址: ${existingVenueAddress}</div>
+                    ${existingVenueName !== "還沒加入任何場館" ? "<hr/>" : ""}
+                    <div>更新場館資訊:</div>
+                    <select id="city-select">${cityOptions}</select>
+                    <select id="gym-select">
+                        <option value="" disabled selected>請選擇</option>
+                        ${initialGymOptions}
+                    </select>
+                    <div id="gym-address">地址: ${existingVenueAddress}</div>
+                `,
+                preConfirm: () => {
+                    const gymId = document.getElementById('gym-select').value;
+                    const selectedGym = data.find(gym => gym.gymId === gymId);
+                    return {
+                        gymId: gymId,
+                        gymName: selectedGym ? selectedGym.gymName : null,
+                        address: selectedGym ? selectedGym.address : null
+                    };
+                },
+                didOpen: () => {
+                    const citySelect = document.getElementById('city-select');
+                    citySelect.addEventListener('change', (e) => {
+                        const selectedCity = e.target.value;
+                        document.getElementById('gym-select').innerHTML = getGymsByCity(selectedCity);
+                    });
 
-                        // 加入新的場館事件
-                        const event = {
-                            title: venueName,
+                    const gymSelect = document.getElementById('gym-select');
+                    gymSelect.addEventListener('change', (e) => {
+                        const selectedAddress = e.target.selectedOptions[0].dataset.address;
+                        document.getElementById('gym-address').textContent = `地址: ${selectedAddress}`;
+                    });
+                }
+            }).then(result => {
+                if (result.isConfirmed) {
+                    const { gymId, gymName, address } = result.value;
+                    if (gymName && address) {
+                        if (existingVenueEvent) {
+                            existingVenueEvent.remove();
+                        }
+                        calendar.addEvent({
+                            title: gymName,
                             start: date,
                             allDay: true,
                             extendedProps: {
-                                venue: venueName
+                                venue: gymName,
+                                address: address
                             }
-                        };
-
-                        calendar.addEvent(event);
-                        Swal.fire({
-                            icon: 'success',
-                            title: '場館已更改',
-                            text: '日期: ' + date.toLocaleDateString() + '，場館名稱: ' + venueName
                         });
                     }
                 }
             });
+
         })
         .catch(error => {
-            console.error('Error fetching gyms:', error);
-            Swal.fire({
-                icon: 'error',
-                title: '錯誤',
-                text: '加載場館資料時發生錯誤，請刷新頁面重試。'
-            });
+            console.error("Error fetching gym data:", error);
         });
 }
+
+
+
+
 
 
 
