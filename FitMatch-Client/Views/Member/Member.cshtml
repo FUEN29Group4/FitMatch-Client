@@ -139,10 +139,8 @@
                 <!-- 第二區塊 -->
                 <div class="row justify-content-between">
                     <div class="container text-center">
-                        <button type="button" class="btn rounded-pill m-2"
-                                style="background-color: #F24B88;">
-                            <a href="personal_member_Basic_Information_Data_Modification.html"
-                               style="color: #fff;">修改</a>
+                        <button type="button" class="btn rounded-pill m-2" id="editMemberButton" data-href="@Url.Action("MemberEdit", "Member")" style="background-color: #F24B88; color: #fff;">
+                            修改
                         </button>
                     </div>
                 </div>
@@ -158,7 +156,11 @@
 <script>
 
     $(document).ready(function () {
+<<<<<<< Updated upstream
         const memberId = 81;
+=======
+        const memberId = sessionStorage.getItem('MemberId') || 57;
+>>>>>>> Stashed changes
 
         // 第一個 AJAX 請求
         $.ajax({
