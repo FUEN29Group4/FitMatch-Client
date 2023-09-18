@@ -33,7 +33,7 @@
 <!-- Page Header End -->
 <!-- body start -->
 
-<div class="container bg-white" id="app">
+<div class="container bg-white">
     <div class="container">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
@@ -56,21 +56,22 @@
         <hr />
     </div>
 
+    <div id="Memberinfo">
+        <div class="container" v-for="favorite in MemberFavorites.favoritesWithMembers" :key="favorite.memberFavoriteId">
+            <ul v-for="member in favorite.members" :key="member.memberId">
+                <li>{{ member.memberName }}</li>
+                <li>一般會員</li>
+                <li>{{ member.email }}</li>
 
-    <div class="container" v-for="favorite in MemberFavorites.favoritesWithMembers" :key="favorite.memberFavoriteId">
-        <ul v-for="member in favorite.members" :key="member.memberId">
-            <li>{{ member.memberName }}</li>
-            <li>一般會員</li>
-            <li>{{ member.email }}</li>
-
-            <li>年度累積消費金額 NT.{{ MemberFavorites.totalOrderAmount }}</li>
-        </ul>
-        <hr />
+                <li>年度累積消費金額 NT.{{ MemberFavorites.totalOrderAmount }}</li>
+            </ul>
+            <hr />
+        </div>
     </div>
     @RenderBody()
-</div>
 
-@* 
+
+
 
 <script>
 
@@ -138,5 +139,5 @@
                     });
             },
         },
-    }).mount('#app')
-</script> *@
+    }).mount('#Memberinfo')
+</script> 
