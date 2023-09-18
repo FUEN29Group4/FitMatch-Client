@@ -281,7 +281,7 @@
             <div id="app" class="container mt-5">
                 <div class="row">
                     <!-- Left Filter Section -->
-                    <div class="col-lg-4 col-md-8" style="margin-top: 21px">
+                    <div class="col-lg-3 col-md-2" style="margin-top: 21px">
                         <!-- Search Box -->
                         <div class="course-widget border py-4 px-2 mt-5 mt-lg-0 mb-3">
                             <h3 class="mb-3 text-light">
@@ -302,7 +302,7 @@
                             </h3>
                             <div class="list-group list-group-flush">
                                 <select class="p-2" v-model="locationFilter">
-                                    <option disabled>請選擇地點</option>
+                                    <option  disabled>請選擇地點</option>
                                     <option v-for="location in uniqueLocations" :value="location">
                                         {{ location }}
                                     </option>
@@ -332,11 +332,11 @@
                     </div>
                     <!-- Left Filter Section Ends -->
                     <!-- Right Section to Display Gyms -->
-                    <div class="col-lg-8 col-md-4">
+                    <div class="col-lg-9 col-md-10">
                         <div class="row">
                             <div class="col">
                                 <!-- 下拉選項來選擇排序方式 -->
-                                <div>
+                                <div class="my-2">
                                     <select class ="p-2" v-model="sortOrder">
                                         <option value="asc">全部</option>
                                         <option value="desc">最新</option>
@@ -345,9 +345,9 @@
                             </div>
                             <div v-for="gym in filteredGyms" :key="gym.gymId" class="col-12 mb-4">
                                 <div class="card border-0 bg-transparent rounded-0 mb-4">
-                                    <div class="row no-gutters">
-                                        <div class="col-md-5 d-flex justify-content-center align-items-center">
-                                            <img :src="'data:image/jpeg;base64,' + gym.photo" alt="Gym Image" style="width: 330px; height: 250px; object-fit: cover;" />
+                                    <div class="row no-gutters justify-content-between align-content-center">
+                                        <div class="col-md-5 justify-content-center align-items-center my-auto" style=" height: 270px;overflow: hidden; border-radius:5px;">
+                                            <img :src="'data:image/jpeg;base64,' + gym.photo" alt="Gym Image" style="height:100%;  object-fit: cover; " />
                                         </div>
                                         <div class="col-md-7">
                                             <div class="card-body team-wrap pl-4">
@@ -355,7 +355,6 @@
                                                     <h3 class="card-title text-light me-auto">
                                                         {{ gym.gymName }}
                                                     </h3>
-
                                                     <button type="button"
                                                             id="showButton"
                                                             class="btn-dark"
@@ -363,13 +362,16 @@
                                                             data-bs-target="#detailModal">
                                                         更多資訊
                                                     </button>
+                                                   
                                                 </div>
                                                 <p class="card-subtitle letter-spacing">
                                                     <!-- Add code to dynamically display star rating -->
                                                 </p>
-                                                <div class="d-flex align-items-center pt-1">
-                                                    <h5>地址：</h5>
-                                                    <h5 style="color: #ddd">{{ gym.address }}</h5>
+                                                <div class="d-flex justify-content-between pt-1">
+                                                    <h5>地址：{{ gym.address }}</h5>
+                                                    <button type="button" class="btn-dark ms-1 mt-1">
+                                                        我要預約
+                                                    </button>
                                                 </div>
                                                 <div :id="'map-' + gym.gymId" style="height: 200px;"></div>
                                             </div>
@@ -380,8 +382,8 @@
                         </div>
                     </div>
                     <!-- Right Section Ends -->
-                    <!-- 我要預約的按鈕結束 -->
-                    <!-- 第三個場館結束 -->
+                  
+                   
                 </div>
             </div>
         </div>
