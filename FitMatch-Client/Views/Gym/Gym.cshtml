@@ -392,6 +392,12 @@
 
 
 <script>
+
+    // 初始化 Google Maps 相關設定的函數
+    function initMap() {
+        // 這裡可以放置 Google Maps 初始化的程式碼，例如建立一個新的 map 實例
+    }
+
     const app = Vue.createApp({
         data() {
             return {
@@ -403,7 +409,11 @@
             };
         },
         mounted() {
-            this.fetchGyms();
+            this.fetchGyms().then(() => {
+                this.$nextTick(() => {
+                    this.addMarkersToMap();
+                });
+            });
         },
         computed: {
             filteredGyms() {
@@ -432,6 +442,16 @@
                 return filtered;
             }
         },
+        watch: {
+            filteredGyms: {
+                immediate: true,
+                handler(newVal, oldVal) {
+                    this.$nextTick(() => {
+                        this.addMarkersToMap(newVal);
+                    });
+                }
+            }
+        },
         methods: {
             async fetchGyms() {
                 try {
@@ -450,15 +470,33 @@
                 this.searchTerm = "";
                 this.locationFilter = "請選擇地點";
                 this.sortOrder = 'asc';
-            }, 
-            changeSortOrder(order) {
-                this.sortOrder = order;
+            },
+            addMarkersToMap(gyms) {
+                const geocoder = new google.maps.Geocoder();
+                gyms.forEach((gym) => {
+                    geocoder.geocode({ address: gym.address }, (results, status) => {
+                        if (status === 'OK') {
+                            const position = results[0].geometry.location;
+                            const map = new google.maps.Map(
+                                document.getElementById("map-" + gym.gymId),
+                                {
+                                    center: position,
+                                    zoom: 15,
+                                }
+                            );
+                            new google.maps.Marker({
+                                map: map,
+                                position: position,
+                                title: gym.gymName,
+                            });
+                        } else {
+                            console.error(`Geocode failed for ${gym.address}: ${status}`);
+                        }
+                    });
+                });
             }
         }
     }).mount("#app");
-
-
-
 
 
 </script>
