@@ -250,11 +250,11 @@
         return formData;
     }
 
-    function saveAllInfo(callback) {
+    function saveAllInfo() {
         const data = collectFormData();
         data.salt = SaltFromSession;
 
-        console.log("Using Salt from Session Storage:", SaltFromSession); // 打印正在使用的 salt 值
+        console.log("Using Salt from Session Storage:", SaltFromSession);
 
         $.ajax({
             url: 'https://localhost:7011/api/Trainer/' + TrainerIdFromSession,
@@ -265,15 +265,11 @@
                 if (response.status === "success") {
                     alert(response.message);
 
-                    // 資料儲存成功後進行跳轉
                     sessionStorage.setItem('trainerId', TrainerIdFromSession);
                     console.log("Saved trainerId:", sessionStorage.getItem('trainerId'));
-                    // 調用回調函數，將回應傳遞給回調函數處理
-                    callback(response);
 
                     // 在成功回调中执行页面跳转
-                    window.location.href = $(this).data('href');
-                    callback(response);
+                    window.location.href = $('#saveButton').data('href');
                 } else {
                     alert('保存失敗，請稍後再試。');
                 }
@@ -344,14 +340,9 @@
             }
         });
 
-        $('#saveButton').click(function () {
-            event.preventDefault();  // 阻止默認的跳轉行為
-
+        $('#saveButton').click(function (event) {
+            event.preventDefault();
             saveAllInfo();
-            sessionStorage.setItem('trainerId', TrainerIdFromSession);
-
-            console.log("Saved trainerId:", sessionStorage.getItem('trainerId'));
-            window.location.href = $(this).data('href');
         });
     });
 </script>

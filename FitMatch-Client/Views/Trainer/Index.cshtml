@@ -96,6 +96,14 @@
                     <div class="row align-items-center mb-3">
                         <label for="inputname" class="col-3 text-center col-form-label">專長</label>
                         <div class="col-9" id="checkboxContainer">
+                            <script type="text/template" id="checkboxTemplate">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" name="expertise" id="expertise_<%= id %>" value="<%= className %>">
+                                    <label class="form-check-label" for="expertise_<%= id %>">
+                                        <%= className %>
+                                    </label>
+                                </div>
+                            </script>
                         </div>
                     </div>
                     <!-- 專業證照 -->
@@ -144,20 +152,28 @@
 <!-- 會員基本資料 End -->
 <!-- body end -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
 
 <script>
+    const TrainerIdFromSession = sessionStorage.getItem('trainerId');
+
     // 生成專長的核取框
     function populateCheckboxes(data) {
         const container = $('#checkboxContainer');
-        data.forEach(item => {
-            const checkbox = $(`<input type="checkbox" name="expertise" value="${item.className}">`);
-            const label = $('<label></label>').text(item.className).prepend(checkbox);
-            container.append(label);
+        const template = _.template($("#checkboxTemplate").html());
+
+        data.forEach((item, index) => {
+            container.append(template({ className: item.className, id: index }));
         });
     }
 
     // 用於根據教練數據勾選專長
     function checkExpertisesForTrainer(data) {
+        if (!data.expertise) {  // 檢查是否存在
+            console.warn("Expertise data is missing or null");
+            return;  // 如果不存在，直接返回
+        }
+
         const expertiseArray = data.expertise.split(",");
         expertiseArray.forEach(exp => {
             $(`input[name="expertise"][value="${exp.trim()}"]`).prop('checked', true);
@@ -165,7 +181,6 @@
     }
 
     $(document).ready(function () {
-        const TrainerIdFromSession = sessionStorage.getItem('trainerId');
         const SaltFromSession = sessionStorage.getItem('Salt');
 
 
@@ -201,19 +216,12 @@
                             experienceText = trainerData.experience.replace(/,/g, '\n');
                         }
                         $('#trainerAwardsInput').val(experienceText);
-
+                        $('#trainerexpertiseInput').val(trainerData.expertise);
                         $('#trainercourseFeeInput').val(trainerData.courseFee);
                         $('#trainerIntroduceInput').val(trainerData.introduce);
+                        
+                        checkExpertisesForTrainer(trainerData);
 
-                        // 使用專門的函數進行核取框的勾選
-                        function checkExpertisesForTrainer(data) {
-                            if (data.expertise) {
-                                const expertiseArray = data.expertise.split(",");
-                                expertiseArray.forEach(exp => {
-                                    $(`input[name="expertise"][value="${exp.trim()}"]`).prop('checked', true);
-                                });
-                            }
-                        }
 
 
                         var Photo = trainerData.photo;
