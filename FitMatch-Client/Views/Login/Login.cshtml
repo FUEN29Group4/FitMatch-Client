@@ -6,6 +6,7 @@
 
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/vuex@4"></script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
 
 
 <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -39,6 +40,7 @@
                     </div>
                     <a href="" class="text-light">忘記密碼</a>
                 </div>
+                <div class="g-recaptcha" data-sitekey="6LesMDMoAAAAAPbp2Tjx84KOS3RXpjmYeQFrH2MH" id="recaptcha"></div>
                 <button type="button" class="btn btn-primary py-3 w-100 mb-4" v-on:click="login"
                         style="background-color: #F24B88; color: white;">
                     登入
@@ -63,9 +65,18 @@
         },
         methods: {
             async login() {
+                const recaptchaValue = grecaptcha.getResponse();
+                if (!recaptchaValue) {
+                    alert("請勾選方塊,確認你不是機器人.");
+                    return;
+                }
+
                 const requestOptions = {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Recaptcha-Response': recaptchaValue 
+                    },
                     body: JSON.stringify({ Email: this.Account, Password: this.Password })
                 };
 

@@ -1,427 +1,41 @@
-﻿@{
+﻿@* @{
     ViewData["Title"] = "MemberClass";
 }
+ *@
 
-<script src="https://unpkg.com/vue@3"></script>
-<script src="https://unpkg.com/vuex@4"></script>
+@{
+    ViewBag.SubLayout = "MemberClass";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+@*<script src="https://unpkg.com/vue@3"></script>*@
+<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
 
 
-<style scoped>
+@*彥儀用的勿刪*@
+<link href="~/css/Chat.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.js"></script>
+@*彥儀用的勿刪*@
 
-    /* 圓形框框樣式 */
-    .card-image img {
-        width: 250px;
-        height: 330px;
-        object-fit: cover; /* 確保圖片在容器內完整顯示 */
-        overflow: hidden;
+
+<link rel="stylesheet" href="~/css/memberclass.css">
+
+<style>
+
+    .table-centered td,
+    .table-centered th {
+        vertical-align: middle; /* 垂直置中 */
+        text-align: center; /* 水平置中 */
     }
-
-
-    .card1:hover img {
-        transform: scale(1.1);
-    }
-
-
-
-    .card {
-        flex-direction: column;
-        border-radius: 20px;
-        height: 100%;
-        display: flex;
-    }
-
-    /* personal_member */
-    body {
-        background-color: #fff;
-    }
-
-    .container .navbar-expand-lg {
-        border: 1px solid #ececec;
-    }
-
-    button {
-        background-color: #F24B88;
-        color: #ffffff;
-    }
-
-    active .cc {
-        border-bottom: 3px solid #F24B88;
-    }
-
-    .member.line a:hover,
-    .member.line a:active {
-        border-bottom: 2px solid #F24B88;
-    }
-
-    .member.ac ol li a {
-        border-bottom: 2px solid #F24B88;
-    }
-
-    /* 分隔符 */
-
-    $breadcrumb-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E");
-
-    figure {
-        width: 35%;
-        padding: 5px;
-        float: right;
-        margin-right: 20px;
-    }
-
-
-    /* 圓形框框樣式 */
-    .round-image {
-        border-radius: 50%;
-        /* 50% 會將元素變成圓形 */
-        overflow: hidden;
-        /* 超出元素範圍的部分隱藏 */
-        width: 500px;
-        /* 調整圖片寬度 */
-        height: 500px;
-        /* 調整圖片高度 */
-        margin: 0 auto;
-        /* 水平居中 */
-    }
-
-        /* 圖片樣式 */
-        .round-image img {
-            width: 100%;
-            /* 讓圖片自適應容器大小 */
-            height: auto;
-        }
-
-    li label {
-        margin: 25px;
-    }
-
-    .personalBtn {
-        border-radius: 25px;
-        margin-left: 50px;
-    }
-
-    .serviceBtn button {
-        background-color: #F24B88;
-        /* border-radius: 25px; */
-    }
-
-    /* personal 表單元素 table */
-
-    ul li {
-        list-style-type: none;
-    }
-
-    .tb1 {
-        width: 400px;
-        border: 3px solid #0072E3;
-        border-collapse: collapse;
-    }
-
-    td,
-    th {
-        border-bottom: 1px solid gray;
-        text-align: center;
-    }
-
-    /* table {
-                                        margin: 50px;
-                                        padding: 50px;
-                                    } */
-
-    thead {
-        background-color: #2b2b2b;
-        color: #ffffff;
-        text-transform: capitalize;
-        margin: 60px;
-        padding: 60px;
-        text-align: center;
-    }
-
-    tbody {
-        text-align: center;
-    }
-
-    .cc.vv td:hover {
-        background-color: rgba(145, 145, 145, 0.603);
-        color: rgb(26, 26, 26);
-    }
-
-    .favotitelist.img1 {
-        width: 100px;
-    }
-
-    /* personal 收藏清單 */
-
-
-
-    .favoriteTag {
-        border: 1px solid #acd6ff;
-        border-radius: 10px;
-    }
-
-    .h-150px {
-        height: 150px;
-    }
-
-    .mh-250px {
-        min-height: 250px;
-    }
-
-    .h-300px {
-        height: 300px;
-    }
-
-    .w-600px {
-        /* width: 600px; */
-    }
-
-    .fz-40px {
-        font-size: 40px;
-    }
-
-    .fz-12px {
-        font-size: 12px;
-    }
-
-    .op5 {
-        opacity: 0.5;
-    }
-
-    .cup {
-        cursor: pointer;
-    }
-
-    .card1 img {
-        transition: all 0.2s;
-    }
-
-    /* 圓形框框樣式 */
-    .card-image {
-        overflow: hidden;
-        /* 超出元素範圍的部分隱藏 */
-        width: 220px;
-        /* 調整圖片寬度 */
-        height: 220px;
-        /* 調整圖片高度 */
-        margin: 0 auto;
-        /* 水平居中 */
-    }
-
-        /* 圖片樣式 */
-        .card-image img {
-            width: 100%;
-            /* 讓圖片自適應容器大小 */
-            height: auto;
-        }
-
-
-
-
-    .card1:hover img {
-        transform: scale(1.1);
-    }
-
-    /* .card {
-                                        width: 250px;
-                                    } */
-
-    /* personal 超連結 */
-    a:hover,
-    a:visited,
-    a:link,
-    a:active {
-        text-decoration: none;
-    }
-
-    /* personal_course */
-
-    .text-center {
-        text-align: center;
-    }
-
-    .coursebody {
-        background-color: #000;
-    }
-
-    .course-single-body {
-        background-color: #000;
-    }
-
-
-    .list-group-item {
-        background: linear-gradient(90deg, #f24b88 0%, #bd00ff 100%);
-    }
-
-
-    /* personal_member */
-    figure {
-        width: 35%;
-        padding: 5px;
-        float: right;
-        margin-right: 20px;
-    }
-
-    .member.img-head {
-        width: 300px;
-    }
-
-    li label {
-        margin: 25px;
-    }
-
-    .personalBtn1 {
-        border-radius: 25px;
-    }
-
-    /* personal 表單元素 table */
-
-    .tb1 {
-        width: 400px;
-        border: 3px solid #0072E3;
-        border-collapse: collapse;
-    }
-
-    td,
-    th {
-        border-bottom: 1px solid gray;
-        text-align: center;
-    }
-
-    /* table {
-                                        margin: 50px;
-                                        padding: 50px;
-                                    } */
-
-    thead {
-        color: #ffffff;
-        text-transform: capitalize;
-        margin: 60px;
-        padding: 60px;
-        text-align: center;
-    }
-
-    tbody {
-        margin-right: auto;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-
-    /* tbody tr:hover {
-                                        background-color: aqua;
-                                        color: rgb(241, 241, 241);
-                                    } */
-
-    .tableclass tbody td:hover {
-        background-color: rgba(145, 145, 145, 0.603);
-        color: rgb(26, 26, 26);
-    }
-
-    .favotitelist.img1 {
-        width: 100px;
-    }
-
-    td img {
-        width: 150px;
-    }
-
-    .class.tr td {
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        vertical-align: middle;
-        color: #000000;
-    }
-
-    /* personal 課程紀錄
-                                    .tableRecord.tt tbody tr:nth-child(2n) {
-                                        background-color: #FDEDF3
-                                    } */
-
-    /* .plot.ho ul li a:hover,
-                                    a:active {
-                                        background: #F24B88;
-                                    } */
-
-    .st1 {
-        width: 450px;
-        /* border-bottom: 3px dashed #9D9D9D; */
-        margin: 20px;
-        padding-bottom: 10px;
-    }
-
-    /* Personal Coach */
-
-    textarea {
-        resize: none;
-    }
-
-    .t1 {
-        width: 100px;
-        /* border: 1px solid red; */
-        float: left;
-        text-align: right;
-    }
-
-    /* td ul li {
-                                        float: left
-                                    } */
 
 </style>
 
-<div style="background-color: #fff" id="app">
-    <!-- Page Header Start -->
-    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
-        <div class="container text-center py-5">
-            <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Our Barber</h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb justify-content-center text-uppercase mb-0">
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                    <li class="breadcrumb-item text-primary active" aria-current="page">Our Barber</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <!-- Page Header End -->
-    <!-- body start -->
 
-    <div class="container ">
-        <div class="container text-center">
-            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
-                 aria-label="breadcrumb">
-                <ol class="breadcrumb" style="color: rgb(0, 0, 0);">
-                    <li class="breadcrumb-item"><a href="index.html" style="color: rgb(0, 0, 0);">首頁</a></li>
-                    <li class="breadcrumb-item">
-                        <a href="personal_member.html" style="color: rgb(0, 0, 0);">我的會員專區</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">我的課表</li>
-                </ol>
-            </nav>
-        </div>
-
-        <div class="container">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container-fluid">
-                    <div class="container member line">
-                        <div class="nav" style="color: rgb(0, 0, 0);">
-                            <a style="color: rgb(0, 0, 0);" href="personal_member.html"
-                               class="nav-link nav-item ">基本資料</a>
-                            <a style="color: rgb(0, 0, 0);" href="personal_member_Order_Traking.html"
-                               class="nav-link nav-item">訂單查詢</a>
-                            <a asp-area="" asp-controller="MemberFavorite" asp-action="MemberFavorite"
-                               class="nav-link nav-item">收藏清單</a>
-                            <a asp-area="" asp-controller="Member" asp-action="MemberClass"
-                               class="nav-link nav-item">我的課表</a>
-                            <a style="color: rgb(0, 0, 0);" href="personal_member_Customer_Service_Records.html"
-                               class="nav-link nav-item">客服紀錄</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
+<div style="background-color: #fff">
+    
 
         @* 會員資料 *@
-        <hr>
+       
 
         <div class="container" v-for="classItem  in MemberClassAPIs.classAPIWithMembers" :key="classItem .memberClassAPIId">
             <ul v-for="member in classItem .members" :key="member.memberId">
@@ -432,98 +46,99 @@
                 <li>年度累積消費金額 NT.{{ MemberClassAPIs.totalOrderAmount }}</li>
 
             </ul>
-            <hr />
-        </div>
 
+        </div>
 
         <hr>
 
         <div class="container">
-            <button type="button" style="background-color: #F24B88" class="btn btn-primary personalBtn">
-                <a style="color: aliceblue;" href="personal_member_My_Schedule.html">我的課表</a>
-            </button>
-            <button type="button" style="background-color: #ff005d" class="btn btn-primary personalBtn">
-                <a style="color: aliceblue;" href="personal_member_My_Schedule_Record.html">我的課程紀錄</a>
-            </button>
+            <table class="table table-bordered table-hover table-centered">
+                <thead style="background-color: #F24B88;color:#fff">
+                    <tr>
+                        <th>預約編號</th>
+                        <th>教練</th>
+                        <th>場館</th>
+                        <th>課程狀態</th>
+                        <th>課程時間</th>
+                        <th>聯繫</th>
+                    </tr>
+                </thead>
+
+                <tbody v-for="classApi in MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms">
+
+                    <!-- 如果某些關鍵數據是空的，就只顯示"未添加課程" -->
+                    <tr v-if="isEmptyClassData(classApi)">
+                        <td colspan="6">未添加課程</td>
+                    </tr>
+
+
+                    <!-- 否則，顯示數據 -->
+                    <tr v-else v-for="trainer in classApi.trainers" :key="trainer.trainerId">
+                        <td>{{classApi.classId}}</td>
+                        <td>{{classApi.trainers[0].trainerName}}</td>
+                        <td>{{classApi.gyms[0].gymName}}</td>
+                        <td>{{classApi.courseStatus}}</td>
+                        <td>{{ formatTimeToDetailedDate(classApi.buildTime) }}</td>
+                        <td>
+                            <button class="btn btn-primary" style="border-radius:25px" @@click=" showChatHistory(classApi.trainers[0].trainerId)">聯繫教練</button>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <hr>
 
-        <div class="container">
-            <div class="container">
-                <table class="table table-bordered table-hover ">
-                    <thead style="background-color: #F24B88;">
-                        <tr>
-                            <th>預約編號</th>
-                            <th>教練</th>
-                            <th>場館</th>
-                            <th>課程狀態</th>
-                            <th>課程時間</th>
-                            <th>聯繫</th>
-                        </tr>
-                    </thead>
+        @*對話視窗開始*@
+        <div v-if="isChatHistoryVisible" class="overlay">
+            <div class="chat-modal">
+                <div class="chat-header">
+                    <span class="close" @@click="isChatHistoryVisible = false">X</span>
+                </div>
+                <div class="chat-body">
+                    <div v-for="msg in chatHistory"
+                         :class="{'chat-message-sent': msg.role === role, 'chat-message-received': msg.role !== role}">
+                        <div class="chat-avatar">
+                            <!-- 如果msg.photo存在，則顯示照片 -->
+                            <img v-if="photoURLs[msg.senderId]" :src="photoURLs[msg.senderId]">
+                            <!-- 否則，顯示ID -->
+                            <div v-else>{{ msg.senderId }}</div>
 
-                    <tbody>
-
-                        <template v-for="classApi in MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms">
-                            <!-- 如果某些關鍵數據是空的，就只顯示"未添加課程" -->
-                            <tr v-if="isEmptyClassData(classApi)">
-                                <td colspan="6">未添加課程</td>
-                            </tr>
-
-                            <!-- 否則，顯示數據 -->
-                            <tr v-else v-for="trainer in classApi.trainers" :key="trainer.trainerId">
-                                <td>{{classApi.classId}}</td>
-                                <td>{{classApi.trainers[0].trainerName}}</td>
-                                <td>{{classApi.gyms[0].gymName}}</td>
-                                <td>{{classApi.courseStatus}}</td>
-                                <td>{{ formatTimeToDetailedDate(classApi.buildTime) }}</td>
-                                <td>
-                                    <button type="button" style="background-color: #F24B88;color: aliceblue;" class="btn btn-primary personalBtn">聯繫教練</button>
-                                </td>
-                            </tr>
-                        </template>
-
-
-                    </tbody>
-
-                </table>
-                @*  <div class="container" style="padding-bottom: 50px;">
-                <nav aria-label="" style="float: right; margin-top: 20px;" class="plot ho">
-                <ul class="pagination plot ho" style="color:#F24B88">
-                <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                </a>
-                </li>
-                </ul>
-                </nav>
-                </div> *@
+                        </div>
+                        <span class="chat-content">
+                            {{ msg.messageContent }}
+                        </span>
+                    </div>
+                </div>
+                <div class="chat-footer">
+                    <input v-model="message" placeholder="輸入訊息" @@keyup.enter="sendMessage" />
+                    <button @@click="sendMessage" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
             </div>
         </div>
+        @*對話視窗結束*@
     </div>
-    <!-- body end -->
 </div>
+<!-- body end -->
 
 
 <script>
 
-       const memberIdFromSession = sessionStorage.getItem('memberId');
+    const memberIdFromSession = sessionStorage.getItem('memberId');
     if (!memberIdFromSession) {
         console.error("memberId not found in session storage");
         // You can also redirect the user or show an error message, if necessary.
     }
 
+    //@@彥儀@@
+    // 初始化 SignalR 连接
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("https://localhost:7011/chatHub")
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+
 
     Vue.createApp({
-
         data() {
             return {
                 MemberClassAPIs: {
@@ -547,19 +162,48 @@
                     ]
                 },
 
+                MemberFavorites: [],
+                favoritesWithTrainersAndProducts1: [],
+                favoritesWithTrainersAndProducts2: [],
+                memberId: sessionStorage.getItem('memberId'),
+                token: sessionStorage.getItem('token'),
+                showTrainer: 'trainer',
+
+
+                isChatHistoryVisible: false, //@@彥儀@@
+                chatHistory: [], //@@彥儀@@
+                message: "", //@@彥儀@@
+                senderId: null, //@@彥儀@@
+                receiverId: null, //@@彥儀@@
+                role: "",  //@@彥儀@@
+                photoURLs: {}//@@彥儀@@
+
             };
         },
-
+        async created() {//@@彥儀@@
+            // 從 sessionStorage 中獲取 senderId 和 role
+            this.senderId = sessionStorage.getItem('memberId') || sessionStorage.getItem('trainerId');
+            this.role = sessionStorage.getItem('memberId') ? 'Member' : 'Trainer';
+            // 啟動 SignalR 連線
+            this.connect();
+        },
         mounted() {
             this.MemberClassAPI();
         },
         methods: {
+
+            sendTrainerIdToChat(trainerId) {
+                // 获取 Chat.js 组件的实例
+                const chatComponent = this.$refs.chatComponent;
+
+                // 调用 Chat.js 组件的 receiveTrainerId 方法并传递 trainerId
+                chatComponent.receiveTrainerId(trainerId);
+            },
             MemberClassAPI() {
                 if (!memberIdFromSession) {
                     console.error("memberId not provided in the session");
                     return;
                 }
-
                 const headers = new Headers();
                 // Assuming the token is stored in the session storage.
                 // Adjust if it's stored elsewhere.
@@ -567,8 +211,6 @@
                 if (token) {
                     headers.append('Authorization', `Bearer ${token}`);
                 }
-
-
                 fetch(`https://localhost:7011/api/MemberClassAPI/${memberIdFromSession}`, {
                     method: 'GET',
                     headers: headers
@@ -609,6 +251,100 @@
                     !classApi.courseStatus ||
                     !classApi.buildTime ||
                     formattedDate.includes("NaN");
+            },
+            async loadPhoto(id, role) {//@@彥儀@@
+                if (!this.photoURLs[id]) {
+                    try {
+                        const response = await fetch(`https://localhost:7011/api/Chat/Photo/${id}/${role}`);
+                        if (response.ok) {
+                            //const url = await response.text();
+                            //this.photoURLs[id] = url;
+                            const jsonResponse = await response.json(); // 解析 JSON
+                            const base64String = jsonResponse.photo; // 從 JSON 中提取出 base64 字串
+                            this.photoURLs[id] = 'data:image/jpeg;base64,' + base64String;
+                        }
+                    } catch (error) {
+                        console.error("照片加載失敗:", error);
+                    }
+                }
+            },
+            connect: async function () {//@@彥儀@@
+                if (connection.state === signalR.HubConnectionState.Disconnected) {
+                    // 處裡關閉事件
+                    if (!connection.connectionClosed) {
+                        connection.onclose((error) => {
+                            console.warn('連線已關閉:', error);
+                            this.connect();
+                        });
+                        connection.connectionClosed = true;
+                    }
+
+                    try {
+                        await connection.start();
+                        console.log('連線已啟動！');
+                    } catch (err) {
+                        console.error('建立連線時出錯 :', err);
+                    }
+                } else {
+                    console.warn('連線失敗狀態:', connection.state);
+                }// 訂閱接收消息事件
+                connection.on("ReceiveMessage", (senderId, message, role) => {
+                    // 添加新消息到 chatHistory
+                    this.chatHistory.push({ senderId, messageContent: message, role });
+                    // 捲動到最新消息
+                    this.scrollToBottom();
+                });
+            },
+            showChatHistory(receiverId) {//@@彥儀@@
+                this.receiverId = receiverId;
+                this.isChatHistoryVisible = true;
+                this.loadChatHistory();
+                // 使用 $nextTick 讓聊天紀錄完成後自動跑到底部 但還沒實現之後再調整
+                this.$nextTick(() => {
+                    this.scrollToBottom();
+                });
+
+            },
+            scrollToBottom() {//@@彥儀@@
+                const chatBody = document.querySelector('.chat-body');
+                if (chatBody) {
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }
+            },
+            async loadChatHistory() {//@@彥儀@@
+                try {
+                    const response = await fetch(`https://localhost:7011/api/Chat/GetHistory/${this.senderId}/${this.receiverId}?role=${this.role}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        this.chatHistory = data;
+                        // 加载照片
+                        for (const msg of data) {
+                            this.loadPhoto(msg.senderId, msg.role);
+                        }
+                    }
+                } catch (error) {
+                    console.error("找不到歷史對話紀錄:", error);
+                }
+            },
+            async sendMessage(event) {//@@彥儀@@
+                if (event) event.preventDefault(); // 防止換行
+                if (connection.state === signalR.HubConnectionState.Connected) {
+                    try {
+                        await connection.invoke("SendMessage", this.receiverId, this.message, this.senderId, this.role);
+                        //console.log('傳送訊息成功:',this.receiverId, this.message, this.senderId, this.role);
+                        this.chatHistory.push({ senderId: this.senderId, messageContent: this.message, role: this.role });
+                        //console.log('增加訊息成功:', this.senderId, this.message, this.role);
+                        this.message = "";
+                        this.$nextTick(() => {
+                            const chatBody = document.querySelector('.chat-body');
+                            chatBody.scrollTop = chatBody.scrollHeight;
+                        });
+                    } catch (err) {
+                        console.error("傳送訊息時出錯", err);
+                    }
+                } else {
+                    console.warn('SignalR沒連結成功');
+                }
             }
         },
     }).mount('#app')
