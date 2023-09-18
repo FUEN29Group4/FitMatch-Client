@@ -1,12 +1,11 @@
-﻿@* @{
-    ViewData["Title"] = "MemberClass";
-}
- *@
-
-@{
+﻿@{
     ViewBag.SubLayout = "MemberClass";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
+
+
+
+
 
 @*<script src="https://unpkg.com/vue@3"></script>*@
 <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
@@ -31,23 +30,11 @@
 </style>
 
 
-<div style="background-color: #fff">
+<div style="background-color: #fff"  id="app">
     
 
         @* 會員資料 *@
-       
 
-        <div class="container" v-for="classItem  in MemberClassAPIs.classAPIWithMembers" :key="classItem .memberClassAPIId">
-            <ul v-for="member in classItem .members" :key="member.memberId">
-                <li>{{ member.memberName }}</li>
-                <li>一般會員</li>
-                <li>{{ member.email }}</li>
-
-                <li>年度累積消費金額 NT.{{ MemberClassAPIs.totalOrderAmount }}</li>
-
-            </ul>
-
-        </div>
 
         <hr>
 
@@ -123,11 +110,12 @@
 
 <script>
 
-    const memberIdFromSession = sessionStorage.getItem('memberId');
-    if (!memberIdFromSession) {
-        console.error("memberId not found in session storage");
-        // You can also redirect the user or show an error message, if necessary.
-    }
+    // const memberIdFromSession = sessionStorage.getItem('memberId');
+    // if (!memberIdFromSession) {
+    //     console.error("memberId not found in session storage");
+    //     // You can also redirect the user or show an error message, if necessary.
+    // }
+
 
     //@@彥儀@@
     // 初始化 SignalR 连接
@@ -180,6 +168,9 @@
 
             };
         },
+        mounted() {
+            this.MemberClassAPI();
+        },
         async created() {//@@彥儀@@
             // 從 sessionStorage 中獲取 senderId 和 role
             this.senderId = sessionStorage.getItem('memberId') || sessionStorage.getItem('trainerId');
@@ -187,9 +178,7 @@
             // 啟動 SignalR 連線
             this.connect();
         },
-        mounted() {
-            this.MemberClassAPI();
-        },
+        
         methods: {
 
             sendTrainerIdToChat(trainerId) {
@@ -200,7 +189,7 @@
                 chatComponent.receiveTrainerId(trainerId);
             },
             MemberClassAPI() {
-                if (!memberIdFromSession) {
+                if (!this.memberId) {  // 修改這裡
                     console.error("memberId not provided in the session");
                     return;
                 }
@@ -211,7 +200,7 @@
                 if (token) {
                     headers.append('Authorization', `Bearer ${token}`);
                 }
-                fetch(`https://localhost:7011/api/MemberClassAPI/${memberIdFromSession}`, {
+                fetch(`https://localhost:7011/api/MemberClassAPI/${this.memberId}`, { // 修改這裡
                     method: 'GET',
                     headers: headers
                 })
@@ -345,7 +334,7 @@
                 } else {
                     console.warn('SignalR沒連結成功');
                 }
-            }
+            },
         },
     }).mount('#app')
 
