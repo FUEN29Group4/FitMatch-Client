@@ -290,7 +290,7 @@
                                 搜尋
                             </h3>
                             <div class="list-group list-group-flush">
-                                <input type="text" placeholder="請輸入場館名稱" @("@input")="searchGym" />
+                                <input type="text" placeholder="請輸入場館名稱" v-model="searchTerm" @@input="searchGym" />
                             </div>
                         </div>
                         <!-- Search Box Ends -->
@@ -301,15 +301,14 @@
                                    style="color: #ffffff"></i>地點
                             </h3>
                             <div class="list-group list-group-flush">
-                                <select class="p-2">
-                                    <option disabled selected>請選擇地點</option>
-                                    <option value="Taipei">台北市</option>
-                                    <option value="Taichung">台中市</option>
-                                    <option value="Tainan">台南市</option>
-                                    <option value="Kaohsiung">高雄市</option>
+                                <select class="p-2" v-model="locationFilter">
+                                    <option disabled>請選擇地點</option>
+                                    <option v-for="location in uniqueLocations" :value="location">
+                                        {{ location }}
+                                    </option>
                                 </select>
                             </div>
-                            <h3 class="mb-3 text-light mt-4">
+                            @*<h3 class="mb-3 text-light mt-4">
                                 <i class="fa-solid fa-chevron-right pe-3"
                                    style="color: #ffffff"></i>區域
                             </h3>
@@ -321,11 +320,11 @@
                                     <option value="East">東區</option>
                                     <option value="West">西區</option>
                                 </select>
-                            </div>
+                            </div>*@
                         </div>
                         <!-- Location Filters End -->
                         <!-- Buttons -->
-                        <div class="btn btn-primary p-3 m-2 course-widget">搜尋</div>
+                        @*<div class="btn btn-primary p-3 m-2 course-widget">搜尋</div>*@
                         <div class="btn btn-clear p-3 m-2 course-widget" id="clearFilters" v-on:click="reloadPage">
                             清除篩選條件
                         </div>
@@ -335,7 +334,16 @@
                     <!-- Right Section to Display Gyms -->
                     <div class="col-lg-8 col-md-4">
                         <div class="row">
-                            <div v-for="gym in gyms" :key="gym.gymId" class="col-12 mb-4">
+                            <div class="col">
+                                <!-- 下拉選項來選擇排序方式 -->
+                                <div>
+                                    <select class ="p-2" v-model="sortOrder">
+                                        <option value="asc">全部</option>
+                                        <option value="desc">最新</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div v-for="gym in filteredGyms" :key="gym.gymId" class="col-12 mb-4">
                                 <div class="card border-0 bg-transparent rounded-0 mb-4">
                                     <div class="row no-gutters">
                                         <div class="col-md-5 d-flex justify-content-center align-items-center">
@@ -373,57 +381,90 @@
                     </div>
                     <!-- Right Section Ends -->
                     <!-- 我要預約的按鈕結束 -->
-                    <hr />
-                    <!-- 預約日期顯示開始 -->
-
-                    <div class="reservation" id="hiddenBlock" style="display: none">
-                        <div class="container">
-                            <hr />
-                            <div class="row">
-                                <div class="col d-flex justify-content-between align-items-center">
-                                    <button class="btn btn-secondary" id="prevWeek">
-                                        &lt;
-                                    </button>
-                                    <div class="d-flex justify-content-center align-items-center flex-grow-1">
-                                        <span id="yearDisplay"
-                                              class="text-light fs-3 ms-5"></span>
-                                    </div>
-                                    <div class="d-flex">
-                                        <button class="btn btn-primary me-2" id="today">
-                                            Today
-                                        </button>
-                                        <button class="btn btn-secondary" id="nextWeek">
-                                            &gt;
-                                        </button>
-                                    </div>
-                                </div>
-                                <table class="table table-bordered mt-3 bg-darkgray">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <!-- 預留給日期顯示 -->
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- 預留給時間區塊 -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 預約日期顯示結束 -->
+                    <!-- 第三個場館結束 -->
                 </div>
-
-                <!-- 第三個場館結束 -->
             </div>
         </div>
+        <!-- 場館篩選結束 -->
     </div>
-    <!-- 場館篩選結束 -->
 </section>
 <!-- Section Team End -->
 
 
 <script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                gyms: [], //儲存健身房列表
+                searchTerm: "",
+                locationFilter: "請選擇地點",
+                sortOrder: 'asc', // asc 或 desc 排序
+                uniqueLocations: [],
+            };
+        },
+        mounted() {
+            this.fetchGyms();
+        },
+        computed: {
+            filteredGyms() {
+                let filtered = [...this.gyms];
+
+                // Search gym by name
+                if (this.searchTerm) {
+                    filtered = filtered.filter((gym) => {
+                        return gym.gymName.toLowerCase().includes(this.searchTerm.toLowerCase());
+                    });
+                }
+
+                // Filter gym by location
+                // 只在 locationFilter 不是 "請選擇地點" 時應用這個篩選條件
+                if (this.locationFilter && this.locationFilter !== "請選擇地點") {
+                    filtered = filtered.filter(gym => {
+                        return gym.address.substring(0, 3) === this.locationFilter;
+                    });
+                }
+
+                // Sort gyms by their ID
+                filtered.sort((a, b) => {
+                    return this.sortOrder === 'asc' ? a.gymId - b.gymId : b.gymId - a.gymId;
+                });
+
+                return filtered;
+            }
+        },
+        methods: {
+            async fetchGyms() {
+                try {
+                    const response = await fetch('https://localhost:7011/api/Gym');
+                    const data = await response.json();
+                    this.gyms = data;
+                    // Extract unique locations
+                    this.uniqueLocations = [...new Set(this.gyms.map(gym => gym.address.substring(0, 3)))];
+                } catch (error) {
+                    console.error("An error occurred while fetching data: ", error);
+                }
+            },
+            // Reload page and clear filters
+            reloadPage() {
+                this.fetchGyms();
+                this.searchTerm = "";
+                this.locationFilter = "請選擇地點";
+                this.sortOrder = 'asc';
+            }, 
+            changeSortOrder(order) {
+                this.sortOrder = order;
+            }
+        }
+    }).mount("#app");
+
+
+
+
+
+</script>
+
+
+@*<script>
     // 初始化 Google Maps 相關設定的函數
     function initMap() {
         // 這裡可以放置 Google Maps 初始化的程式碼，例如建立一個新的 map 實例
@@ -508,6 +549,4 @@
         },
     }).mount("#app");
 
-
-</script>
-
+</script>*@
