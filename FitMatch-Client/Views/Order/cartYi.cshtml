@@ -166,7 +166,7 @@
                         <li><b>折扣後金額</b><span id="折扣後id"><b>0</b></span></li>*@
                     </ul>
                     <div class="text-center">
-                        <a href="checkout.html" class="btn btn-primary" style="min-width: 200px;
+                        <a id="checkout-button" asp-action="Checkout" class="btn btn-primary" style="min-width: 200px;
     margin: auto;">
                             結帳
                         </a>
@@ -428,52 +428,65 @@
 
     @* ========= API 串接區: 結帳將資料用post方式傳入資庫中 ========= *@
 
-                //function checkout() {
-                //    let cartItems = []; // 用來存儲購物車商品信息的陣列
+   
+    
 
-                //    // 獲取本地存儲中的商品信息
-                //    for (let i = 0; i < localStorage.length; i++) {
-                //        let key = localStorage.key(i);
-                //        if (key !== 'addItemList') {
-                //            let itemInfo = localStorage.getItem(key).split('|');
-                //            let productId = key;
-                //            let productName = itemInfo[0];
-                //            let price = parseFloat(itemInfo[2]);
+    // 从购物车中获取商品信息
+    function getCartItems() {
+        let cartItems = [];
+        let itemIds = storage.getItem('addItemList').split(', ');
 
-                //            cartItems.push({ productId, productName, price });
-                //        }
-                //    }
+        for (let itemId of itemIds) {
+            let itemInfo = storage.getItem(itemId);
+            let itemData = itemInfo.split('|');
+            let productId = itemId;
+            let productName = itemData[0];
+            let price = parseFloat(itemData[2]);
+            let quantity = parseInt(storage.getItem(`${itemId}-quantity`));
 
-                //    // 發送POST請求到後端API
-                //    fetch('/api/order/submit', {
-                //        method: 'POST',
-                //        headers: {
-                //            'Content-Type': 'application/json'
-                //        },
-                //        body: JSON.stringify(cartItems)
-                //    })
-                //        .then(response => {
-                //            if (response.ok) {
-                //                // 清空本地存儲
-                //                localStorage.clear();
-                //                // 在此處執行訂單提交成功後的操作，例如顯示成功消息
-                //            } else {
-                //                // 在此處處理錯誤情況
-                //            }
-                //        })
-                //        .catch(error => {
-                //            // 在此處處理網絡錯誤
-                //        });
-                //}
+            cartItems.push({ productId, productName, price, quantity });
+        }
+
+        return cartItems;
+    }
+
+    // 发送购物车内容到后端创建订单
+    function createOrder() {
+        let cartItems = getCartItems();
+
+        fetch('https://localhost:7011/api/OrderAPI', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjgxIiwiVHlwZSI6Ik1lbWJlciIsIm5iZiI6MTY5NTAwMjczOCwiZXhwIjoxNjk1NjA3NTM4LCJpYXQiOjE2OTUwMDI3Mzh9.CYmtknaVFgxZ4g1qHfDJIXi4sMH55326QuPydiPAGHk}` // 请替换成实际的JWT令牌 //DOMTokenList
+    
+            },
+            body: JSON.stringify(cartItems)
+        })
+            .then(response => {
+                if (response.ok) {
+                    // 订单创建成功后的处理，例如清空购物车
+                    localStorage.clear();
+                    // 在此处添加其他成功处理逻辑
+                } else {
+                    return ("錯誤")
+                    // 在此处添加错误处理逻辑
+                }
+            })
+            .catch(error => {
+                return ("网络错误的处理")
+                // 在此处添加网络错误处理逻辑
+            });
+    }
+
+    // 在结账按钮点击时触发创建订单操作
+    document.querySelector('#checkout-button').addEventListener('click', () => {
+        createOrder();
+    });
+
 
 
 </script>
-
-
-
-
-
-
 
 
 
