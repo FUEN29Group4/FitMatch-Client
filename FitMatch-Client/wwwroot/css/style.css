@@ -216,7 +216,7 @@ container {
 .btn:focus {
     background-color: #bf3b6c;
     border-color: #BF3B6C;
-    box-shadow: 0 0 0 0.25rem BF3B6C(191, 59, 108, 0.5);
+    /*box-shadow: 0 0 0 0.25rem BF3B6C(191, 59, 108, 0.5);*/
 }
 
 .btn-clear:hover {
@@ -616,3 +616,4 @@ a:focus {
     color: #fff !important;
     transform: translateY(-5px);
 }
+
