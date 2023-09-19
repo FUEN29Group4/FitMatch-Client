@@ -3,13 +3,130 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/css/Chat.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.js"></script>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.js"></script>*@
 <script src="https://unpkg.com/vue@3"></script>
-    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    @*<script src="~/js/signalr/dist/browser/signalr.js"></script>*@
+
+<!-- 周曆 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+<style>
+    /* 設置模態視窗的大小和位置 */
+    .modal-dialog {
+        width: 80%; /* 設置寬度為視窗寬度的 90% */
+        max-width: 90%;
+        height: 98vh; /* 設置高度為視窗高度的 90% */
+        margin: 0 auto; /* 水平居中 */
+        /* 垂直居中 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* 週曆的主要容器 */
+    #calendar {
+        height: 100%; /* 填充整個模態視窗 */
+        overflow: auto; /* 如果內容超出容器，則出現滾動條 */
+    }
+
+    /* 預約區塊 */
+   
+    .fc-direction-ltr .fc-timegrid-col-events {
+    margin: 0px ;
+}
+   /* .fc-timegrid-slot-label-cushion {
+        margin-top: 10px;
+    }*/
+
+    .fc-toolbar-title{
+        color:darkgray;
+    }
+
+    .fc-v-event {
+        background-color: transparent;
+        border: none;
+        /*display: block;*/
+    }
+
+    .fc-timegrid-event-harness-inset .fc-timegrid-event{
+        box-shadow: none;
+    }
+    .custom-modal table th {
+        text-align: center;
+        white-space: pre-line;
+        font-weight: normal;
+    }
+
+    .custom-modal .time-cell {
+        text-align: center;
+        /*/*font-size: 18px;*/
+    }
+
+
+    .fc-timegrid-slot-label-cushion {
+        min-height: 40px;
+    }
+
+    .fc-day-today {
+        background-color: transparent !important;
+    }
+
+    /*.fc-timegrid-event .fc-event-main {
+    padding: 0px; 
+}
+.fc-timegrid-event-harness > .fc-timegrid-event {
+    margin: 0 auto;
+}*/
+    .btn-available {
+        font-size:14px;
+        padding:5px 10px;
+        border-radius: 5px;
+        background-color: #e64882c4;
+        color:white;
+    }
+
+    .btn-available:hover {
+            background-color: #d14276e1;
+        color: white;
+    }
+    /*格子變暗*/
+    /* 當滑鼠滑過日期/時間格子時 */
+.fc-daygrid-day:hover, .fc-timegrid-slot:hover {
+    background-color: rgba(0, 0, 0, 0.1);  /* 這裡設定為10%的黑色，您可以按需調整 */
+}
 
 
 
-<div id="chat">
+      /*//點點點按鈕*/
+  /*    .event-buttons-container {
+    display: flex;
+    flex-wrap: no-wrap;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.event-button {
+    flex-shrink: 0;
+}
+
+.more-button {
+    display: none;  /* 默認情況下不顯示 */
+}
+
+.more-than-two {
+    flex-wrap: wrap;
+}
+
+.more-than-two .more-button {
+    display: flex;  /* 當超過兩個按鈕時顯示 */
+}
+*/
+   
+
+
+</style>
+
+@*<div id="chat">
     <button @@click="showChatHistory(79)">ChatHistory</button>
     <div v-if="isChatHistoryVisible" class="overlay">
         <div class="chat-modal">
@@ -37,5 +154,23 @@
         </div>
     </div>
 </div>
+*@
+<div id="MatchCalendar">
+    <button @@click="setgym(74)" data-bs-toggle="modal" data-bs-target="#calendarModal">顯示週曆</button>
+    <!-- 週曆的容器 -->
+    <!-- Modal -->
+    <div class="modal fade custom-modal" id="calendarModal" tabindex="-1" aria-labelledby="calendarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <!-- 週曆代碼 -->
+                    <div v-if="showCalendar" id="calendar"></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/MatchCalendar.js"></script>
+@*<script src="~/js/Chat.js"></script>*@
 
-<script src="~/js/Chat.js"></script>
