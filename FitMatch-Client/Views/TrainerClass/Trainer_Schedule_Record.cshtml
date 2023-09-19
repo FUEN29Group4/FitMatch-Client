@@ -1,0 +1,179 @@
+﻿
+@{
+    ViewBag.SubLayout = "Trainer";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+}
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/vuex@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<style>
+    body{
+        background-color:#fff;
+    }
+
+    thead th {
+        color: white; /* 或其他您喜歡的顏色 */
+    }
+
+    .btn-space {
+        margin-right: 10px; /* 依您的需求調整間隔 */
+    }
+    
+</style>
+
+<div class="container" id="app">
+    <table class="table table-bordered table-hover tableRecord serviceBtn">
+        <thead style="background-color: #F24B88;">
+            <tr>
+                <th>會員編號</th>
+                <th>會員姓名</th>
+                <th>累積堂數</th>
+                <th>累積課程費用</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="class tr">
+            <tr v-for="member in membersSummary" :key="member.memberId">
+                <td>{{ member.memberId }}</td>
+                <td>{{ member.memberName }}</td>
+                <td>{{ member.totalClasses }}</td>
+                <td>{{ member.totalCost }}</td>
+
+              
+                <td>
+                    <button type="button"
+                            class="btn btn-primary btn-space"
+                            style="background-color: #F24B88; color: aliceblue;"
+                            v-on:click="showClassRecords(member.memberId)">
+                        上課紀錄
+                    </button>
+                    <button type="button"
+                            class="btn btn-primary"
+                            style="background-color: #F24B88; color: aliceblue;">
+                        訊息
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    const TrainerIdFromSession = sessionStorage.getItem('trainerId');
+    const { createApp, computed } = Vue;
+    const { createStore } = Vuex;
+
+    const store = createStore({
+        state() {
+            return {
+                classes: []
+            };
+        },
+        mutations: {
+            setClasses(state, classes) {
+                state.classes = classes;
+            }
+        },
+        actions: {
+            fetchClasses({ commit }) {
+                axios.get(`https://localhost:7011/api/TrainerClass/${TrainerIdFromSession}`)
+                    .then(response => {
+                        commit('setClasses', response.data);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                    });
+            }
+        },
+        getters: {
+            membersSummary: state => {
+                let summary = {};
+                state.classes.forEach(item => {
+                    if (!summary[item.memberId]) {
+                        summary[item.memberId] = {
+                            memberId: item.memberId,
+                            memberName: item.memberName,
+                            totalClasses: 0,
+                            totalCost: 0
+                        };
+                    }
+                    summary[item.memberId].totalClasses++;
+                    summary[item.memberId].totalCost += item.courseUnitPrice;
+                });
+                return Object.values(summary);
+            }
+        }
+    });
+
+    const app = createApp({
+        setup() {
+            const classes = computed(() => store.state.classes);
+            const membersSummary = computed(() => store.getters.membersSummary);
+
+            const getMemberSummary = (memberId) => {
+                return membersSummary.value.find(member => member.memberId === memberId) || {};
+            };
+
+            const showClassRecords = (memberId) => {
+                // 根據 memberId 獲取所有的課程資料
+                const memberClasses = store.state.classes.filter(cls => cls.memberId === memberId);
+
+                // 使用這些資料構建一個表格的HTML內容
+                let tableContent = `
+            <table class="table table-bordered table-hover">
+                <thead style="background-color: #F24B88;">
+                    <tr>
+                        <th>預約編號</th>
+                        <th>上課開始時間</th>
+                        <th>上課結束時間</th>
+                        <th>課程費用</th>
+                        <th>狀態</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+                memberClasses.forEach(cls => {
+                    tableContent += `
+                <tr>
+                    <td>${cls.classId}</td>
+                    <td>${cls.startTime}</td>
+                    <td>${cls.endTime}</td>
+                    <td>${cls.courseUnitPrice}</td>
+                    <td>${cls.courseStatus}</td>
+                </tr>
+            `;
+                });
+
+                tableContent += `
+                </tbody>
+            </table>
+        `;
+
+                Swal.fire({
+                    title: '上課紀錄',
+                    html: tableContent,  // 使用 html 屬性來顯示表格
+                    width: '80%',  // 設定寬度
+                    confirmButtonText: '關閉'
+                });
+            };
+
+
+            // 初始載入時獲取數據
+            store.dispatch('fetchClasses');
+
+            return {
+                classes,
+                membersSummary,
+                getMemberSummary,
+                showClassRecords // 在這裡返回
+            }
+        }
+    });
+
+
+    app.use(store);
+    app.mount('#app');
+</script>
