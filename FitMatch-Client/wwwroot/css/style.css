@@ -216,7 +216,7 @@ container {
 .btn:focus {
     background-color: #bf3b6c;
     border-color: #BF3B6C;
-    box-shadow: 0 0 0 0.25rem BF3B6C(191, 59, 108, 0.5);
+    /*box-shadow: 0 0 0 0.25rem BF3B6C(191, 59, 108, 0.5);*/
 }
 
 .btn-clear:hover {
@@ -617,20 +617,3 @@ a:focus {
     transform: translateY(-5px);
 }
 
-#userPhoto {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-}
-    #userPhoto .img {
-        position: absolute; /* 絕對定位 */
-        top: 50%; /* 居中定位 */
-        left: 50%;
-        height: 100%;
-        transform: translate(-50%, -50%); /* 居中定位 */
-        object-fit: cover; /* 圖片將保持其寬高比，但會放大和收縮以填充容器，多出的部分會被隱藏 */
-        object-position: center; /* 圖片會從容器的中心點開始展示 */
-    }
