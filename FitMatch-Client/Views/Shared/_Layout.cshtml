@@ -39,6 +39,26 @@
     <!-- SweetAlert2 -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+    <style>
+        .userPhoto {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+            .userPhoto .userimg {
+                position: absolute; /* 絕對定位 */
+                top: 50%; /* 居中定位 */
+                left: 50%;
+                width: 100%;
+                transform: translate(-50%, -50%); /* 居中定位 */
+                object-fit: cover; /* 圖片將保持其寬高比，但會放大和收縮以填充容器，多出的部分會被隱藏 */
+                object-position: center; /* 圖片會從容器的中心點開始展示 */
+            }
+    </style>
 </head>
 <body>
     <!-- Spinner Start -->
@@ -97,7 +117,7 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">商城</a>
                     <div class="dropdown-menu m-0">
                         <a asp-controller="Order" asp-action="sho0913" class="dropdown-item">商城首頁</a>
-                        <a asp-controller="Order" asp-action="cartYi" class="dropdown-item">我的購物車</a>
+                        <a asp-controller="Order" asp-action="ShoppingCart" class="dropdown-item">我的購物車</a>
                         @* <a href="blog_activity.html" class="dropdown-item">活動專區</a>
                         <a href="blog_announcement.html" class="dropdown-item">系統公告</a> *@
                     </div>
@@ -114,8 +134,10 @@
             <!-- 用戶名下拉選單，預設隱藏 -->
             <div id="userDropdown" class="nav-item dropdown" style="display: none;">
                 <a href="#" class="nav-link d-flex align-items-center" style="color: #F24B88; font-size: 20px;" data-bs-toggle="dropdown">
-                    <span id="userName"></span> <!-- 用戶名在這裡 -->
-                    <span id="userPhoto" class="me-2"></span> <!-- 照片在這裡 -->
+                    <div id="userName"></div> <!-- 用戶名在這裡 -->
+                    <div class="userPhoto me-2">
+                        <div id="userPhoto" ></div>
+                    </div> <!-- 照片在這裡 -->
                 </a>
                 <div id="dropdownContent" class="dropdown-menu m-0">
                     <!-- 選單透過js動態生成 -->
@@ -269,9 +291,9 @@
                     const img = document.createElement('img');
                     img.src = `data:image/jpeg;base64, ${data.photo}`; // 使用Base64編碼的照片
                     img.alt = 'User Photo';
-                    img.width = 60;
-                    img.height = 60;
-                    img.classList.add('rounded-circle', 'me-lg-2'); // 圓圓的CSS
+                    //img.width = 60;
+                    //img.height = 60;
+                    img.classList.add('userimg', 'me-lg-2'); // 圓圓的CSS
                     userPhotoElement.appendChild(img);
                 } else {
                     // 如果沒有photo，顯示用戶名作為替代

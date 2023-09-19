@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,19 +12,37 @@ namespace FitMatch_Client.Controllers
     public class OrderController : Controller
 
     {
-        //=================================
+      
 
-       
-
-
-
+        //商城首頁 
         public IActionResult sho0913()
         {
             return View();
         }
 
+        public IActionResult Shop()
+        {
+            return View();
+        }
 
-        public IActionResult cartYi()
+
+        //商品詳細頁
+        public IActionResult ProductDetails()
+        {
+            return View();
+        }
+
+
+
+        //購物車頁面
+        public IActionResult ShoppingCart()
+        {
+            return View();
+        }
+
+
+        // 結帳頁面
+        public IActionResult Checkout()
         {
             return View();
         }
@@ -42,65 +61,9 @@ namespace FitMatch_Client.Controllers
         }
 
 
-        public IActionResult TeddyCart()
-        {
-            return View();
-        }
-
-
-
-        public IActionResult TeddyEdit()
-        {
-            return View();
-        }
-
-
-
-        //=================================
-
-
-
-        // GET: /<controller>/
-        public IActionResult ShoppingCart()
-        {
-            return View();
-        }
-
-
-        public IActionResult ShoppingCartTest()
-        {
-            return View();
-        }
-
-
-        public IActionResult Shop()
-        {
-            return View();
-        }
-
-        public IActionResult ShopTest()
-        {
-            return View();
-        }
-
-
-        // GET: /<controller>/
-        public IActionResult Checkout()
-        {
-            return View();
-        }
-
-        // GET: /<controller>/
-        public IActionResult OrderDetails()
-        {
-            return View();
-        }
-
-        //查詢會員訂單
-        public IActionResult MemberOrder()
-        {
-            return View();
-        }
+        
+      
+        
     }
 }
 

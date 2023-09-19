@@ -77,16 +77,22 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #ccc;
     text-align: center;
     line-height: 40px;
     margin-right: 5px;
+    overflow: hidden;
+    position: relative;
 }
 
     .chat-avatar img {
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
+        position: absolute; /* 絕對定位 */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* 圖片將保持其寬高比，但會放大和收縮以填充容器，多出的部分會被隱藏 */
+        object-position: center; /* 圖片會從容器的中心點開始展示 */
+        border-radius: 50%; /* 圓形裁切 */
     }
 
 .chat-message-sent .chat-avatar {
@@ -112,6 +118,7 @@
     background-color: rgba(242, 75, 136, 0.2);
     border-radius: 10px;
     padding: 10px;
+    max-width:350px;
 }
 
 /* 已收到消息樣式 */
@@ -120,6 +127,7 @@
     background-color: rgba(245, 193, 203, 0.2);
     border-radius: 10px;
     padding: 10px;
+    max-width: 350px;
 }
 /* 聊天底部輸入框樣式 */
 .chat-footer input {

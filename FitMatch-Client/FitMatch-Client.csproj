@@ -10,8 +10,6 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
-    <Content Remove="Views\Order\1_shoppingCart.cshtml" />
-    <Content Remove="Views\Order\4_cartEdit.cshtml" />
     <Content Remove="Views\Order\shop_0913.cshtml" />
     <Content Remove="Views\Order\shop0913.cshtml" />
   </ItemGroup>
@@ -28,10 +26,6 @@
     <Folder Include="wwwroot\js\Order.js\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="Views\Order\1_shoppingCart.cshtml" />
-    <None Include="Views\Order\4_cartEdit.cshtml" />
-  </ItemGroup>
   <ItemGroup>
     <None Update="Views\Order\shopcshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
