@@ -267,12 +267,6 @@
 
 
 
-
-
-
-
-
-
 @* ======== 原先JS樣式 start ======== *@
 <!-- JavaScript Libraries-->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -321,16 +315,76 @@
 
 
 
-    @* ========= API 串接區: 結帳將資料用post方式傳入資庫中 =========*@
-
-
+@* ========= API 串接區: 結帳將資料用post方式傳入資庫中 =========*@
 
 
 
 
 
 @* ======== Vue & axios start ======== *@
+   <script>const app = Vue.createApp({
+ data() {
+     return {
+         products: [], // 存储商品数据的数组
+     };
+ },
+ mounted() {
+     // 在组件加载后调用方法来获取商品数据
+     this.fetchProducts();
+ },
 
+ methods: {
+     async fetchProducts() {
+         try {
+             // 发起GET请求获取商品数据
+             const response = await axios.get('https://localhost:7011/api/ProductAPI');
+
+             // 将获取的商品数据存储到Vue实例的数据属性中
+             this.products = response.data;
+         } catch (error) {
+             console.error('獲取資料錯誤：', error);
+         }
+},
+
+     addToCart(product) {
+     //const itemValue = `${product.productName}|${product.photo}|${product.price}`;
+     const itemValue = `${product.productName}|'測試'
+     |${product.price}`;
+     const itemId = `${product.productId}`;
+
+     // 存储到localStorage
+     if (localStorage.getItem(itemId)) {
+         alert('商品已在您的購物車中喔');
+     } else {
+        const addItemList = localStorage.getItem('addItemList') || '';
+        localStorage.setItem('addItemList', `${addItemList}${itemId}, `);
+        localStorage.setItem(itemId, itemValue);
+        alert('商品已加入購物車');
+        this.updateCartCountAndTotal();
+
+     }
+},
+
+    // 更新购物车数量和总价
+    updateCartCountAndTotal() {
+    const itemString = localStorage.getItem('addItemList') || '';
+    const items = itemString.substring(0, itemString.length - 2).split(', ');
+
+    let subtotal = 0;
+    for (const itemId of items) {
+        const itemInfo = localStorage.getItem(itemId);
+        subtotal += parseInt(itemInfo.split('|')[2]);
+    }
+
+    document.getElementById('itemCount').innerText = items.length;
+    document.getElementById('subtotal').innerText = subtotal;
+   },
+
+},
+
+});
+
+     app.mount('#app');</script>
 
 
 
@@ -341,3 +395,243 @@
 @{
 }
 
+
+
+
+
+
+
+
+
+@*  ======  body start 更改成vue中～～～～ ====== *@
+<!--增加Vue掛載內容id-->
+<div id="app">
+
+
+    <section class="product-details-area ptb-54">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="product-view-one">
+                    <div class="modal-content p-0">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6">
+                                <div class="product-view-one-image">
+                                    <div id="big" class="owl-carousel owl-theme">
+                                        <div class="item">
+                                            <img src="images/商城/B.webp" alt="Image">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="product-content ml-15">
+                                    <div class="d-flex">
+                                        <h3>
+                                            運動機能保健組B
+                                        </h3>
+                                        <h3 class="ms-3 fz-5 icon-container">
+                                            <i class="fa-solid fa-heart" style="color: #f24b88;"></i>
+                                        </h3>
+                                    </div>
+                                    <div class="product-review">
+                                        <div class="rating">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
+                                        <a href="#reviews" class="rating-count">4 Reviews</a>
+                                    </div>
+                                    <div class="price">
+                                        <span class="new-price">$119.0 <del>$219.0</del></span>
+
+                                    </div>
+                                    <ul class="product-info">
+                                        <li>
+                                            <p>
+                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus dicta a
+                                                earum aspernatur ea, possimus ad at officia quisquam quos, fugiat quasi
+                                                nostrum ullam commodi quia, cum laborum dolor molestias fugiat quasi
+                                                nostrum ullam
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span>SKU:</span>
+                                            001
+                                        </li>
+                                        <li>
+                                            <span>Availability:</span>
+                                            Available
+                                        </li>
+                                        <li>
+                                            <span>Brand:</span>
+                                            Ehay
+                                        </li>
+                                        <li>
+                                            <span>Categories:</span>
+                                            <a href="products.html">Power Drill</a>
+                                        </li>
+                                    </ul>
+                                    <div class="product-add-to-cart">
+                                        <div class="input-counter">
+                                            <span class="minus-btn">
+                                                <i class="fa-solid fa-minus"></i> <!-- 保持減号的icon为ri-subtract-line -->
+                                            </span>
+                                            <input type="text" value="0" min="0"> <!-- 将初始值设置为0，并添加min属性 -->
+                                            <span class="plus-btn">
+                                                <i class="fa-solid fa-plus"></i><!-- 保持加号的icon为ri-add-line -->
+                                            </span>
+                                        </div>
+
+                                        <a href="shopping-cart.html" class="btn">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                            加入購物車
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12">
+                    <div id="reviews" class="tab products-details-tab">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <ul class="tabs">
+                                    <li>
+                                        產品資訊
+                                    </li>
+                                    <li>
+                                        產品介紹
+                                    </li>
+                                    <li>
+                                        評價
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="tab_content">
+                                    <div class="tabs_item">
+                                        <div class="products-details-tab-content">
+                                            <h3>Product Description</h3>
+                                            <p>運動機能保健組B，精選二支高品質營養品，運動機能保健組B含運動強化B群、分離乳清，通過各項嚴格檢驗，堅持提供您優質的營養品選擇。</p>
+                                            <h3>運動機能保健組B內容商品 :</h3>
+                                            <ul class="specification">
+                                                <li>NOTORIOUS SELECT 分離乳清蛋白(原價1600元)</li>
+                                                <li>NOTORIOUS SELECT 運動強化B群(原價2050元)</li>
+                                                <li>分離乳清蛋白任選1包+運動強化B群(90顆/盒純素)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="tabs_item">
+                                        <div class="products-details-tab-content">
+                                            <img src="images/商城/ProuctDetil.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="tabs_item">
+                                        <div class="products-details-tab-content">
+                                            <div class="product-review-form">
+                                                <h3>顧客評價</h3>
+                                                <div class="review-title">
+                                                    <div class="rating">
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                    </div>
+                                                    <p>Based on 3 reviews</p>
+                                                    <!-- <a href="#" class="btn btn-primary">Write A Review</a> -->
+                                                </div>
+                                                <div class="review-comments">
+                                                    <div class="review-item">
+                                                        <div class="rating">
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                        </div>
+                                                        <h3>Good</h3>
+                                                        <span>
+                                                            <strong>Admin</strong> on <strong>
+                                                                July 18,
+                                                                2021
+                                                            </strong>
+                                                        </span>
+                                                        <p>
+                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                                                            do eiusmod tempor incididunt ut labore et dolore magna
+                                                            aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                                                            ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                                            quis nostrud exercitation labore et dolore
+                                                        </p>
+                                                        <!-- <a href="#" class="review-report-link">Report as
+                                                            Inappropriate</a> -->
+                                                    </div>
+                                                    <div class="review-item">
+                                                        <div class="rating">
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                        </div>
+                                                        <h3>Good</h3>
+                                                        <span>
+                                                            <strong>Admin</strong> on <strong>
+                                                                July 20,
+                                                                2021
+                                                            </strong>
+                                                        </span>
+                                                        <p>
+                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                                                            do eiusmod tempor incididunt ut labore et dolore magna
+                                                            aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                                                            ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                                            quis nostrud exercitation labore et dolore
+                                                        </p>
+                                                        <!-- <a href="#" class="review-report-link">Report as
+                                                            Inappropriate</a> -->
+                                                    </div>
+                                                    <div class="review-item">
+                                                        <div class="rating">
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                        </div>
+                                                        <h3>Good</h3>
+                                                        <span>
+                                                            <strong>Admin</strong> on <strong>
+                                                                July 21,
+                                                                2021
+                                                            </strong>
+                                                        </span>
+                                                        <p>
+                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                                                            do eiusmod tempor incididunt ut labore et dolore magna
+                                                            aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                                                            ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                                            quis nostrud exercitation labore et dolore
+                                                        </p>
+                                                        <!-- <a href="#" class="review-report-link">Report as
+                                                            Inappropriate</a> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@*  ======  body end ====== *@
