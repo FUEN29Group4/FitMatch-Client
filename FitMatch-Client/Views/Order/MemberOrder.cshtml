@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.SubLayout = "MemberOrder";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/memberclass.css">
+
+
+
+<div>
+
+    <!-- 訂單區start -->
+    <table class="table container table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>訂單編號</th>
+                <th>訂購時間</th>
+                <th>總價</th>
+                <th>支付方式</th>
+                <th>取貨方式</th>
+                <!-- <th>訂單狀態</th> -->
+                <th colspan="2">付款時間</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td id="orderid">{{MemberOrder.OrderId}}</td>
+                <td id="odertime">{{MemberOrder.PayTime}}</td>
+                <td id="totalprice">$ {{MemberOrder.TotalPrice}}</td>
+                <td id="paymentmethod">{{MemberOrder.PaymentMethod}}</td>
+                <td id="shippingmethod">{{MemberOrder.ShippingMethod}}</td>
+
+                <!-- <td>已完成</td> -->
+
+                <td id="paytime">{{MemberOrder.PayTime}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+Vue.createApp({
+        data() {
+            return {
+             
+                memberId: sessionStorage.getItem('memberId'),
+                token: sessionStorage.getItem('token'),
+              
+            };
+        },
+        mounted() {
+            this.MemberFavorite();
+        },
+        methods: {
+            MemberFavorite() {
+        },
+    }).mount('#app')
+
+</script>

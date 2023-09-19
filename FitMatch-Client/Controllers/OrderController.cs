@@ -95,6 +95,12 @@ namespace FitMatch_Client.Controllers
         {
             return View();
         }
+
+        //查詢會員訂單
+        public IActionResult MemberOrder()
+        {
+            return View();
+        }
     }
 }
 
