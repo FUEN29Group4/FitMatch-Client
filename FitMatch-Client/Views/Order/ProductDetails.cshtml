@@ -267,12 +267,6 @@
 
 
 
-
-
-
-
-
-
 @* ======== 原先JS樣式 start ======== *@
 <!-- JavaScript Libraries-->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -321,16 +315,76 @@
 
 
 
-    @* ========= API 串接區: 結帳將資料用post方式傳入資庫中 =========*@
-
-
+@* ========= API 串接區: 結帳將資料用post方式傳入資庫中 =========*@
 
 
 
 
 
 @* ======== Vue & axios start ======== *@
+   <script>const app = Vue.createApp({
+ data() {
+     return {
+         products: [], // 存储商品数据的数组
+     };
+ },
+ mounted() {
+     // 在组件加载后调用方法来获取商品数据
+     this.fetchProducts();
+ },
 
+ methods: {
+     async fetchProducts() {
+         try {
+             // 发起GET请求获取商品数据
+             const response = await axios.get('https://localhost:7011/api/ProductAPI');
+
+             // 将获取的商品数据存储到Vue实例的数据属性中
+             this.products = response.data;
+         } catch (error) {
+             console.error('獲取資料錯誤：', error);
+         }
+},
+
+     addToCart(product) {
+     //const itemValue = `${product.productName}|${product.photo}|${product.price}`;
+     const itemValue = `${product.productName}|'測試'
+     |${product.price}`;
+     const itemId = `${product.productId}`;
+
+     // 存储到localStorage
+     if (localStorage.getItem(itemId)) {
+         alert('商品已在您的購物車中喔');
+     } else {
+        const addItemList = localStorage.getItem('addItemList') || '';
+        localStorage.setItem('addItemList', `${addItemList}${itemId}, `);
+        localStorage.setItem(itemId, itemValue);
+        alert('商品已加入購物車');
+        this.updateCartCountAndTotal();
+
+     }
+},
+
+    // 更新购物车数量和总价
+    updateCartCountAndTotal() {
+    const itemString = localStorage.getItem('addItemList') || '';
+    const items = itemString.substring(0, itemString.length - 2).split(', ');
+
+    let subtotal = 0;
+    for (const itemId of items) {
+        const itemInfo = localStorage.getItem(itemId);
+        subtotal += parseInt(itemInfo.split('|')[2]);
+    }
+
+    document.getElementById('itemCount').innerText = items.length;
+    document.getElementById('subtotal').innerText = subtotal;
+   },
+
+},
+
+});
+
+     app.mount('#app');</script>
 
 
 
@@ -340,4 +394,10 @@
 
 @{
 }
+
+
+
+
+
+
 

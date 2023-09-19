@@ -129,84 +129,126 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <script>
+    const MemberIdFromSession = sessionStorage.getItem('memberId');
+
+    console.log("Retrieved memberId on edit page:", MemberIdFromSession);
+
+
+    function encodeImageToBase64() {
+        const file = document.querySelector('#imageInput').files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = function () {
+            document.querySelector("#member-img").src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function collectFormData() {
+        const formData = {
+            memberName: $('.memberNameInput').val() || "",
+            address: $('.memberAddressInput').val() || "",
+            phone: $('.memberPhoneInput').val() || "",
+            photo: document.querySelector("#member-img").src.split(",")[1] || null
+        };
+
+        $(`input[name="expertise"]:checked`).each(function () {
+            formData.expertise.push($(this).val());
+        });
+        formData.expertise = formData.expertise.join(',');
+
+        return formData;
+    }
+
+    function saveAllInfo() {
+        const data = collectFormData();
+        data.salt = SaltFromSession;
+
+        console.log("Using Salt from Session Storage:", SaltFromSession);
+
+        $.ajax({
+            url: 'https://localhost:7011/api/Member/' + MemberIdFromSession,
+            type: 'PUT',
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function (response) {
+                if (response.status === "success") {
+                    alert(response.message);
+
+                    sessionStorage.setItem('memberId', MemberIdFromSession);
+                    console.log("Saved memberId:", sessionStorage.getItem('memberId'));
+
+                    // 在成功回调中执行页面跳转
+                    window.location.href = $('#saveButton').data('href');
+                } else {
+                    alert('保存失敗，請稍後再試。');
+                }
+            },
+            error: function (error) {
+                console.log("Error:", error.responseText);
+                alert('保存失敗，請稍後再試。');
+            }
+        });
+    }
+
 
     $(document).ready(function () {
-        const memberId = 66;
+        $(".edit-photo-button").click(function (event) {
+            event.preventDefault();
+            $("#imageInput").click();
+        });
 
-        // 第一個 AJAX 請求
         $.ajax({
-            url: 'https://localhost:7011/api/Member/' + memberId,
-            type: 'Get',
+            url: 'https://localhost:7011/api/ClassType',
+            type: 'GET',
             dataType: 'json',
             success: function (data) {
-                $('.memberNameInput').val(data.memberName);
-                $('.memberAddressInput').val(data.address);
-                $('.memberPhoneInput').val(data.phone);
-                $('.memberEmailInput').val(data.email);
-                $('.memberPasswordInput').val(data.password);
+                populateCheckboxes(data);
 
 
-                var ID = memberId;
-                $('.memberIDInput').text(ID);
-                var name = data.memberName;
-                $('.memberNameInput').text(name);
-                // 假設你已經成功獲取到 Email，存在變數 data.email 中
-                var email = data.email;
-                $('.memberEmailInput').text(email);
+                $.ajax({
+                    url: 'https://localhost:7011/api/Member/' + MemberIdFromSession,
+                    type: 'GET',
+                    dataType: 'json',
 
-                var Photo = data.photo; //照片
-                // 更新會員照片
-                var memberPhotoElement = document.querySelector("#member-img");
+                    success: function (memberData) {
+                        $('.memberNameInput').val(memberData.memberName);
+                        $('.memberAddressInput').val(memberData.address);
+                        $('.memberPhoneInput').val(memberData.phone);
+                        SaltFromSession = memberData.salt;
+                        if (SaltFromSession) {
+                            sessionStorage.setItem('SaltFromSession', SaltFromSession);
+                            console.log("Retrieved Salt from API:", SaltFromSession); // 打印從API取得的salt值
+                        }
 
-                if (Photo) {
-                    var memberImageBase64 = Photo; // 從API獲取的Base64編碼的照片
-                    memberPhotoElement.src = "data:image/jpeg;base64," + memberImageBase64; // 直接將圖像設置為src
+                        checkExpertisesForMember(memberData);
 
-                }
+                        var memberPhotoElement = document.querySelector("#member-img");
 
-                // ... 其他的資料設定
+                        memberPhotoElement.onerror = function () {
+                            memberPhotoElement.src = "./images/nopersonal.jpg";
+                        };
+
+                        var memberImageBase64 = memberData.photo;
+                        memberPhotoElement.src = "data:image/jpeg;base64," + memberImageBase64;
+                    },
+                    error: function (error) {
+                        console.log("Error:", error);
+                    }
+                });
             },
             error: function (error) {
                 console.log("Error:", error);
             }
         });
 
-    });
-    $(document).ready(function () {
-        const memberId = 66;
-
-        // 點擊儲存按鈕時觸發的事件處理程序
-        $('#saveButton').click(function () {
-            // 收集表單數據或需要更新的資料
-            var updatedData = {
-                memberName: $('.memberNameInput').val(),
-                email: $('.memberEamilInput').val(),
-                address: $('.memberAddressInput').val(),
-                Phone: $('.memberPhoneInput').val(),
-                Password: $('.memberPasswordInput').val(),
-                Photo: $('#newPreview').val(),
-                // 其他字段的更新
-            };
-
-            // 發送AJAX PUT請求以更新資料
-            $.ajax({
-                url: 'https://localhost:7011/api/Member/' + memberId,
-                type: 'PUT',
-                dataType: 'json',
-                data: updatedData, // 發送更新的資料
-                success: function (data) {
-                    // 更新成功後的處理
-                    console.log("Data updated successfully:", data);
-                },
-                error: function (error) {
-                    // 錯誤處理
-                    console.log("Error:", error);
-                }
-            });
+        $('#saveButton').click(function (event) {
+            event.preventDefault();
+            saveAllInfo();
         });
-
-        // 其他代碼...
     });
-
 </script>
 

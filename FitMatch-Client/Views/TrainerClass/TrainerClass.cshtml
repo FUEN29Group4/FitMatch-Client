@@ -142,6 +142,7 @@
 
 
 <script>
+        const TrainerIdFromSession = sessionStorage.getItem('trainerId');
 var calendar;
 var todayGymName = "";
 
@@ -151,14 +152,14 @@ function formatTime(date) {
 }
 
 function loadEvents() {
-    const trainerId = new URLSearchParams(window.location.search).get("id");
+        console.log("Loading events...");
 
-    if (!trainerId) {
-        console.error('TrainerId is missing from the URL');
+    if (!TrainerIdFromSession) {
+        console.error('TrainerIdFromSession is missing from the URL');
         return;
     }
 
-    fetch("https://localhost:7011/api/TrainerClass/" + trainerId)
+    fetch("https://localhost:7011/api/TrainerClass/" + TrainerIdFromSession)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -167,6 +168,7 @@ function loadEvents() {
         })
         .then(data => {
             if (Array.isArray(data)) {
+               console.log("Data fetched:", data);
                 populateEvents(data);
             } else {
                 throw new Error('Unexpected data format');
@@ -195,6 +197,7 @@ function getGymsForDate(date) {
     return dateEvents.map(event => event.title).join(', ');
 }
 function populateEvents(data) {
+    console.log("Populating events with data:", data);
     const gymDetailsByDate = {};
 
     data.forEach(eventData => {
@@ -211,8 +214,10 @@ function populateEvents(data) {
         gymDetailsByDate[dateKey].gymNames.add(eventData.gymName);
         gymDetailsByDate[dateKey].addresses.add(eventData.address);
     });
+        console.log("Gym details by date:", gymDetailsByDate);
 
-    for (let [date, gymDetails] of Object.entries(gymDetailsByDate)) {
+
+   for (let [date, gymDetails] of Object.entries(gymDetailsByDate)) {
         const allGymNames = Array.from(gymDetails.gymNames).join(', ');
         const allAddresses = Array.from(gymDetails.addresses).join(', ');
 
@@ -270,6 +275,8 @@ function formatDateToISO(date) {
 
 
 function openVenueModal(date) {
+        console.log("Opening venue modal for date:", date);
+
     // 檢查calendar是否存在
     if (!calendar) {
         console.error('Calendar instance not initialized');
@@ -288,7 +295,7 @@ function openVenueModal(date) {
     let existingVenueAddress = existingVenueEvent && existingVenueEvent.extendedProps 
         ? existingVenueEvent.extendedProps.addresses
         : "";
-    fetch('https://localhost:7011/api/Match/Gym')
+    fetch('https://localhost:7011/api/TrainerClass')
         .then(response => {
             if (!response.ok) throw new Error("Failed to fetch gym data");
             return response.json();
@@ -321,67 +328,68 @@ function openVenueModal(date) {
                     </select>
                     <div id="gym-address">地址: ${existingVenueAddress}</div>
                 `,
-                preConfirm: () => {
-                    const gymId = document.getElementById('gym-select').value;
-                    const selectedGym = data.find(gym => gym.gymId === gymId);
-                    return {
-                        gymId: gymId,
-                        gymName: selectedGym ? selectedGym.gymName : null,
-                        address: selectedGym ? selectedGym.address : null
-                    };
-                },
+preConfirm: () => {
+    const gymId = parseInt(document.getElementById('gym-select').value, 10);
+    console.log("Selected gymId from dropdown:", gymId);
+    console.log("All gym data from API:", data);
+    const selectedGym = data.find(gym => gym.gymId === gymId);
+    console.log("Matched gym data:", selectedGym);
+    return {
+        gymId: gymId,
+        gymName: selectedGym ? selectedGym.gymName : null,
+        address: selectedGym ? selectedGym.address : null
+    };
+},
                 didOpen: () => {
-                    const citySelect = document.getElementById('city-select');
-                    citySelect.addEventListener('change', (e) => {
-                        const selectedCity = e.target.value;
-                        document.getElementById('gym-select').innerHTML = getGymsByCity(selectedCity);
-                    });
+    const citySelect = document.getElementById('city-select');
+    citySelect.addEventListener('change', (e) => {
+        const selectedCity = e.target.value;
+        console.log("Selected city:", selectedCity);
+        document.getElementById('gym-select').innerHTML = getGymsByCity(selectedCity);
+    });
 
-                    const gymSelect = document.getElementById('gym-select');
-                    gymSelect.addEventListener('change', (e) => {
-                        const selectedAddress = e.target.selectedOptions[0].dataset.address;
-                        document.getElementById('gym-address').textContent = `地址: ${selectedAddress}`;
-                    });
-                }
+    const gymSelect = document.getElementById('gym-select');
+    gymSelect.addEventListener('change', (e) => {
+        const selectedAddress = e.target.selectedOptions[0].dataset.address;
+        console.log("Selected gym from dropdown:", e.target.value, "Address:", selectedAddress);
+        document.getElementById('gym-address').textContent = `地址: ${selectedAddress}`;
+    });
+}
             }).then(result => {
-                if (result.isConfirmed) {
-                    const { gymId, gymName, address } = result.value;
-                    if (gymName && address) {
-                        if (existingVenueEvent) {
-                            existingVenueEvent.remove();
-                        }
-                        calendar.addEvent({
-                            title: gymName,
-                            start: date,
-                            allDay: true,
-                            extendedProps: {
-                                venue: gymName,
-                                address: address
-                            }
-                        });
-                    }
+        console.log("Venue modal result:", result);
+
+        if (result.isConfirmed) {
+            const { gymId, gymName, address } = result.value;
+            console.log("Selected gymName:", gymName, "Selected address:", address);
+            
+            if (gymName && address) {
+                if (existingVenueEvent) {
+                    console.log("Removing existing venue event:", existingVenueEvent);
+                    existingVenueEvent.remove();
                 }
-            });
+                console.log("Adding new event for venue:", gymName);
+                calendar.addEvent({
+                    title: gymName,
+                    start: date,
+                    allDay: true,
+                    extendedProps: {
+                        venue: gymName,
+                        address: address
+                    }
+                });
+            } else {
+                console.log("GymName or address is missing!");
+            }
+        } else {
+            console.log("Modal was not confirmed.");
+        }
+    });
 
         })
         .catch(error => {
             console.error("Error fetching gym data:", error);
         });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function openTimeSlotModal(date) {
     // 計算結束時間，此處假定預約時間為1小時

@@ -8,5 +8,9 @@ namespace FitMatch_Client.Controllers
         {
             return View();
         }
+        public IActionResult Trainer_Schedule_Record()
+        {
+            return View();
+        }
     }
 }

@@ -154,13 +154,9 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <script>
-
+        const MemberIdFromSession = sessionStorage.getItem('memberId');
     $(document).ready(function () {
-<<<<<<< Updated upstream
-        const memberId = 81;
-=======
-        const memberId = sessionStorage.getItem('MemberId') || 57;
->>>>>>> Stashed changes
+        const SaltFromSession = sessionStorage.getItem('Salt');
 
         // 第一個 AJAX 請求
         $.ajax({
@@ -217,6 +213,12 @@
                 console.log("Error:", error);
             }
         });
+        $('#editMemberButton').click(function () {
+            sessionStorage.setItem('MemberId', MemberIdFromSession);
+            sessionStorage.setItem('salt', SaltFromSession);
 
+            console.log("Saved memberId:", sessionStorage.getItem('memberId'));
+            window.location.href = $(this).data('href');
+        });
     });
 </script>

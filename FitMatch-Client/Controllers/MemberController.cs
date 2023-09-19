@@ -18,5 +18,10 @@ namespace FitMatch_Client.Controllers
         {
             return View();
         }
+
+        public IActionResult MemberOrder()
+        {
+            return View();
+        }
     }
 }

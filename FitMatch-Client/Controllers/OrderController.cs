@@ -32,6 +32,12 @@ namespace FitMatch_Client.Controllers
             return View();
         }
 
+        public IActionResult ProductDetailsVue()
+        {
+            return View();
+        }
+
+
 
 
         //購物車頁面
