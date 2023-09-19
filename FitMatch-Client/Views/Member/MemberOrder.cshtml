@@ -21,7 +21,7 @@
         </thead>
 
         <tbody id="app">
-            <tr v-for="order in OrderWithMember" :key="order.OrderId">
+            <tr v-for="order in Orders" :key="order.OrderId">
                 <td>{{ order.OrderId }}</td>
                 <td>{{ order.OrderTime }}</td>
                 <td>$ {{ order.TotalPrice }}</td>
@@ -35,7 +35,7 @@
 
 
 
-<script>
+@* <script>
     Vue.createApp({
         data() {
             return {
@@ -58,20 +58,21 @@
         }
     }).mount('#app')
 </script>
-
+ *@
 <script>
     Vue.createApp({
 
         data() {
             return {
+                orders:[],
                 OrderWithMember: [],
             };
         },
         mounted() {
-            this.OrderWithMember();
+            this.Order();
         },
         methods: {
-            MemberClassAPI() {
+            Order() {
                 let urlParams = new URLSearchParams(window.location.search);
                 let id = urlParams.get('id');  // 從URL中獲取id
 
@@ -90,13 +91,12 @@
                         return response.json();
                     })
                     .then((data) => {
-                        this.MemberClassAPIs = data;
+                        this.orders = data;
                     })
                     .catch((error) => {
                         console.error("API 請求失敗: " + error.message);
                     });
             },
-
         },
     }).mount('#app')
 
