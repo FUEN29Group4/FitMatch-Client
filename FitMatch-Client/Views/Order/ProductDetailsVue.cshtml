@@ -39,24 +39,229 @@
 @*  ======  body start ====== *@
 
 <!-- 在這裡，我們使用 Vue.js 的語法來顯示商品數據 -->
-<div id="app">
-    <div v-if="product">
+<!--<div id="app">
+    <div v-if="product">-->
 
         <!-- id -->
-        <h3>{{ product.productId}}</h3>
+        <!--<h3>{{ product.productId}}</h3>-->
         <!-- 圖片 -->
-        <img :src="product.imageUrl" alt="Image">
+        <!--<img :src="product.imageUrl" alt="Image">-->
         <!-- 名稱 -->
-        <h3>{{ product.productName}}</h3>
+        <!--<h3>{{ product.productName}}</h3>-->
         <!-- 價格 -->
-        <span class="new-price">{{ product.price }}</span>
+        <!--<span class="new-price">{{ product.price }}</span>-->
         <!-- 加入購物車按鈕 -->
 
 
 
-        <button @@click="addToCart(product)">加入購物車</button>
+        <!--<button @@click="addToCart(product)">加入購物車</button>
     </div>
+</div>-->
+
+
+
+
+
+
+@*  ======  body start 更改成vue中～～～～ ====== *@
+
+@*參考Key內容*@
+@*product:Reactive
+    productId:76
+    productName:"乳清蛋白-優格多多口味"
+    productDescription:"具有營養吸收快、容易溶解、低脂肪含量、不含乳糖且蛋白質含量達90%以上等特色"
+    price:550
+    typeId:3
+    productInventory:600
+    approved:true
+    status:true
+    photo:"五萬字省略"*@
+
+
+<!--增加Vue掛載內容id-->
+<div id="app">
+    <section class="product-details-area ptb-54">
+        <div v-if="product"  class="container"> @*v-if="product 寫在app下方"*@
+            <div class="row align-items-center">
+                <div class="product-view-one">
+                    <div class="modal-content p-0">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6">
+                                <div class="product-view-one-image">
+                                    <div id="big" class="owl-carousel owl-theme">
+
+
+                                        <div class="item">
+
+                                            @*<img src="images/商城/B.webp" alt="Image">*@
+                                            <img :src="'data:image/jpeg;base64,' + product.photo" alt="product Image" style="width: 200px; height: 200px; object-fit: cover;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="product-content ml-15">
+                                    <div class="d-flex">
+                                        <h3>
+                                            {{product.productName}}
+                                        </h3>
+                                        <h3 class="ms-3 fz-5 icon-container">
+                                            <i class="fa-solid fa-heart" style="color: #f24b88;"></i>
+                                        </h3>
+                                    </div>
+                                    <div class="product-review">
+                                        <div class="rating">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
+                                        <a href="#reviews" class="rating-count">4 Reviews</a>
+                                    </div>
+                                    <div class="price">
+                                        <span class="new-price">
+                                            ${{ product.price }}
+                                            @*<del>$219.0</del>*@
+                                        </span>
+
+
+                                    </div>
+                                    <ul class="product-info">
+                                        <li>
+                                            <span>庫存量:</span>
+                                            {{ product.productInventory}}
+                                        </li>
+                                        <li>
+                                            <span>商品分類:</span>
+                                            {{ product.typeId}}
+                                        </li>
+
+                                    </ul>
+                                    <div class="product-add-to-cart">
+                                        <div class="input-counter">
+                                            <span class="minus-btn">
+                                                <i class="fa-solid fa-minus"></i> <!-- 保持減号的icon为ri-subtract-line -->
+                                            </span>
+                                            <input type="text" value="0" min="0"> <!-- 将初始值设置为0，并添加min属性 -->
+                                            <span class="plus-btn">
+                                                <i class="fa-solid fa-plus"></i><!-- 保持加号的icon为ri-add-line -->
+                                            </span>
+                                        </div>
+
+                                        <a @@click="addToCart(product)" class="btn">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                            加入購物車
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                @*====== 產品資訊start====== *@
+                <div class="col-lg-12 col-md-12">
+                    <div id="reviews" class="tab products-details-tab">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <ul class="tabs">
+                                    <li>
+                                        產品資訊
+                                    </li>
+                                    @*<li>
+                                產品介紹
+                            </li>
+                            <li>
+                                評價
+                            </li>*@
+                                </ul>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+
+                                @*產品資訊*@
+                                <div class="tab_content">
+                                    <div class="tabs_item">
+                                        <div class="products-details-tab-content">
+                                            <h3>Product Description</h3>
+                                            <p>{{ product.productDescription }}</p>
+                                        </div>
+                                    </div>
+
+                                    @*產品介紹*@
+                                    <!--<div class="tabs_item">
+        <div class="products-details-tab-content">
+            <img src="images/商城/ProuctDetil.jpg" alt="">
+        </div>
+    </div>-->
+                                    @* 評價*@
+                                    <!--<div class="tabs_item">
+                <div class="products-details-tab-content">
+                    <div class="product-review-form">
+
+                        <h3>顧客評價</h3>
+                        <div class="review-title">
+                            <div class="rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p>Based on 3 reviews</p>
+                        </div>
+
+
+                        <div class="review-comments">
+                            <div class="review-item">
+                                <div class="rating">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <h3>Good</h3>
+                                <span>
+                                    <strong>Admin</strong> on <strong>
+                                        July 18,
+                                        2021
+                                    </strong>
+                                </span>
+                                <p>
+                                    東西品質很好，我是假資料我很喜歡，要記得去抓評論DB
+
+                                </p>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+
+
+                                </div>
+                    </div>
+                </div>
+
+                @*====== 產品資訊end====== *@
+            </div>
+        </div>
+        </div>
+    </section>
 </div>
+@*  ======  body end ====== *@
+
+
+
 
 
 
@@ -120,11 +325,11 @@
         const app = Vue.createApp({
             data() {
             return {
-            product: [],  // 存儲單一商品數據
+            product: null,  // 存儲單一商品數據
             };
         },
         async mounted() {
-           
+
             try {
                 // 使用 fetch 來獲取商品數據
                 const response = await fetch('https://localhost:7011/api/ProductAPI/76');
