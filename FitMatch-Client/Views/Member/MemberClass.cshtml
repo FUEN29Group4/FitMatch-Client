@@ -30,9 +30,9 @@
 </style>
 
 
-<div style="background-color: #fff" id="app">
+<div style="background-color: #fff">
     @* 會員資料 *@
-    <div class="container">
+    <div class="container" id="app">
         <table class="table table-bordered table-hover table-centered">
             <thead style="background-color: #F24B88;color:#fff">
                 <tr>
@@ -61,38 +61,39 @@
                     <td>{{classApi.courseStatus}}</td>
                     <td>{{ formatTimeToDetailedDate(classApi.buildTime) }}</td>
                     <td>
-                        <button class="btn btn-primary" style="border-radius:25px" @@click=" showChatHistory(classApi.trainers[0].trainerId)">聯繫教練</button>
-
+                        <button class="btn btn-primary" style="border-radius:25px" @@click="showChatHistory(classApi.trainers[0].trainerId)">聯繫教練</button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-
+    @*@@彥儀用@@*@
     @*對話視窗開始*@
-    <div v-if="isChatHistoryVisible" class="overlay">
-        <div class="chat-modal">
-            <div class="chat-header">
-                <span class="close" @@click="isChatHistoryVisible = false">X</span>
-            </div>
-            <div class="chat-body">
-                <div v-for="msg in chatHistory"
-                     :class="{'chat-message-sent': msg.role === role, 'chat-message-received': msg.role !== role}">
-                    <div class="chat-avatar">
-                        <!-- 如果msg.photo存在，則顯示照片 -->
-                        <img v-if="photoURLs[msg.senderId]" :src="photoURLs[msg.senderId]">
-                        <!-- 否則，顯示ID -->
-                        <div v-else>{{ msg.senderId }}</div>
-
-                    </div>
-                    <span class="chat-content">
-                        {{ msg.messageContent }}
-                    </span>
+    <div id="chat">
+        <div v-if="isChatHistoryVisible" class="overlay">
+            <div class="chat-modal">
+                <div class="chat-header">
+                    <span class="close" @@click="isChatHistoryVisible = false">X</span>
                 </div>
-            </div>
-            <div class="chat-footer">
-                <input v-model="message" placeholder="輸入訊息" @@keyup.enter="sendMessage" />
-                <button @@click="sendMessage" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+                <div class="chat-body">
+                    <div v-for="msg in chatHistory"
+                         :class="{'chat-message-sent': msg.role === role, 'chat-message-received': msg.role !== role}">
+                        <div class="chat-avatar">
+                            <!-- 如果msg.photo存在，則顯示照片 -->
+                            <img v-if="photoURLs[msg.senderId]" :src="photoURLs[msg.senderId]">
+                            <!-- 否則，顯示ID -->
+                            <div v-else>{{ msg.senderId }}</div>
+
+                        </div>
+                        <span class="chat-content">
+                            {{ msg.messageContent }}
+                        </span>
+                    </div>
+                </div>
+                <div class="chat-footer">
+                    <input v-model="message" placeholder="輸入訊息" @@keyup.enter="sendMessage" />
+                    <button @@click="sendMessage" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
             </div>
         </div>
     </div>
@@ -109,19 +110,16 @@
     //     // You can also redirect the user or show an error message, if necessary.
     // }
 
+    //@@彥儀用@@
+    const sharedState = {
+        Id: null,
+        isVisible: false,
+    };
 
-    //@@彥儀@@
-    // 初始化 SignalR 连接
-    const connection = new signalR.HubConnectionBuilder()
-        .withUrl("https://localhost:7011/chatHub")
-        .configureLogging(signalR.LogLevel.Information)
-        .build();
-
-
-
-    Vue.createApp({
+    const app1 = Vue.createApp({
         data() {
             return {
+                ...sharedState,//@@彥儀用@@
                 MemberClassAPIs: {
                     "classAPIWithTrainersAndClassTyoeAndGyms": [
                         {
@@ -148,38 +146,17 @@
                 favoritesWithTrainersAndProducts2: [],
                 memberId: sessionStorage.getItem('memberId'),
                 token: sessionStorage.getItem('token'),
-                showTrainer: 'trainer',
-
-
-                isChatHistoryVisible: false, //@@彥儀@@
-                chatHistory: [], //@@彥儀@@
-                message: "", //@@彥儀@@
-                senderId: null, //@@彥儀@@
-                receiverId: null, //@@彥儀@@
-                role: "",  //@@彥儀@@
-                photoURLs: {}//@@彥儀@@
-
+                
             };
         },
         mounted() {
             this.MemberClassAPI();
         },
-        async created() {//@@彥儀@@
-            // 從 sessionStorage 中獲取 senderId 和 role
-            this.senderId = sessionStorage.getItem('memberId') || sessionStorage.getItem('trainerId');
-            this.role = sessionStorage.getItem('memberId') ? 'Member' : 'Trainer';
-            // 啟動 SignalR 連線
-            this.connect();
-        },
 
         methods: {
-
-            sendTrainerIdToChat(trainerId) {
-                // 获取 Chat.js 组件的实例
-                const chatComponent = this.$refs.chatComponent;
-
-                // 调用 Chat.js 组件的 receiveTrainerId 方法并传递 trainerId
-                chatComponent.receiveTrainerId(trainerId);
+            showChatHistory(Id) {//@@彥儀用@@
+                this.Id = Id;
+                chat.showChatHistory(Id); 
             },
             MemberClassAPI() {
                 if (!this.memberId) {  // 修改這裡
@@ -234,101 +211,10 @@
                     !classApi.buildTime ||
                     formattedDate.includes("NaN");
             },
-            async loadPhoto(id, role) {//@@彥儀@@
-                if (!this.photoURLs[id]) {
-                    try {
-                        const response = await fetch(`https://localhost:7011/api/Chat/Photo/${id}/${role}`);
-                        if (response.ok) {
-                            //const url = await response.text();
-                            //this.photoURLs[id] = url;
-                            const jsonResponse = await response.json(); // 解析 JSON
-                            const base64String = jsonResponse.photo; // 從 JSON 中提取出 base64 字串
-                            this.photoURLs[id] = 'data:image/jpeg;base64,' + base64String;
-                        }
-                    } catch (error) {
-                        console.error("照片加載失敗:", error);
-                    }
-                }
-            },
-            connect: async function () {//@@彥儀@@
-                if (connection.state === signalR.HubConnectionState.Disconnected) {
-                    // 處裡關閉事件
-                    if (!connection.connectionClosed) {
-                        connection.onclose((error) => {
-                            console.warn('連線已關閉:', error);
-                            this.connect();
-                        });
-                        connection.connectionClosed = true;
-                    }
-
-                    try {
-                        await connection.start();
-                        console.log('連線已啟動！');
-                    } catch (err) {
-                        console.error('建立連線時出錯 :', err);
-                    }
-                } else {
-                    console.warn('連線失敗狀態:', connection.state);
-                }// 訂閱接收消息事件
-                connection.on("ReceiveMessage", (senderId, message, role) => {
-                    // 添加新消息到 chatHistory
-                    this.chatHistory.push({ senderId, messageContent: message, role });
-                    // 捲動到最新消息
-                    this.scrollToBottom();
-                });
-            },
-            showChatHistory(receiverId) {//@@彥儀@@
-                this.receiverId = receiverId;
-                this.isChatHistoryVisible = true;
-                this.loadChatHistory();
-                // 使用 $nextTick 讓聊天紀錄完成後自動跑到底部 但還沒實現之後再調整
-                this.$nextTick(() => {
-                    this.scrollToBottom();
-                });
-
-            },
-            scrollToBottom() {//@@彥儀@@
-                const chatBody = document.querySelector('.chat-body');
-                if (chatBody) {
-                    chatBody.scrollTop = chatBody.scrollHeight;
-                }
-            },
-            async loadChatHistory() {//@@彥儀@@
-                try {
-                    const response = await fetch(`https://localhost:7011/api/Chat/GetHistory/${this.senderId}/${this.receiverId}?role=${this.role}`);
-                    if (response.ok) {
-                        const data = await response.json();
-                        this.chatHistory = data;
-                        // 加载照片
-                        for (const msg of data) {
-                            this.loadPhoto(msg.senderId, msg.role);
-                        }
-                    }
-                } catch (error) {
-                    console.error("找不到歷史對話紀錄:", error);
-                }
-            },
-            async sendMessage(event) {//@@彥儀@@
-                if (event) event.preventDefault(); // 防止換行
-                if (connection.state === signalR.HubConnectionState.Connected) {
-                    try {
-                        await connection.invoke("SendMessage", this.receiverId, this.message, this.senderId, this.role);
-                        //console.log('傳送訊息成功:',this.receiverId, this.message, this.senderId, this.role);
-                        this.chatHistory.push({ senderId: this.senderId, messageContent: this.message, role: this.role });
-                        //console.log('增加訊息成功:', this.senderId, this.message, this.role);
-                        this.message = "";
-                        this.$nextTick(() => {
-                            const chatBody = document.querySelector('.chat-body');
-                            chatBody.scrollTop = chatBody.scrollHeight;
-                        });
-                    } catch (err) {
-                        console.error("傳送訊息時出錯", err);
-                    }
-                } else {
-                    console.warn('SignalR沒連結成功');
-                }
-            },
         },
     }).mount('#app')
 
 </script>
+
+@*@@彥儀用@@*@
+<script src="~/js/Chat.js"></script>
