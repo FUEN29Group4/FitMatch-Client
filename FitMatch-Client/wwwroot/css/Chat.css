@@ -77,7 +77,6 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #ccc;
     text-align: center;
     line-height: 40px;
     margin-right: 5px;
@@ -119,7 +118,7 @@
     background-color: rgba(242, 75, 136, 0.2);
     border-radius: 10px;
     padding: 10px;
-    max-width:400px;
+    max-width:350px;
 }
 
 /* 已收到消息樣式 */
@@ -128,7 +127,7 @@
     background-color: rgba(245, 193, 203, 0.2);
     border-radius: 10px;
     padding: 10px;
-    max-width: 400px;
+    max-width: 350px;
 }
 /* 聊天底部輸入框樣式 */
 .chat-footer input {

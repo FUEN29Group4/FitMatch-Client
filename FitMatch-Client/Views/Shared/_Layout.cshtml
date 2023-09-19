@@ -269,9 +269,9 @@
                     const img = document.createElement('img');
                     img.src = `data:image/jpeg;base64, ${data.photo}`; // 使用Base64編碼的照片
                     img.alt = 'User Photo';
-                    img.width = 60;
-                    img.height = 60;
-                    img.classList.add('rounded-circle', 'me-lg-2'); // 圓圓的CSS
+                    //img.width = 60;
+                    //img.height = 60;
+                    img.classList.add('img', 'me-lg-2'); // 圓圓的CSS
                     userPhotoElement.appendChild(img);
                 } else {
                     // 如果沒有photo，顯示用戶名作為替代
