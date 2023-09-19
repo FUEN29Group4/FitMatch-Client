@@ -147,18 +147,17 @@
         }
     }
 
+
     function collectFormData() {
         const formData = {
             memberName: $('.memberNameInput').val() || "",
             address: $('.memberAddressInput').val() || "",
             phone: $('.memberPhoneInput').val() || "",
+            email: $('.memberemailInput').val() || "",
+            password: $('.memberpasswordInput').val() || "",
             photo: document.querySelector("#member-img").src.split(",")[1] || null
         };
 
-        $(`input[name="expertise"]:checked`).each(function () {
-            formData.expertise.push($(this).val());
-        });
-        formData.expertise = formData.expertise.join(',');
 
         return formData;
     }
@@ -202,43 +201,44 @@
         });
 
         $.ajax({
-            url: 'https://localhost:7011/api/ClassType',
+            url: 'https://localhost:7011/api/Member/' + MemberIdFromSession,
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-                populateCheckboxes(data);
+                $('.memberNameInput').val(data.memberName);
+                $('.memberAddressInput').val(data.address);
+                $('.memberPhoneInput').val(data.phone);
+                $('.memberEmailInput').val(data.email);
+                // $('.memberCreatedAtInput').val(data.createdAt);
+                $('.memberStatusInput').val(data.status);
+                $('.memberPasswordInput').val(data.password);
 
 
-                $.ajax({
-                    url: 'https://localhost:7011/api/Member/' + MemberIdFromSession,
-                    type: 'GET',
-                    dataType: 'json',
+                var ID = MemberIdFromSession;
+                $('.memberIDInput').text(ID);
+                var name = data.memberName;
+                $('.memberNameInput').text(name);
+                // 假設你已經成功獲取到 Email，存在變數 data.email 中
+                var email = data.email;
+                $('.memberEmailInput').text(email);
 
-                    success: function (memberData) {
-                        $('.memberNameInput').val(memberData.memberName);
-                        $('.memberAddressInput').val(memberData.address);
-                        $('.memberPhoneInput').val(memberData.phone);
-                        SaltFromSession = memberData.salt;
-                        if (SaltFromSession) {
-                            sessionStorage.setItem('SaltFromSession', SaltFromSession);
-                            console.log("Retrieved Salt from API:", SaltFromSession); // 打印從API取得的salt值
-                        }
+                SaltFromSession = data.salt;
+                if (SaltFromSession) {
+                    sessionStorage.setItem('SaltFromSession', SaltFromSession);
+                    console.log("Retrieved Salt from API:", SaltFromSession); // 打印從API取得的salt值
+                }
 
-                        checkExpertisesForMember(memberData);
+                var Photo = data.photo; //照片
+                // 更新會員照片
+                var memberPhotoElement = document.querySelector("#member-img");
 
-                        var memberPhotoElement = document.querySelector("#member-img");
+                if (Photo) {
+                    var memberImageBase64 = Photo; // 從API獲取的Base64編碼的照片
+                    memberPhotoElement.src = "data:image/jpeg;base64," + memberImageBase64; // 直接將圖像設置為src
 
-                        memberPhotoElement.onerror = function () {
-                            memberPhotoElement.src = "./images/nopersonal.jpg";
-                        };
+                }
 
-                        var memberImageBase64 = memberData.photo;
-                        memberPhotoElement.src = "data:image/jpeg;base64," + memberImageBase64;
-                    },
-                    error: function (error) {
-                        console.log("Error:", error);
-                    }
-                });
+                // ... 其他的資料設定
             },
             error: function (error) {
                 console.log("Error:", error);

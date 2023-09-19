@@ -122,8 +122,7 @@
                         <div class="row align-items-center mb-3">
                             <label for="inputname" class="col-3 text-center col-form-label">入會時間</label>
                             <div class="col-9">
-                                <input class="form-select memberCreateAtInput" style="background-color:#f1f1f1;"
-                                       type="date" name="birth" value="2023-01-01" disabled>
+                                <input class="form-select memberCreatedAtInput" style="background-color:#f1f1f1;" disabled>
                             </div>
                         </div>
                     </div>
@@ -160,22 +159,20 @@
 
         // 第一個 AJAX 請求
         $.ajax({
-            url: 'https://localhost:7011/api/Member/' + memberId,
+            url: 'https://localhost:7011/api/Member/' + MemberIdFromSession,
             type: 'GET',
             dataType: 'json',
             success: function (data) {
                 $('.memberNameInput').val(data.memberName);
                 $('.memberAddressInput').val(data.address);
-               /*  $('.memberBirthInput').val(data.birth); */ // 這裡需要確認
                 $('.memberPhoneInput').val(data.phone);
-                // $('.memberGenderInput').val(data.gender);
                 $('.memberEmailInput').val(data.email);
-                $('.memberCreatedAtInput').val(data.createdAt);
+                // $('.memberCreatedAtInput').val(data.createdAt);
                 $('.memberStatusInput').val(data.status);
                 $('.memberPasswordInput').val(data.password);
 
 
-               var ID = memberId;
+                var ID = MemberIdFromSession;
                 $('.memberIDInput').text(ID);
                 var name = data.memberName;
                 $('.memberNameInput').text(name); 
@@ -189,11 +186,17 @@
                 var formattedBirthDate = birthDate.toISOString().split('T')[0]; // 格式化為 YYYY-MM-DD
                 $('.memberBirthInput').val(formattedBirthDate);
 
+                var createdAt = new Date(data.createdAt); // 假设 data.createdAt 包含日期时间值
+                var formattedCreatedAt = 格式化日期时间(createdAt.toISOString());
+                $('.memberCreatedAtInput').val(formattedCreatedAt);
+
+
                 var gender = data.gender ? "男" : "女";
                 $('.memberGenderInput').val(gender);
 
                 var status = data.status ? "有效會員" : "無效會員";
                 $('.memberStatusInput').val(status);
+
 
 
 
@@ -221,4 +224,23 @@
             window.location.href = $(this).data('href');
         });
     });
+
+
+    function 格式化日期时间(ISO日期时间) {
+        const date = new Date(ISO日期时间);
+        const 年 = date.getFullYear();
+        const 月 = (date.getMonth() + 1).toString().padStart(2, '0');
+        const 日 = date.getDate().toString().padStart(2, '0');
+        const 小时 = date.getHours().toString().padStart(2, '0');
+        const 分钟 = date.getMinutes().toString().padStart(2, '0');
+        const 秒 = date.getSeconds().toString().padStart(2, '0');
+
+        return `${年}-${月}-${日} ${小时}:${分钟}:${秒}`;
+    }
+
+    const ISO日期时间 = "2023-07-09T16:00:00.000Z";
+    const 格式化后的日期时间 = 格式化日期时间(ISO日期时间);
+
+    console.log(格式化后的日期时间); // 输出 "2023-07-09 16:00:00"
+
 </script>
