@@ -62,152 +62,149 @@
         </div>
     </div>
 </div>
-    <!-- Sign In End -->
+<!-- Sign In End -->
 
-    <script>
-       
+<script>
 
+    const app = Vue.createApp({
+        data() {
+            return {
+                Account: '',
+                Password: ''
+            };
+        },
+        methods: {
+            async login() {
+                const recaptchaValue = grecaptcha.getResponse();
+                if (!recaptchaValue) {
+                    alert("請勾選方塊,確認你不是機器人.");
+                    return;
+                }
 
-
-        const app = Vue.createApp({
-            data() {
-                return {
-                    Account: '',
-                    Password: ''
+                const requestOptions = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Recaptcha-Response': recaptchaValue
+                    },
+                    body: JSON.stringify({ Email: this.Account, Password: this.Password })
                 };
-            },
-            methods: {
-                async login() {
-                    const recaptchaValue = grecaptcha.getResponse();
-                    if (!recaptchaValue) {
-                        alert("請勾選方塊,確認你不是機器人.");
-                        return;
-                    }
 
-                    const requestOptions = {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Recaptcha-Response': recaptchaValue
-                        },
-                        body: JSON.stringify({ Email: this.Account, Password: this.Password })
-                    };
+                try {
+                    const response = await fetch('https://localhost:7011/api/Login/login', requestOptions);
 
-                    try {
-                        const response = await fetch('https://localhost:7011/api/Login/login', requestOptions);
+                    if (response.status === 200) {
+                        const data = await response.json();
+                        console.log('登入成功', data);
+                        console.log(data.Token);
+                        sessionStorage.setItem('token', data.token);
+                        if (data.data.memberId) {
+                            sessionStorage.setItem('memberId', data.data.memberId);  // 存 memberId 到 sessionStorage
+                            //Swal.fire('成功', `登入成功，歡迎會員-${data.data.memberName}`, 'success');
+                            Swal.fire({
+                                title: '成功',
+                                text: `登入成功，歡迎會員-${data.data.memberName}`,
+                                icon: 'success',
+                                timer: 2000, // 2秒後關閉
+                                showConfirmButton: false // 隱藏確認
+                            });
 
-                        if (response.status === 200) {
-                            const data = await response.json();
-                            console.log('登入成功', data);
-                            console.log(data.Token);
-                            sessionStorage.setItem('token', data.token);
-                            if (data.data.memberId) {
-                                sessionStorage.setItem('memberId', data.data.memberId);  // 存 memberId 到 sessionStorage
-                                //Swal.fire('成功', `登入成功，歡迎會員-${data.data.memberName}`, 'success');
-                                Swal.fire({
-                                    title: '成功',
-                                    text: `登入成功，歡迎會員-${data.data.memberName}`,
-                                    icon: 'success',
-                                    timer: 2000, // 2秒後關閉
-                                    showConfirmButton: false // 隱藏確認
-                                });
-
-                            }
-                            else if (data.data.trainerId) {
-                                sessionStorage.setItem('trainerId', data.data.trainerId);
-                                sessionStorage.setItem('salt', data.data.trainerId);
-                                //Swal.fire('成功', `登入成功，歡迎教練-${data.data.trainerName}`, 'success');
-                                Swal.fire({
-                                    title: '成功',
-                                    text: `登入成功，歡迎教練-${data.data.trainerName}`,
-                                    icon: 'success',
-                                    timer: 2000, //  2秒後關閉
-                                    showConfirmButton: false // 隱藏確認
-                                });
-
-                            }
-                            // 使用 setTimeout 延迟跳转
-                            setTimeout(() => {
-                                window.location.href = "/Home/Index";
-                            }, 2000); // 2秒後轉跳
-                            //window.location.href = "/Home/Index";
-                        } else if (response.status === 404) {
-                            console.log('帳號或密碼錯誤');
-                            Swal.fire('錯誤', '帳號或密碼錯誤', 'error');
-                        } else {
-                            console.log('發生錯誤');
-                            Swal.fire('錯誤', '帳號或密碼錯誤', 'error');
                         }
-                    } catch (error) {
-                        console.log('發生錯誤', error);
-                        Swal.fire('錯誤', '你沒開API', 'error');
+                        else if (data.data.trainerId) {
+                            sessionStorage.setItem('trainerId', data.data.trainerId);
+                            sessionStorage.setItem('salt', data.data.trainerId);
+                            //Swal.fire('成功', `登入成功，歡迎教練-${data.data.trainerName}`, 'success');
+                            Swal.fire({
+                                title: '成功',
+                                text: `登入成功，歡迎教練-${data.data.trainerName}`,
+                                icon: 'success',
+                                timer: 2000, //  2秒後關閉
+                                showConfirmButton: false // 隱藏確認
+                            });
+
+                        }
+                        // 使用 setTimeoutu延遲轉跳
+                        setTimeout(() => {
+                            window.location.href = "/Home/Index";
+                        }, 2000); // 2秒後轉跳
+                        //window.location.href = "/Home/Index";
+                    } else if (response.status === 404) {
+                        console.log('帳號或密碼錯誤');
+                        Swal.fire('錯誤', '帳號或密碼錯誤', 'error');
+                    } else {
+                        console.log('發生錯誤');
+                        Swal.fire('錯誤', '帳號或密碼錯誤', 'error');
                     }
+                } catch (error) {
+                    console.log('發生錯誤', error);
+                    Swal.fire('錯誤', '你沒開API', 'error');
                 }
             }
-        });
+        }
+    });
 
-        app.mount('#app');
+    app.mount('#app');
 
 
-        // DEMO按钮
-        
-        document.addEventListener("DOMContentLoaded", function () {
-            //巨石強森
-            var demoButton = document.getElementById("demoButton");
-            if (demoButton) {
-                demoButton.addEventListener("click", function () {
-                    var accountInput = document.getElementById("floatingInput");
-                    var passwordInput = document.getElementById("floatingPassword");
-                    accountInput.value = "Rock@gmail.com";
-                    passwordInput.value = "aaa1234";
+    // DEMO按钮
 
-                    var event = new Event('input', { bubbles: true });
-                    accountInput.dispatchEvent(event);
-                    passwordInput.dispatchEvent(event);
-                });
-            }
-            //林小芊
-            var demoButton2 = document.getElementById("demoButton2");
-            if (demoButton2) {
-                demoButton2.addEventListener("click", function () {
-                    var accountInput = document.getElementById("floatingInput");
-                    var passwordInput = document.getElementById("floatingPassword");
-                    accountInput.value = "yuyu88@gmail.com";
-                    passwordInput.value = "aaa1234";
+    document.addEventListener("DOMContentLoaded", function () {
+        //巨石強森
+        var demoButton = document.getElementById("demoButton");
+        if (demoButton) {
+            demoButton.addEventListener("click", function () {
+                var accountInput = document.getElementById("floatingInput");
+                var passwordInput = document.getElementById("floatingPassword");
+                accountInput.value = "Rock@gmail.com";
+                passwordInput.value = "aaa1234";
 
-                    var event = new Event('input', { bubbles: true });
-                    accountInput.dispatchEvent(event);
-                    passwordInput.dispatchEvent(event);
-                });
-            }
-            //楊庭庭
-            var demoButton3 = document.getElementById("demoButton3");
-            if (demoButton3) {
-                demoButton3.addEventListener("click", function () {
-                    var accountInput = document.getElementById("floatingInput");
-                    var passwordInput = document.getElementById("floatingPassword");
-                    accountInput.value = "nujnu19980909@gmail.com";
-                    passwordInput.value = "aaa1234";
+                var event = new Event('input', { bubbles: true });
+                accountInput.dispatchEvent(event);
+                passwordInput.dispatchEvent(event);
+            });
+        }
+        //林小芊
+        var demoButton2 = document.getElementById("demoButton2");
+        if (demoButton2) {
+            demoButton2.addEventListener("click", function () {
+                var accountInput = document.getElementById("floatingInput");
+                var passwordInput = document.getElementById("floatingPassword");
+                accountInput.value = "yuyu88@gmail.com";
+                passwordInput.value = "aaa1234";
 
-                    var event = new Event('input', { bubbles: true });
-                    accountInput.dispatchEvent(event);
-                    passwordInput.dispatchEvent(event);
-                });
-            }
-            //黃翔翔
-            var demoButton4 = document.getElementById("demoButton4");
-            if (demoButton4) {
-                demoButton4.addEventListener("click", function () {
-                    var accountInput = document.getElementById("floatingInput");
-                    var passwordInput = document.getElementById("floatingPassword");
-                    accountInput.value = "gno2089922@gmail.com";
-                    passwordInput.value = "aaa1234";
+                var event = new Event('input', { bubbles: true });
+                accountInput.dispatchEvent(event);
+                passwordInput.dispatchEvent(event);
+            });
+        }
+        //楊庭庭
+        var demoButton3 = document.getElementById("demoButton3");
+        if (demoButton3) {
+            demoButton3.addEventListener("click", function () {
+                var accountInput = document.getElementById("floatingInput");
+                var passwordInput = document.getElementById("floatingPassword");
+                accountInput.value = "nujnu19980909@gmail.com";
+                passwordInput.value = "aaa1234";
 
-                    var event = new Event('input', { bubbles: true });
-                    accountInput.dispatchEvent(event);
-                    passwordInput.dispatchEvent(event);
-                });
-            }
-        });
+                var event = new Event('input', { bubbles: true });
+                accountInput.dispatchEvent(event);
+                passwordInput.dispatchEvent(event);
+            });
+        }
+        //黃翔翔
+        var demoButton4 = document.getElementById("demoButton4");
+        if (demoButton4) {
+            demoButton4.addEventListener("click", function () {
+                var accountInput = document.getElementById("floatingInput");
+                var passwordInput = document.getElementById("floatingPassword");
+                accountInput.value = "gno2089922@gmail.com";
+                passwordInput.value = "aaa1234";
 
-    </script>
+                var event = new Event('input', { bubbles: true });
+                accountInput.dispatchEvent(event);
+                passwordInput.dispatchEvent(event);
+            });
+        }
+    });
+
+</script>

@@ -1,15 +1,19 @@
-﻿
-@{
+﻿@{
     ViewBag.SubLayout = "Trainer";
     Layout = "~/Views/Shared/_TrainerLayout.cshtml";
 }
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/vuex@4"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+@*<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>*@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+@*彥儀用的勿刪*@
+<link href="~/css/Chat.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.js"></script>
+@*彥儀用的勿刪*@
 <style>
-    body{
-        background-color:#fff;
+    body {
+        background-color: #fff;
     }
 
     thead th {
@@ -19,7 +23,6 @@
     .btn-space {
         margin-right: 10px; /* 依您的需求調整間隔 */
     }
-    
 </style>
 
 <div class="container" id="app">
@@ -40,7 +43,7 @@
                 <td>{{ member.totalClasses }}</td>
                 <td>{{ member.totalCost }}</td>
 
-              
+
                 <td>
                     <button type="button"
                             class="btn btn-primary btn-space"
@@ -50,6 +53,7 @@
                     </button>
                     <button type="button"
                             class="btn btn-primary"
+                            v-on:click="showChatHistory(member.memberId)"
                             style="background-color: #F24B88; color: aliceblue;">
                         訊息
                     </button>
@@ -58,11 +62,49 @@
         </tbody>
     </table>
 </div>
+@*@@彥儀用@@*@
+@*對話視窗開始*@
+<div id="chat">
+    <div v-if="isChatHistoryVisible" class="overlay">
+        <div class="chat-modal">
+            <div class="chat-header">
+                <span class="close" @@click="isChatHistoryVisible = false"><i class="fa-solid fa-xmark"></i></span>
+            </div>
+            <div class="chat-body">
+                <div v-for="msg in chatHistory"
+                     :class="{'chat-message-sent': msg.role === role, 'chat-message-received': msg.role !== role}">
+                    <div class="chat-avatar">
+                        <!-- 如果msg.photo存在，則顯示照片 -->
+                        <img v-if="photoURLs[msg.senderId]" :src="photoURLs[msg.senderId]">
+                        <!-- 否則，顯示ID -->
+                        <div v-else>{{ msg.senderId }}</div>
+
+                    </div>
+                    <span class="chat-content">
+                        {{ msg.messageContent }}
+                    </span>
+                </div>
+            </div>
+            <div class="chat-footer">
+                <hr />
+                <input v-model="message" placeholder="輸入訊息" @@keyup.enter="sendMessage" />
+                <button @@click="sendMessage" class="btn btn-light" style="border-radius: 5px;padding:12px 14px"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+@*對話視窗結束*@
 
 
 <script>
+    //@@彥儀用@@
+    const sharedState = {
+        Id: null,
+        isVisible: false,
+    };
+
     const TrainerIdFromSession = sessionStorage.getItem('trainerId');
-    const { createApp, computed } = Vue;
+    const { createApp, computed,ref } = Vue;
     const { createStore } = Vuex;
 
     const store = createStore({
@@ -122,35 +164,35 @@
 
                 // 使用這些資料構建一個表格的HTML內容
                 let tableContent = `
-            <table class="table table-bordered table-hover">
-                <thead style="background-color: #F24B88;">
-                    <tr>
-                        <th>預約編號</th>
-                        <th>上課開始時間</th>
-                        <th>上課結束時間</th>
-                        <th>課程費用</th>
-                        <th>狀態</th>
-                    </tr>
-                </thead>
-                <tbody>
-        `;
+                    <table class="table table-bordered table-hover">
+                        <thead style="background-color: #F24B88;">
+                            <tr>
+                                <th>預約編號</th>
+                                <th>上課開始時間</th>
+                                <th>上課結束時間</th>
+                                <th>課程費用</th>
+                                <th>狀態</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
 
                 memberClasses.forEach(cls => {
                     tableContent += `
-                <tr>
-                    <td>${cls.classId}</td>
-                    <td>${cls.startTime}</td>
-                    <td>${cls.endTime}</td>
-                    <td>${cls.courseUnitPrice}</td>
-                    <td>${cls.courseStatus}</td>
-                </tr>
-            `;
+                        <tr>
+                            <td>${cls.classId}</td>
+                            <td>${cls.startTime}</td>
+                            <td>${cls.endTime}</td>
+                            <td>${cls.courseUnitPrice}</td>
+                            <td>${cls.courseStatus}</td>
+                        </tr>
+                    `;
                 });
 
                 tableContent += `
-                </tbody>
-            </table>
-        `;
+                        </tbody>
+                    </table>
+                `;
 
                 Swal.fire({
                     title: '上課紀錄',
@@ -168,12 +210,19 @@
                 classes,
                 membersSummary,
                 getMemberSummary,
-                showClassRecords // 在這裡返回
+                showClassRecords, // 在這裡返回
+                ...sharedState, //@@彥儀用@@
+                showChatHistory(Id) { //@@彥儀用@@
+                    this.Id = Id;
+                    chat.showChatHistory(Id);
+                }
             }
         }
     });
 
-
     app.use(store);
     app.mount('#app');
 </script>
+
+@*@@彥儀用@@*@
+<script src="~/js/Chat.js"></script>

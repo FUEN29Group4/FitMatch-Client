@@ -73,7 +73,7 @@
         <div v-if="isChatHistoryVisible" class="overlay">
             <div class="chat-modal">
                 <div class="chat-header">
-                    <span class="close" @@click="isChatHistoryVisible = false">X</span>
+                    <span class="close" @@click="isChatHistoryVisible = false"><i class="fa-solid fa-xmark"></i></span>
                 </div>
                 <div class="chat-body">
                     <div v-for="msg in chatHistory"
@@ -91,8 +91,9 @@
                     </div>
                 </div>
                 <div class="chat-footer">
+                    <hr />
                     <input v-model="message" placeholder="輸入訊息" @@keyup.enter="sendMessage" />
-                    <button @@click="sendMessage" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+                    <button @@click="sendMessage" class="btn btn-light" style="border-radius: 5px;padding:12px 14px"><i class="fa-solid fa-paper-plane"></i></button>
                 </div>
             </div>
         </div>
