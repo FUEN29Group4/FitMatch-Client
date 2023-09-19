@@ -9,5 +9,13 @@ namespace FitMatch_Client.Controllers
         {
             return View();
         }
+        public IActionResult sport()
+        {
+            return View();
+        }
+        public IActionResult healthy()
+        {
+            return View();
+        }
     }
 }
