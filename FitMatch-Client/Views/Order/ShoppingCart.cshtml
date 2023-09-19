@@ -1,41 +1,43 @@
 ﻿@{
-    ViewData["Title"] = "ShoppingCart";
+    ViewData["Title"] = "cart0913";
 }
+
+
 
 @*  ======  增加之後待使用 start ====== *@
 <!-- 增加Vue跟axios跟jQuery 函式庫CDN-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.js"></script>
-<script src="https://unpkg.com/vue@3"></script>
-<script src="https://unpkg.com/vuex@4"></script>
 
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.js"></script>
+<script src="https://unpkg.com/vue@3"></script>*@
+@*<script src="https://unpkg.com/vuex@4"></script>*@
 
 
 @* ====== 原先Html樣式 start ====== *@
 <!--Mall的樣式css-->
-<link rel="stylesheet" href="~/css/Mall.css/bootstrap.min.css">
+@*<link rel="stylesheet" href="~/css/Mall.css/bootstrap.min.css">
 
-<link rel="stylesheet" href="~/css/Mall.css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/Mall.css/owl.theme.default.min.css">
 
-<link rel="stylesheet" href="~/css/Mall.css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/Mall.css/owl.carousel.min.css">
 
-<link rel="stylesheet" href="~/css/Mall.css/remixicon.css">
+    <link rel="stylesheet" href="~/css/Mall.css/remixicon.css">
 
-<link rel="stylesheet" href="~/css/Mall.css/meanmenu.min.css">
+    <link rel="stylesheet" href="~/css/Mall.css/meanmenu.min.css">
 
-<link rel="stylesheet" href="~/css/Mall.css/animate.min.css">
+    <link rel="stylesheet" href="~/css/Mall.css/animate.min.css">*@
 
 <link rel="stylesheet" href="~/css/Mall.css/style.css">
 
-<link rel="stylesheet" href="~/css/Mall.css/responsive.css">
+@*<link rel="stylesheet" href="~/css/Mall.css/responsive.css">*@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
+</style>
 
 
 
-
-@*  ======  body start ====== *@
 <!-- Page Header Start -->
 <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
@@ -51,19 +53,17 @@
 </div>
 <!-- Page Header End -->
 
+
+@*  ======  body start ====== *@
 <!-- Team Start -->
-<section class="cart-area ptb-54">
+<section class="cart-area ptb-54" id="myCart">
     <div class="container">
         <div class="row ">
             <div class="col-lg-9">
-                <div class="text-end">
-                    
-                </div>
                 <div class="col-lg-4 col-md-4">
-
                 </div>
                 <form class="cart-controller">
-                    <div class="cart-table table-responsive">
+                    <div class="cart-table table-responsive" id="cartList">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -71,184 +71,43 @@
                                     <th scope="col"></th>
                                     <th scope="col">金額</th>
                                     <th scope="col">數量</th>
-                                    <th scope="col">小計</th>
+                                    <th scope="col" style="width:150px;">小計</th>
                                     <th scope="col" class="ps-4">刪除</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="product-thumbnail">
-                                        <a href="product-details.html">
-                                            <img src="images/商城/peeta.jpg" alt="Image">
-                                        </a>
-                                    </td>
-                                    <td class="product-name">
-                                        <a href="product-details.html">
-                                            DFMALB 20V Max XX Oscillating Multi <br> Tool
-                                            Variable Speed Tool
-                                        </a>
-                                    </td>
-                                    <td class="product-price">
-                                        <span class="unit-amount">$90.00</span>
-                                    </td>
-
-                                    @* 用JS計算監聽數量  start *@
-                                    <td class="product-quantity">
-                                        <div class="input-counter">
-                                            <span class="minus-btn">
-                                                <i class="fa-solid fa-minus"></i>
-                                            </span>
-                                            <input id="counter" type="text" value="0" min="0">
-                                            <span class="plus-btn">
-                                                <i class="fa-solid fa-plus"></i>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    @* 用JS計算監聽數量  end *@
-
-                                    <td class="product-subtotal">
-                                        <span class="subtotal-amount">$90.00</span>
-                                    </td>
-                                    <td class="trash">
-                                        <a href="" class="remove">
-                                            <i class="fa-solid fa-trash" style="color: #f24b88;"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="product-thumbnail">
-                                        <a href="product-details.html">
-                                            <img src="images/商城/brand.jpg" alt="Image">
-                                        </a>
-                                    </td>
-                                    <td class="product-name">
-                                        <a href="product-details.html">
-                                            Power Tools Set Chinese Manufacturer <br>
-                                            Production 50V Lithu Battery
-                                        </a>
-                                    </td>
-                                    <td class="product-price">
-                                        <span class="unit-amount">$50.00</span>
-                                    </td>
-                                    <td class="product-quantity">
-                                        <div class="input-counter">
-                                            <span class="minus-btn">
-                                                <i class="fa-solid fa-minus"></i>
-                                            </span>
-                                            <input id="counter" type="text" value="0" min="0">
-                                            <span class="plus-btn">
-                                                <i class="fa-solid fa-plus"></i>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td class="product-subtotal">
-                                        <span class="subtotal-amount">$50.00</span>
-                                    </td>
-                                    <td class="trash">
-                                        <a href="" class="remove">
-                                            <i class="fa-solid fa-trash" style="color: #f24b88;"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="product-thumbnail">
-                                        <a href="product-details.html">
-                                            <img src="images/商城/肌酸.jpg" alt="Image">
-                                        </a>
-                                    </td>
-                                    <td class="product-name">
-                                        <a href="product-details.html">
-                                            Electrical Magnetic Impact Power <br> Hammer
-                                            Drills Machine
-                                        </a>
-                                    </td>
-                                    <td class="product-price">
-                                        <span class="unit-amount">$30.00</span>
-                                    </td>
-                                    <td class="product-quantity">
-                                        <div class="input-counter">
-                                            <span class="minus-btn">
-                                                <i class="fa-solid fa-minus"></i>
-                                            </span>
-                                            <input id="counter" type="text" value="0" min="0">
-                                            <span class="plus-btn">
-                                                <i class="fa-solid fa-plus"></i>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td class="product-subtotal">
-                                        <span class="subtotal-amount">$30.00</span>
-                                    </td>
-                                    <td class="trash">
-                                        <a href="" class="remove">
-                                            <i class="fa-solid fa-trash" style="color: #f24b88;"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="product-thumbnail">
-                                        <a href="product-details.html">
-                                            <img src="images/商城/B.webp" alt="Image">
-                                        </a>
-                                    </td>
-                                    <td class="product-name">
-                                        <a href="product-details.html">
-                                            Professional Cordless Drill Power Tools <br>
-                                            Set Competitive Price
-                                        </a>
-                                    </td>
-                                    <td class="product-price">
-                                        <span class="unit-amount">$45.00</span>
-                                    </td>
-                                    <td class="product-quantity">
-                                        <div class="input-counter">
-                                            <span class="minus-btn">
-                                                <i class="fa-solid fa-minus"></i>
-                                            </span>
-                                            <input id="counter" type="text" value="0" min="0">
-                                            <span class="plus-btn">
-                                                <i class="fa-solid fa-plus"></i>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td class="product-subtotal">
-                                        <span class="subtotal-amount">$45.00</span>
-                                    </td>
-                                    <td class="trash">
-                                        <a href="" class="remove">
-                                            <i class="fa-solid fa-trash" style="color: #f24b88;"></i>
-                                        </a>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </form>
-                <div class="coupon-cart">
-                    <div class="row">
-                        <div class="col-lg-8 col-md-8">
-                            <div class="form-group mb-0">
-                                <input type="text" class="form-control" placeholder="Coupon code">
-                                <button class="btn btn-primary">
-                                    Apply Coupon
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
+                @*<div class="coupon-cart">
+                <div class="row">
+                <div class="col-lg-8 col-md-8">
+                <div class="form-group mb-0">
+                <input type="text" class="form-control" placeholder="Coupon code">
+                <button class="btn btn-primary">
+                Apply Coupon
+                </button>
                 </div>
+                </div>
+
+                </div>
+                </div>*@
             </div>
+
+
             <div class="col-lg-3">
                 <div class="cart-totals">
                     <h3 class="cart-checkout-title">結帳金額</h3>
                     <ul>
-                        <li>小計 <span>$240.00</span></li>
-                        <li>稅金 <span>$00.00</span></li>
-                        <li>總金額 <span>$315.00</span></li>
-                        <li><b>折扣後金額</b> <span><b>$240.00</b></span></li>
+                        <li>小計 <span id="subtotal">0</span></li>
+                        <li>稅金 <span id="tax">$00.00</span></li>
+                        <li>總金額 <span id="total">0</span></li>
+                        @*       <li>優惠折扣 <span id="優惠id">0</span></li>
+                        <li><b>折扣後金額</b><span id="折扣後id"><b>0</b></span></li>*@
                     </ul>
                     <div class="text-center">
-                        <a href="checkout.html" class="btn btn-primary" style="min-width: 200px;
+                        <a id="checkout-button" asp-action="Checkout" class="btn btn-primary" style="min-width: 200px;
     margin: auto;">
                             結帳
                         </a>
@@ -259,89 +118,354 @@
     </div>
 </section>
 
-<!-- Team End -->
-<!-- Back to Top -->
-<a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
 
 
 @* ======== 原先JS樣式 start ======== *@
 <!--Mall的效果JS-->
-<script src="~/js/Mail.js/jquery.min.js"></script>
-<script src="~/js/Mail.js/bootstrap.bundle.min.js"></script>
-<script src="~/js/Mail.js/meanmenu.min.js"></script>
-<script src="~/js/Mail.js/owl.carousel.min.js"></script>
-<script src="~/js/Mail.js/wow.min.js"></script>
-<script src="~/js/Mail.js/range-slider.min.js"></script>
-<script src="~/js/Mail.js/form-validator.min.js"></script>
-<script src="~/js/Mail.js/contact-form-script.js"></script>
-<script src="~/js/Mail.js/ajaxchimp.min.js"></script>
-<script src="~/js/Mail.js/custom.js"></script>
+@*<script src="~/js/Mail.js/jquery.min.js"></script>
+    <script src="~/js/Mail.js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/Mail.js/meanmenu.min.js"></script>
+    <script src="~/js/Mail.js/owl.carousel.min.js"></script>
+    <script src="~/js/Mail.js/wow.min.js"></script>
+    <script src="~/js/Mail.js/range-slider.min.js"></script>
+    <script src="~/js/Mail.js/form-validator.min.js"></script>
+    <script src="~/js/Mail.js/contact-form-script.js"></script>
+    <script src="~/js/Mail.js/ajaxchimp.min.js"></script>
+    <script src="~/js/Mail.js/custom.js"></script>*@
 
 
-@* ======== JavaScript監聽按鈕數量 start ======== *@
+
+@* ======== localstorge start ======== *@
+
+
 <script>
-const quantityInputs = document.querySelectorAll('.product-quantity input');
-const plusButtons = document.querySelectorAll('.product-quantity .plus-btn');
-const minusButtons = document.querySelectorAll('.product-quantity .minus-btn');
+    // 初始化變數和 DOM 元素
+    let storage = localStorage;
+    let total = 0;
+    let newTable = document.querySelector("#myCart table tbody");
 
-// 遍历每个数量输入框，为加减按钮添加点击事件监听器
-quantityInputs.forEach((input, index)  => {
-    plusButtons[index].addEventListener('click', () => {
-        // 增加数量
-        input.value = parseInt(input.value) + 1;
-        // 更新本地存储
-        updateLocalStorage(index, input.value);
-    });
+    // 載入頁面後執行的函數
+    function doFirst() {
+        // 從 localStorage 讀取已添加的商品
+        let itemString = storage.getItem('addItemList');
+        let items = itemString.substring(0, itemString.length - 2).split(', ');
 
-    minusButtons[index].addEventListener('click', () => {
-        // 减少数量，但不能小于0
-        input.value = parseInt(input.value) - 1 >= 0 ? parseInt(input.value) - 1 : 0;
-        // 更新本地存储
-        updateLocalStorage(index, input.value);
-    });
-
-    // 从本地存储中获取之前保存的数量
-    const savedQuantity = localStorage.getItem(`quantity_${index}`);
-    if (savedQuantity) {
-        input.value = savedQuantity;
+        // 初始化總價
+        total = 0;
+        // 初始化小計跟稅金
+        let subtotal = 0;
+        let tax = 0;
+        // 遍歷每個商品並添加到購物車
+        for (let i = 0; i < items.length; i++) {
+            let itemInfo = storage.getItem(items[i]);
+            let itemPrice = parseInt(itemInfo.split('|')[2]);
+            subtotal += itemPrice;  // 計算小計
+            createCartList(items[i], itemInfo);
+        }
+        recalculateTotals();
     }
-});
+    // 建立購物車列表
+    function createCartList(itemId, itemValue) {
+        // 讀取商品數量或設為 1
+        let storedQuantity = storage.getItem(itemId + '-quantity') || 1;
 
-// 更新本地存储
-function updateLocalStorage(index, quantity) {
-    localStorage.setItem(`quantity_${index}`, quantity);
-}
+        // 讀取商品資訊
+        let itemTitle = itemValue.split('|')[0];
+        let itemImage = 'data:image/png;base64,' + itemValue.split('|')[1];
+        let itemPrice = parseInt(itemValue.split('|')[2]);
+
+        // 建立商品行（<tr>）
+        let trItemList = document.createElement('tr');
+        trItemList.setAttribute('data-item-id', itemId);
+
+
+        // 建立並添加商品圖片
+        let tdImage = document.createElement('td');
+        tdImage.className = 'product-thumbnail';
+        let aImage = document.createElement('a');
+        aImage.href = 'product-details.html';
+        let image = document.createElement('img');
+        image.src = itemImage;
+        image.alt = 'Image';
+        aImage.appendChild(image);
+        tdImage.appendChild(aImage);
+        trItemList.appendChild(tdImage);
+
+        // 建立並添加商品名稱
+        let tdTitle = document.createElement('td');
+        tdTitle.className = 'product-name';
+        tdTitle.id = itemId;
+        let aTitle = document.createElement('a');
+        aTitle.href = 'product-details.html';
+        aTitle.textContent = itemTitle;
+        tdTitle.appendChild(aTitle);
+        trItemList.appendChild(tdTitle);
+
+
+        // 建立商品價格 -- 第三個 td
+        let tdPrice = document.createElement('td');
+        tdPrice.className = 'product-price';
+        let spanPrice = document.createElement('span');
+        spanPrice.className = 'unit-amount';
+        spanPrice.textContent = `$${itemPrice.toFixed(2)}`;
+        tdPrice.appendChild(spanPrice);
+
+        // 建立商品數量 -- 第四個 td
+        let tdQuantity = document.createElement('td');
+        tdQuantity.className = 'product-quantity';
+        let divInputCounter = document.createElement('div');
+        divInputCounter.className = 'input-counter';
+
+        let spanMinus = document.createElement('span');
+        spanMinus.className = 'minus-btn';
+        let iMinus = document.createElement('i');
+        iMinus.className = 'fa-solid fa-minus';
+        spanMinus.appendChild(iMinus);
+        spanMinus.addEventListener('click', function () {
+            let input = this.nextElementSibling;
+            let value = parseInt(input.value) - 1;
+            if (value >= 1) {
+                input.value = value;
+                changeItemCount({ target: input });
+            }
+        });
+
+        let inputCounter = document.createElement('input');
+        inputCounter.id = 'counter';
+        inputCounter.type = 'text';
+        inputCounter.value = storedQuantity;
+        inputCounter.min = '1';
+        inputCounter.addEventListener('input', changeItemCount);
+
+        let spanPlus = document.createElement('span');
+        spanPlus.className = 'plus-btn';
+        let iPlus = document.createElement('i');
+        iPlus.className = 'fa-solid fa-plus';
+        spanPlus.appendChild(iPlus);
+        spanPlus.addEventListener('click', function () {
+            let input = this.previousElementSibling;
+            let value = parseInt(input.value) + 1;
+            input.value = value;
+            changeItemCount({ target: input });
+        });
+
+        divInputCounter.appendChild(spanMinus);
+        divInputCounter.appendChild(inputCounter);
+        divInputCounter.appendChild(spanPlus);
+        tdQuantity.appendChild(divInputCounter);
+
+        // 第五列 - 商品小計
+        let tdSubtotal = document.createElement('td');
+        tdSubtotal.className = 'product-subtotal';
+        let spanSubtotal = document.createElement('span');
+        spanSubtotal.className = 'subtotal-amount';
+        //spanSubtotal.textContent = `$${itemPrice.toFixed(2)}`;
+        spanSubtotal.textContent = `$${(itemPrice * storedQuantity).toFixed(2)}`;
+        tdSubtotal.appendChild(spanSubtotal);
+
+        // 第六列 - 刪除按鈕
+        let tdTrash = document.createElement('td');
+        tdTrash.className = 'trash';
+        let aRemove = document.createElement('a');
+        aRemove.href = '';
+        aRemove.className = 'remove';
+        let iTrash = document.createElement('i');
+        iTrash.className = 'fa-solid fa-trash';
+        iTrash.style.color = '#f24b88';
+        aRemove.appendChild(iTrash);
+        aRemove.addEventListener('click', deleteItem);
+        tdTrash.appendChild(aRemove);
+        // 加所有列到這一行
+        trItemList.appendChild(tdImage);
+        trItemList.appendChild(tdTitle);
+        trItemList.appendChild(tdPrice);
+        trItemList.appendChild(tdQuantity);
+        trItemList.appendChild(tdSubtotal);
+        trItemList.appendChild(tdTrash);
+
+        // 將他加進表格裡
+        newTable.appendChild(trItemList);
+    }
+    //計算小計稅金總額
+    function recalculateTotals() {
+        let subtotal = Array.from(document.querySelectorAll('.subtotal-amount')).reduce((acc, cur) => {
+            return acc + parseFloat(cur.innerText.slice(1));
+        }, 0);
+
+        let tax = subtotal * 0.05;
+        total = subtotal + tax;
+
+        document.getElementById('subtotal').innerText = subtotal.toFixed(2);
+        document.getElementById('tax').innerText = tax.toFixed(2);
+        document.getElementById('total').innerText = total.toFixed(2);
+    }
+    function deleteItem(e) {
+        e.preventDefault();  // 阻止預設按下刪除會刷新頁面
+        let closestTr = e.target.closest('tr');  // 獲取最近的 tr 祖先元素
+        let itemId = closestTr.getAttribute('data-item-id'); // 從 data 屬性中獲取 itemId
+        // 找到刪除按鈕的那個品項的 id
+        //let itemId = e.target.parentNode.id
+
+        // 1 扣除總金額，若要完成作業也要修改此處
+        let itemValue = storage.getItem(itemId)
+
+        // 作業: 找到刪除按鈕的那個品項的 inputItemCount 的 value 值
+
+        //total -= parseInt(itemValue.split('|')[2])
+
+        //document.getElementById('total').innerText = total
+
+        // 2 清除 storage
+        storage.removeItem(itemId)
+
+        // let value = storage.getItem('addItemList')
+        // let newValue = value.replace(`${itemId}, `,``)
+        // storage.setItem('addItemList', newValue)
+
+        storage['addItemList'] = storage['addItemList'].replace(`${itemId}, `, ``)
+
+        // 3 刪除該筆 tr
+        // e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode)
+        //newTable.removeChild(e.target.parentNode.parentNode)
+        newTable.removeChild(e.target.closest('tr'));
+        recalculateTotals();
+    }
+
+    function changeItemCount(e) {
+        //alert('這是作業')
+        //let itemId = e.target.closest('tr').querySelector('td[id]').id;
+
+        let closestTr = e.target.closest('tr');
+        let itemId = closestTr.getAttribute('data-item-id');
+
+        let itemValue = storage.getItem(itemId);
+
+        let originalPrice = parseInt(itemValue.split('|')[2]);
+        let originalCount = parseInt(e.target.value);
+        // 更新該商品的小計金額
+        closestTr.querySelector('.subtotal-amount').innerText = `$${(originalPrice * originalCount).toFixed(2)}`;
+
+        // 更新整體總價格
+        //total = Array.from(document.querySelectorAll('.subtotal-amount')).reduce((acc, cur) => {
+        //    return acc + parseFloat(cur.innerText.slice(1));
+        //}, 0);
+
+        // 更新整體總價格
+        //document.getElementById('total').innerText = `$${total.toFixed(2)}`;
+
+        storage.setItem(itemId + '-quantity', originalCount);
+
+        recalculateTotals();
+    }
+    window.addEventListener('load', doFirst);
+
+
+
+
+
+
+
+    // ========= API 串接區: 結帳將資料用post方式傳入資庫中 =========
+
+
+    //讀取session中存的memberId
+    // const memberIdFromSession = sessionStorage.getItem('memberId');
+    let cartItems = [];
+
+    // 从购物车中获取商品信息
+    function getCartItems() {
+        let addItemList = localStorage.getItem('addItemList');
+        if (!addItemList) {
+            console.log("购物车是空的");
+            return [];
+        }
+
+        // let itemIds = storage.getItem('addItemList').split(', ');
+        let itemIds = addItemList.split(', ');
+
+
+        for (let itemId of itemIds) {
+            let itemInfo = localStorage.getItem(itemId);
+            if (!itemInfo) continue;
+
+            let itemData = itemInfo.split('|');
+            let productId = itemId;
+            let productName = itemData[0];
+            let price = parseFloat(itemData[2]);
+            let quantity = parseInt(localStorage.getItem(`${itemId}-quantity`));
+
+            cartItems.push({ productId, productName, price, quantity });
+        }
+
+        return cartItems;
+    }
+
+    // 发送购物车内容到后端创建订单
+    function createOrder() {
+        cartItems = getCartItems();
+        if (cartItems.length === 0) {
+            console.log("购物车是空的，不能创建订单");
+            return;
+        }
+
+        const memberIdFromSession = sessionStorage.getItem('memberId');
+        if (!memberIdFromSession) {
+            console.log("没有找到会员ID");
+            return;
+        }
+        // 构建要发送到后端的数据
+        const orderData = {
+            "memberId": memberIdFromSession,
+            "cartItems": cartItems
+        };
+
+        fetch('https://localhost:7011/api/OrderAPI', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+
+
+            },
+            body: JSON.stringify(orderData)
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log("有抓到會員id");
+                    localStorage.clear();
+                    // 清空購物車相關數據
+
+                    // 订单创建成功后的处理，例如清空购物车
+                    // localStorage.clear();
+
+                    // 在此处添加其他成功处理逻辑
+                } else {
+                    return ("錯誤")
+                    // 在此处添加错误处理逻辑
+                }
+            })
+            .catch(error => {
+                return ("网络错误的处理")
+                // 在此处添加网络错误处理逻辑
+            });
+    }
+
+    // 在结账按钮点击时触发创建订单操作
+    document.querySelector('#checkout-button').addEventListener('click', () => {
+        createOrder();
+    });
+
+
 
 </script>
+
 
 
 
 
 @* ======== Vue & axios start ======== *@
-<script>
-// 假设在点击结账按钮时触发以下代码
-document.querySelector('.checkout-button').addEventListener('click', () => {
-    // 构建订单数据，假设你有一个存储商品信息的数组
-    const orderItems = [
-        { productId: 1, quantity: 2 },
-        { productId: 2, quantity: 1 },
-        // ...其他订单项
-    ];
-
-    // 发送POST请求到后端API
-        axios.post('https://localhost:7011/api/OrderCheckout', orderItems)
-        .then(response => {
-            // 处理响应，可能显示订单成功创建的消息
-            alert(response.data.message);
-        })
-        .catch(error => {
-            // 处理错误
-            console.error('结账失败', error);
-        });
-});
-</script>
 
 
-
-
-
+@{
+}
