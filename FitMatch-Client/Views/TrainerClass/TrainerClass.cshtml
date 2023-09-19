@@ -145,7 +145,22 @@
         const TrainerIdFromSession = sessionStorage.getItem('trainerId');
 var calendar;
 var todayGymName = "";
-
+function hasAnyReservationsForDate(date) {
+    const eventsForDate = calendar.getEvents().filter(event => {
+        const eventDate = event.start;
+        return eventDate.getFullYear() === date.getFullYear() && 
+               eventDate.getMonth() === date.getMonth() &&
+               eventDate.getDate() === date.getDate() && 
+               event.extendedProps.memberName;
+    });
+    return eventsForDate.length > 0;
+}
+// 檢查日期是否在今天或之前
+function isPastOrToday(date) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date <= today;
+}
 // 將格式化時間的功能封裝成函數
 function formatTime(date) {
     return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
@@ -275,7 +290,7 @@ function formatDateToISO(date) {
 
 
 function openVenueModal(date) {
-        console.log("Opening venue modal for date:", date);
+    console.log("Opening venue modal for date:", date);
 
     // 檢查calendar是否存在
     if (!calendar) {
@@ -284,17 +299,36 @@ function openVenueModal(date) {
     }
 
     const taiwanCities = ["未選擇", "台北市", "新北市", "桃園市", "台中市", "台南市", "高雄市", "基隆市"];
-    
-    const existingVenueEvent = calendar.getEvents().find(event => 
+
+    // 查找当天的全天事件（场馆预订）
+    const existingVenueEvent = calendar.getEvents().find(event =>
         event.start.toISOString().split('T')[0] === date.toISOString().split('T')[0] && event.allDay
     );
 
     console.log("Existing Venue Event:", existingVenueEvent);
 
+    // 获取现有场馆的名称和地址
     let existingVenueName = existingVenueEvent ? existingVenueEvent.title : "還沒加入任何場館";
-    let existingVenueAddress = existingVenueEvent && existingVenueEvent.extendedProps 
+    let existingVenueAddress = existingVenueEvent && existingVenueEvent.extendedProps
         ? existingVenueEvent.extendedProps.addresses
         : "";
+
+    // 检查当天是否已经被预订
+    const isReserved = hasAnyReservationsForDate(date);
+
+    // 控制按钮的禁用状态和文本
+    let btnText = "";
+    let btnDisabled = false;
+
+    if (isReserved) {
+        btnText = "無法改變場館"; // 如果已经被预订，按钮文本为"無法改變場館"
+        btnDisabled = true;      // 禁用按钮
+    } else {
+        btnText = "更新場館資訊"; // 如果没有被预订，按钮文本为"更新場館資訊"
+        btnDisabled = false;     // 启用按钮
+    }
+
+    // 发起获取场馆数据的请求
     fetch('https://localhost:7011/api/TrainerClass')
         .then(response => {
             if (!response.ok) throw new Error("Failed to fetch gym data");
@@ -302,8 +336,8 @@ function openVenueModal(date) {
         })
         .then(data => {
             console.log("Gym Data:", data);
-            
-            const cityOptions = taiwanCities.map(city => 
+
+            const cityOptions = taiwanCities.map(city =>
                 `<option value="${city}" ${city === "未選擇" ? 'disabled selected' : ''}>${city}</option>`
             ).join('');
 
@@ -320,7 +354,7 @@ function openVenueModal(date) {
                     <div>當前場館名稱: ${existingVenueName}</div>
                     <div>地址: ${existingVenueAddress}</div>
                     ${existingVenueName !== "還沒加入任何場館" ? "<hr/>" : ""}
-                    <div>更新場館資訊:</div>
+                    <div>${btnText}:</div>
                     <select id="city-select">${cityOptions}</select>
                     <select id="gym-select">
                         <option value="" disabled selected>請選擇</option>
@@ -328,68 +362,70 @@ function openVenueModal(date) {
                     </select>
                     <div id="gym-address">地址: ${existingVenueAddress}</div>
                 `,
-preConfirm: () => {
-    const gymId = parseInt(document.getElementById('gym-select').value, 10);
-    console.log("Selected gymId from dropdown:", gymId);
-    console.log("All gym data from API:", data);
-    const selectedGym = data.find(gym => gym.gymId === gymId);
-    console.log("Matched gym data:", selectedGym);
-    return {
-        gymId: gymId,
-        gymName: selectedGym ? selectedGym.gymName : null,
-        address: selectedGym ? selectedGym.address : null
-    };
-},
+                preConfirm: () => {
+                    const gymId = parseInt(document.getElementById('gym-select').value, 10);
+                    console.log("Selected gymId from dropdown:", gymId);
+                    console.log("All gym data from API:", data);
+                    const selectedGym = data.find(gym => gym.gymId === gymId);
+                    console.log("Matched gym data:", selectedGym);
+                    return {
+                        gymId: gymId,
+                        gymName: selectedGym ? selectedGym.gymName : null,
+                        address: selectedGym ? selectedGym.address : null
+                    };
+                },
                 didOpen: () => {
-    const citySelect = document.getElementById('city-select');
-    citySelect.addEventListener('change', (e) => {
-        const selectedCity = e.target.value;
-        console.log("Selected city:", selectedCity);
-        document.getElementById('gym-select').innerHTML = getGymsByCity(selectedCity);
-    });
+                    const citySelect = document.getElementById('city-select');
+                    citySelect.addEventListener('change', (e) => {
+                        const selectedCity = e.target.value;
+                        console.log("Selected city:", selectedCity);
+                        document.getElementById('gym-select').innerHTML = getGymsByCity(selectedCity);
+                    });
 
-    const gymSelect = document.getElementById('gym-select');
-    gymSelect.addEventListener('change', (e) => {
-        const selectedAddress = e.target.selectedOptions[0].dataset.address;
-        console.log("Selected gym from dropdown:", e.target.value, "Address:", selectedAddress);
-        document.getElementById('gym-address').textContent = `地址: ${selectedAddress}`;
-    });
-}
-            }).then(result => {
-        console.log("Venue modal result:", result);
-
-        if (result.isConfirmed) {
-            const { gymId, gymName, address } = result.value;
-            console.log("Selected gymName:", gymName, "Selected address:", address);
-            
-            if (gymName && address) {
-                if (existingVenueEvent) {
-                    console.log("Removing existing venue event:", existingVenueEvent);
-                    existingVenueEvent.remove();
+                    const gymSelect = document.getElementById('gym-select');
+                    gymSelect.addEventListener('change', (e) => {
+                        const selectedAddress = e.target.selectedOptions[0].dataset.address;
+                        console.log("Selected gym from dropdown:", e.target.value, "Address:", selectedAddress);
+                        document.getElementById('gym-address').textContent = `地址: ${selectedAddress}`;
+                    });
                 }
-                console.log("Adding new event for venue:", gymName);
-                calendar.addEvent({
-                    title: gymName,
-                    start: date,
-                    allDay: true,
-                    extendedProps: {
-                        venue: gymName,
-                        address: address
+            }).then(result => {
+                console.log("Venue modal result:", result);
+
+                if (result.isConfirmed) {
+                    const { gymId, gymName, address } = result.value;
+                    console.log("Selected gymName:", gymName, "Selected address:", address);
+
+                    if (gymName && address) {
+                        if (existingVenueEvent) {
+                            console.log("Removing existing venue event:", existingVenueEvent);
+                            existingVenueEvent.remove();
+                        }
+                        console.log("Adding new event for venue:", gymName);
+                        calendar.addEvent({
+                            title: gymName,
+                            start: date,
+                            allDay: true,
+                            extendedProps: {
+                                venue: gymName,
+                                address: address
+                            }
+                        });
+                    } else {
+                        console.log("GymName or address is missing!");
                     }
-                });
-            } else {
-                console.log("GymName or address is missing!");
-            }
-        } else {
-            console.log("Modal was not confirmed.");
-        }
-    });
+                } else {
+                    console.log("Modal was not confirmed.");
+                }
+            });
 
         })
         .catch(error => {
             console.error("Error fetching gym data:", error);
         });
 }
+
+
 
 function openTimeSlotModal(date) {
     // 計算結束時間，此處假定預約時間為1小時
@@ -462,7 +498,7 @@ dayHeaderContent: function (headerInfo) {
     var container = document.createElement('div');
     container.style.display = 'flex';
     container.style.flexDirection = 'column';
-    container.style.alignItems = 'center'; // 讓內容居中
+    container.style.alignItems = 'center'; 
 
     var dateElem = document.createElement('div');
     dateElem.innerText = headerInfo.date.toLocaleDateString();
@@ -470,19 +506,30 @@ dayHeaderContent: function (headerInfo) {
 
     var btn = document.createElement('button');
     btn.innerText = '新增場館';
-    btn.style.marginTop = '5px'; // 增加上邊距，使按鈕不會遮擋場館名稱
-    btn.addEventListener('click', function () {
-        openVenueModal(headerInfo.date);
-    });
+    btn.style.marginTop = '5px';
+    
+    if (hasAnyReservationsForDate(headerInfo.date) || isPastOrToday(headerInfo.date)) {
+        btn.style.backgroundColor = 'red';  // 讓按鈕變成紅色
+        btn.disabled = true;                // 禁止點擊按鈕
+        btn.innerText = '無法改變場館';
+
+    } else {
+        btn.addEventListener('click', function () {
+            openVenueModal(headerInfo.date);
+        });
+    }
+    
     container.appendChild(btn);
 
     return { domNodes: [container] };
 },
 
 
-        dateClick: function(info) {
-            openTimeSlotModal(info.date);
-        }
+       dateClick: function(info) {
+    if (!hasAnyReservationsForDate(info.date) && !isPastOrToday(info.date)) {
+        openTimeSlotModal(info.date);
+    }
+}
     });
 
     calendar.render();
