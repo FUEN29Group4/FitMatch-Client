@@ -37,90 +37,6 @@
     }
 
 
-
-
-    /*    泰迪的史代唷*/
-
-   /*  body {
-        font: normal 18px Tahoma,Arial,Verdana;
-    }
-
-    #big_wrapper {
-        border: 1px solid #ccc;
-        width: 1200px;
-        margin: 20px auto;
-    }
-
-    #newItem {
-        border-right: 1px solid #999;
-        width: 400px;
-        height: 220px;
-        float: left;
-        margin: 15px;
-        padding: 10px;
-    }
-
-    #content {
-        border-right: 1px solid #999;
-        width: 300px;
-        height: 220px;
-        float: left;
-        margin: 15px;
-        padding: 10px;
-    }
-
-    #shopButton {
-        /*border:1px solid red; */
-    /*     width: 300px;
-        height: 220px;
-        float: left;
-        margin: 15px;
-        padding: 10px;
-    }
-
-    img {
-        width: 252px;
-    }
-
-    ul li {
-        list-style: none;
-        display: inline-block;
-        width: 272px;
-    }
-
-    .cartProcess {
-        border: 1px solid maroon;
-        border-radius: 5px;
-        padding: 5px;
-        cursor: pointer;
-        color: maroon;
-    }
-
-    a {
-        color: maroon;
-        text-decoration: none;
-    }
-
-    .addButton {
-        border: 1px solid maroon;
-        border-radius: 5px;
-        padding: 1px 3px;
-        cursor: pointer;
-        color: maroon;
-    }
-    
-    #newItem img {
-        width: 170px;
-        float: left;
-    }
-
-    #newItem span {
-       
-        display: block;
-        margin: 5px;
-    }
-  */
-
 </style>
 
 
@@ -164,77 +80,6 @@
     </div>
 </div>
 <!-- Page Header End -->
-
-
-
-@*  ==========  泰迪溝物車計算區 start ========== *@
-@* <div id="big_wrapper">
-
-    <div id="newItem">
-        <!-- <img src="imgs/formosa.jpg">
-        <span>Formosa</span>
-        <span>5000</span> -->
-    </div>
-
-    <div id="content">
-        <nav>
-            Item : <span id="itemCount">0</span> item(s)
-        </nav>
-        <nav>
-            Subtotal : $ <span id="subtotal">0</span>
-        </nav>
-    </div>
-    <div id="shopButton">
-        <span class="cartProcess"><a href="cart0913">Edit Cart</a></span>
-        <span class="cartProcess">Checkout</span>
-    </div>
-    <div style="clear:both;"></div>
-
-
-    <hr>
-
-
-
-    <section>
-        <ul>
-            <li>
-                <div>
-                    <img src="~/images/Teddy/formosa.jpg">
-                    Formosa
-                </div>
-                <div>
-                    Price : $5000
-                </div>
-                <div>
-                    <span id="A1001" class="addButton">
-                        Add Cart
-                        <input type="hidden" value="Formosa|formosa.jpg|5000">
-                    </span>
-                </div>
-            </li>
-
-            <li>
-                <div>
-                    <img src="~/images/Teddy/brown.jpg">
-                    Teddy Brown
-                </div>
-                <div>
-                    Price : $7000
-                </div>
-                <div>
-                    <span id="A1002" class="addButton">
-                        Add Cart
-                        <input type="hidden" value="Teddy Brown|brown.jpg|7000">
-                    </span>
-                </div>
-            </li>
-
-        </ul>
-    </section>
-</div>
- *@
-@*  ==========  泰迪溝物車計算區 end ========== *@
-
 
 
 
@@ -485,8 +330,8 @@
 
   @* ======== 原先JS樣式 start ======== *@
    <!--Mall的效果JS-->
-  @* <script src="~/js/Mail.js/jquery.min.js"></script> *@
-  @* <script src="~/js/Mail.js/bootstrap.bundle.min.js"></script> *@
+   <script src="~/js/Mail.js/jquery.min.js"></script> 
+   <script src="~/js/Mail.js/bootstrap.bundle.min.js"></script> 
   <script src="~/js/Mail.js/meanmenu.min.js"></script>
   <script src="~/js/Mail.js/owl.carousel.min.js"></script>
   <script src="~/js/Mail.js/wow.min.js"></script>
@@ -588,78 +433,7 @@
 
 
 
- @* ＝＝＝＝＝＝ 關於localstorge購物車儲存的方式JS程式碼 ＝＝＝＝＝*@
- @*<script>let storage = localStorage
-     function doFirst() {
-         if (storage['addItemList'] == null) {
-             storage['addItemList'] = ''     // storage.setItem('addItemList','')
-         }
-
-         // 先幫每個 Add Cart 建立事件聆聽功能
-         let list = document.querySelectorAll('.addButton')  // list 是陣列
-
-         for (let i = 0; i < list.length; i++) {
-             // list[i].addEventListener('click', e => alert(e.target.id))
-             list[i].addEventListener('click', function (e) {
-                 // alert(this.id)
-                 // alert(e.target.id)
-                 let teddyInfo = document.querySelector(`#${e.target.id} input`).value
-
-                 addItem(e.target.id, teddyInfo)
-             })
-         }
-     }
-     function addItem(itemId, itemValue) {
-         // alert(`${itemId}: ${itemValue}`)
-         let image = document.createElement('img')
-         image.src = `~/images/Teddy/` + itemValue.split('|')[1]
-
-         let title = document.createElement('span')
-         title.innerText = itemValue.split('|')[0]
-
-         let price = document.createElement('span')
-         price.innerText = itemValue.split('|')[2]
-
-         let newItem = document.getElementById('newItem')
-         // 先判斷此處是否已有物件，如果有要先刪除
-         // alert(newItem.childNodes.length)
-         // 做法 1
-         while (newItem.childNodes.length >= 1) {
-             newItem.removeChild(newItem.firstChild)
-         }
-
-         // 做法 2
-         // newItem.innerHTML = ''
-
-         // 再顯示新物件
-         newItem.appendChild(image)
-         newItem.appendChild(title)
-         newItem.appendChild(price)
-
-         // 存入 storage
-         if (storage[itemId]) {
-             alert(`You have checked.`)
-         } else {
-             storage['addItemList'] += `${itemId}, `
-             storage.setItem(itemId, itemValue)
-         }
-
-         // 計算購買數量和小計
-         // let itemString = storage['addItemList']
-         let itemString = storage.getItem('addItemList')
-         let items = itemString.substring(0, itemString.length - 2).split(', ')
-         console.log(items)  // ['A1001', 'A1005', 'A1006', 'A1002']
-
-         subtotal = 0
-         for (let i = 0; i < items.length; i++) {
-             let itemInfo = storage.getItem(items[i])
-             subtotal += parseInt(itemInfo.split('|')[2])
-         }
-
-         document.getElementById('itemCount').innerText = items.length
-         document.getElementById('subtotal').innerText = subtotal
-     }
-     window.addEventListener('load', doFirst);</script>*@
+ 
 
 
  @{
