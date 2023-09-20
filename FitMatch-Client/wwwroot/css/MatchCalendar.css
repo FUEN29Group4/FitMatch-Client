@@ -1,0 +1,100 @@
+﻿/* 設置模態視窗的大小和位置 */
+.modal-dialog {
+    width: 80%; /* 設置寬度為視窗寬度的 90% */
+    max-width: 90%;
+    height: 98vh; /* 設置高度為視窗高度的 90% */
+    margin: 0 auto; /* 水平居中 */
+    /* 垂直居中 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#calendar {
+    height: 100%; 
+    overflow: auto;
+}
+.fc-timegrid-slot-label-cushion {
+    color: dimgray;
+}
+.fc-direction-ltr .fc-timegrid-col-events {
+    margin: 0px;
+}
+.fc-toolbar-title {
+    color: darkgray;
+}
+
+.fc-v-event {
+    background-color: transparent;
+    border: none;
+    /*display: block;*/
+}
+
+.fc-timegrid-event-harness-inset .fc-timegrid-event {
+    box-shadow: none;
+}
+
+.custom-modal table th {
+    text-align: center;
+    white-space: pre-line;
+    font-weight: normal;
+}
+
+.custom-modal .time-cell {
+    text-align: center;
+}
+
+
+.fc-timegrid-slot-label-cushion {
+    min-height: 41px;
+}
+
+.fc-day-today {
+    background-color: transparent !important;
+}
+
+.btn-available {
+    font-size: 14px;
+    padding: 5px 25px;
+    border-radius: 5px;
+    background-color: #e64882c4;
+    color: white;
+}
+
+    .btn-available:hover {
+        background-color: #d14276e1;
+        color: white;
+    }
+.fc-daygrid-day:hover, .fc-timegrid-slot:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+    .swal2-html-container .trainerimg {
+        margin: 0 auto;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        text-align: center;
+        overflow: hidden;
+        position: relative;
+
+    }
+
+    .swal2-html-container img {
+    position: absolute; /* 絕對定位 */
+    top: 50%; /* 居中定位 */
+    left: 50%;
+    height: 100%;
+    transform: translate(-50%, -50%); /* 居中定位 */
+    object-fit: cover; /* 圖片將保持其寬高比，但會放大和收縮以填充容器，多出的部分會被隱藏 */
+    object-position: center; /* 圖片會從容器的中心點開始展示 */
+}
+
+.btn-unavailable {
+    font-size: 14px;
+    padding: 5px 25px;
+    border-radius: 5px;
+    background-color: grey;
+    cursor: not-allowed;
+    color: white;
+}

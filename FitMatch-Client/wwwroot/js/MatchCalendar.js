@@ -7,6 +7,7 @@ const { ref } = Vue;
 const MatchCalendar = Vue.createApp({
     data() {
         return {
+            ...sharedState,
             gymId: null,
             showCalendar: false,
             events: [], // 用來存儲從外部 API 獲取的事件
@@ -57,18 +58,28 @@ const MatchCalendar = Vue.createApp({
                     return response.json();
                 })
                 .then(data => {
-                    this.events = data.map(event => {
-                        return {
-                            id: event.classId,
-                            title: event.trainers[0].trainerName,
-                            start: event.startTime,
-                            end: event.endTime,
-                            extendedProps: {
-                                trainerName: event.trainers[0].trainerName,
-                                photo: event.trainers[0].photo
-                            }
-                        };
-                    });
+                    if (!data || data.length === 0) { // 檢查data是否存在且長度不為0
+                        this.showCalendar = false;
+                        Swal.fire('提示', '此場館尚未有預約資訊', 'info').then(() => {
+                            this.events = [];
+                            $('#calendarModal').modal('hide');
+                        });
+                    } else {
+                        this.events = data.map(event => {
+                            return {
+                                id: event.classId,
+                                title: event.trainers[0].trainerName,
+                                start: event.startTime,
+                                end: event.endTime,
+                                coursestatus: event.courseStatus,
+                                memberid: event.memberId,
+                                extendedProps: {
+                                    trainerName: event.trainers[0].trainerName,
+                                    photo: event.trainers[0].photo
+                                }
+                            };
+                        });
+                    }
                     this.initializeCalendar();  // 確保在數據更新後重新渲染日曆
                 });
         },
@@ -84,15 +95,17 @@ const MatchCalendar = Vue.createApp({
                     Swal.fire({
                         title: `教練: ${event.extendedProps.trainerName}`,
                         html: `
-                  <img src="data:image/jpeg;base64,${event.extendedProps.photo}" alt="Trainer photo" style="width: 400px; height: 200px;">
-        <p>開始時間: ${formattedStartTime}</p>
-        <p>結束時間: ${formattedEndTime}</p>
+                  <div class="trainerimg"><img src="data:image/jpeg;base64,${event.extendedProps.photo}" class="trainerimg" alt="Trainer photo"></div>
+                  <div class="pt-5">
+                  <p>開始時間: ${formattedStartTime}</p>
+                  <p>結束時間: ${formattedEndTime}</p>
+                  </div>
                 `,
                         showCancelButton: true,
                         confirmButtonText: '確定預約',
                         cancelButtonText: '取消',
                         preConfirm: () => {
-                            // 這裡可以放入您要執行的「確定預約」動作，例如發送API請求等。
+                            this.bookAppointment(event.id);
                         }
                     });
                 } catch (error) {
@@ -106,7 +119,7 @@ const MatchCalendar = Vue.createApp({
                 this.calendar.destroy();  // 如果日曆已經初始化，則先銷毀它
             }
             this.calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
+                //initialView: 'dayGridMonth',
                 // 設定初始視圖為週視圖
                 initialView: 'timeGridWeek',
                 selectable: true,
@@ -127,15 +140,64 @@ const MatchCalendar = Vue.createApp({
                 },
                 events: this.events,
                 eventContent(arg) {
-                    let buttons = `<button class="btn btn-available event-button" >${arg.event.title}</button>`;
+                    let status = arg.event.extendedProps.coursestatus;
+                    let memid = arg.event.extendedProps.memberid;
+                    console.log(memid);
+                    let buttons;
+
+                    if (status === '進行中' && memid === 0) {
+                        buttons = `<button class="btn btn-available event-button">${arg.event.title}</button>`;
+                    } else if (status === '已過期' || status === '已完成' || memid !== 0) {
+                        buttons = `<button class="btn btn-unavailable event-button" disabled>${arg.event.title}</button>`;
+                    } else {
+                        buttons = `<button class="btn btn-unavailable event-button" disabled>${arg.event.title}</button>`;
+                    }
+
                     let html = `<div class="event-container">${buttons}</div>`;
                     return { html };
                 },
                 eventClick: (info) => {
-                    this.showEventDetails(info.event.id);
+                    if (info.event.extendedProps.coursestatus === '進行中' && info.event.extendedProps.memberid === 0) {
+                        this.showEventDetails(info.event.id);
+                    }
                 }
             });
             this.calendar.render();
+        },
+        async bookAppointment(classId) {
+            if (!memberIdFromSession) {
+                Swal.fire('提示', '尚未登入，無法進行預約', 'info');
+                return;
+            }
+
+            // 構建要發送到後端的數據
+            const requestData = {
+                memberId: memberIdFromSession,
+                classId: classId
+            };
+            try {
+                // 使用fetch發送預約信息到後端
+                const response = await fetch("https://localhost:7011/api/Reservation", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+                if (response.ok) {
+                    // 預約成功，更新事件狀態並重新渲染日曆
+                    const eventToUpdate = this.events.find(e => e.id === classId);
+                    if (eventToUpdate) {
+                        eventToUpdate.coursestatus = '已被預約';
+                        this.initializeCalendar();
+                    }
+                    Swal.fire('成功', '課程預約成功', 'success');
+                } else {
+                    throw new Error('預約失敗');
+                }
+            } catch (error) {
+                Swal.fire('錯誤', '預約過程中出現錯誤', 'error');
+            }
         }
     }
 }).mount("#MatchCalendar");

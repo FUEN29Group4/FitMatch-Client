@@ -602,7 +602,7 @@
                     },
                     eventClick: function (info) {
                         if (!memberIdFromSession) {
-                            Swal.fire('提示', '尚未成為會員，無法進行預約', 'info');
+                            Swal.fire('提示', '尚未登入，無法進行預約', 'info');
                             return;
                         }
                         let memberId = info.event.extendedProps.memberId;
