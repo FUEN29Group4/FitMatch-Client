@@ -52,7 +52,7 @@
                 </p>
                 <div class="pt-1">
                     <button type="button" id="demoButton" class="btn btn-outline-success">教練-巨石強森</button>
-                    <button type="button" id="demoButton2" class="btn btn-outline-success ms-2">教練-林小芊</button>
+                    <button type="button" id="demoButton2" class="btn btn-outline-success ms-2">教練-劉知珉</button>
                 </div>
                 <div class="pt-1">
                     <button type="button" id="demoButton3" class="btn btn-outline-secondary">會員-楊庭庭</button>
@@ -163,14 +163,14 @@
                 passwordInput.dispatchEvent(event);
             });
         }
-        //林小芊
+        //劉知珉
         var demoButton2 = document.getElementById("demoButton2");
         if (demoButton2) {
             demoButton2.addEventListener("click", function () {
                 var accountInput = document.getElementById("floatingInput");
                 var passwordInput = document.getElementById("floatingPassword");
-                accountInput.value = "yuyu88@gmail.com";
-                passwordInput.value = "aaa1234";
+                accountInput.value = "trainer_test@gmail.com";
+                passwordInput.value = "1234";
 
                 var event = new Event('input', { bubbles: true });
                 accountInput.dispatchEvent(event);
@@ -198,7 +198,7 @@
                 var accountInput = document.getElementById("floatingInput");
                 var passwordInput = document.getElementById("floatingPassword");
                 accountInput.value = "gno2089922@gmail.com";
-                passwordInput.value = "aaa1234";
+                passwordInput.value = "1234";
 
                 var event = new Event('input', { bubbles: true });
                 accountInput.dispatchEvent(event);
