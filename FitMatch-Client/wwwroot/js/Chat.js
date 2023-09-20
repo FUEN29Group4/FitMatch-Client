@@ -1,6 +1,9 @@
-﻿// 初始化 SignalR 连接
+﻿const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+
+
+// 初始化 SignalR 连接
 const connection = new signalR.HubConnectionBuilder()
-    .withUrl("https://localhost:7011/chatHub")
+    .withUrl(`${ApiUrl}/chatHub`)
     .configureLogging(signalR.LogLevel.Information)
     .build();
 

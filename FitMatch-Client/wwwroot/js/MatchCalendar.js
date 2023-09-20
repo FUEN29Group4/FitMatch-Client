@@ -1,4 +1,7 @@
 ﻿//  預約周曆
+
+const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+
 //讀取session中存的memberId
 const memberIdFromSession = sessionStorage.getItem('memberId');
 
@@ -49,7 +52,7 @@ const MatchCalendar = Vue.createApp({
 
         },
         fetchEventsForgym(gymid) {
-            fetch(`https://localhost:7011/api/Reservation/MatchGym/${gymid}`)
+            fetch(`${ApiUrl}/api/Reservation/MatchGym/${gymid}`)
                 .then(response => {
                     //console.log(gymid);
                     if (!response.ok) {
@@ -177,7 +180,7 @@ const MatchCalendar = Vue.createApp({
             };
             try {
                 // 使用fetch發送預約信息到後端
-                const response = await fetch("https://localhost:7011/api/Reservation", {
+                const response = await fetch(`${ApiUrl}/api/Reservation`, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
