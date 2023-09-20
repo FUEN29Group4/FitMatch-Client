@@ -1,5 +1,11 @@
 var builder = WebApplication.CreateBuilder(args);
 
+// 維持 Json 回傳大小寫與 ViewModel 相同
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+});
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession(); // Add this line
