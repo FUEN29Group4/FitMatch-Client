@@ -1,5 +1,4 @@
-﻿const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
-
+﻿
 
 // 初始化 SignalR 连接
 const connection = new signalR.HubConnectionBuilder()

@@ -1,6 +1,5 @@
 ﻿//  預約周曆
 
-const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
 
 //讀取session中存的memberId
 const memberIdFromSession = sessionStorage.getItem('memberId');
