@@ -311,24 +311,7 @@
                 }
 
                 if (data.trainerName) {
-                    // 檢查教練是否已經獲得審核
-                    if (data.approved === 0) {
-                        dropdownContent.innerHTML += '<a href="#" id="trainerArea" class="dropdown-item">教練專區</a>';
-                        // 確保 trainerArea 已被加到 DOM
-                        setTimeout(() => {
-                            const trainerArea = document.getElementById('trainerArea');
-                            if (trainerArea) {
-                                console.log("Found trainerArea");  // 確認 trainerArea 存在
-                                trainerArea.addEventListener('click', function () {
-                                    alert("帳號仍在審核中，尚無法查看教練專區");
-                                });
-                            } else {
-                                console.log("Did not find trainerArea");  // 若找不到，打印警告
-                            }
-                        }, 100);  // 等待 100 毫秒，給 DOM 時間更新
-                    } else {
-                        dropdownContent.innerHTML += '<a href="/Trainer/Index" class="dropdown-item">教練專區</a>';
-                    }
+                    dropdownContent.innerHTML += '<a href="/Trainer/Index" class="dropdown-item">教練專區</a>';
                 }
 
                 // 登出按鈕
@@ -357,3 +340,31 @@
     }
 
 </script>
+
+
+
+                 @*   //(以下都是暫時不需要的 教練專區控管) 填充 dropdownContent 根據用戶的角色（會員或教練）
+                if (data.memberName) {
+                    dropdownContent.innerHTML += '<a href="/Member/Member" class="dropdown-item">學員專區</a>';
+                }
+
+                if (data.trainerName) {
+                    // 檢查教練是否已經獲得審核
+                    if (data.approved === 0) {
+                        dropdownContent.innerHTML += '<a href="#" id="trainerArea" class="dropdown-item">教練專區</a>';
+                        // 確保 trainerArea 已被加到 DOM
+                        setTimeout(() => {
+                            const trainerArea = document.getElementById('trainerArea');
+                            if (trainerArea) {
+                                console.log("Found trainerArea");  // 確認 trainerArea 存在
+                                trainerArea.addEventListener('click', function () {
+                                    alert("帳號仍在審核中，尚無法查看教練專區");
+                                });
+                            } else {
+                                console.log("Did not find trainerArea");  // 若找不到，打印警告
+                            }
+                        }, 100);  // 等待 100 毫秒，給 DOM 時間更新
+                    } else {
+                        dropdownContent.innerHTML += '<a href="/Trainer/Index" class="dropdown-item">教練專區</a>';
+                    }
+                } *@
