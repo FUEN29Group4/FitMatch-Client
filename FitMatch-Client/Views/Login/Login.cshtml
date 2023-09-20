@@ -78,6 +78,7 @@
                 const recaptchaValue = grecaptcha.getResponse();
                 if (!recaptchaValue) {
                     alert("請勾選方塊,確認你不是機器人.");
+                    grecaptcha.reset(); // 重置 reCAPTCHA
                     return;
                 }
 
@@ -128,14 +129,13 @@
                             window.location.href = "/Home/Index";
                         }, 2000); // 2秒後轉跳
                         //window.location.href = "/Home/Index";
-                    } else if (response.status === 404) {
-                        console.log('帳號或密碼錯誤');
-                        Swal.fire('錯誤', '帳號或密碼錯誤', 'error');
                     } else {
-                        console.log('發生錯誤');
+                        grecaptcha.reset(); // 登入失敗，重置 reCAPTCHA
+                        console.log('帳號或密碼錯誤');
                         Swal.fire('錯誤', '帳號或密碼錯誤', 'error');
                     }
                 } catch (error) {
+                    grecaptcha.reset(); // 發生錯誤，重置 reCAPTCHA
                     console.log('發生錯誤', error);
                     Swal.fire('錯誤', '你沒開API', 'error');
                 }
