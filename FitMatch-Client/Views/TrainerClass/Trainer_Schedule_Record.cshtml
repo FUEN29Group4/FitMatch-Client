@@ -29,31 +29,33 @@
     <table class="table table-bordered table-hover tableRecord serviceBtn">
         <thead style="background-color: #F24B88;">
             <tr>
-                <th>會員編號</th>
                 <th>會員姓名</th>
-                <th>累積堂數</th>
-                <th>累積課程費用</th>
+                <th>上課開始時間</th>
+                <th>上課結束時間</th>
+                <th>健身房名稱</th>
+                <th>狀態</th>
                 <th></th>
             </tr>
         </thead>
         <tbody class="class tr">
-            <tr v-for="member in membersSummary" :key="member.memberId">
-                <td>{{ member.memberId }}</td>
-                <td>{{ member.memberName }}</td>
-                <td>{{ member.totalClasses }}</td>
-                <td>{{ member.totalCost }}</td>
+            <tr v-for="cls in sortedClasses" :key="cls.classId">
+                <td>{{ cls.memberName }}</td>
+                <td>{{ formatTo12Hour(cls.startTime) }}</td>
+                <td>{{ formatTo12Hour(cls.endTime) }}</td>
+                <td>{{ cls.gymName }}</td>
+                <td>{{ cls.courseStatus }}</td>
 
 
                 <td>
                     <button type="button"
                             class="btn btn-primary btn-space"
                             style="background-color: #F24B88; color: aliceblue;"
-                            v-on:click="showClassRecords(member.memberId)">
+                    @@click="showClassRecords(cls.memberId)">
                         上課紀錄
                     </button>
                     <button type="button"
                             class="btn btn-primary"
-                            v-on:click="showChatHistory(member.memberId)"
+                    @@click="showChatHistory(cls.memberId)"
                             style="background-color: #F24B88; color: aliceblue;">
                         訊息
                     </button>
@@ -120,7 +122,7 @@
         },
         actions: {
             fetchClasses({ commit }) {
-                axios.get(`https://localhost:7011/api/TrainerClass/${TrainerIdFromSession}`)
+                axios.get(`https://localhost:7011/api/TrainerClass/detail/${TrainerIdFromSession}`)
                     .then(response => {
                         commit('setClasses', response.data);
                     })
@@ -137,6 +139,10 @@
                         summary[item.memberId] = {
                             memberId: item.memberId,
                             memberName: item.memberName,
+                           
+                            
+    
+
                             totalClasses: 0,
                             totalCost: 0
                         };
@@ -151,12 +157,28 @@
 
     const app = createApp({
         setup() {
+            const allClasses = computed(() => store.state.classes);
             const classes = computed(() => store.state.classes);
             const membersSummary = computed(() => store.getters.membersSummary);
 
             const getMemberSummary = (memberId) => {
                 return membersSummary.value.find(member => member.memberId === memberId) || {};
             };
+            const sortedClasses = computed(() => {
+                return [...store.state.classes].sort((a, b) => {
+                    // 若a的狀態是"進行中"，而b不是，則a應該在b之前
+                    if (a.courseStatus === '進行中' && b.courseStatus !== '進行中') return -1;
+
+                    // 若b的狀態是"進行中"，而a不是，則b應該在a之前
+                    if (b.courseStatus === '進行中' && a.courseStatus !== '進行中') return 1;
+
+                    // 否則，可以根據其他屬性（例如開始時間）進行排序
+                    const dateA = new Date(a.startTime);
+                    const dateB = new Date(b.startTime);
+                    return dateA - dateB;
+                });
+            });
+
 
             const showClassRecords = (memberId) => {
                 // 根據 memberId 獲取所有的課程資料
@@ -181,8 +203,8 @@
                     tableContent += `
                         <tr>
                             <td>${cls.classId}</td>
-                            <td>${cls.startTime}</td>
-                            <td>${cls.endTime}</td>
+                                <td>${formatTo12Hour(cls.startTime)}</td> 
+                                 <td>${formatTo12Hour(cls.endTime)}</td> 
                             <td>${cls.courseUnitPrice}</td>
                             <td>${cls.courseStatus}</td>
                         </tr>
@@ -193,14 +215,33 @@
                         </tbody>
                     </table>
                 `;
+                // 添加會員的總堂數和總費用到彈出視窗
+                const memberSummary = getMemberSummary(memberId);
+                let summaryContent = `
+                <p>總堂數: ${memberSummary.totalClasses}</p>
+                <p>總費用: ${memberSummary.totalCost}</p>
+                 `;
 
                 Swal.fire({
                     title: '上課紀錄',
-                    html: tableContent,  // 使用 html 屬性來顯示表格
+                    html: summaryContent + tableContent,  // 使用 html 屬性來顯示摘要和表格
                     width: '80%',  // 設定寬度
                     confirmButtonText: '關閉'
                 });
             };
+            function formatTo12Hour(timeString) {
+                let date = new Date(timeString);
+                let year = date.getFullYear();
+                let month = date.getMonth() + 1;
+                let day = date.getDate();
+                let hours = date.getHours();
+                let minutes = date.getMinutes();
+                let ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                return `${year}-${month}-${day} ${hours}:${minutes} ${ampm}`;
+            }
 
 
             // 初始載入時獲取數據
@@ -212,13 +253,20 @@
                 getMemberSummary,
                 showClassRecords, // 在這裡返回
                 ...sharedState, //@@彥儀用@@
+                
+                sortedClasses,
+                formatTo12Hour,   // 注意這裡返回函數
                 showChatHistory(Id) { //@@彥儀用@@
                     this.Id = Id;
                     chat.showChatHistory(Id);
                 }
             }
+
+
         }
     });
+
+
 
     app.use(store);
     app.mount('#app');
