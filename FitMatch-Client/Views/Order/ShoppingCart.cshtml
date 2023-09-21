@@ -116,11 +116,11 @@
                         </li>
                     </ul>
                     <div class="text-center">
-                        <a id="checkout-button" asp-action="Checkout" class="btn btn-primary" style="min-width: 200px;
-    margin: auto;">
-                            結帳
-                        </a>
-                    </div>
+                        @*<a id="checkout-button" asp-action="Checkout" class="btn btn-primary" style="min-width: 200px; margin: auto;">*@
+                            <a id="checkout-button" :href="'./NewebPay?id=' + order.orderId" class="btn btn-primary" style="min-width: 200px; margin: auto;"> 
+                                結帳
+                            </a>
+</div>
                 </div>
             </div>
         </div>
@@ -320,31 +320,21 @@
         // 1 扣除總金額，若要完成作業也要修改此處
         let itemValue = storage.getItem(itemId)
 
-        // 作業: 找到刪除按鈕的那個品項的 inputItemCount 的 value 值
-
-        //total -= parseInt(itemValue.split('|')[2])
-
-        //document.getElementById('total').innerText = total
+        
 
         // 2 清除 storage
         storage.removeItem(itemId)
 
-        // let value = storage.getItem('addItemList')
-        // let newValue = value.replace(`${itemId}, `,``)
-        // storage.setItem('addItemList', newValue)
+        
 
         storage['addItemList'] = storage['addItemList'].replace(`${itemId}, `, ``)
 
         // 3 刪除該筆 tr
-        // e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode)
-        //newTable.removeChild(e.target.parentNode.parentNode)
         newTable.removeChild(e.target.closest('tr'));
         recalculateTotals();
     }
 
     function changeItemCount(e) {
-        //alert('這是作業')
-        //let itemId = e.target.closest('tr').querySelector('td[id]').id;
 
         let closestTr = e.target.closest('tr');
         let itemId = closestTr.getAttribute('data-item-id');
@@ -357,13 +347,6 @@
         closestTr.querySelector('.subtotal-amount').innerText = `$${(originalPrice * originalCount).toFixed(2)}`;
 
         // 更新整體總價格
-        //total = Array.from(document.querySelectorAll('.subtotal-amount')).reduce((acc, cur) => {
-        //    return acc + parseFloat(cur.innerText.slice(1));
-        //}, 0);
-
-        // 更新整體總價格
-        //document.getElementById('total').innerText = `$${total.toFixed(2)}`;
-
         storage.setItem(itemId + '-quantity', originalCount);
 
         recalculateTotals();
@@ -382,6 +365,7 @@
     //讀取session中存的memberId
     // const memberIdFromSession = sessionStorage.getItem('memberId');
     let cartItems = [];
+    let orderid = null;
 
     // 从购物车中获取商品信息
     function getCartItems() {
@@ -440,19 +424,16 @@
             body: JSON.stringify(orderData)
         })
             .then(response => {
-                if (response.ok) {
-                    console.log("有抓到會員id");
-                    localStorage.clear();
+                //if (response.ok) {
+                //    console.log("有抓到會員id");
                     // 清空購物車相關數據
+                    localStorage.clear();
 
-                    // 订单创建成功后的处理，例如清空购物车
-                    // localStorage.clear();
-
-                    // 在此处添加其他成功处理逻辑
-                } else {
-                    return ("錯誤")
-                    // 在此处添加错误处理逻辑
-                }
+                    
+                //} else {
+                //    return ("錯誤")
+                //    // 在此处添加错误处理逻辑
+                //}
             })
             .catch(error => {
                 return ("网络错误的处理")
