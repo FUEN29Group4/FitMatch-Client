@@ -182,6 +182,8 @@ function isPastOrToday(date) {
 }
 // 將格式化時間的功能封裝成函數
 function formatTime(dateTime) {
+        console.log(date, typeof date);  // 加入這行來檢查 date 的值和類型
+
     return dateTime.toFormat('HH:mm');
 }
 
@@ -326,10 +328,7 @@ function handleEventClick(eventInfo) {
     }
 
 function formatDateToISO(date) {
-    var year = date.getFullYear();
-    var month = (date.getMonth() + 1).toString().padStart(2, '0');
-    var day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    return DateTime.fromJSDate(date).toISODate();  // 將 JS Date 轉換為 Luxon 的 DateTime 並格式化為 ISO 日期
 }
 function checkDateAvailability(date) {
     const eventsOnDate = calendar.getEvents().filter(event =>
@@ -545,8 +544,8 @@ function openTimeSlotModal(date) {
         let endDate = new Date(date);
         endDate.setHours(endDate.getHours() + 1);
 
-        const startTimeStr = formatTime(date);
-        const endTimeStr = formatTime(endDate);
+        const startTimeStr = formatTime(toTaipeiDateTime(date));
+        const endTimeStr = formatTime(toTaipeiDateTime(endDate));
 
         Swal.fire({
             title: '預約時段: ' + startTimeStr + ' - ' + endTimeStr,
@@ -573,9 +572,10 @@ function openTimeSlotModal(date) {
     }
 }
 
-function formatTime(date) {
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
+function formatTime(luxonDate) {
+    console.log(luxonDate, typeof luxonDate); // 查看日期的值和類型
+    let hours = luxonDate.hour;   // 使用Luxon的hour屬性
+    let minutes = luxonDate.minute; // 使用Luxon的minute屬性
     let period = 'AM';
 
     if (hours >= 12) {
@@ -585,6 +585,7 @@ function formatTime(date) {
 
     return (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes + ' ' + period;
 }
+
 
 function removeEvent(eventId) {
     let event = calendar.getEventById(eventId);
@@ -657,6 +658,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 }
+
 
     });
 
