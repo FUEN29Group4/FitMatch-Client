@@ -19,11 +19,13 @@
 
   <ItemGroup>
     <None Remove="Views\Order\" />
+    <None Remove="Model\" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\images\Teddy\" />
     <Folder Include="wwwroot\js\Order.js\" />
+    <Folder Include="Model\" />
   </ItemGroup>
 
   <ItemGroup>

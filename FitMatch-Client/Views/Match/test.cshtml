@@ -2,14 +2,18 @@
     ViewData["Title"] = "test";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link href="~/css/Chat.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.js"></script>
+@*<link href="~/css/Chat.css" rel="stylesheet">*@
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.js"></script>*@
 <script src="https://unpkg.com/vue@3"></script>
-    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    @*<script src="~/js/signalr/dist/browser/signalr.js"></script>*@
 
+<!-- 周曆 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 
+<link href="~/css/MatchCalendar.css" rel="stylesheet">
 
-<div id="chat">
+@*<div id="chat">
     <button @@click="showChatHistory(79)">ChatHistory</button>
     <div v-if="isChatHistoryVisible" class="overlay">
         <div class="chat-modal">
@@ -37,5 +41,23 @@
         </div>
     </div>
 </div>
+*@
+<div id="MatchCalendar">
+    <button @@click="setgym(0)" data-bs-toggle="modal" data-bs-target="#calendarModal">顯示週曆</button>
+    <!-- 週曆的容器 -->
+    <!-- Modal -->
+    <div class="modal fade custom-modal" id="calendarModal" tabindex="-1" aria-labelledby="calendarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <!-- 週曆代碼 -->
+                    <div v-if="showCalendar" id="calendar"></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/MatchCalendar.js"></script>
+@*<script src="~/js/Chat.js"></script>*@
 
-<script src="~/js/Chat.js"></script>

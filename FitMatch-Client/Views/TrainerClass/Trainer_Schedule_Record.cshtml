@@ -1,15 +1,19 @@
-﻿
-@{
+﻿@{
     ViewBag.SubLayout = "Trainer";
     Layout = "~/Views/Shared/_TrainerLayout.cshtml";
 }
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/vuex@4"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+@*<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>*@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+@*彥儀用的勿刪*@
+<link href="~/css/Chat.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.js"></script>
+@*彥儀用的勿刪*@
 <style>
-    body{
-        background-color:#fff;
+    body {
+        background-color: #fff;
     }
 
     thead th {
@@ -19,37 +23,39 @@
     .btn-space {
         margin-right: 10px; /* 依您的需求調整間隔 */
     }
-    
 </style>
 
 <div class="container" id="app">
     <table class="table table-bordered table-hover tableRecord serviceBtn">
         <thead style="background-color: #F24B88;">
             <tr>
-                <th>會員編號</th>
                 <th>會員姓名</th>
-                <th>累積堂數</th>
-                <th>累積課程費用</th>
+                <th>上課開始時間</th>
+                <th>上課結束時間</th>
+                <th>健身房名稱</th>
+                <th>狀態</th>
                 <th></th>
             </tr>
         </thead>
         <tbody class="class tr">
-            <tr v-for="member in membersSummary" :key="member.memberId">
-                <td>{{ member.memberId }}</td>
-                <td>{{ member.memberName }}</td>
-                <td>{{ member.totalClasses }}</td>
-                <td>{{ member.totalCost }}</td>
+            <tr v-for="cls in sortedClasses" :key="cls.classId">
+                <td>{{ cls.memberName }}</td>
+                <td>{{ formatTo12Hour(cls.startTime) }}</td>
+                <td>{{ formatTo12Hour(cls.endTime) }}</td>
+                <td>{{ cls.gymName }}</td>
+                <td>{{ cls.courseStatus }}</td>
 
-              
+
                 <td>
                     <button type="button"
                             class="btn btn-primary btn-space"
                             style="background-color: #F24B88; color: aliceblue;"
-                            v-on:click="showClassRecords(member.memberId)">
+                    @@click="showClassRecords(cls.memberId)">
                         上課紀錄
                     </button>
                     <button type="button"
                             class="btn btn-primary"
+                    @@click="showChatHistory(cls.memberId)"
                             style="background-color: #F24B88; color: aliceblue;">
                         訊息
                     </button>
@@ -58,11 +64,51 @@
         </tbody>
     </table>
 </div>
+@*@@彥儀用@@*@
+@*對話視窗開始*@
+<div id="chat">
+    <div v-if="isChatHistoryVisible" class="overlay">
+        <div class="chat-modal">
+            <div class="chat-header">
+                <span class="close" @@click="isChatHistoryVisible = false"><i class="fa-solid fa-xmark"></i></span>
+            </div>
+            <div class="chat-body">
+                <div v-for="msg in chatHistory"
+                     :class="{'chat-message-sent': msg.role === role, 'chat-message-received': msg.role !== role}">
+                    <div class="chat-avatar">
+                        <!-- 如果msg.photo存在，則顯示照片 -->
+                        <img v-if="photoURLs[msg.senderId]" :src="photoURLs[msg.senderId]">
+                        <!-- 否則，顯示ID -->
+                        <div v-else>{{ msg.senderId }}</div>
+
+                    </div>
+                    <span class="chat-content">
+                        {{ msg.messageContent }}
+                    </span>
+                </div>
+            </div>
+            <div class="chat-footer">
+                <hr />
+                <input v-model="message" placeholder="輸入訊息" @@keyup.enter="sendMessage" />
+                <button @@click="sendMessage" class="btn btn-light" style="border-radius: 5px;padding:12px 14px"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+@*對話視窗結束*@
 
 
 <script>
+    const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+
+    //@@彥儀用@@
+    const sharedState = {
+        Id: null,
+        isVisible: false,
+    };
+
     const TrainerIdFromSession = sessionStorage.getItem('trainerId');
-    const { createApp, computed } = Vue;
+    const { createApp, computed,ref } = Vue;
     const { createStore } = Vuex;
 
     const store = createStore({
@@ -78,7 +124,7 @@
         },
         actions: {
             fetchClasses({ commit }) {
-                axios.get(`https://localhost:7011/api/TrainerClass/${TrainerIdFromSession}`)
+                axios.get(`https://localhost:7011/api/TrainerClass/detail/${TrainerIdFromSession}`)
                     .then(response => {
                         commit('setClasses', response.data);
                     })
@@ -95,6 +141,10 @@
                         summary[item.memberId] = {
                             memberId: item.memberId,
                             memberName: item.memberName,
+                           
+                            
+    
+
                             totalClasses: 0,
                             totalCost: 0
                         };
@@ -109,12 +159,28 @@
 
     const app = createApp({
         setup() {
+            const allClasses = computed(() => store.state.classes);
             const classes = computed(() => store.state.classes);
             const membersSummary = computed(() => store.getters.membersSummary);
 
             const getMemberSummary = (memberId) => {
                 return membersSummary.value.find(member => member.memberId === memberId) || {};
             };
+            const sortedClasses = computed(() => {
+                return [...store.state.classes].sort((a, b) => {
+                    // 若a的狀態是"進行中"，而b不是，則a應該在b之前
+                    if (a.courseStatus === '進行中' && b.courseStatus !== '進行中') return -1;
+
+                    // 若b的狀態是"進行中"，而a不是，則b應該在a之前
+                    if (b.courseStatus === '進行中' && a.courseStatus !== '進行中') return 1;
+
+                    // 否則，可以根據其他屬性（例如開始時間）進行排序
+                    const dateA = new Date(a.startTime);
+                    const dateB = new Date(b.startTime);
+                    return dateA - dateB;
+                });
+            });
+
 
             const showClassRecords = (memberId) => {
                 // 根據 memberId 獲取所有的課程資料
@@ -122,43 +188,62 @@
 
                 // 使用這些資料構建一個表格的HTML內容
                 let tableContent = `
-            <table class="table table-bordered table-hover">
-                <thead style="background-color: #F24B88;">
-                    <tr>
-                        <th>預約編號</th>
-                        <th>上課開始時間</th>
-                        <th>上課結束時間</th>
-                        <th>課程費用</th>
-                        <th>狀態</th>
-                    </tr>
-                </thead>
-                <tbody>
-        `;
+                    <table class="table table-bordered table-hover">
+                        <thead style="background-color: #F24B88;">
+                            <tr>
+                                <th>預約編號</th>
+                                <th>上課開始時間</th>
+                                <th>上課結束時間</th>
+                                <th>課程費用</th>
+                                <th>狀態</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
 
                 memberClasses.forEach(cls => {
                     tableContent += `
-                <tr>
-                    <td>${cls.classId}</td>
-                    <td>${cls.startTime}</td>
-                    <td>${cls.endTime}</td>
-                    <td>${cls.courseUnitPrice}</td>
-                    <td>${cls.courseStatus}</td>
-                </tr>
-            `;
+                        <tr>
+                            <td>${cls.classId}</td>
+                                <td>${formatTo12Hour(cls.startTime)}</td> 
+                                 <td>${formatTo12Hour(cls.endTime)}</td> 
+                            <td>${cls.courseUnitPrice}</td>
+                            <td>${cls.courseStatus}</td>
+                        </tr>
+                    `;
                 });
 
                 tableContent += `
-                </tbody>
-            </table>
-        `;
+                        </tbody>
+                    </table>
+                `;
+                // 添加會員的總堂數和總費用到彈出視窗
+                const memberSummary = getMemberSummary(memberId);
+                let summaryContent = `
+                <p>總堂數: ${memberSummary.totalClasses}</p>
+                <p>總費用: ${memberSummary.totalCost}</p>
+                 `;
 
                 Swal.fire({
                     title: '上課紀錄',
-                    html: tableContent,  // 使用 html 屬性來顯示表格
+                    html: summaryContent + tableContent,  // 使用 html 屬性來顯示摘要和表格
                     width: '80%',  // 設定寬度
                     confirmButtonText: '關閉'
                 });
             };
+            function formatTo12Hour(timeString) {
+                let date = new Date(timeString);
+                let year = date.getFullYear();
+                let month = date.getMonth() + 1;
+                let day = date.getDate();
+                let hours = date.getHours();
+                let minutes = date.getMinutes();
+                let ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                return `${year}-${month}-${day} ${hours}:${minutes} ${ampm}`;
+            }
 
 
             // 初始載入時獲取數據
@@ -168,12 +253,26 @@
                 classes,
                 membersSummary,
                 getMemberSummary,
-                showClassRecords // 在這裡返回
+                showClassRecords, // 在這裡返回
+                ...sharedState, //@@彥儀用@@
+                
+                sortedClasses,
+                formatTo12Hour,   // 注意這裡返回函數
+                showChatHistory(Id) { //@@彥儀用@@
+                    this.Id = Id;
+                    chat.showChatHistory(Id);
+                }
             }
+
+
         }
     });
+
 
 
     app.use(store);
     app.mount('#app');
 </script>
+
+@*@@彥儀用@@*@
+<script src="~/js/Chat.js"></script>

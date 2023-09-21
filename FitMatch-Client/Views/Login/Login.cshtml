@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
     ViewData["Title"] = "Login";
 }
@@ -7,7 +6,9 @@
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/vuex@4"></script>
 <script src="https://www.google.com/recaptcha/api.js"></script>
-
+<!-- SweetAlert2 -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
 
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 
@@ -49,6 +50,14 @@
                     還沒成為會員嗎? <a asp-controller="SignUp" asp-action="SignUp"
                                 class="text-light">註冊</a>
                 </p>
+                <div class="pt-1">
+                    <button type="button" id="demoButton" class="btn btn-outline-success">教練-巨石強森</button>
+                    <button type="button" id="demoButton2" class="btn btn-outline-success ms-2">教練-劉知珉</button>
+                </div>
+                <div class="pt-1">
+                    <button type="button" id="demoButton3" class="btn btn-outline-secondary">會員-楊庭庭</button>
+                    <button type="button" id="demoButton4" class="btn btn-outline-secondary ms-4">會員-黃翔翔</button>
+                </div>
             </div>
         </div>
     </div>
@@ -56,6 +65,7 @@
 <!-- Sign In End -->
 
 <script>
+
     const app = Vue.createApp({
         data() {
             return {
@@ -68,6 +78,7 @@
                 const recaptchaValue = grecaptcha.getResponse();
                 if (!recaptchaValue) {
                     alert("請勾選方塊,確認你不是機器人.");
+                    grecaptcha.reset(); // 重置 reCAPTCHA
                     return;
                 }
 
@@ -75,7 +86,7 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Recaptcha-Response': recaptchaValue 
+                        'Recaptcha-Response': recaptchaValue
                     },
                     body: JSON.stringify({ Email: this.Account, Password: this.Password })
                 };
@@ -86,29 +97,114 @@
                     if (response.status === 200) {
                         const data = await response.json();
                         console.log('登入成功', data);
-
                         console.log(data.Token);
                         sessionStorage.setItem('token', data.token);
                         if (data.data.memberId) {
                             sessionStorage.setItem('memberId', data.data.memberId);  // 存 memberId 到 sessionStorage
+                            //Swal.fire('成功', `登入成功，歡迎會員-${data.data.memberName}`, 'success');
+                            Swal.fire({
+                                title: '成功',
+                                text: `登入成功，歡迎會員-${data.data.memberName}`,
+                                icon: 'success',
+                                timer: 2000, // 2秒後關閉
+                                showConfirmButton: false // 隱藏確認
+                            });
+
                         }
                         else if (data.data.trainerId) {
                             sessionStorage.setItem('trainerId', data.data.trainerId);
                             sessionStorage.setItem('salt', data.data.trainerId);
+                            //Swal.fire('成功', `登入成功，歡迎教練-${data.data.trainerName}`, 'success');
+                            Swal.fire({
+                                title: '成功',
+                                text: `登入成功，歡迎教練-${data.data.trainerName}`,
+                                icon: 'success',
+                                timer: 2000, //  2秒後關閉
+                                showConfirmButton: false // 隱藏確認
+                            });
 
                         }
-                        window.location.href = "/Home/Index"; 
-                    } else if (response.status === 404) {
-                        console.log('帳號或密碼錯誤');
+                        // 使用 setTimeoutu延遲轉跳
+                        setTimeout(() => {
+                            window.location.href = "/Home/Index";
+                        }, 2000); // 2秒後轉跳
+                        //window.location.href = "/Home/Index";
                     } else {
-                        console.log('發生錯誤');
+                        grecaptcha.reset(); // 登入失敗，重置 reCAPTCHA
+                        console.log('帳號或密碼錯誤');
+                        Swal.fire('錯誤', '帳號或密碼錯誤', 'error');
                     }
                 } catch (error) {
+                    grecaptcha.reset(); // 發生錯誤，重置 reCAPTCHA
                     console.log('發生錯誤', error);
+                    Swal.fire('錯誤', '你沒開API', 'error');
                 }
             }
         }
     });
 
     app.mount('#app');
+
+
+    // DEMO按钮
+
+    document.addEventListener("DOMContentLoaded", function () {
+        //巨石強森
+        var demoButton = document.getElementById("demoButton");
+        if (demoButton) {
+            demoButton.addEventListener("click", function () {
+                var accountInput = document.getElementById("floatingInput");
+                var passwordInput = document.getElementById("floatingPassword");
+                accountInput.value = "Rock@gmail.com";
+                passwordInput.value = "aaa1234";
+
+                var event = new Event('input', { bubbles: true });
+                accountInput.dispatchEvent(event);
+                passwordInput.dispatchEvent(event);
+            });
+        }
+        //劉知珉
+        var demoButton2 = document.getElementById("demoButton2");
+        if (demoButton2) {
+            demoButton2.addEventListener("click", function () {
+                var accountInput = document.getElementById("floatingInput");
+                var passwordInput = document.getElementById("floatingPassword");
+                accountInput.value = "trainer_test@gmail.com";
+                passwordInput.value = "1234";
+
+                var event = new Event('input', { bubbles: true });
+                accountInput.dispatchEvent(event);
+                passwordInput.dispatchEvent(event);
+            });
+        }
+        //楊庭庭
+        var demoButton3 = document.getElementById("demoButton3");
+        if (demoButton3) {
+            demoButton3.addEventListener("click", function () {
+                var accountInput = document.getElementById("floatingInput");
+                var passwordInput = document.getElementById("floatingPassword");
+                accountInput.value = "nujnu19980909@gmail.com";
+                passwordInput.value = "aaa1234";
+
+                var event = new Event('input', { bubbles: true });
+                accountInput.dispatchEvent(event);
+                passwordInput.dispatchEvent(event);
+            });
+        }
+        //黃翔翔
+        var demoButton4 = document.getElementById("demoButton4");
+        if (demoButton4) {
+            demoButton4.addEventListener("click", function () {
+                var accountInput = document.getElementById("floatingInput");
+                var passwordInput = document.getElementById("floatingPassword");
+                accountInput.value = "gno2089922@gmail.com";
+                passwordInput.value = "1234";
+
+                var event = new Event('input', { bubbles: true });
+                accountInput.dispatchEvent(event);
+                passwordInput.dispatchEvent(event);
+            });
+        }
+    });
+
 </script>

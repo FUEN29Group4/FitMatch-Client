@@ -2,7 +2,7 @@
 
 // 初始化 SignalR 连接
 const connection = new signalR.HubConnectionBuilder()
-    .withUrl("https://localhost:7011/chatHub")
+    .withUrl(`${ApiUrl}/chatHub`)
     .configureLogging(signalR.LogLevel.Information)
     .build();
 
@@ -73,6 +73,7 @@ const chat = Vue.createApp({
             });
         },
         showChatHistory(receiverId) {
+
             this.receiverId = receiverId;
             this.isChatHistoryVisible = true;
             this.loadChatHistory();
