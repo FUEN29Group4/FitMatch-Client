@@ -62,7 +62,8 @@
                 <input type="text" class="form-control" id="ClientBackURL" v-model="addForm.ClientBackURL">
             </div>
         </div>
-        <button type="button" class="btn btn-primary" v-on:click="SendToNewebPay('VACC')">ATM 付款</button>
+        @*<button type="button" class="btn btn-primary" v-on:click="SendToNewebPay('VACC')">ATM 付款</button>*@
+        <button type="button" class="btn btn-primary" v-on:click="SendToNewebPay('UNIONPAY')">信用卡付款</button>
     </div>
 </div>
 
@@ -79,6 +80,7 @@
                         , MerchantOrderNo: '@ViewData["MerchantOrderNo"]'
                         , ItemDesc: '測試商品'
                         , Amt: '100'
+                        
                         , ExpireDate: '@ViewData["ExpireDate"]'
                         @*, ReturnURL: '@ViewData["ReturnURL"]'
                         , CustomerURL: '@ViewData["CustomerURL"]'
@@ -100,6 +102,7 @@
                     postData['MerchantOrderNo'] = self.addForm.MerchantOrderNo;
                     postData['ItemDesc'] = self.addForm.ItemDesc;
                     postData['Amt'] = self.addForm.Amt;
+                   
                     postData['ExpireDate'] = self.addForm.ExpireDate;
                     //postData['ReturnURL'] = self.addForm.ReturnURL;
                     //postData['CustomerURL'] = self.addForm.CustomerURL;

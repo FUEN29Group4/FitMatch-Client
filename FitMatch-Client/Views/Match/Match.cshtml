@@ -239,15 +239,19 @@
                 <h1 class="text-white text-uppercase mb-3 animated slideInDown">與我們卓越的金牌教練共同提升您的運動體驗!</h1>
                 <h4 class="breadcrumb-item text-white m-5">針對個人需求提供量身定制的教練服務</h4>
             </div>
-            <div class="container text-center py-5">
-                <a asp-controller="Match" asp-action="SearchTrainer" class="btn btn-dark p-4 px-5 me-5"
-                   style="border-radius:10px; border: 1px solid #7c7c7c;">
+            <div class="row d-flex align-content-center justify-content-between">
+                <div class="col text-end">
+                    <a asp-controller="Match" asp-action="SearchTrainer" class="btn btn-dark"
+                   style="border-radius:10px; border: 1px solid #7c7c7c; padding:20px 40px;">
                     <h3>找教練</h3>
                 </a>
-                <a asp-controller="Gym" asp-action="Gym" class="btn btn-dark p-4 px-5 ms-5"
-                   style="border-radius:10px;border: 1px solid #7c7c7c;">
+                </div>
+                <div class="col text-start">
+                <a asp-controller="Gym" asp-action="Gym" class="btn btn-dark"
+                       style="border-radius:10px;border: 1px solid #7c7c7c; padding:20px 40px;">
                     <h3>找場館</h3>
                 </a>
+                </div>
             </div>
         </div>
     </div>
@@ -366,7 +370,7 @@
     <div class="course-photo container-xxl wow fadeInUp pt-3" data-wow-delay="0.1s" id="classtypes">
         <h3>尋找你想媒合的課程</h3>
         <div class="row g-4 justify-content-between">
-            <div class="col" v-for="classtype in classtypes" :key="classtype.classTypeId">
+            <div class="col-lg-2 col-md-6 col-sm-12" v-for="classtype in classtypes" :key="classtype.classTypeId">
                 <div class="team-item mx-auto">
                     <div class="team-img position-relative overflow-hidden align-items-center">
                         <img class="img-fluid" :src="'data:image/jpeg;base64,' + classtype.photo"

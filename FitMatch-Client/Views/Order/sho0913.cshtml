@@ -235,89 +235,92 @@
                         </div>
                     </div>
                     @*  =====對照資料=====
-                        productId:75
-                        productName:"B群"
-                        productDescription:"打造天然萃取B群，一顆滿足一日有神"
-                        price:360
-                        typeId:2
-                        productInventory:99
-                        approved:true
-                        status:true
-                        photo: *@
-
-                    <div class="col-lg-8">
-                        <div id="products-filter" class="products-collections-listing row justify-content-center">
-                            <div v-for="product in products" :key="product.ProductID" class="col-lg-6 col-md-6">
-                                <div class="single-products">
-                                    <div class="product-img">
+        productId:75
+        productName:"B群"
+        productDescription:"打造天然萃取B群，一顆滿足一日有神"
+        price:360
+        typeId:2
+        productInventory:99
+        approved:true
+        status:true
+        photo: *@
 
 
-                                        <img :src="'data:image/jpeg;base64,' + product.photo" alt="product Image" style="width: 200px; height: 200px; object-fit: cover;" />
+                    
+                        <div class="col-lg-8">
+                            <div id="products-filter" class="products-collections-listing row justify-content-center">
+                                <div v-for="product in products" :key="product.ProductID" class="col-lg-6 col-md-6">
 
-                                    </div>
-                                    <div class="product-content">
-                                        <a class="title">
-                                            {{ product.productName }}
-                                        </a>
+                                    <div class="single-products">
+                                        <div class="product-img">
 
-                                        <ul class="products-price">
-                                            <li>
-                                                {{ product.price }}
-                                                @* <del>{{ product.OriginalPrice }}</del> *@
-                                            </li>
-                                        </ul>
-                                        <ul class="products-cart-wish-view d-flex">
-                                            <li class="btn btn-primary">
+                                            <img :src="'data:image/jpeg;base64,' + product.photo" alt="product Image" style="width: 200px; height: 200px; object-fit: cover;" />
 
-                                                @*原先*@
-                                                @*<a :href="'ShoppingCart.html?id=' + product.ProductID">
-                                                      <i class="fa-solid fa-cart-shopping"></i>
-                                                      加入購物車
-                                                  </a>*@
-                                                 
-                                               @*參考泰迪
-                                                  <span id="A1001" class="addButton">
-                                                   Add Cart
-                                                  <input type="hidden" value="Formosa|formosa.jpg|5000">
-                                                  </span>*@
-                                                 
-                                               @*V1未成功先藏起來
-                                                  @*<a :href="'ShoppingCart.html?id=' + product.ProductID">
-                                                      <span id=" {{ product.productId }}" class="addButton">
-                                                          <i class="fa-solid fa-cart-shopping"></i>
-                                                          <input type="hidden" value="{{ product.productName }}|{{product.photo}}| {{ product.price }}">
-                                                          加入購物車
-                                                      </span>
-                                                  </a>*@
+                                        </div>
 
-                                                @*V2試試看*@
-                                                        <a @@click="addToCart(product)" href="#">
-                                                            <span class="addButton">
-                                                                <i class="fa-solid fa-cart-shopping"></i>
-                                                                加入購物車
-                                                                <input type="hidden" :value="`${product.productName}|測試看看|${product.price}`">
-                                                            </span>
-                                                        </a>
+                                        <div class="product-content">
+                                            @*點選名字可以連到下一頁*@
+                                            @*<a :href="'./ProductDetailsVue?id=' + product.ProductID"> </a>*@
+                                            <a class="title" :href="'./ProductDetailsVue?id=' + product.productId">
+                                                {{ product.productName }}
+
+                                            </a>
+                                            <span>ProductID: {{ product.productId }}</span>
+
+                                            <ul class="products-price">
+                                                <li>
+                                                    {{ product.price }}
+                                                    @* <del>{{ product.OriginalPrice }}</del> *@
+                                                </li>
+                                            </ul>
 
 
+                                            <ul class="products-cart-wish-view d-flex">
+                                                <li class="btn btn-primary">
+
+                                                    @*原先*@
+                                                    @*<a :href="'ShoppingCart.html?id=' + product.ProductID">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                            加入購物車
+                                        </a>*@
+   
+                                                    @*V1未成功先藏起來
+                                        @*<a :href="'ShoppingCart.html?id=' + product.ProductID">
+                                            <span id=" {{ product.productId }}" class="addButton">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                                <input type="hidden" value="{{ product.productName }}|{{product.photo}}| {{ product.price }}">
+                                                加入購物車
+                                            </span>
+                                        </a>*@
+
+                                                    @*V2試試看*@
+                                                    <a @@click="addToCart(product)" href="#">
+                                                        <span class="addButton">
+                                                            <i class="fa-solid fa-cart-shopping"></i>
+                                                            加入購物車
+                                                            <input type="hidden" :value="`${product.productName}|測試看看|${product.price}`">
+                                                        </span>
+                                                    </a>
 
 
 
-                                                    </li>
-                                                    <li>
-                                                        <a href="wishlist.html" class="wish-btn">
-                                                            <div class="icon-container">
-                                                                <i class="fa-regular fa-heart" style="color: #f24b88;"></i>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+
+
+                                                </li>
+                                                <li>
+                                                    <a href="wishlist.html" class="wish-btn">
+                                                        <div class="icon-container">
+                                                            <i class="fa-regular fa-heart" style="color: #f24b88;"></i>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                </div>
                     </div>
             </section>
         </div>
@@ -398,7 +401,7 @@
 
      // 存储到localStorage
      if (localStorage.getItem(itemId)) {
-         alert('商品已在您的購物車中喔');
+         alert('商品已在您的購物車中');
      } else {
         const addItemList = localStorage.getItem('addItemList') || '';
         localStorage.setItem('addItemList', `${addItemList}${itemId}, `);

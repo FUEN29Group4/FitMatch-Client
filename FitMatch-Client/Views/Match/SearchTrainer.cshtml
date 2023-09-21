@@ -110,7 +110,6 @@
 <!-- Page Header End -->
 <!-- Team Start -->
 <section class="bgc">
-    <div class="section container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <p class="d-inline-block bg-light text-primary py-1 px-4"></p>
@@ -118,10 +117,11 @@
             </div>
             <!-- 教練篩選開始 -->
             <div class="trainerfilter" id="app">
-                <div class="container ">
+                <div class="container-fluid">
+                    <div class="row">
                     <!-- 左邊篩選區域開始 -->
-                    <div class="left col-lg-4 col-md-8">
-                        <div class="row">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="row d-flex justify-content-center">
                             <!-- 篩選性別開始 -->
                             <div class="course-widget border py-4 px-2 mt-3">
                                 <h3 class="mb-3 text-light">
@@ -180,18 +180,18 @@
                     </div>
                     <!-- 左邊篩選區域結束 -->
                     <!-- 右邊顯示篩選後的教練 -->
-                    <div class="right col-lg-8 col-md-12">
+                    <div class="col-lg-7 col-md-12">
                         <div class="row">
-                            <div class="col">
+                            <div class="col-2 text-end">
                                 <!-- 下拉選項來選擇排序方式 -->
                                 <div>
-                                    <select class="p-2" v-model="sortBy">
+                                    <select v-model="sortBy" style="padding:10px;" >
                                         <option value="classCount">最熱門</option>
                                         <option value="trainerId">最新</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-10 text-end">
                                 <!-- 搜尋教練名字框 -->
                                 <div class="d-flex justify-content-end">
                                     <i class="fa-solid fa-magnifying-glass d-flex align-items-center"
@@ -236,10 +236,10 @@
                         </div>
                     </div>
                 </div>
+            </div>
                 <!-- 教練篩選結束 -->
             </div>
         </div>
-    </div>
 </section>
 <!-- Section Team End -->
 

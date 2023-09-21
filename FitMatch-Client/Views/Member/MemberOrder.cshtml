@@ -3,67 +3,116 @@
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
-
 <link rel="stylesheet" href="~/css/memberclass.css">
 
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
-<div>
-    <!-- 訂單區start -->
-    <table class="table container table-hover table-bordered">
-        <thead>
-            <tr>
-                <th>訂單編號</th>
-                <th>訂購時間</th>
-                <th>總價</th>
-                <th>支付方式</th>
-                <th>取貨方式</th>
-                <!-- <th>訂單狀態</th> -->
-                <th colspan="2">付款時間</th>
-            </tr>
-        </thead>
 
-        <tbody id="app">
-            <tr v-for="order in orders" :key="order.orderId" @@click="showOrderDetail(order.orderId)">
-                <td>{{ order.orderId }}</td>
-                <td>{{ formatDate(order.orderTime) }}</td>
-                <td>$ {{ order.totalPrice }}</td>
-                <td>{{ order.paymentMethod }}</td>
-                <td>{{ order.shippingMethod }}</td>
-                <td>{{ formatDate(order.payTime) }}</td>
-            </tr>
-        </tbody>
+<div id="app">
+    <div>
+        <!-- 訂單區start -->
+        <table class="table container table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>訂單編號</th>
+                    <th>訂購時間</th>
+                    <th>總價</th>
+                    <th>支付方式</th>
+                    <th>取貨方式</th>
+                    <th>付款時間</th>
+                    <th></th>
+                </tr>
+            </thead>
 
+            <tbody>
+                <tr v-for="order in orders" :key="order.orderId">
+                    <td>{{ order.orderId }}</td>
+                    <td>{{ formatDate(order.orderTime) }}</td>
+                    <td>$ {{ order.totalPrice }}</td>
+                    <td>{{ order.paymentMethod }}</td>
+                    <td>{{ order.shippingMethod }}</td>
+                    <td>{{ formatDate(order.payTime) }}</td>
+                    <td>
+                        <button type="button"
+                                class="btn btn-primary btn-space"
+                                style="background-color: #F24B88; color: aliceblue;"
+                                @@click="showOrderDetail(order.orderId)">
+                            訂單紀錄
+                        </button>
+                    </td>
+                </tr>
 
-    
-    </table>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="orderDetailModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderDetailModalLabel">訂單紀錄</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div>
+                    <!-- 訂單詳細內容 -->
+                    <div>
+                        <table class="table table-bordered table-hover" >
+                            <thead style="background-color: #F24B88;">
+                                <tr>
+                                    <th>id</th>
+                                    <th>商品照片</th>
+                                    <th>商品名稱</th>
+                                    <th>單價</th>
+                                    <th>數量</th>
+                                    <th>總價</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="detail in orderDetail" :key="detail.OrdertailId">
+                                    <td>{{detail.OrdertailId}}</td>
+                                    <td><img :src="'data:image/jpeg;base64,' + detail.Photo" alt="Product Image" style="width: 110px; height: 110px; object-fit: cover;" /></td>
+                                    <td>{{ detail.Productname }}</td>
+                                    <td>{{ detail.Price }}</td>
+                                    <td>{{ detail.Quantity }}</td>
+                                    <td>{{ detail.Price * detail.Quantity }}</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 
-
 <script>
+
     Vue.createApp({
         data() {
             return {
                 memberId: sessionStorage.getItem('memberId'),
                 token: sessionStorage.getItem('token'),
                 orders: [],
-                orderDetail: null  // 儲存單一訂單的詳細資訊
+                orderDetail: [],  // 注意這裡改成首字母小寫
             };
         },
 
         mounted() {
-            if (!this.memberId || !this.token) {
-                console.error("memberId or token not found in session storage");
+            if (!this.memberId) {
+                console.error("memberId not found in session storage");
                 return;
             }
             this.fetchOrders();
         },
 
         methods: {
-            // 建立一個共用的方法來取得headers
             getHeaders() {
                 const headers = new Headers();
                 headers.append('Authorization', `Bearer ${this.token}`);
@@ -72,7 +121,7 @@
 
             fetchOrders() {
                 fetch(`https://localhost:7011/api/OrderAPI/Order?id=${this.memberId}`, {
-                    headers: this.getHeaders()  // 使用共用方法取得headers
+                    headers: this.getHeaders()
                 })
                     .then(response => {
                         if (!response.ok) {
@@ -94,10 +143,11 @@
                 const date = new Date(input);
                 return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
             },
-
             showOrderDetail(orderId) {
-                fetch(`https://localhost:7011/api/OrderAPI/OrderDetail?id=${orderId}`, {
-                    headers: this.getHeaders()  // 使用共用方法取得headers
+                this.orderDetail = [];   // 先清空之前的數據
+
+                fetch(`https://localhost:7011/api/OrderAPI/OrderDetail?oid=${orderId}`, {
+                    headers: this.getHeaders()
                 })
                     .then(response => {
                         if (!response.ok) {
@@ -108,15 +158,19 @@
                         return response.json();
                     })
                     .then(data => {
-                        this.orderDetail = data.OrderDetailWithMember;
-
-                        // TODO: 顯示訂單詳細資訊的邏輯，例如彈出modal
+                        console.log(data);  // 新增這一行來查看完整的API回應
+                        if (data.OrderDetailWithMember) {  // 確保這個屬性存在
+                            this.orderDetail = data.OrderDetailWithMember;
+                            $('#orderDetailModal').modal('show');
+                        } else {
+                            console.error("OrderDetailWithMember not found in API response");
+                        }
                     })
                     .catch(error => {
                         console.error("API 請求失敗: " + error.message);
                     });
-            }
+            },
+
         },
     }).mount('#app');
-
 </script>

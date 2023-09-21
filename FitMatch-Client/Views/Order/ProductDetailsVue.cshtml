@@ -331,8 +331,11 @@
         async mounted() {
 
             try {
+                //從URL中獲取的ProductID
+                var urlParams = new URLSearchParams(window.location.search);
+                var ProductID = urlParams.get("id")
                 // 使用 fetch 來獲取商品數據
-                const response = await fetch('https://localhost:7011/api/ProductAPI/76');
+                const response = await fetch('https://localhost:7011/api/ProductAPI/' + ProductID);
 
         this.product = await response.json();
             } catch (error) {
