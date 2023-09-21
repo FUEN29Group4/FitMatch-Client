@@ -102,11 +102,12 @@
                 </div> *@
 
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">文章專區</a>
+                    <a asp-area="" asp-controller="Article" asp-action="sport" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">文章專區</a>
                     <div class="dropdown-menu m-0">
-                        <a href="blog_news.html" class="dropdown-item">新聞專區</a>
-                        <a href="blog_activity.html" class="dropdown-item">活動專區</a>
-                        <a href="blog_announcement.html" class="dropdown-item">系統公告</a>
+                        <a asp-area="" asp-controller="Article" asp-action="healthy" class="dropdown-item">新聞專區</a>
+                        <a asp-area="" asp-controller="Article" asp-action="sport" class="dropdown-item">運動新聞</a>
+                        <a asp-area="" asp-controller="Article" asp-action="sport" class="dropdown-item">活動專區</a>
+                        <a asp-area="" asp-controller="Article" asp-action="sport" class="dropdown-item">系統公告</a>
                     </div>
                 </div>
 
