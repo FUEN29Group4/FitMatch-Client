@@ -85,6 +85,9 @@
     //     // You can also redirect the user or show an error message, if necessary.
     // }
 
+    const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+
+
     Vue.createApp({
         data() {
             return {
@@ -109,7 +112,7 @@
                 const headers = new Headers();
                 headers.append('Authorization', `Bearer ${this.token}`);
 
-                fetch(`https://localhost:7011/api/MemberFavorite/${this.memberId}`, {
+                fetch(`${ApiUrl}/api/MemberFavorite/${this.memberId}`, {
                     headers: headers
                 })
                     .then((response) => {
@@ -133,9 +136,9 @@
                 let memberId = new URLSearchParams(window.location.search).get('id');
 
                 if (type === 'trainer') {
-                    url = `https://localhost:7011/api/MemberFavorite/${this.memberId}/trainer/${id}`;
+                    url = `${ApiUrl} /api/MemberFavorite/${this.memberId}/trainer/${id}`;
                 } else {
-                    url = `https://localhost:7011/api/MemberFavorite/${this.memberId}/product/${id}`;
+                    url = `${ApiUrl} /api/MemberFavorite/${this.memberId}/product/${id}`;
                 }
 
                 try {
