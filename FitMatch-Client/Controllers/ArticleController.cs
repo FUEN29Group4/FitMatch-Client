@@ -17,5 +17,13 @@ namespace FitMatch_Client.Controllers
         {
             return View();
         }
+        public IActionResult announcement()
+        {
+            return View();
+        }
+        public IActionResult announcementdetail()
+        {
+            return View();
+        }
     }
 }
