@@ -23,8 +23,9 @@
                     </a>
                     <h3>註冊</h3>
                 </div>
+                <!-- 姓名 -->
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control col-original" id="nameInput" placeholder="jhondoe">
+                    <input type="text" class="form-control col-original" id="nameInput" placeholder="jhondoe" data-validate="required" data-error-message="請輸入姓名">
                     <label for="nameInput" style="color: #a5a5a5;">姓名</label>
                 </div>
                 <div class="mb-3" style="margin-right: 20px;">
@@ -33,24 +34,29 @@
                     <input type="radio" id="female" name="fav_language" value="女">
                     <label for="female" style="color: white;">女</label>
                 </div>
+                <!-- 生日 -->
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control col-original" id="birthInput" placeholder="jhondoe">
+                    <input type="text" class="form-control col-original" id="birthInput" placeholder="jhondoe" data-validate="birthday" data-error-message="請輸入生日(yyyy-mm-dd)">
                     <label for="birthdayInput" style="color: #a5a5a5;">生日</label>
                 </div>
+                <!-- 電話 -->
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control col-original" id="phoneInput" placeholder="jhondoe">
+                    <input type="text" class="form-control col-original" id="phoneInput" placeholder="jhondoe" data-validate="phone" data-error-message="請使用手機號碼註冊">
                     <label for="phoneInput" style="color: #a5a5a5;">電話</label>
                 </div>
+                <!-- 地址 -->
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control col-original" id="addressInput" placeholder="jhondoe">
+                    <input type="text" class="form-control col-original" id="addressInput" placeholder="jhondoe" data-validate="address" data-error-message="地址應在10到100個字之間">
                     <label for="addressInput" style="color: #a5a5a5;">地址</label>
                 </div>
+                <!-- Email -->
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control col-original" id="emailInput" placeholder="name@example.com">
+                    <input type="email" class="form-control col-original" id="emailInput" placeholder="name@example.com" data-validate="required" data-error-message="請輸入Email">
                     <label for="emailInput" style="color: #a5a5a5;">Email</label>
                 </div>
+                <!-- 密碼 -->
                 <div class="form-floating mb-4">
-                    <input type="password" class="form-control col-original" id="passwordInput" placeholder="Password">
+                    <input type="password" class="form-control col-original" id="passwordInput" placeholder="Password" data-validate="password" data-error-message="密碼要求至少8碼英文數字混合">
                     <label for="passwordInput" style="color: #a5a5a5;">密碼</label>
                 </div>
                 <div class="mb-3" style="margin-right: 20px;">
@@ -72,30 +78,166 @@
 <!-- Sign Up End -->
 
 <script>
-    async function register() {
-        // 獲取表單的各個字段
-        const name = document.getElementById("nameInput").value;
-        const genderBool = document.querySelector('input[name="fav_language"]:checked').value === "男" ? true : false;
-        const birth = document.getElementById("birthInput").value;
-        const phone = document.getElementById("phoneInput").value;
-        const address = document.getElementById("addressInput").value;
-        const email = document.getElementById("emailInput").value;
-        const password = document.getElementById("passwordInput").value;
-        const accountType = document.querySelector('input[name="account_type"]:checked').value;
+    // 顯示錯誤訊息
+    function showErrorMessage(element, message) {
+        let errorMessageElement = element.parentNode.querySelector('.error-message');
+        if (!errorMessageElement) {
+            errorMessageElement = document.createElement('span');
+            errorMessageElement.className = 'error-message text-danger';
+            element.parentNode.appendChild(errorMessageElement);
+        }
+        errorMessageElement.textContent = message;
+    }
 
-        // 創建一個物件來儲存所有的註冊資訊
+    // 清除錯誤訊息
+    function clearErrorMessage(element) {
+        const errorMessageElement = element.parentNode.querySelector('.error-message');
+        if (errorMessageElement) {
+            errorMessageElement.remove();
+        }
+    }
+
+    // 電話格式驗證（前兩碼為09，後面8碼數字）
+    function validatePhone(phone) {
+        const regex = /^09\d{8}$/; // 匹配前兩碼為09，後面8碼數字
+        return regex.test(phone);
+    }
+
+    // 生日格式驗證（yyyy-mm-dd）
+    function validateBirthday(birthday) {
+        const regex = /^\d{4}-\d{2}-\d{2}$/; // 匹配yyyy-mm-dd格式
+        return regex.test(birthday);
+    }
+
+    // 地址長度驗證（10到30個字符）
+    function validateAddress(address) {
+        return address.length >= 10 && address.length <= 30;
+    }
+
+    // 密碼格式驗證（至少8碼的英數字混合）
+    function validatePassword(password) {
+        const regex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/; // 至少8碼的英數字混合
+        return regex.test(password);
+    }
+
+    // 驗證函數
+    function validate(element) {
+        const validateRule = element.getAttribute('data-validate');
+        const errorMessage = element.getAttribute('data-error-message');
+        const value = element.value;
+
+        if (validateRule === 'required') {
+            if (value === '') {
+                showErrorMessage(element, errorMessage);
+                return false;
+            }
+        }
+
+        if (validateRule === 'phone') {
+            if (!validatePhone(value)) {
+                showErrorMessage(element, errorMessage);
+                return false;
+            }
+        }
+
+        if (validateRule === 'birthday') {
+            if (!validateBirthday(value)) {
+                showErrorMessage(element, errorMessage);
+                return false;
+            }
+        }
+
+        if (validateRule === 'address') {
+            if (!validateAddress(value)) {
+                showErrorMessage(element, errorMessage);
+                return false;
+            }
+        }
+
+        if (validateRule === 'password') {
+            if (!validatePassword(value)) {
+                showErrorMessage(element, errorMessage);
+                return false;
+            }
+        }
+
+        // 清除錯誤訊息，如果通過驗證
+        clearErrorMessage(element);
+        return true;
+    }
+
+    // 在輸入或失去焦點時觸發驗證
+    const elementsToValidate = document.querySelectorAll('[data-validate]');
+    elementsToValidate.forEach(function (element) {
+        element.addEventListener('keyup', function () {
+            clearErrorMessage(this);
+            validate(this);
+        });
+        element.addEventListener('blur', function () {
+            clearErrorMessage(this);
+            validate(this);
+        });
+    });
+
+
+    async function register() {
+        // 獲取表單的各個欄位
+        const name = document.getElementById("nameInput");
+        const gender = document.querySelector('input[name="fav_language"]:checked');
+        const birth = document.getElementById("birthInput");
+        const phone = document.getElementById("phoneInput");
+        const address = document.getElementById("addressInput");
+        const email = document.getElementById("emailInput");
+        const password = document.getElementById("passwordInput");
+        const accountType = document.querySelector('input[name="account_type"]:checked');
+
+        // 驗證所有欄位
+        const isNameValid = validate(name);
+        const isGenderValid = gender !== null;
+        const isBirthValid = validate(birth);
+        const isPhoneValid = validate(phone);
+        const isAddressValid = validate(address);
+        const isEmailValid = validate(email);
+        const isPasswordValid = validate(password);
+        const isAccountTypeValid = accountType !== null;
+
+        // 檢查是否所有欄位都通過驗證
+        if (
+            !isNameValid ||
+            !isGenderValid ||
+            !isBirthValid ||
+            !isPhoneValid ||
+            !isAddressValid ||
+            !isEmailValid ||
+            !isPasswordValid ||
+            !isAccountTypeValid
+        ) {
+            // 如果有任何欄位未通過驗證，顯示錯誤訊息
+            Swal.fire({
+                icon: "error",
+                title: "驗證錯誤",
+                text: "請確認欄位是否符合正確格式",
+                confirmButtonText: "OK"
+            });
+            return;
+        }
+
+        // 當所有欄位都通過驗證 才會繼續註冊流程
+        const genderBool = gender.value === "男" ? true : false;
+
+        // 創建一個對象儲存所有註冊訊息
         const signUpModel = {
-            Name: name,
+            Name: name.value,
             Gender: genderBool,
-            Birth: birth,
-            Phone: phone,
-            Address: address,
-            Email: email,
-            Password: password,
-            AccountType: accountType
+            Birth: birth.value,
+            Phone: phone.value,
+            Address: address.value,
+            Email: email.value,
+            Password: password.value,
+            AccountType: accountType.value
         };
 
-        // 使用 fetch API 發送 POST 請求
+        // 使用 fetch API 發送 POST 
         try {
             const response = await fetch('https://localhost:7011/api/SignUp/register', {
                 method: "POST",
@@ -107,14 +249,29 @@
 
             if (response.ok) {
                 const data = await response.json();
-                alert("註冊成功: " + data.message);
-                window.location.href = "/Login/Login";
+                Swal.fire({
+                    icon: "success",
+                    title: "註冊成功",
+                    text: data.message,
+                    showConfirmButton: true
+                }).then(() => {
+                    window.location.href = "/Login/Login";
+                });
             } else {
-                alert("註冊失敗");
+                Swal.fire({
+                    icon: "error",
+                    title: "註冊失敗",
+                    text: "請檢查您的註冊資訊",
+                    confirmButtonText: "OK"
+                });
             }
         } catch (error) {
-            alert("發生錯誤: " + error);
+            Swal.fire({
+                icon: "error",
+                title: "錯誤",
+                text: "發生錯誤: " + error,
+                confirmButtonText: "OK"
+            });
         }
     }
-
 </script>
