@@ -307,24 +307,24 @@
                             </h3>
                             <div class="list-group list-group-flush">
                                 <select class="p-2" v-model="locationFilter">
-                                    <option  disabled>請選擇地點</option>
+                                    <option disabled>請選擇地點</option>
                                     <option v-for="location in uniqueLocations" :value="location">
                                         {{ location }}
                                     </option>
                                 </select>
                             </div>
                             @*<h3 class="mb-3 text-light mt-4">
-                                <i class="fa-solid fa-chevron-right pe-3"
-                                   style="color: #ffffff"></i>區域
+                            <i class="fa-solid fa-chevron-right pe-3"
+                            style="color: #ffffff"></i>區域
                             </h3>
                             <div class="list-group list-group-flush">
-                                <select class="p-2">
-                                    <option disabled selected>請選擇地點</option>
-                                    <option value="South">南區</option>
-                                    <option value="North">北區</option>
-                                    <option value="East">東區</option>
-                                    <option value="West">西區</option>
-                                </select>
+                            <select class="p-2">
+                            <option disabled selected>請選擇地點</option>
+                            <option value="South">南區</option>
+                            <option value="North">北區</option>
+                            <option value="East">東區</option>
+                            <option value="West">西區</option>
+                            </select>
                             </div>*@
                         </div>
                         <!-- Location Filters End -->
@@ -342,7 +342,7 @@
                             <div class="col">
                                 <!-- 下拉選項來選擇排序方式 -->
                                 <div class="my-2">
-                                    <select class ="p-2" v-model="sortOrder">
+                                    <select class="p-2" v-model="sortOrder">
                                         <option value="asc">全部</option>
                                         <option value="desc">最新</option>
                                     </select>
@@ -356,27 +356,39 @@
                                         </div>
                                         <div class="col-md-7">
                                             <div class="card-body team-wrap pl-4">
-                                                <div class="d-flex">
-                                                    <h3 class="card-title text-light me-auto">
-                                                        {{ gym.gymName }}
-                                                    </h3>
-                                                    <button type="button"
-                                                            id="showButton"
-                                                            class="btn-dark"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#detailModal">
-                                                        更多資訊
-                                                    </button>
-                                                   
+                                                <div class="row">
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <h3 class="card-title text-light mt-2">
+                                                            {{ gym.gymName }}
+                                                        </h3>
+                                                            <h5 class="mt-2">電話：{{ gym.phone }}</h5>
+                                                    </div>
+                                                </div>  
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column align-items-end">
+                                                        <button type="button"
+                                                                id="showButton"
+                                                                class="btn-dark"
+                                                                v-on:click="toggleMoreInfo(gym.gymId)">
+                                                            更多資訊
+                                                        </button>
+                                                        <button type="button" class="btn-dark mt-1" @@click="getgymid(gym.gymId)" data-bs-toggle="modal" data-bs-target="#calendarModal">
+                                                            我要預約
+                                                        </button>
+                                                    </div>
+                                                    </div>
                                                 </div>
                                                 <p class="card-subtitle letter-spacing">
                                                     <!-- Add code to dynamically display star rating -->
                                                 </p>
-                                                <div class="d-flex justify-content-between pt-1">
+                                                <div class="d-flex flex-column pt-1">
                                                     <h5>地址：{{ gym.address }}</h5>
-                                                    <button type="button" class="btn-dark ms-1 mt-1" @@click="getgymid(gym.gymId)" data-bs-toggle="modal" data-bs-target="#calendarModal">
-                                                        我要預約
-                                                    </button>
+                                                    <h5 v-if="showMoreInfo[gym.gymId]" class="mt-2">場館介紹：{{ gym.gymDescription }}</h5>
+                                                    <div v-if="showMoreInfo[gym.gymId]" class="d-flex flex-row">
+                                                        <div class="me-2">營業時間：{{ formatTime(gym.opentimeStart) }}</div>
+                                                        <div>結束時間：{{ formatTime(gym.opentimeEnd) }}</div>
+                                                    </div>
                                                 </div>
                                                 <div :id="'map-' + gym.gymId" style="height: 200px;"></div>
                                             </div>
@@ -384,11 +396,12 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     <!-- Right Section Ends -->
-                  
-                   
+
+
                 </div>
             </div>
         </div>
@@ -414,7 +427,11 @@
 </div>
 @*彥儀用*@
 
+
+
+
 <script>
+
     const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
 
     //讀取session中存的memberId
@@ -440,6 +457,7 @@
                 locationFilter: "請選擇地點",
                 sortOrder: 'asc', // asc 或 desc 排序
                 uniqueLocations: [],
+                showMoreInfo: {}
             };
         },
         mounted() {
@@ -491,6 +509,25 @@
                 this.Id = Id;
                 MatchCalendar.setgym(Id);
             },
+            toggleMoreInfo(gymId) {
+                if (this.showMoreInfo[gymId]) {
+                    this.$set(this.showMoreInfo, gymId, false);
+                } else {
+                    this.showMoreInfo[gymId] = true;
+                }
+            },
+            formatTime(datetime) {
+                const date = new Date(datetime);
+                let hours = date.getHours();
+                let minutes = date.getMinutes();
+
+                // Add a zero in front of numbers<10
+                if (hours < 10) hours = '0' + hours;
+                if (minutes < 10) minutes = '0' + minutes;
+
+                return `${hours}:${minutes}`;
+            },
+
             async fetchGyms() {
                 try {
                     const response = await fetch(`${ApiUrl}/api/Gym`);
@@ -498,6 +535,10 @@
                     this.gyms = data;
                     // Extract unique locations
                     this.uniqueLocations = [...new Set(this.gyms.map(gym => gym.address.substring(0, 3)))];
+                    // Initialize showMoreInfo for each gym
+                    this.gyms.forEach(gym => {
+                        this.$set(this.showMoreInfo, gym.gymId, false);
+                    });
                 } catch (error) {
                     console.error("An error occurred while fetching data: ", error);
                 }
