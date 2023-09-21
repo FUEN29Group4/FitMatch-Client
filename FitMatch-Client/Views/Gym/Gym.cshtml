@@ -405,7 +405,7 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <!-- 週曆代碼 -->
-                    <div v-if="showCalendar" id="calendar"></div>
+                    <div v-if="events.length > 0" id="calendar"></div>
                 </div>
 
             </div>
@@ -416,6 +416,9 @@
 
 <script>
     const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+
+    //讀取session中存的memberId
+    const memberIdFromSession = sessionStorage.getItem('memberId');
 
     // 初始化 Google Maps 相關設定的函數
     function initMap() {
@@ -485,7 +488,6 @@
         },
         methods: {
             getgymid(Id) {//@@彥儀用@@
-                console.log(Id);
                 this.Id = Id;
                 MatchCalendar.setgym(Id);
             },
