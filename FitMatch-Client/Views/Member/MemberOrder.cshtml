@@ -158,14 +158,16 @@
                         return response.json();
                     })
                     .then(data => {
-                        console.log(data);  // 新增這一行來查看完整的API回應
-                        if (data.OrderDetailWithMember) {  // 確保這個屬性存在
+                        console.log(data);  // 查看完整的API回應
+                        if (data && data.OrderDetailWithMember) {
                             this.orderDetail = data.OrderDetailWithMember;
                             $('#orderDetailModal').modal('show');
                         } else {
-                            console.error("OrderDetailWithMember not found in API response");
+                            console.error("Unexpected API response structure");
+                            console.log(data);  // 再次打印數據以進行檢查
                         }
                     })
+
                     .catch(error => {
                         console.error("API 請求失敗: " + error.message);
                     });
