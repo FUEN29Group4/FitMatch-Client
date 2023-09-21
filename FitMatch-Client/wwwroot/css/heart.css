@@ -1,0 +1,19 @@
+﻿
+
+/* 添加放大動畫 */
+.anim {
+    animation: heartScale 0.3s ease-in-out;
+}
+
+@keyframes heartScale {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.5);
+    }
+}/*
+.icon-container i.fa-heart {
+    text-shadow: 2px 2px 4px gray;
+}*/

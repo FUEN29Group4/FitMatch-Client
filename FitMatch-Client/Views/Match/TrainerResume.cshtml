@@ -8,6 +8,9 @@
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 
 <link href="~/css/TrainerResume.css" rel="stylesheet">
+@*愛心*@
+<link href="~/css/heart.css" rel="stylesheet">
+
 
 
 <!-- Page Header Start -->
@@ -55,15 +58,20 @@
                             </div>
 
                             <!-- 社群 -->
-                            <div class="d-flex align-items-center mb-2 pt-4">
+                          @*  <div class="d-flex align-items-center mb-2 pt-4">
                                 <p class="card-subtitle letter-spacing m-auto">
                                     <i class="fa-brands fa-square-facebook fa-xl me-2 fc-232323"></i>
                                     <i class="fa-brands fa-linkedin fa-xl me-2 fc-232323"></i>
                                     <i class="fa-brands fa-square-instagram fa-xl fc-232323"></i>
-                                    <i class="fa-regular fa-heart fa-xl ms-3" style="color: #f24b88;"></i>
                                 </p>
-                            </div>
+                            </div>*@
                             <!-- 課程費用 -->
+
+                            @*愛心開始*@
+                            <div id="app2" class="text-center">
+                                <wishlist></wishlist>
+                            </div>
+                                @*愛心結束*@
                             <div class="d-flex align-items-center">
                                 <p class="coursefee card-subtitle letter-spacing m-auto text-light pt-1 font-weight-bold"
                                    id="coursefee">
@@ -71,7 +79,6 @@
                                 </p>
                                 </p>
                             </div>
-
                         </div>
 
 
@@ -128,7 +135,6 @@
 <!-- Section Team End -->
 <!-- 教練履歷 -->
 <!-- 引入Composition API -->
-
 <script>
     const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
 
@@ -431,4 +437,6 @@
 
 </script>
 
-         
+
+@*愛心*@
+<script src="~/js/heart.js"></script>
