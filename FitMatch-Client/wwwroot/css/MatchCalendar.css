@@ -55,7 +55,7 @@
 
 .btn-available {
     font-size: 14px;
-    padding: 5px 25px;
+    padding: 8px 10px;
     border-radius: 5px;
     background-color: #e64882c4;
     color: white;
@@ -92,7 +92,7 @@
 
 .btn-unavailable {
     font-size: 14px;
-    padding: 5px 25px;
+    padding: 8px 10px;
     border-radius: 5px;
     background-color: grey;
     cursor: not-allowed;

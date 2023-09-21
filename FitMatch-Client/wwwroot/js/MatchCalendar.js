@@ -1,8 +1,6 @@
 ﻿//  預約周曆
 
 
-//讀取session中存的memberId
-const memberIdFromSession = sessionStorage.getItem('memberId');
 
 //const { createApp, ref } = Vue;
 const { ref } = Vue;
@@ -23,6 +21,25 @@ const MatchCalendar = Vue.createApp({
         this.fetchEventsForgym(this.gymId);
     },
     methods: {
+        async showModalWithCalendar() {
+
+            // 打開模擬視窗
+            $('#calendarModal').modal('show');
+
+            $('#calendarModal').on('shown.bs.modal', () => {
+                // 在模擬視窗完全顯示後初始化FullCalendar
+                this.initializeFullCalendar();
+                if (this.calendar) {
+                    this.calendar.updateSize();
+                }
+            });
+        },
+        initializeFullCalendar() {
+            if (!this.calendar) { // 避免重複初始化
+                this.calendar = new FullCalendar.Calendar(/* ...配置參數... */);
+                this.calendar.render();
+            }
+        },
         formatTime(dateTimeString) { //轉換時間
             let date = new Date(dateTimeString);
             if (isNaN(date.getTime())) {
@@ -48,6 +65,7 @@ const MatchCalendar = Vue.createApp({
             this.showCalendar = true;
             this.fetchEventsForgym(id); // 獲取場館的事件
             //this.initializeCalendar();  // 初始化 FullCalendar
+            this.showModalWithCalendar();
 
         },
         fetchEventsForgym(gymid) {
@@ -144,7 +162,6 @@ const MatchCalendar = Vue.createApp({
                 eventContent(arg) {
                     let status = arg.event.extendedProps.coursestatus;
                     let memid = arg.event.extendedProps.memberid;
-                    console.log(memid);
                     let buttons;
 
                     if (status === '進行中' && memid === 0) {
