@@ -7,10 +7,9 @@
 @*  ======  增加之後待使用 start ====== *@
 <!-- 增加Vue跟axios跟jQuery 函式庫CDN-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.js"></script>
 
-
-@*<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.js"></script>
-<script src="https://unpkg.com/vue@3"></script>*@
+@*<script src="https://unpkg.com/vue@3"></script>*@
 @*<script src="https://unpkg.com/vuex@4"></script>*@
 
 
@@ -52,8 +51,6 @@
     </div>
 </div>
 <!-- Page Header End -->
-
-
 @*  ======  body start ====== *@
 <!-- Team Start -->
 <section class="cart-area ptb-54" id="myCart">
@@ -81,18 +78,18 @@
                     </div>
                 </form>
                 @*<div class="coupon-cart">
-                <div class="row">
-                <div class="col-lg-8 col-md-8">
-                <div class="form-group mb-0">
-                <input type="text" class="form-control" placeholder="Coupon code">
-                <button class="btn btn-primary">
-                Apply Coupon
-                </button>
-                </div>
-                </div>
+                    <div class="row">
+                    <div class="col-lg-8 col-md-8">
+                    <div class="form-group mb-0">
+                    <input type="text" class="form-control" placeholder="Coupon code">
+                    <button class="btn btn-primary">
+                    Apply Coupon
+                    </button>
+                    </div>
+                    </div>
 
-                </div>
-                </div>*@
+                    </div>
+                    </div>*@
             </div>
 
 
@@ -104,8 +101,8 @@
                         <li>稅金 <span id="tax">$00.00</span></li>
                         <li>總金額 <span id="total">0</span></li>
                         @*       <li>優惠折扣 <span id="優惠id">0</span></li>
-        <li><b>折扣後金額</b><span id="折扣後id"><b>0</b></span></li>*@
-                        <li >
+                            <li><b>折扣後金額</b><span id="折扣後id"><b>0</b></span></li>*@
+                        <li>
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input"
                                        id="ship-differents-address">
@@ -117,10 +114,11 @@
                     </ul>
                     <div class="text-center">
                         @*<a id="checkout-button" asp-action="Checkout" class="btn btn-primary" style="min-width: 200px; margin: auto;">*@
-                            <a id="checkout-button" :href="'./NewebPay?id=' + order.orderId" class="btn btn-primary" style="min-width: 200px; margin: auto;"> 
-                                結帳
-                            </a>
-</div>
+                        @*<a id="checkout-button" :href="'./NewebPay?id=' + order.orderid" class="btn btn-primary" style="min-width: 200px; margin: auto;">*@
+                        <a id="checkout-button" class="btn btn-primary" style="min-width: 200px; margin: auto;">
+                            結帳
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -149,7 +147,14 @@
 @* ======== localstorge start ======== *@
 
 
+
+
 <script>
+
+    const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+
+
+
     // 初始化變數和 DOM 元素
     let storage = localStorage;
     let total = 0;
@@ -320,12 +325,12 @@
         // 1 扣除總金額，若要完成作業也要修改此處
         let itemValue = storage.getItem(itemId)
 
-        
+
 
         // 2 清除 storage
         storage.removeItem(itemId)
 
-        
+
 
         storage['addItemList'] = storage['addItemList'].replace(`${itemId}, `, ``)
 
@@ -395,6 +400,12 @@
         return cartItems;
     }
 
+
+
+
+
+
+
     // 发送购物车内容到后端创建订单
     function createOrder() {
         cartItems = getCartItems();
@@ -414,7 +425,7 @@
             "cartItems": cartItems
         };
 
-        fetch('https://localhost:7011/api/OrderAPI', {
+        fetch(`${ApiUrl}/api/OrderAPI`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -423,32 +434,74 @@
             },
             body: JSON.stringify(orderData)
         })
-            .then(response => {
-                //if (response.ok) {
-                //    console.log("有抓到會員id");
-                    // 清空購物車相關數據
-                    localStorage.clear();
+            //.then(response => {
 
-                    
-                //} else {
-                //    return ("錯誤")
-                //    // 在此处添加错误处理逻辑
-                //}
+            //    const newOrderId = order.orderid;
+            //    //console.log(newOrderId);
+
+            //    //if (response.ok) {
+            //    //    console.log("有抓到會員id");
+            // 清空購物車相關數據
+            //localStorage.clear();
+
+
+            //})
+            //.catch(error => {
+            //    return ("网络错误的处理")
+            //    // 在此处添加网络错误处理逻辑
+            //});
+
+            .then(response => response.json())
+            .then(data => {
+                // 获取到订单号并存储在一个变量中
+                const orderId = data.orderId; // 假设 API 响应包含 orderId 字段
+
+                //檢查是否有獲得orderid => ok有成功獲得
+                console.log(orderId);
+
+                // 将 orderId 存储在 localStorage 中
+                localStorage.setItem('orderId', orderId);
+
+                // 在 "結帳" 按钮的链接中添加 orderId 参数
+                const checkoutButton = document.getElementById('checkout-button');
+                if (checkoutButton) {
+                    checkoutButton.href = `https://localhost:7088/Order/NewebPay?id=${orderId}`;
+                }
+
+                // 清空购物车相关数据
+                localStorage.clear();
+
+                // 立即跳转到下一页
+                window.location.href = `https://localhost:7088/Order/NewebPay?id=${orderId}`;
             })
             .catch(error => {
-                return ("网络错误的处理")
-                // 在此处添加网络错误处理逻辑
+                console.error('获取订单号时出错：', error);
             });
+
     }
+
+
+    //// 假设你可以从 API 响应中获取 orderId，将其存储在一个变量中
+    //const orderId = 47; // 这里用 47 作为示例，实际情况中应该从 API 获取
+
+    //// 在 "結帳" 按钮的链接中添加 orderId 参数
+    //const checkoutButton = document.getElementById('checkout-button');
+    //if (checkoutButton) {
+    //    checkoutButton.href = `https://localhost:7088/Order/NewebPay?id=${orderId}`;
+    //}
+
+
+
+
 
     // 在结账按钮点击时触发创建订单操作
     document.querySelector('#checkout-button').addEventListener('click', () => {
         createOrder();
-    });
 
 
 
-</script>
+
+    });</script>
 
 
 
