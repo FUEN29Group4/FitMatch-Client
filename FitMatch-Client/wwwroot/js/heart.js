@@ -11,7 +11,7 @@
     },
     methods: {
         async checkFavoriteTrainer() {
-            const url = `https://localhost:7011/api/Trainer/GetFavoriteTrainer/${memberIdFromSession}`;
+            const url = `${ApiUrl}/api/Trainer/GetFavoriteTrainer/${memberIdFromSession}`;
 
             try {
                 const response = await fetch(url);
@@ -36,7 +36,7 @@
             }
             this.someAnimationBoolean = true;  // 啟動動畫
             if (memberIdFromSession) {
-                const url = 'https://localhost:7011/api/Trainer/FavoriteTrainer';
+                const url = `${ApiUrl}/api/Trainer/FavoriteTrainer`;
                 const data = {
                     memberId: memberIdFromSession,
                     trainerId: this.trainerId,
@@ -84,8 +84,10 @@
         <div id="app2" class="pt-2">
             <a class="wish-btn" @click="toggleFavoriteTrainer">
                 <div class="icon-container">
-                    <i :class="isFavorite ? 'fa-solid fa-heart fa-2x' : 'fa-regular fa-heart fa-2x'"
-                       :class="{ 'anim': someAnimationBoolean }"
+                    <i   :class="[
+                          isFavorite ? 'fa-solid fa-heart fa-2x' : 'fa-regular fa-heart fa-2x',
+                          { 'anim': someAnimationBoolean }
+                         ]"
                        style="color: red;"></i>
                 </div>
             </a>

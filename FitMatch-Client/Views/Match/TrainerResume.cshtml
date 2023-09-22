@@ -402,7 +402,7 @@
                 }).then(response => {
                     if (response.ok) {
                         // 成功預約後，更新前端狀態
-                        event.setExtendedProp('memberId', memberId);
+                        event.setExtendedProp('memberId', memberIdFromSession);
                         // 重新渲染該事件以反映變化
                         event.remove();
                         calendarInstance.addEvent(event);
