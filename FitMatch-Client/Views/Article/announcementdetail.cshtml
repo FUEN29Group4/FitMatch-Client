@@ -43,8 +43,8 @@
                     <img class="img-fluid w-100 rounded mb-5" :src="'data:image/jpeg;base64,' + article.photo" alt="">
                     <h1 class="ps-3 mb-3 text-primary titleInput"></h1>
                     <div class="d-flex mb-3">
-                        <small class="ps-3 me-3"><i class="far fa-user me-2"></i>{{ article.articleID }}Candice</small>
-                        <small class="ps-3 me-3"><i class="far fa-calendar me-2 publicationDateInput"></i></small>
+                 @*        <small class="ps-3 me-3"><i class="far fa-user me-2"></i></small> *@
+                        <small class="ps-3 me-3"><i class="far fa-calendar me-2 " id="formattedDateElement"></i></small>
                     </div>
 
                     <p class="ps-3 pe-3 contentTextInput">
@@ -68,7 +68,7 @@
                 </div>
                 <!-- Blog Detail End -->
                 <!-- Comment List Start -->
-                <div class="mb-5 e border border-secondary rounded-3 ">
+           @*      <div class="mb-5 e border border-secondary rounded-3 ">
                     <div class="section-title section-title-sm position-relative pb-3 mb-1">
                         <h5 class="ps-3 pt-3 text-primary">2 則留言</h5>
                     </div>
@@ -126,7 +126,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> *@
                 <!-- Comment Form End -->
             </div>
 
@@ -153,77 +153,13 @@
                             <i class="bi bi-arrow-right me-2"></i>新聞快訊
                         </a>
                         <a class="h5 fw-semi-bold bg-pink rounded py-2 px-3 mb-2" href="#">
-                            <i class="bi bi-arrow-right me-2"></i>活動資訊
-                        </a>
-                        <a class="h5 fw-semi-bold bg-pink rounded py-2 px-3 mb-2" href="#">
                             <i class="bi bi-arrow-right me-2"></i>系統公告
                         </a>
 
                     </div>
                 </div>
                 <!-- Category End -->
-                <!-- Recent Post Start -->
-                <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-                    <div class="section-title section-title-sm position-relative pb-3 mb-3">
-                        <h3 class="mb-0 text-primary">近期文章</h3>
-                    </div>
-                    <div class="d-flex overflow-hidden mb-3 btn-primary">
-                        <img class="img-fluid" src="images/課程/有氧.jpg"
-                             style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                        <a href="" class="h5 fw-semi-bold d-flex align-items-center px-3 mb-0">
-                            每週該訓練肌肉多少次？
-                        </a>
-                    </div>
-                    <div class="d-flex overflow-hidden mb-3 btn-primary">
-                        <img class="img-fluid" src="images/課程/戰繩.jpg"
-                             style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                        <a href="" class="h5 fw-semi-bold d-flex align-items-center px-3 mb-0">
-                            2023年減肥大賽正式開跑
-                        </a>
-                    </div>
-
-                    <div class="d-flex  overflow-hidden mb-3 btn-primary">
-                        <img class="img-fluid" src="images/課程/重量訓練.jpg"
-                             style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                        <a href="" class="h5 fw-semi-bold d-flex align-items-center px-3 mb-0">
-                            自由重量訓練該怎麼練？
-                        </a>
-                    </div>
-                    <div class="d-flex overflow-hidden mb-3 btn-primary">
-                        <img class="img-fluid" src="images/LOGO/systemlogo.png"
-                             style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                        <a href="" class="h5 fw-semi-bold d-flex align-items-center px-3 mb-0">
-                            13.140
-                            版本系統更新公告
-                        </a>
-                    </div>
-
-                </div>
-                <!-- Recent Post End -->
-                <!-- Image Start -->
-                <!-- <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-                    <img src="images/gym/五股運動中心.jpg" alt="" class="img-fluid rounded">
-                </div> -->
-                <!-- Image End -->
-                <!-- Tags Start -->
-                <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-                    <div class="section-title section-title-sm position-relative pb-3 mb-3">
-                        <h3 class="mb-0 text-primary">熱門關鍵字</h3>
-                    </div>
-                    <div class="d-flex flex-wrap m-n1">
-                        <a href="" class="btn btn-light m-1">減脂訓練</a>
-                        <a href="" class="btn btn-light m-1">重量訓練</a>
-                        <a href="" class="btn btn-light m-1">健康餐點</a>
-                        <a href="" class="btn btn-light m-1">北部地區推薦教練</a>
-                        <a href="" class="btn btn-light m-1">瑜伽課程</a>
-                        <a href="" class="btn btn-light m-1">皮拉提斯</a>
-                        <a href="" class="btn btn-light m-1">有氧健身</a>
-                        <a href="" class="btn btn-light m-1">蛋白飲</a>
-                        <a href="" class="btn btn-light m-1">健身裝備</a>
-
-                    </div>
-                </div>
-                <!-- Tags End -->
+           
 
 
             </div>
@@ -238,16 +174,28 @@
 
 <script>
 
-    // document.addEventListener("DOMContentLoaded", function () {
-    //     // 從URL獲取的Trainer的ID
-    //     var urlParams = new URLSearchParams(window.location.search);
-    //     var ArticleID = urlParams.get("id");
-    //     console.log(ArticleID);
+    // 获取当前页面的 URL
+    var currentUrl = window.location.href;
+
+    // 使用正则表达式从 URL 中提取参数
+    var match = currentUrl.match(/[?&]id=(\d+)/);
+
+    // 如果找到匹配的参数
+    if (match) {
+        // 提取 ArticleID 并转换为整数
+        var articleId = parseInt(match[1], 10);
+
+        // 现在，articleId 变量包含了从 URL 中提取的 id 参数的值
+        console.log("ArticleID:", articleId);
+    } else {
+        console.log("无法找到 ArticleID 参数");
+    }
+
 
 
         // 第一個 AJAX 請求
         $.ajax({
-            url: 'https://localhost:7011/api/Article/2' ,
+        url: 'https://localhost:7011/api/Article/' + articleId,
             type: 'GET',
             dataType: 'json',
             success: function (data) {
@@ -263,6 +211,34 @@
 
             var publicationDate = data.publicationDate;
             $('.publicationDateInput').text(publicationDate);
+
+            // 假设 publicationDate 是从 API 获取到的日期字符串
+            var publicationDate = "2023-09-03T00:00:00";
+
+            // 使用 JavaScript 的 Date 对象来解析日期字符串
+            var dateObject = new Date(publicationDate);
+
+            // 使用 Date 对象的方法来获取日期、月份和年份
+            var year = dateObject.getFullYear();
+            var month = dateObject.getMonth() + 1; // 月份从0开始，所以要加1
+            var day = dateObject.getDate();
+
+            // 格式化日期为所需的形式，例如：2023-09-03
+            var formattedDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+
+            // 现在，formattedDate 变量包含格式化后的日期字符串，不包括时间部分
+            console.log("Formatted Date:", formattedDate);
+
+
+            // 假设 formattedDate 包含格式化后的日期字符串
+            var formattedDate = "2023-09-03";
+
+            // 获取表示日期的元素
+            var dateElement = document.getElementById("formattedDateElement");
+
+            // 设置元素的文本内容为 formattedDate
+            dateElement.textContent = formattedDate;
+
 
       
             var Photo = data.photo; //照片

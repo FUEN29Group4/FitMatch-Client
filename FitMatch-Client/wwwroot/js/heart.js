@@ -59,10 +59,13 @@
                         if (data.status === "success") {
                             this.isFavorite = !this.isFavorite;
                             Swal.fire('提示', data.message, 'success');
+                            
                         } else {
                             Swal.fire('提示', data.message, 'error');
                         }
                         this.someAnimationBoolean = false; // 停止動畫
+                        
+                        
                     })
                     .catch((error) => {
                         console.error('加入收藏時出錯:', error);
