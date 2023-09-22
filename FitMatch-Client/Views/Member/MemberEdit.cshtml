@@ -35,6 +35,42 @@
             margin-right: 8px;
         }
 
+    .rounded-image-container {
+        position: relative;
+        width: 350px; /* 可根据需要修改 */
+        height: 350px; /* 可根据需要修改 */
+    }
+
+    .file-input {
+        display: none;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.5); /* 透明背景 */
+        opacity: 0;
+        transition: .5s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .rounded-image-container:hover .overlay {
+        opacity: 1;
+    }
+
+    .edit-photo-button {
+        color: white;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
 </style>
 
 <!-- 會員基本資料 Start -->
@@ -89,24 +125,10 @@
                 <!-- 照片 -->
                 <div class="col-6 d-flex justify-content-center ps-5">
                     <div class="rounded-image-container">
-                        <img src="~/images/nopersonal.jpg" class="rounded-image" id="member-img" />
-                    </div>
-                </div>
-                <!-- 新照片上傳和預覽 -->
-                <div class="col-sm-12 col-xl-6 mb-3">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-center">
-                            照片
-                        </div>
-                        <div class="card-body d-flex flex-column align-items-center">
-                            <!-- 預覽新上傳的照片 -->
-                            <div class="d-flex justify-content-center">
-                                <img id="newPreview" src="" alt="New Image Preview" style="display:none;" width="330" height="210">
-                            </div>
-                            <!-- 上傳按鈕 -->
-                            <div class="d-flex justify-content-center mt-3 w-100">
-                                <input type="file" id="FileToUpload" name="photo" accept="image/*" onchange="previewNewImage(event)">
-                            </div>
+                        <input type="file" id="imageInput" onchange="encodeImageToBase64()" class="file-input">
+                        <img class="rounded-image" id="member-img" alt="Member Image" />
+                        <div class="overlay">
+                            <button class="edit-photo-button" type="button">更改照片</button>
                         </div>
                     </div>
                 </div>
