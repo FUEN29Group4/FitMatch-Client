@@ -511,7 +511,7 @@
             },
             toggleMoreInfo(gymId) {
                 if (this.showMoreInfo[gymId]) {
-                    this.$set(this.showMoreInfo, gymId, false);
+                    this.showMoreInfo[gymId] = false;
                 } else {
                     this.showMoreInfo[gymId] = true;
                 }
@@ -527,6 +527,11 @@
 
                 return `${hours}:${minutes}`;
             },
+            resetMoreInfo() {
+                this.gyms.forEach(gym => {
+                    this.showMoreInfo[gym.gymId] = false;
+                });
+            },
 
             async fetchGyms() {
                 try {
@@ -537,8 +542,10 @@
                     this.uniqueLocations = [...new Set(this.gyms.map(gym => gym.address.substring(0, 3)))];
                     // Initialize showMoreInfo for each gym
                     this.gyms.forEach(gym => {
-                        this.$set(this.showMoreInfo, gym.gymId, false);
+                        this.showMoreInfo[gym.gymId] = false;
                     });
+                    // 使用新的方法重置 showMoreInfo
+                    this.resetMoreInfo();
                 } catch (error) {
                     console.error("An error occurred while fetching data: ", error);
                 }
@@ -549,6 +556,7 @@
                 this.searchTerm = "";
                 this.locationFilter = "請選擇地點";
                 this.sortOrder = 'asc';
+                this.resetMoreInfo();
             },
             addMarkersToMap(gyms) {
                 const geocoder = new google.maps.Geocoder();
