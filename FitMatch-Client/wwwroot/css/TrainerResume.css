@@ -44,7 +44,7 @@ h2,
 @media (min-width: 1200px) {
     .trainerfilter .container {
         display: flex;
-        max-width: 1800px;
+        max-width: 1700px;
         justify-content: center;
         margin: 0 auto;
         padding: 0 200px;
@@ -130,13 +130,19 @@ h2,
 
 .trainerfilter .card-title {
     position: absolute;
-    top: 50px;
-    left: 100px;
+    top: 60px;
+    left: 160px;
     font-size: 55px;
     text-shadow: 2px 2px 2px gray;
     color: #fff;
 }
-
+/* 當螢幕寬度小於600px時 */
+@media (max-width: 600px) {
+    .trainerfilter .card-title {
+        top: 23px; /* 調整位置 */
+        left: 100px; /* 調整位置 */
+    }
+}
 
 .pl-7 {
     padding-left: 7em;
