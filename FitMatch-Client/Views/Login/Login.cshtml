@@ -5,7 +5,7 @@
 
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/vuex@4"></script>
-<script src="https://www.google.com/recaptcha/api.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LdtAkYoAAAAAEbAnRxPEYIAhUCiH02UjERGWm3x"></script>
 <!-- SweetAlert2 -->
 <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
@@ -43,7 +43,6 @@
                     </div>
                     <a href="/ForgotPassword/ForgotPassword" class="text-light">忘記密碼</a>
                 </div>
-                <div class="g-recaptcha" data-sitekey="6LesMDMoAAAAAPbp2Tjx84KOS3RXpjmYeQFrH2MH" id="recaptcha"></div>
                 <button type="button" class="btn btn-primary py-3 w-100 mb-4" v-on:click="login"
                         style="background-color: #F24B88; color: white;">
                     登入
@@ -79,70 +78,62 @@
         },
         methods: {
             async login() {
-                const recaptchaValue = grecaptcha.getResponse();
-                if (!recaptchaValue) {
-                    alert("請勾選方塊,確認你不是機器人.");
-                    grecaptcha.reset(); // 重置 reCAPTCHA
-                    return;
-                }
+                grecaptcha.ready(async () => {
+                    try {
+                        // 執行 reCAPTCHA v3 驗證，並獲取 token
+                        const recaptchaValue = await grecaptcha.execute('6LdtAkYoAAAAAEbAnRxPEYIAhUCiH02UjERGWm3x', { action: 'login' });
 
-                const requestOptions = {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Recaptcha-Response': recaptchaValue
-                    },
-                    body: JSON.stringify({ Email: this.Account, Password: this.Password })
-                };
+                        const requestOptions = {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Recaptcha-Response': recaptchaValue
+                            },
+                            body: JSON.stringify({ Email: this.Account, Password: this.Password })
+                        };
 
-                try {
-                    const response = await fetch(`${ApiUrl}/api/Login/login`, requestOptions);
+                        const response = await fetch(`${ApiUrl}/api/Login/login`, requestOptions);
 
-                    if (response.status === 200) {
-                        const data = await response.json();
-                        console.log('登入成功', data);
-                        console.log(data.Token);
-                        sessionStorage.setItem('token', data.token);
-                        if (data.data.memberId) {
-                            sessionStorage.setItem('memberId', data.data.memberId);  // 存 memberId 到 sessionStorage
-                            //Swal.fire('成功', `登入成功，歡迎會員-${data.data.memberName}`, 'success');
-                            Swal.fire({
-                                title: '成功',
-                                text: `登入成功，歡迎會員-${data.data.memberName}`,
-                                icon: 'success',
-                                timer: 2000, // 2秒後關閉
-                                showConfirmButton: false // 隱藏確認
-                            });
+                        if (response.status === 200) {
+                            const data = await response.json();
+                            console.log('登入成功', data);
+                            console.log(data.Token);
+                            sessionStorage.setItem('token', data.token);
 
+                            if (data.data.memberId) {
+                                sessionStorage.setItem('memberId', data.data.memberId);
+                                Swal.fire({
+                                    title: '成功',
+                                    text: `登入成功，歡迎會員-${data.data.memberName}`,
+                                    icon: 'success',
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                });
+                            } else if (data.data.trainerId) {
+                                sessionStorage.setItem('trainerId', data.data.trainerId);
+                                sessionStorage.setItem('salt', data.data.trainerId);
+                                Swal.fire({
+                                    title: '成功',
+                                    text: `登入成功，歡迎教練-${data.data.trainerName}`,
+                                    icon: 'success',
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                });
+                            }
+
+                            setTimeout(() => {
+                                window.location.href = "/Home/Index";
+                            }, 2000);
+
+                        } else {
+                            console.log('帳號或密碼錯誤');
+                            Swal.fire('錯誤', '帳號或密碼錯誤', 'error');
                         }
-                        else if (data.data.trainerId) {
-                            sessionStorage.setItem('trainerId', data.data.trainerId);
-                            sessionStorage.setItem('salt', data.data.trainerId);
-                            //Swal.fire('成功', `登入成功，歡迎教練-${data.data.trainerName}`, 'success');
-                            Swal.fire({
-                                title: '成功',
-                                text: `登入成功，歡迎教練-${data.data.trainerName}`,
-                                icon: 'success',
-                                timer: 2000, //  2秒後關閉
-                                showConfirmButton: false // 隱藏確認
-                            });
-
-                        }
-                        // 使用 setTimeoutu延遲轉跳
-                        setTimeout(() => {
-                            window.location.href = "/Home/Index";
-                        }, 2000); // 2秒後轉跳
-                        //window.location.href = "/Home/Index";
-                    } else {
-                        grecaptcha.reset(); // 登入失敗，重置 reCAPTCHA
-                        console.log('帳號或密碼錯誤');
-                        Swal.fire('錯誤', '帳號或密碼錯誤', 'error');
+                    } catch (error) {
+                        console.log('發生錯誤', error);
+                        Swal.fire('錯誤', '你沒開API', 'error');
                     }
-                } catch (error) {
-                    grecaptcha.reset(); // 發生錯誤，重置 reCAPTCHA
-                    console.log('發生錯誤', error);
-                    Swal.fire('錯誤', '你沒開API', 'error');
-                }
+                });
             }
         }
     });
