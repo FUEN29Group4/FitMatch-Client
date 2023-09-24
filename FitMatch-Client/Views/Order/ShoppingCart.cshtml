@@ -151,7 +151,8 @@
 
 <script>
 
-    const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+    //const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content'); 先藏起來
+    const ApiUrl = 'https://fitmatchclient4.azurewebsites.net/ProductAPI'
 
 
 
@@ -425,7 +426,7 @@
             "cartItems": cartItems
         };
 
-        fetch(`${ApiUrl}/api/OrderAPI`, {
+        fetch(`https://fitmatchclient4.azurewebsites.net/api/OrderAPI`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -465,31 +466,20 @@
                 // 在 "結帳" 按钮的链接中添加 orderId 参数
                 const checkoutButton = document.getElementById('checkout-button');
                 if (checkoutButton) {
-                    checkoutButton.href = `https://fitmatchclient4.azurewebsites.net/Order/NewebPay?id=${orderId}`;
+                    checkoutButton.href = (`https://fitmatchclient4.azurewebsites.net/Order/NewebPay`+orderId);
                 }
 
                 // 清空购物车相关数据
                 localStorage.clear();
 
                 // 立即跳转到下一页
-                window.location.href = `https://fitmatchclient4.azurewebsites.net/Order/NewebPay?id=${orderId}`;
+                window.location.href = (`https://fitmatchclient4.azurewebsites.net/Order/NewebPay` + orderId);
             })
             .catch(error => {
                 console.error('获取订单号时出错：', error);
             });
 
     }
-
-
-    //// 假设你可以从 API 响应中获取 orderId，将其存储在一个变量中
-    //const orderId = 47; // 这里用 47 作为示例，实际情况中应该从 API 获取
-
-    //// 在 "結帳" 按钮的链接中添加 orderId 参数
-    //const checkoutButton = document.getElementById('checkout-button');
-    //if (checkoutButton) {
-    //    checkoutButton.href = `https://localhost:7088/Order/NewebPay?id=${orderId}`;
-    //}
-
 
 
 

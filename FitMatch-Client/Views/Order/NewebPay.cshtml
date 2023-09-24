@@ -78,7 +78,7 @@
                         </p>
                     </div> -->
 
-                    <form>
+                    @*<form>
                         <div class="billing-details">
                             <h3 class="title">訂購人資訊</h3>
                             <div class="row">
@@ -111,81 +111,86 @@
                             </div>
 
                         </div>
-                    </form>
+                    </form>*@
 
 
                     <div class="card">
-                        <div class="card-header">
+                        @*<div class="card-header">
                             {{order.orderId}}
                             {{order.totalPrice}}
-                        </div>
+                        </div>*@
                         <div class="card-body">
                             <div class="row mb-2">
-                                <div class="col-md-6">
+                                @*<div class="col-md-6">
                                     <label class="form-label">商店代號</label>
                                     <input type="text" class="form-control" id="MerchantID" v-model="addForm.MerchantID">
-                                </div>
+                                </div>*@
                                 <div class="col-md-6">
                                     <label class="form-label">訂單編號</label>
                                     <input type="text" class="form-control" id="MerchantOrderNo" v-model="addForm.MerchantOrderNo">
                                 </div>
                             </div>
                             <div class="row mb-2">
-                                <div class="col-md-6">
+                                @*<div class="col-md-6">
                                     <label class="form-label">商品說明</label>
                                     <input type="text" class="form-control" id="ItemDesc" v-model="addForm.ItemDesc">
-                                </div>
+                                </div>*@
                                 <div class="col-md-6">
                                     <label class="form-label">商品金額</label>
                                     <input type="text" class="form-control" id="Amt" v-model="addForm.Amt">
                                 </div>
                             </div>
-                            <div class="row mb-2">
-                                <div class="col-md-6">
-                                    <label class="form-label">繳費有效期限</label>
-                                    <input type="text" class="form-control" id="ExpireDate" v-model="addForm.ExpireDate">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">付款人電子信箱</label>
-                                    <input type="text" class="form-control" id="Email" v-model="addForm.Email">
-                                </div>
+                        <div class="row mb-2">
+                            @*<div class="col-md-6">
+                                <label class="form-label">付款人電子信箱</label>
+                                <input type="text" class="form-control" id="Email" v-model="addForm.Email">
+                            </div>*@
+
+                            <div class="col-md-6">
+                                <label class="form-label">繳費有效期限</label>
+                                <input type="text" class="form-control" id="ExpireDate" v-model="addForm.ExpireDate">
                             </div>
+                        </div>
+
                             <div class="row mb-2">
-                                <div class="col-md-6">
+                                @*<div class="col-md-6">
                                     <label class="form-label">支付完成返回網址</label>
                                     <input type="text" class="form-control" id="ReturnURL" v-model="addForm.ReturnURL">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">商店取號網址</label>
                                     <input type="text" class="form-control" id="CustomerURL" v-model="addForm.CustomerURL">
-                                </div>
+                                </div>*@
                             </div>
                             <div class="row mb-2">
-                                <div class="col-md-6">
+                                @*<div class="col-md-6">
                                     <label class="form-label">支付通知網址</label>
                                     <input type="text" class="form-control" id="NotifyURL" v-model="addForm.NotifyURL">
-                                </div>
+                                </div>*@
                                 <div class="col-md-6">
-                                    <label class="form-label">返回商店網址</label>
-                                    <input type="text" class="form-control" id="ClientBackURL" v-model="addForm.ClientBackURL">
+                                    @*<label class="form-label">返回商店網址</label>
+                                    <input type="text" class="form-control" id="ClientBackURL" v-model="addForm.ClientBackURL">*@
+
+                                    <label class="form-label" type="hidden"  id="ClientBackURL" v-model="addForm.ClientBackURL"></label>                                 
+
                                 </div>
                             </div>
                         </div>
 
-                        <ul>
+                        <ul style="list-style-type:none">
                             <li>
                                 <button type="button" class="btn btn-primary" v-on:click="SendToNewebPay('UNIONPAY')">前往付款</button>
                             </li>
 
-                            <li class="accordion-item">
+                            <!--<li class="accordion-item">
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input"
-                                           id="ship-differents-address">
-                                    <label class="form-check-label" for="ship-different-address">
-                                        我同意<a href="terms-conditions.html">相關事項</a>*
-                                    </label>
-                                </div>
-                            </li>
+                                           id="ship-differents-address">-->
+                                    @*<label class="form-check-label" for="ship-different-address">
+                                        我同意<a href="terms-conditions.html">相關事項</a>**@
+                                    @*</label>*@
+                                <!--</div>
+                            </li>-->
                         </ul>
                     </div>
                 </div>

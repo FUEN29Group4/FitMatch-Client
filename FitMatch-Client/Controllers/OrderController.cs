@@ -80,6 +80,8 @@ namespace FitMatch_Client.Controllers
             ViewData["MerchantOrderNo"] = DateTime.Now.ToString("yyyyMMddHHmmss");  //訂單編號
             ViewData["ExpireDate"] = DateTime.Now.AddDays(3).ToString("yyyyMMdd"); //繳費有效期限
             ViewData["ReturnURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Home/CallbackReturn"; //支付完成返回商店網址
+
+
             ViewData["CustomerURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Home/CallbackCustomer"; //商店取號網址
             ViewData["NotifyURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Home/CallbackNotify"; //支付通知網址
             ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}"; //返回商店網址
