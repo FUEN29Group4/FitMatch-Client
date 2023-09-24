@@ -254,7 +254,7 @@
                     var urlParams = new URLSearchParams(window.location.search);
                     var OrderID = urlParams.get("id")
                     // 使用 fetch 來獲取商品數據
-                    const response = await fetch('https://localhost:7011/api/OrderAPI/' + OrderID);
+                    const response = await fetch('https://fitmatchclient4.azurewebsites.net/api/OrderAPI/' + OrderID);
 
                     this.order = await response.json();
 

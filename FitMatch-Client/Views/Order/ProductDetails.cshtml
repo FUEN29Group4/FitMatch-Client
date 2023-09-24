@@ -337,7 +337,7 @@
      async fetchProducts() {
          try {
              // 发起GET请求获取商品数据
-             const response = await axios.get('https://localhost:7011/api/ProductAPI');
+             const response = await axios.get('https://fitmatchclient4.azurewebsites.net/ProductAPI');
 
              // 将获取的商品数据存储到Vue实例的数据属性中
              this.products = response.data;

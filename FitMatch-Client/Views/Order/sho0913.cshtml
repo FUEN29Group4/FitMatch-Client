@@ -384,7 +384,7 @@
      async fetchProducts() {
          try {
              // 发起GET请求获取商品数据
-             const response = await axios.get('https://localhost:7011/api/ProductAPI');
+             const response = await axios.get('https://fitmatchclient4.azurewebsites.net/api/ProductAPI');
 
              // 将获取的商品数据存储到Vue实例的数据属性中
              this.products = response.data;
@@ -395,7 +395,7 @@
 
      addToCart(product) {
      //const itemValue = `${product.productName}|${product.photo}|${product.price}`;
-     const itemValue = `${product.productName}|'測試'
+     const itemValue = `${product.productName}|已加入購物車品項
      |${product.price}`;
      const itemId = `${product.productId}`;
 

@@ -335,7 +335,7 @@
                 var urlParams = new URLSearchParams(window.location.search);
                 var ProductID = urlParams.get("id")
                 // 使用 fetch 來獲取商品數據
-                const response = await fetch('https://localhost:7011/api/ProductAPI/' + ProductID);
+                const response = await fetch('https://fitmatchclient4.azurewebsites.net/ProductAPI/' + ProductID);
 
         this.product = await response.json();
             } catch (error) {
@@ -345,7 +345,7 @@
         methods: {
             addToCart(product) {
                 //const itemValue = `${product.productName}|${product.photo}|${product.price}`;
-                const itemValue = `${product.productName}|'測試'
+                const itemValue = `${product.productName}|已加入購物車品項
      |${product.price}`;
                 const itemId = `${product.productId}`;
 
