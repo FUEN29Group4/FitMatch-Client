@@ -5,7 +5,7 @@
 
 <link rel="stylesheet" href="~/css/memberclass.css">
 
-
+<meta name="api-base-url" content="https://4fitmatchapi.azurewebsites.net">
 
 <div style="background-color: #fff" id="app">
     
@@ -112,7 +112,9 @@
                 const headers = new Headers();
                 headers.append('Authorization', `Bearer ${this.token}`);
 
-                fetch(`${ApiUrl}/api/MemberFavorite/${this.memberId}`, {
+                // fetch(`${ApiUrl}/api/MemberFavorite/${this.memberId}`, {
+
+                fetch(`https://4fitmatchapi.azurewebsites.net/api/MemberFavorite/${this.memberId}`, {
                     headers: headers
                 })
                     .then((response) => {
@@ -136,9 +138,17 @@
                 let memberId = new URLSearchParams(window.location.search).get('id');
 
                 if (type === 'trainer') {
-                    url = `${ApiUrl} /api/MemberFavorite/${this.memberId}/trainer/${id}`;
+
+                    // url = `${ApiUrl} /api/MemberFavorite/${this.memberId}/trainer/${id}`;
+
+
+                    url = `https://4fitmatchapi.azurewebsites.net/api/MemberFavorite/${this.memberId}/trainer/${id}`;
                 } else {
-                    url = `${ApiUrl} /api/MemberFavorite/${this.memberId}/product/${id}`;
+
+                    // url = `${ApiUrl} /api/MemberFavorite/${this.memberId}/product/${id}`;
+
+
+                    url = `https://4fitmatchapi.azurewebsites.net/api/MemberFavorite/${this.memberId}/product/${id}`;
                 }
 
                 try {

@@ -16,6 +16,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.js"></script>
 @*彥儀用的勿刪*@
 
+@* <meta name="api-base-url" content="https://4fitmatchapi.azurewebsites.net"> *@
 
 <link rel="stylesheet" href="~/css/memberclass.css">
 
@@ -36,7 +37,7 @@
         <table class="table table-bordered table-hover table-centered">
             <thead style="background-color: #F24B88;color:#fff">
                 <tr>
-                    <th>預約編號</th>
+                 @*    <th>預約編號</th> *@
                     <th>教練</th>
                     <th>場館</th>
                     <th>課程狀態</th>
@@ -55,11 +56,12 @@
 
                 <!-- 否則，顯示數據 -->
                 <tr v-else v-for="trainer in classApi.trainers" :key="trainer.trainerId">
-                    <td>{{classApi.classId}}</td>
+                   @*  <td>{{classApi.classId}}</td> *@
                     <td>{{classApi.trainers[0].trainerName}}</td>
                     <td>{{classApi.gyms[0].gymName}}</td>
                     <td>{{classApi.courseStatus}}</td>
-                    <td>{{ formatTimeToDetailedDate(classApi.buildTime) }}</td>
+                  @*   <td>{{ formatTimeToDetailedDate(classApi.buildTime) }}</td> *@
+                    <td>{{ formatTimeToDetailedDate(classApi.startTime) }}</td>
                     <td>
                         <button class="btn btn-primary" style="border-radius:25px" @@click="showChatHistory(classApi.trainers[0].trainerId)">聯繫教練</button>
                     </td>
@@ -154,6 +156,18 @@
         mounted() {
             this.MemberClassAPI();
         },
+        // computed: {  ///////////未測試
+        //     sortedClasses() {
+        //         return [...this.MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms].sort((a, b) => {
+        //             if (a.courseStatus === '進行中' && b.courseStatus !== '進行中') return -1;
+        //             if (b.courseStatus === '進行中' && a.courseStatus !== '進行中') return 1;
+
+        //             const dateA = new Date(a.startTime);
+        //             const dateB = new Date(b.startTime);
+        //             return dateA - dateB;
+        //         });
+        //     }
+        // },
 
         methods: {
             showChatHistory(Id) {//@@彥儀用@@
@@ -172,7 +186,10 @@
                 if (token) {
                     headers.append('Authorization', `Bearer ${token}`);
                 }
-                fetch(`https://localhost:7011/api/MemberClassAPI/${this.memberId}`, { // 修改這裡
+                // fetch(`https://4fitmatchapi.azurewebsites.net/api/MemberClassAPI/${this.memberId}`, { // 修改這裡
+                    fetch(`https://localhost:7011/api/MemberClassAPI/${this.memberId }`, { // 修改這裡
+
+
                     method: 'GET',
                     headers: headers
                 })
