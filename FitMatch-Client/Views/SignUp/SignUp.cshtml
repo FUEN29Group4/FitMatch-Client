@@ -68,6 +68,9 @@
                 <button type="button" onclick="register()" class="btn btn-primary py-3 w-100 mb-4 mt-3" style="background-color: #F24B88; color: white;">
                     註冊
                 </button>
+                <button type="button" onclick="fillDemoData()" class="btn btn-secondary py-3 w-100 mb-2 mt-3">
+                    Demo
+                </button>
                 <p class="text-center mb-0" style="color: #a5a5a5;">
                     我已經是會員 <a asp-controller="Login" asp-action="Login" class="text-light">登入</a>
                 </p>
@@ -179,6 +182,33 @@
             validate(this);
         });
     });
+
+    function fillDemoData() {
+        // Fill name
+        document.getElementById("nameInput").value = "林大白";
+
+        // Fill gender 
+        document.getElementById("male").checked = true;
+
+        // Fill birth
+        document.getElementById("birthInput").value = "1997-01-01";
+
+        // Fill phone
+        document.getElementById("phoneInput").value = "0987251644";
+
+        // Fill address
+        document.getElementById("addressInput").value = "台南市安平區永華路二段6號";
+
+        // Fill email
+        document.getElementById("emailInput").value = "fitmatch777@gmail.com";
+
+        // Fill password
+        document.getElementById("passwordInput").value = "Password123";
+
+        // Set account type to member
+        document.getElementById("member").checked = true;
+    }
+
 
 
     async function register() {
