@@ -141,10 +141,10 @@
                                 </div>
                             </div>
                         <div class="row mb-2">
-                            @*<div class="col-md-6">
+                            <div class="col-md-6">
                                 <label class="form-label">付款人電子信箱</label>
                                 <input type="text" class="form-control" id="Email" v-model="addForm.Email">
-                            </div>*@
+                            </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">繳費有效期限</label>
@@ -260,17 +260,27 @@
                     var urlParams = new URLSearchParams(window.location.search);
                     var OrderID = urlParams.get("id")
                     // 使用 fetch 來獲取商品數據
-            const response = await fetch(`https://localhost:7011/api/OrderAPI` + OrderID);
+                    const response = await fetch(`https://localhost:7011/api/OrderAPI/` + OrderID);
 
                     this.order = await response.json();
 
                     // 更新表單資料的Amt/ erchantOrderNo ...等orderviewmodel中的屬性
                     this.addForm.Amt = this.order.totalPrice.toString();
                     this.addForm.MerchantOrderNo = this.order.orderId.toString();
+            //         this.addForm.Email = this.order.orderId.toString();
+
+
+            // const response2 = await fetch(`https://localhost:7011/api/OrderAPI/` + OrderID);
+
+
 
                 } catch (error) {
                     console.error('獲取資料錯誤：', error);
                 }
+
+
+    
+
             },
             methods: {
 
