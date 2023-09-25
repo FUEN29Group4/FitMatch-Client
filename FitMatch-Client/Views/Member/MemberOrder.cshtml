@@ -27,24 +27,24 @@
         <table class="table table-bordered table-hover">
             <thead style="background-color:#F24B88">
                 <tr>
-                  @*   <th>訂單編號</th> *@
+                     <th>訂單編號</th> 
                     <th>訂購時間</th>
                     <th>總價</th>
                     <th>支付方式</th>
                     <th>取貨方式</th>
-                    <th>付款時間</th>
+                    @*<th>付款時間</th>*@
                     <th></th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr v-for="order in orders" :key="order.orderId">
-                   @*  <td>{{ order.orderId }}</td> *@
+                    <td>{{ order.orderId }}</td>
                     <td>{{ formatDate(order.orderTime) }}</td>
                     <td>$ {{ order.totalPrice }}</td>
                     <td>{{ order.paymentMethod }}</td>
                     <td>{{ order.shippingMethod }}</td>
-                    <td>{{ formatDate(order.payTime) }}</td>
+                    @*<td>{{ formatDate(order.payTime) }}</td>*@
                     <td>
                         <button type="button"
                                 class="btn btn-primary btn-space"
