@@ -1,0 +1,1128 @@
+﻿@{
+    ViewBag.SubLayout = "Trainer";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+}
+
+
+<!-- 周曆 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/2.3.0/luxon.min.js"></script>
+
+
+
+
+    <style>
+        /* 預約區塊 */
+        .fc-scrollgrid {
+            background-color: #f8f9fa;
+
+        }
+
+        .fc-theme-standard .fc-scrollgrid,
+        .fc td,
+        .fc th {
+            border-color: #6C7293;
+        }
+
+        .fc-col-header-cell-cushion {
+            color: #2c2b2b;
+        }
+
+        .fc-scrollgrid-shrink-frame {
+            color: #a7a7b8;
+        }
+
+        .fc-timegrid-slot-label-cushion {
+            margin-top: 10px;
+            color: #2c2b2b;
+
+        }
+
+     
+         table th {
+            text-align: center;
+            white-space: pre-line;
+            /* 換行保留 */
+            color: #ffff;
+            font-weight: normal;
+        }
+
+         .time-cell {
+            text-align: center;
+            font-size: 18px;
+            color: #ffff;
+        }
+
+         .btn-primary:focus {
+            color: #fff;
+            background-color: #BF3B6C;
+            border-color: #BF3B6C;
+            box-shadow: 0 0 0 .25rem #582337;
+        }
+
+        .fc-timegrid-slot-label-cushion {
+            height: 40px;
+        }
+
+        .fc-toolbar-title {
+            color: #f24b88;
+          
+        }
+        .fc .fc-toolbar-title{
+             text-align: center;
+        }
+        .fc-day {
+            background-color: #fff;
+        }
+
+        .fc-day-today {
+            background-color: #afafaf88 !important;
+
+        }
+
+        .fc-event-main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        
+
+        .fc-timegrid-event .fc-event-main {
+            padding: 0;
+        }
+
+         .available:hover {
+            background-color: rgb(1, 100, 1);
+        }
+
+         .booked {
+            background-color: grey;
+            pointer-events: none;
+        }
+
+        #addButton {
+            position: absolute;
+            top: 10px;
+            /* 调整按钮的垂直位置 */
+            left: 10px;
+            /* 调整按钮的水平位置 */
+            z-index: 1;
+            /* 确保按钮位于日历的上方 */
+            /* 其他样式属性 */
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+        
+    </STyle>
+     
+    
+    <div class="container bg-white">
+        <div class="date" id="calendar">
+        </div>
+    </div>
+
+
+<script>
+const { DateTime } = luxon;
+const TrainerIdFromSession = sessionStorage.getItem('trainerId');
+var calendar;
+var todayGymName = "";
+function toTaipeiDateTime(dateStr) {
+    return DateTime.fromISO(dateStr, { zone: 'UTC' }).setZone('Asia/Taipei', { keepLocalTime: true });
+}
+function hasAnyReservationsForDate(date) {
+    const eventsForDate = calendar.getEvents().filter(event => {
+        const eventDate = event.start;
+        return eventDate.getFullYear() === date.getFullYear() && 
+               eventDate.getMonth() === date.getMonth() &&
+               eventDate.getDate() === date.getDate() && 
+               event.extendedProps.memberName;
+    });
+    return eventsForDate.length > 0;
+}
+function hasVenueReservationForDate(date) {
+    const venueEventsForDate = calendar.getEvents().filter(event => {
+        const eventDate = event.start;
+        return eventDate.getFullYear() === date.getFullYear() && 
+               eventDate.getMonth() === date.getMonth() &&
+               eventDate.getDate() === date.getDate() && 
+               event.allDay;
+    });
+    return venueEventsForDate.length > 0;
+}
+// 檢查日期是否在今天或之前
+function isPastOrToday(date) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date <= today;
+}
+
+
+async function loadEvents() {
+    console.log("Loading events...");
+
+    if (!TrainerIdFromSession) {
+        console.error('TrainerIdFromSession is missing from the URL');
+        return;
+    }
+
+    try {
+        const [eventsResponse, allDayEventsResponse] = await Promise.all([
+            fetch("https://localhost:7011/api/TrainerClass/" + TrainerIdFromSession),
+            fetch("https://localhost:7011/api/TrainerClass/VenueReservation/" + TrainerIdFromSession)
+        ]);
+
+        if (!eventsResponse.ok || !allDayEventsResponse.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const eventsData = await eventsResponse.json();
+        const allDayEventsData = await allDayEventsResponse.json();
+
+        if (Array.isArray(eventsData)) {
+            populateEvents(eventsData);
+        }
+
+        if (Array.isArray(allDayEventsData)) {
+            populateAllDayEvents(allDayEventsData);
+        }
+
+        calendar.render(); // 一次性重新渲染日历
+
+    } catch (error) {
+        console.error('Error loading events:', error);
+        Swal.fire({
+            icon: 'error',
+            title: '错误',
+            text: '加载预约数据时发生错误，请刷新页面重试。'
+        });
+    }
+}
+
+function getGymsForDate(date) {
+    let dateEvents = calendar.getEvents().filter(event => {
+        const eventDate = event.start;
+        return eventDate.getFullYear() === date.getFullYear() && 
+               eventDate.getMonth() === date.getMonth() &&
+               eventDate.getDate() === date.getDate() && 
+               event.allDay;
+    });
+    
+    // 如果当天有多个全天事件（应该不会），则将它们的标题（也就是健身房名称）合并
+    return dateEvents.map(event => event.title).join(', ');
+}
+
+function populateEvents(data) {
+    console.log("Populating events with data:", data);
+
+    data.forEach(eventData => {
+        const venueReservationDate = toTaipeiDateTime(eventData.venueReservationDate);
+        const startTime = toTaipeiDateTime(eventData.startTime);
+        const endTime = toTaipeiDateTime(eventData.endTime);
+
+        let eventTitle = '';
+        let eventColor = 'green';
+
+        if (eventData.courseStatus === '已过期' || eventData.courseStatus === '已完成') {
+            eventTitle = '已结束';
+            eventColor = 'gray';
+        } else {
+            const startTimeStr = formatTime(startTime);
+            const endTimeStr = formatTime(endTime);
+            eventTitle = eventData.memberName 
+                ? `${startTimeStr}-${endTimeStr} ${eventData.memberName}`
+                : `${startTimeStr}-${endTimeStr} 未预约`;
+        }
+
+        // 查找相同日期的全天事件
+        const dateKey = startTime.toFormat('yyyy-MM-dd');
+        const allDayEvent = calendar.getEvents().find(event => {
+            return event.allDay && event.startStr.includes(dateKey);
+        });
+
+        // 初始化extendedProps对象
+        const extendedProps = {
+             classId: eventData.classId, // 将classId添加到extendedProps中
+            memberName: eventData.memberName,
+            className: eventData.className,
+            gymName: eventData.gymName,
+            courseStatus: eventData.courseStatus
+        };
+
+        // 如果找到全天事件，则从中获取gymId和VenueReservationID
+        if (allDayEvent) {
+            if (allDayEvent.extendedProps.gymId) {
+                extendedProps.gymId = allDayEvent.extendedProps.gymId;
+            }
+            if (allDayEvent.extendedProps.VenueReservationID) {
+                extendedProps.VenueReservationID = allDayEvent.extendedProps.VenueReservationID;
+            }
+        }
+
+        calendar.addEvent({
+             id: eventData.classId,
+            title: eventTitle,
+            start: startTime.toJSDate(),
+            end: endTime.toJSDate(),
+            backgroundColor: eventColor,
+            borderColor: eventColor,
+            extendedProps: extendedProps // 使用修改后的extendedProps对象
+        });
+    });
+}
+ 
+function populateAllDayEvents(data) {
+    console.log("Populating events with data:", data);
+    const gymDetailsByDate = {};
+
+    // 先移除所有的全天事件
+    calendar.getEvents().forEach(event => {
+        if (event.allDay) {
+            event.remove();
+        }
+    });
+
+    data.forEach(eventData => {
+        const venueReservationDate = toTaipeiDateTime(eventData.venueReservationDate);
+        const dateKey = venueReservationDate.toFormat('yyyy-MM-dd');
+        const venueReservationId = eventData.venueReservationId
+        
+        if (!gymDetailsByDate[dateKey]) {
+            gymDetailsByDate[dateKey] = {
+                gymNames: new Set(),
+                addresses: new Set(),
+               venueReservationIds: new Set(), // 添加这一行，用于存储venueReservationId
+                gymIds: new Set() // 添加这一行，用于存储venueReservationId
+            };
+        }
+
+        // 将场馆名和地址添加到gymDetailsByDate
+        gymDetailsByDate[dateKey].venueReservationIds.add(venueReservationId); // 将venueReservationId添加到set中
+        gymDetailsByDate[dateKey].gymNames.add(eventData.gymName);
+        gymDetailsByDate[dateKey].addresses.add(eventData.address);
+        gymDetailsByDate[dateKey].gymIds.add(eventData.gymId);
+    });
+
+    // 循环处理每个日期的场馆详情并将全天事件添加到日历中
+    for (let [date, gymDetails] of Object.entries(gymDetailsByDate)) {
+        const allGymNames = Array.from(gymDetails.gymNames).join(', ');
+        const allAddresses = Array.from(gymDetails.addresses).join(', ');
+        const allVenueReservationIds = Array.from(gymDetails.venueReservationIds).join(', '); // 获取所有的venueReservationIds
+        const allgymIds = Array.from(gymDetails.gymIds).join(', '); // 获取所有的gymIds
+
+
+        calendar.addEvent({
+            title: allGymNames,
+            start: new Date(date),
+            allDay: true,
+            extendedProps: {
+                addresses: allAddresses,
+                VenueReservationDate: date, // 添加这一行
+                venueReservationIds: allVenueReservationIds, // 使用获取到的venueReservationIds
+                gymIds :allgymIds
+
+            }
+        });
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+function formatDateToISO(date) {
+    if (!(date instanceof Date && !isNaN(date.getTime()))) {
+        console.error("Invalid date passed:", date);
+        return null;  // 或者您可以选择返回一个默认的值或抛出一个异常
+    }
+    return DateTime.fromJSDate(date).setZone('Asia/Taipei').toISODate();
+}
+function checkDateAvailability(date) {
+    if (!calendar) {
+        console.error('Calendar instance not initialized');
+        return null;
+    }
+
+    // 將輸入的日期轉換為 ISO 字符串格式，並保留其時區為台北時間
+    const isoDateStr = DateTime.fromJSDate(date).setZone('Asia/Taipei').toISODate();
+
+    const eventsOnDate = calendar.getEvents().filter(event => {
+        // 確保 event.start 是 DateTime 對象
+        const eventStartDateTime = DateTime.fromJSDate(event.start);
+        
+        // 將事件的開始時間設定為台北時間，然後與輸入的日期進行比較
+        return eventStartDateTime.setZone('Asia/Taipei').toISODate() === isoDateStr;
+    });
+
+    const hasVenueEvent = eventsOnDate.some(event => event.allDay);
+    const hasOtherTimeSlotEvent = eventsOnDate.length > (hasVenueEvent ? 1 : 0);
+
+    return {
+        hasVenueEvent,
+        hasOtherTimeSlotEvent
+    };
+}
+
+
+function toTaipeiISODate(date) {
+    return DateTime.fromJSDate(date).setZone('Asia/Taipei').toISODate();
+}
+
+
+
+function openVenueModal(date) {
+    const taipeiDateStr = toTaipeiISODate(date);
+        console.log("taipeiDateStr:", taipeiDateStr);
+
+    const availability = checkDateAvailability(DateTime.fromISO(taipeiDateStr).toJSDate());
+        console.log("availability:", availability);
+
+    console.log("Opening venue modal for date:", date);
+
+    if (!calendar) {
+        console.error('Calendar instance not initialized');
+        return;
+    }
+
+    const taiwanCities = ["未選擇", "台北市", "新北市", "桃園市", "台中市", "台南市", "高雄市", "基隆市"];
+
+    const existingVenueEvent = calendar.getEvents().find(event =>
+        event.extendedProps.VenueReservationDate === taipeiDateStr && event.allDay
+    );
+    console.log("Existing Venue Event:", existingVenueEvent);
+
+    let existingVenueName = existingVenueEvent ? existingVenueEvent.title : "還沒加入任何場館";
+    let existingVenueAddress = existingVenueEvent && existingVenueEvent.extendedProps
+        ? existingVenueEvent.extendedProps.addresses
+        : "";
+
+    let btnText = availability.hasTimeSlotEvent ? "無法改變場館" : "更新場館資訊";
+    let btnDisabled = availability.hasTimeSlotEvent;
+
+ fetch('https://localhost:7011/api/TrainerClass')
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to fetch gym data");
+            return response.json();
+        })
+        .then(data => {
+            const cityOptions = taiwanCities.map(city =>
+                `<option value="${city}" ${city === "未選擇" ? 'disabled selected' : ''}>${city}</option>`
+            ).join('');
+
+            const getGymsByCity = (city) => data.filter(gym => city === "未選擇" || gym.address.includes(city)).map(gym => {
+                const isSelected = existingVenueName === gym.gymName ? 'selected' : '';
+                return `<option data-address="${gym.address}" value="${gym.gymId}" ${isSelected}>${gym.gymName}</option>`;
+            }).join('');
+
+            const initialGymOptions = getGymsByCity("未選擇");
+            let removeBtnDisabled = availability.hasTimeSlotEvent ? 'disabled' : '';
+            Swal.fire({
+                confirmButtonText: '更新場館資訊',
+                confirmButtonColor: '#3085d6',
+                showConfirmButton: false,
+                title: '場館資訊',
+                html: `
+                    <div>當前場館名稱: ${existingVenueName}</div>
+                    <div>地址: ${existingVenueAddress}</div>
+                    <hr/>
+                    <div>${btnText}:</div>
+                    <select id="city-select">${cityOptions}</select>
+                    <select id="gym-select">
+                        <option value="" disabled selected>請選擇</option>
+                        ${initialGymOptions}
+                    </select>
+                    <div id="gym-address">地址: ${existingVenueAddress}</div>
+                    <button id="remove-venue-btn" class="swal-btn remove-btn" ${removeBtnDisabled}>移除場館</button>
+                    <button id="custom-confirm-btn" class="swal-btn default-btn" ${btnDisabled ? 'disabled' : ''}>更新場館資訊</button>
+                `,
+preConfirm: () => {
+  const gymId = parseInt(document.getElementById('gym-select').value, 10);
+  const selectedGym = data.find(gym => gym.gymId === gymId);
+  const venueName = selectedGym ? selectedGym.gymName : "";
+  const address = selectedGym ? selectedGym.address : "";
+  
+  // 調用API來存儲場館預訂信息
+  const venueReservation = {
+    TrainerId: TrainerIdFromSession, // 使用全局变量
+    GymId: gymId,
+    VenueReservationDate: taipeiDateStr
+  };
+
+   return fetch('https://localhost:7011/api/TrainerClass/VenueReservation', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(venueReservation)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to update the database');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Success:', data);
+    // 确认数据库已经更新，然后在前端更新
+    if (existingVenueEvent) {
+      existingVenueEvent.remove();
+    }
+
+    if (venueName) {
+      calendar.addEvent({
+        title: venueName,
+        start: luxon.DateTime.fromISO(taipeiDateStr).toJSDate(),
+        allDay: true,
+        extendedProps: {
+          addresses: address,
+          VenueReservationDate: taipeiDateStr
+        }
+      });
+    }
+    
+    // 获取最新的数据，并调用 populateAllDayEvents 函数
+    return fetch("https://localhost:7011/api/TrainerClass/VenueReservation/" + TrainerIdFromSession)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch updated data');
+        }
+        return response.json();
+      })
+      .then(newData => {
+        populateAllDayEvents(newData);
+      });
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    Swal.showValidationMessage(`發生錯誤: ${error}`);
+  });
+},
+didOpen: () => {
+    const citySelect = document.getElementById('city-select');
+    const gymSelect = document.getElementById('gym-select');
+    const gymAddressDiv = document.getElementById('gym-address');
+    const removeVenueBtn = document.getElementById('remove-venue-btn');
+    const confirmBtn = document.getElementById('custom-confirm-btn');
+
+    citySelect.addEventListener('change', (e) => {
+        const selectedCity = e.target.value;
+        const gymOptions = getGymsByCity(selectedCity);
+        gymSelect.innerHTML = `<option value="" disabled selected>請選擇</option>${gymOptions}`;
+    });
+
+    gymSelect.addEventListener('change', (e) => {
+        const selectedGymId = parseInt(e.target.value, 10);
+        const selectedGym = data.find(gym => gym.gymId === selectedGymId);
+        gymAddressDiv.textContent = `地址: ${selectedGym ? selectedGym.address : ''}`;
+    });
+
+   removeVenueBtn.addEventListener('click', () => {
+    const availability = checkDateAvailability(date); // 获取当天事件的可用性
+    console.log("hasOtherTimeSlotEvent:", availability.hasOtherTimeSlotEvent);
+
+    if (availability.hasOtherTimeSlotEvent) {
+        Swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            text: '當天存在其他時間段事件，無法移除場館事件',
+            confirmButtonText: '確定'
+        });
+    } else if (!availability.hasVenueEvent) {
+        Swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            text: '你尚未設定場館',
+            confirmButtonText: '確定'
+        });
+    } else {
+        console.log("Removing existing venue event:", existingVenueEvent);
+
+        // 调用API来删除场馆预订信息
+        fetch('https://localhost:7011/api/TrainerClass/VenueReservation/' + existingVenueEvent.extendedProps.venueReservationIds, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to delete the venue reservation from the database');
+            }
+            // 在这里，确认数据库已经删除，然后在前端移除该事件
+            existingVenueEvent.remove();
+
+            // 获取最新的数据，并调用 populateAllDayEvents 函数
+            return fetch("https://localhost:7011/api/TrainerClass/VenueReservation/" + TrainerIdFromSession)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch updated data');
+                    }
+                    return response.json();
+                })
+                .then(newData => {
+                    populateAllDayEvents(newData);
+                });
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            Swal.showValidationMessage(`發生錯誤: ${error}`);
+        });
+        Swal.close();
+    }
+});
+
+
+
+
+    confirmBtn.addEventListener('click', () => {
+        const gymId = parseInt(gymSelect.value, 10);
+        const selectedGym = data.find(gym => gym.gymId === gymId);
+        if (!selectedGym) {
+            Swal.showValidationMessage('請選擇場館');
+        } else {
+            Swal.clickConfirm();
+        }
+    });
+}
+
+
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching gym data:", error);
+        });
+}
+
+function openTimeSlotModal(date) {
+     console.log('openTimeSlotModal is called'); // 确认函数被调用
+    const targetEvent = calendar.getEvents().find(event => {
+        const eventDate = event.start;
+        return eventDate.getFullYear() === date.getFullYear() &&
+               eventDate.getMonth() === date.getMonth() &&
+               eventDate.getDate() === date.getDate() &&
+               eventDate.getHours() === date.getHours();
+    });
+      // 获取新增时间段当天的所有事件的 gymId 和 VenueReservationID
+    const allEvents = calendar.getEvents();
+   const sameDayEvents = allEvents.filter(event => {
+    const eventDate = event.start;
+    const isAllDay = !eventDate.getHours() && !eventDate.getMinutes() && !eventDate.getSeconds();
+
+    return eventDate.getFullYear() === date.getFullYear() &&
+           eventDate.getMonth() === date.getMonth() &&
+           eventDate.getDate() === date.getDate() &&
+           (isAllDay || eventDate.getHours() === date.getHours());
+    });
+    console.log('sameDayEvents:', sameDayEvents);
+
+     const gymIds = sameDayEvents.map(event => event.extendedProps.gymIds).filter(id => id !== undefined);
+    const venueReservationIDs = sameDayEvents.map(event => event.extendedProps.venueReservationIds).filter(id => id !== undefined);
+        console.log('targetEvent:', targetEvent); // 打印 targetEvent 的值
+
+    console.log('gymIds:', gymIds);
+    console.log('venueReservationIDs:', venueReservationIDs);
+    if (targetEvent && targetEvent.extendedProps.memberName) {
+        Swal.fire({
+        icon: 'success',
+        title: '該時間段已被註冊',
+        showConfirmButton: true,
+        confirmButtonText: '確定'
+        });
+    } else if (targetEvent) {
+         Swal.fire({
+        icon: 'info',
+        title: '該時間段未被註冊',
+        text: '是否要移除？',
+        showCancelButton: true,
+        cancelButtonText: '否',
+        confirmButtonText: '移除'
+        }).then((result) => {
+        console.log('Result:', result); // 查看 result 的内容
+        if (result.isConfirmed) {
+            const classId = targetEvent.id; // 获取事件的ID，这里假设它对应于classId
+            console.log('ClassId:', classId); // 打印classId
+            removeEvent(classId); // 调用removeEvent函数来删除事件
+        }
+    });
+    } else {
+        // 如果没有任何事件在该时间段，保持原来的行为
+         let endDate = new Date(date);
+        endDate.setHours(endDate.getHours() + 1);
+
+        const startTime = DateTime.fromJSDate(date).setZone('Asia/Taipei');
+        const endTime = DateTime.fromJSDate(endDate).setZone('Asia/Taipei');
+
+        const startTimeStr = startTime.toFormat('hh:mm a');
+        const endTimeStr = endTime.toFormat('hh:mm a');
+        const ADDstartTimeStr = startTime.toISO().split('.')[0];
+        const ADDendTimeStr = endTime.toISO().split('.')[0];
+
+
+        Swal.fire({
+            title: '預約時段: ' + startTimeStr + ' - ' + endTimeStr,
+            text: '確定開課嗎？',
+            showCancelButton: true,
+            confirmButtonText: '確定開課',
+            cancelButtonText: '取消'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                    const timeSlotData = {
+                        TrainerId: TrainerIdFromSession, // 使用合適的教練ID
+                        StartTime: ADDstartTimeStr,
+                        EndTime: ADDendTimeStr,
+                        gymId: gymIds[0],
+                        venueReservationId: venueReservationIDs[0],
+                        // ... 其他需要的參數
+                    };
+                console.log('timeSlotData:', timeSlotData);
+                fetch('https://localhost:7011/api/TrainerClass/Class', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(timeSlotData)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to update the database');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                     // 假設data對象中包含了新生成的classId
+                        const classId = data.classId;
+                        const event = {
+                         id: classId, // 使用返回的classId作為事件的id
+                        title: startTimeStr + ' - ' + endTimeStr + '新增的課程時間段',
+                        start: startTime.toJSDate(),
+                        end: endTime.toJSDate(),
+                        backgroundColor: 'red',
+                        borderColor: 'red'
+                    };
+                    calendar.addEvent(event);
+                    
+                    Swal.fire({
+                        icon: 'success',
+                        title: '該時間段已被註冊'
+                    });
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: '添加課程失敗',
+                        text: '請稍後再試或聯繫管理員。'
+                    });
+                });
+            }
+        });
+    }
+}
+function handleEventClick(eventInfo) {
+    const { memberName } = eventInfo.event.extendedProps;
+    const classId = eventInfo.event.id; // 從事件中獲取classId
+
+        console.log("獲取的 classId:", classId); // 在控制台輸出 classId
+
+    if (memberName) {
+        Swal.fire({
+            icon: 'info',
+            title: '該時間段已被註冊',
+            text: '已被 ' + memberName + ' 預約，無法更改。',
+            confirmButtonText: '確定'
+        });
+    } else {
+        Swal.fire({
+            icon: 'warning',
+            title: '該時間段未被註冊',
+            text: '是否要移除？',
+            showCancelButton: true,
+            confirmButtonText: '移除',
+            cancelButtonText: '取消'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                removeEvent(classId); // 调用 removeEvent 函数并传递 classId
+            }
+        });
+    }
+}
+
+function formatTime(luxonDate) {
+    if (!luxonDate || typeof luxonDate.hour !== 'number' || typeof luxonDate.minute !== 'number') {
+        console.error("Invalid luxonDate passed:", luxonDate);
+        return 'Invalid Time'; // 或者你可以返回一個默認的時間值
+    }
+
+    let hours = luxonDate.hour;
+    let minutes = luxonDate.minute;
+    let period = 'AM';
+
+    if (hours >= 12) {
+        period = 'PM';
+        hours = hours > 12 ? hours - 12 : hours;
+    }
+
+    return (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes + ' ' + period;
+}
+
+
+function removeEvent(classId) {
+    let event = calendar.getEventById(classId);
+               if (event) {
+        fetch(`https://localhost:7011/api/TrainerClass/Class/` + classId, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to delete the event');
+            }
+            // 更新前端的UI
+            event.remove();
+        })
+        .catch(error => {
+            // 显示错误消息给用户
+            Swal.fire({
+                icon: 'error',
+                title: '删除课程失败',
+                text: '请稍后再试或联系管理员。'
+            });
+        });
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+
+    calendar = new FullCalendar.Calendar(calendarEl, {
+        eventClick: handleEventClick,
+        eventDidMount: function(info) {
+            if (info.event.extendedProps.memberName) {
+                info.el.style.backgroundColor = '#ff0000';  // 紅色表示該時間段已被預約
+                info.el.setAttribute('title', '無法更改場館');
+            }
+        },
+        initialView: 'timeGridWeek',
+        contentHeight: 'auto',
+        locale: 'zh-tw',
+        slotDuration: '01:00:00',   
+        slotMinTime: '09:00:00',
+        slotMaxTime: '21:00:00',   
+        displayEventTime: false,
+        allDayText: '場館',
+        headerToolbar: {
+            left: 'prev',
+            center: 'title',
+            right: 'next today'
+        },
+        dayHeaderContent: function (headerInfo) {
+            var container = document.createElement('div');
+            container.style.display = 'flex';
+            container.style.flexDirection = 'column';
+            container.style.alignItems = 'center'; 
+
+            var dateElem = document.createElement('div');
+            dateElem.innerText = headerInfo.date.toLocaleDateString();
+            container.appendChild(dateElem);
+
+            var btn = document.createElement('button');
+            btn.innerText = '新增場館';
+            btn.style.marginTop = '5px';
+            
+                   if (hasAnyReservationsForDate(headerInfo.date) || isPastOrToday(headerInfo.date)) {
+            btn.style.backgroundColor = 'red';  // 讓按鈕變成紅色
+            btn.disabled = true;                // 禁止點擊按鈕
+            btn.innerText = '無法改變場館';
+            } else {
+            btn.addEventListener('click', function () {
+                openVenueModal(headerInfo.date);
+            });
+        }
+            
+            container.appendChild(btn);
+            return { domNodes: [container] };
+        },
+       dateClick: function(info) {
+    if (!isPastOrToday(info.date)) {
+        if (hasVenueReservationForDate(info.date)) {
+            openTimeSlotModal(info.date);
+        } else if (hasAnyReservationsForDate(info.date)) {
+            // 如果有預約，可以彈出提示框
+            Swal.fire({
+                icon: 'info',
+                title: '該日期已有預約',
+                text: '請選擇其他日期。',
+                confirmButtonText: '確定'
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: '錯誤',
+                text: '請先增加場館事件再新增時間段。',
+                confirmButtonText: '確定'
+            });
+        }
+    }
+}
+
+
+    });
+
+    calendar.render();
+    loadEvents();
+});
+
+
+
+
+
+</script>
+@*function openVenueModal(date) {
+    const availability = checkDateAvailability(date);
+
+    console.log("Opening venue modal for date:", date);
+
+    if (!calendar) {
+        console.error('Calendar instance not initialized');
+        return;
+    }
+
+    const taiwanCities = ["未選擇", "台北市", "新北市", "桃園市", "台中市", "台南市", "高雄市", "基隆市"];
+
+    const existingVenueEvent = calendar.getEvents().find(event =>
+     event.extendedProps.VenueReservationDate === date.toISOString().split('T')[0] && event.allDay
+    );
+
+    console.log("Existing Venue Event:", existingVenueEvent);
+
+    let existingVenueName = existingVenueEvent ? existingVenueEvent.title : "還沒加入任何場館";
+    let existingVenueAddress = existingVenueEvent && existingVenueEvent.extendedProps
+        ? existingVenueEvent.extendedProps.addresses
+        : "";
+
+    let btnText = availability.hasTimeSlotEvent ? "無法改變場館" : "更新場館資訊";
+    let btnDisabled = availability.hasTimeSlotEvent;
+
+    fetch('https://localhost:7011/api/TrainerClass')
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to fetch gym data");
+            return response.json();
+        })
+        .then(data => {
+            const cityOptions = taiwanCities.map(city =>
+                `<option value="${city}" ${city === "未選擇" ? 'disabled selected' : ''}>${city}</option>`
+            ).join('');
+
+            const getGymsByCity = (city) => data.filter(gym => city === "未選擇" || gym.address.includes(city)).map(gym => {
+                const isSelected = existingVenueName === gym.gymName ? 'selected' : '';
+                return `<option data-address="${gym.address}" value="${gym.gymId}" ${isSelected}>${gym.gymName}</option>`;
+            }).join('');
+
+            const initialGymOptions = getGymsByCity("未選擇");
+            let removeBtnDisabled = availability.hasTimeSlotEvent ? 'disabled' : '';
+            Swal.fire({
+                confirmButtonText: '更新場館資訊',
+                confirmButtonColor: '#3085d6',
+                showConfirmButton: false,
+                title: '場館資訊',
+                html: `
+                    <div>當前場館名稱: ${existingVenueName}</div>
+                    <div>地址: ${existingVenueAddress}</div>
+                    <hr/>
+                    <div>${btnText}:</div>
+                    <select id="city-select">${cityOptions}</select>
+                    <select id="gym-select">
+                        <option value="" disabled selected>請選擇</option>
+                        ${initialGymOptions}
+                    </select>
+                    <div id="gym-address">地址: ${existingVenueAddress}</div>
+                    <button id="remove-venue-btn" class="swal-btn remove-btn" ${removeBtnDisabled}>移除場館</button>
+                    <button id="custom-confirm-btn" class="swal-btn default-btn" ${btnDisabled ? 'disabled' : ''}>更新場館資訊</button>
+                `,
+                preConfirm: () => {
+                    const gymId = parseInt(document.getElementById('gym-select').value, 10);
+                    const selectedGym = data.find(gym => gym.gymId === gymId);
+                    const venueName = selectedGym ? selectedGym.gymName : "";
+                    const address = selectedGym ? selectedGym.address : "";
+
+                    // 移除現有場館事件
+                    if (existingVenueEvent) {
+                        existingVenueEvent.remove();
+                    }
+
+                    // 如果沒有已預設的場館，則添加新事件
+                    if (venueName) {
+                       calendar.addEvent({
+                       title: venueName,
+                       start: date,
+                       allDay: true,
+                       extendedProps: {
+                           addresses: address,
+                           VenueReservationDate: date.toISOString().split('T')[0]
+                       }
+                    });
+                    }
+                },
+didOpen: () => {
+    const citySelect = document.getElementById('city-select');
+    const gymSelect = document.getElementById('gym-select');
+    const gymAddressDiv = document.getElementById('gym-address');
+    const removeVenueBtn = document.getElementById('remove-venue-btn');
+    const confirmBtn = document.getElementById('custom-confirm-btn');
+
+    citySelect.addEventListener('change', (e) => {
+        const selectedCity = e.target.value;
+        const gymOptions = getGymsByCity(selectedCity);
+        gymSelect.innerHTML = `<option value="" disabled selected>請選擇</option>${gymOptions}`;
+    });
+
+    gymSelect.addEventListener('change', (e) => {
+        const selectedGymId = parseInt(e.target.value, 10);
+        const selectedGym = data.find(gym => gym.gymId === selectedGymId);
+        gymAddressDiv.textContent = `地址: ${selectedGym ? selectedGym.address : ''}`;
+    });
+
+  removeVenueBtn.addEventListener('click', () => {
+    const availability = checkDateAvailability(date); // 获取当天事件的可用性
+    console.log("hasOtherTimeSlotEvent:", availability.hasOtherTimeSlotEvent);
+
+    if (availability.hasOtherTimeSlotEvent) {
+        Swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            text: '當天存在其他時間段事件，無法移除場館事件',
+            confirmButtonText: '確定'
+        });
+    } else if (!availability.hasVenueEvent) {
+        Swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            text: '你尚未設定場館',
+            confirmButtonText: '確定'
+        });
+    } else {
+        console.log("Removing existing venue event:", existingVenueEvent);
+        existingVenueEvent.remove();
+        Swal.close();
+    }
+});
+
+
+
+    confirmBtn.addEventListener('click', () => {
+        const gymId = parseInt(gymSelect.value, 10);
+        const selectedGym = data.find(gym => gym.gymId === gymId);
+        if (!selectedGym) {
+            Swal.showValidationMessage('請選擇場館');
+        } else {
+            Swal.clickConfirm();
+        }
+    });
+}
+
+
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching gym data:", error);
+        });
+}
+
+
+
+function openTimeSlotModal(date) {
+    const targetEvent = calendar.getEvents().find(event => {
+        const eventDate = event.start;
+        return eventDate.getFullYear() === date.getFullYear() &&
+               eventDate.getMonth() === date.getMonth() &&
+               eventDate.getDate() === date.getDate() &&
+               eventDate.getHours() === date.getHours();
+    });
+
+    if (targetEvent && targetEvent.extendedProps.memberName) {
+        Swal.fire({
+            icon: 'success',
+            title: '該時間段已被註冊',
+            showCancelButton: true,
+            cancelButtonText: '移除',
+            showConfirmButton: false
+        }).then((result) => {
+            if (result.isDismissed) {
+                targetEvent.remove();
+            }
+        });
+    } else if (targetEvent) {
+        Swal.fire({
+            icon: 'info',
+            title: '該時間段未被註冊',
+            text: '是否要移除？',
+            showCancelButton: true,
+            cancelButtonText: '否',
+            confirmButtonText: '移除'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                targetEvent.remove();
+            }
+        });
+    } else {
+        // 如果没有任何事件在该时间段，保持原来的行为
+        let endDate = new Date(date);
+        endDate.setHours(endDate.getHours() + 1);
+
+        const startTimeStr = formatTime(toTaipeiDateTime(date));
+        const endTimeStr = formatTime(toTaipeiDateTime(endDate));
+
+        Swal.fire({
+            title: '預約時段: ' + startTimeStr + ' - ' + endTimeStr,
+            text: '確定開課嗎？',
+            showCancelButton: true,
+            confirmButtonText: '確定開課',
+            cancelButtonText: '取消'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const event = {
+                    title: startTimeStr + ' - ' + endTimeStr + '新增的課程時間段',
+                    start: date,
+                    end: endDate,
+                    backgroundColor: 'red',
+                    borderColor: 'red'
+                };
+                calendar.addEvent(event);
+                Swal.fire({
+                    icon: 'success',
+                    title: '該時間段已被註冊'
+                });
+            }
+        });
+    }
+}*@
+
