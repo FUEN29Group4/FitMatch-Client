@@ -67,7 +67,7 @@
     <section class="checkout-area ptb-54 bg-white">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-md-12">
+                <div class="col-lg-8 col-md-12 ">
 
                     <!-- 提醒登入的畫面先藏起來 -->
                     <!-- <div class="log-in-coupon-code">
@@ -114,7 +114,7 @@
                     </form>*@
 
 
-                    <div class="card">
+                    <div class="cart-totals ">
                         @*<div class="card-header">
                             {{order.orderId}}
                             {{order.totalPrice}}
@@ -141,10 +141,10 @@
                                 </div>
                             </div>
                         <div class="row mb-2">
-                            <div class="col-md-6">
+                            @* <div class="col-md-6">
                                 <label class="form-label">付款人電子信箱</label>
                                 <input type="text" class="form-control" id="Email" v-model="addForm.Email">
-                            </div>
+                            </div> *@
 
                             <div class="col-md-6">
                                 <label class="form-label">繳費有效期限</label>
@@ -153,20 +153,21 @@
                         </div>
 
                             <div class="row mb-2">
-                                @*<div class="col-md-6">
+                               @*  <div class="col-md-6">
                                     <label class="form-label">支付完成返回網址</label>
                                     <input type="text" class="form-control" id="ReturnURL" v-model="addForm.ReturnURL">
                                 </div>
-                                <div class="col-md-6">
+ *@
+                                @* <div class="col-md-6">
                                     <label class="form-label">商店取號網址</label>
                                     <input type="text" class="form-control" id="CustomerURL" v-model="addForm.CustomerURL">
                                 </div>*@
                             </div>
                             <div class="row mb-2">
-                                @*<div class="col-md-6">
+                              @*   <div class="col-md-6">
                                     <label class="form-label">支付通知網址</label>
                                     <input type="text" class="form-control" id="NotifyURL" v-model="addForm.NotifyURL">
-                                </div>*@
+                                </div> *@
                                 <div class="col-md-6">
                                     @*<label class="form-label">返回商店網址</label>
                                     <input type="text" class="form-control" id="ClientBackURL" v-model="addForm.ClientBackURL">*@
@@ -179,7 +180,7 @@
 
                         <ul style="list-style-type:none">
                             <li>
-                                <button type="button" class="btn btn-primary" v-on:click="SendToNewebPay('UNIONPAY')">前往付款</button>
+                               @*  <button type="button" class="btn btn-primary" v-on:click="SendToNewebPay('UNIONPAY')">前往付款</button> *@
                             </li>
 
                             <!--<li class="accordion-item">
@@ -192,6 +193,24 @@
                                 <!--</div>
                             </li>-->
                         </ul>
+                    </div>
+                </div>
+
+
+                @* 畫面右邊 *@
+                <div class="col-lg-4 col-md-12">
+                    <div class="cart-totals">
+                        <h3 class="cart-checkout-title">前往結帳</h3>
+                        <div class="text-center">
+
+                            <btn type="button" class="btn btn-primary" v-on:click="SendToNewebPay('UNIONPAY')"
+                               style="min-width: 250px; margin: auto;">
+                                結帳
+                            </btn>
+                        </div>
+                        
+                        
+
                     </div>
                 </div>
             </div>
@@ -245,8 +264,8 @@
 
                         , ExpireDate: '@ViewData["ExpireDate"]'
                         @*, ReturnURL: '@ViewData["ReturnURL"]'
-                        , CustomerURL: '@ViewData["CustomerURL"]'
-                        , NotifyURL: '@ViewData["NotifyURL"]'*@
+                , CustomerURL: '@ViewData["CustomerURL"]'*@
+                        , NotifyURL: '@ViewData["NotifyURL"]'
                         , ClientBackURL: '@ViewData["ClientBackURL"]'
                         , Email: 'xxxx@gmail.com'
                     }
@@ -259,6 +278,8 @@
                     //從URL中獲取的orderID
                     var urlParams = new URLSearchParams(window.location.search);
                     var OrderID = urlParams.get("id")
+
+                    //抓第一個API純order的資訊
                     // 使用 fetch 來獲取商品數據
                     const response = await fetch(`https://localhost:7011/api/OrderAPI/` + OrderID);
 
@@ -267,10 +288,13 @@
                     // 更新表單資料的Amt/ erchantOrderNo ...等orderviewmodel中的屬性
                     this.addForm.Amt = this.order.totalPrice.toString();
                     this.addForm.MerchantOrderNo = this.order.orderId.toString();
-            //         this.addForm.Email = this.order.orderId.toString();
+                 
 
+                    //抓第二個API加上顧客的資訊
+                   const response2 = await fetch(`https://localhost:7011/api/OrderAPI/orderviewmodel/` + OrderID);
 
-            // const response2 = await fetch(`https://localhost:7011/api/OrderAPI/` + OrderID);
+                    this.order2 = await response2.json();
+                    this.addForm.Email = this.order2.email.toString();
 
 
 
@@ -297,9 +321,9 @@
                     postData['Amt'] = self.addForm.Amt;
 
                     postData['ExpireDate'] = self.addForm.ExpireDate;
-                    //postData['ReturnURL'] = self.addForm.ReturnURL;
+                    // postData['ReturnURL'] = self.addForm.ReturnURL;
                     //postData['CustomerURL'] = self.addForm.CustomerURL;
-                    //postData['NotifyURL'] = self.addForm.NotifyURL;
+                    // postData['NotifyURL'] = self.addForm.NotifyURL;
                     postData['ClientBackURL'] = self.addForm.ClientBackURL;
                     postData['Email'] = self.addForm.Email;
 
