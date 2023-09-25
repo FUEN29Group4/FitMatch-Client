@@ -80,7 +80,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-item nav-link">關於我們</a>
+                <a asp-area="" asp-controller="Home" asp-action="Aboutus" class="nav-item nav-link">關於我們</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">媒合專區</a>
                     <div class="dropdown-menu m-0">
@@ -88,7 +88,7 @@
                         <a asp-area="" asp-controller="Match" asp-action="SearchTrainer" class="dropdown-item">
                             教練陣容
                         </a>
-                        <a href="course.html" class="dropdown-item">課程介紹</a>
+                        <a asp-area="" asp-controller="ClassType" asp-action="Index" class="dropdown-item">課程介紹</a>
                         <a asp-area="" asp-controller="Gym" asp-action="Gym" class="dropdown-item">場館介紹</a>
                     </div>
                 </div>
@@ -346,10 +346,17 @@
 
                 // 綁定登出按鈕事件
                 document.getElementById('logoutBtn').addEventListener('click', function () {
+<<<<<<< Updated upstream
                     // 清除所有 sessionStorage
                     sessionStorage.clear();
                     // 強制重新整理
                     location.reload();
+=======
+                    // 清除 sessionStorage 中的 token 和使用者相關資訊
+                    sessionStorage.removeItem('token');
+                    // 將用戶重新導向至首頁
+                    window.location.href = '/Home/Index'; // 根據您的路由設定修改為首頁的URL
+>>>>>>> Stashed changes
                 });
 
             })
