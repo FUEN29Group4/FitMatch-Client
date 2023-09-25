@@ -2,9 +2,235 @@
     ViewData["Title"] = "Match";
 }
 <script src="https://unpkg.com/vue@3"></script>
-<link href="~/css/Match.css" rel="stylesheet">
 
+<style>
+    .match-title .page-header {
+        background: none;
+    }
 
+    body {
+        background-image: url('/images/bg/matchbgimage.jpg');
+        background-size: cover;
+    }
+
+    .tcircle .team-item {
+        /* display: inline-block; */
+        position: relative;
+        width: 150px;
+        height: 150px;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+
+        .tcircle .team-item img {
+            width: 100%;
+            height: auto;
+        }
+
+    /* rock照片 */
+    .rock .circle-container {
+        width: 300px;
+        /* 圓的寬度 */
+        height: 300px;
+        /* 圓的高度，應與寬度相同以產生完美的圓形 */
+        border-radius: 50%;
+        overflow: hidden;
+        /* 隱藏超出的部分 */
+        position: relative;
+        /* 使內部的 img 元素能夠使用絕對定位 */
+    }
+
+    .rock .trainer-img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* 巨石卡片 */
+    .rock .card {
+        border: none;
+    }
+
+    .rock-card {
+        background: linear-gradient(90deg, #F24B88 0%, #BD00FF 100%);
+        border-radius: 10px
+    }
+
+    .rock .rock-card {
+        position: relative;
+    }
+
+        .rock .rock-card::before {
+            content: "";
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(10deg, #BD00FF 0%, #0f0623 100%);
+            border-radius: 10px;
+            z-index: -1;
+        }
+
+    /* 詳細資訊的視窗 */
+    .detailcard {
+        background: linear-gradient(90deg, #F24B88 0%, #BD00FF 100%);
+        border-radius: 10px
+    }
+
+    /* 上課照片 */
+    .photocarousel.image-box {
+        position: relative;
+        height: 250px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .photocarousel .image-list {
+        display: flex;
+        position: absolute;
+        transform: translateX(0);
+        transition: transform 0.02s linear;
+    }
+
+    .photocarousel .item {
+        width: 200px;
+        height: 200px;
+        margin-left: 2px;
+        font-size: 5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        padding-right: 10px;
+    }
+
+        .photocarousel .item img {
+            width: 100%;
+            /* 確保圖像的寬度為100% */
+            height: 100%;
+            /* 確保圖像的高度為100% */
+            object-fit: cover;
+            /* 讓圖像保持其比例，但完全覆蓋它的容器 */
+        }
+
+    /* 尋找課程內容 */
+    .course-photo .team-item {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+    }
+
+        .course-photo .team-item img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+    /* 尋找健身房 */
+    .gym-photo .team-item {
+        /* display: inline-block; */
+        position: relative;
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .team-img {
+        /*height: 200px;*/
+        overflow: hidden;
+        position: relative;
+    }
+
+    .gym-photo .team-img img {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    /* 學員評價 */
+    .review-box {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        padding: 15px 0;
+        border-radius: 5px;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        /* background-color: #f8f8f8; */
+        height: 180px;
+    }
+
+        .review-box .review-list {
+            display: flex;
+            position: absolute;
+            /* transform: translateX(0); */
+            /* transition: transform 0.02s linear; */
+        }
+
+        .review-box .item {
+            width: 200px;
+            min-height: 120px;
+            margin: 0 12px;
+            background: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            font-size: 14px;
+            /* 設定整體字體大小 */
+            line-height: 1.5;
+            /* 調整行高以提高可讀性 */
+        }
+
+            .review-box .item p {
+                margin-bottom: 10px;
+                /* 留下一些空間在評價和名字之間 */
+                font-style: italic;
+                /* 讓留言有點斜體，更像引用 */
+                text-align: center;
+            }
+
+            .review-box .item span {
+                /* font-size: 16px; */
+                /* font-weight: bold; */
+                /* display: block; */
+                /* text-align: center; */
+                color: #F24B88;
+            }
+
+    .btn-dark:hover {
+        background-color: #7c7c7c;
+    }
+
+    /* 教練頭上標籤 */
+    .top-label {
+        position: relative;
+        /* background-color: red; */
+        width: 60px;
+        color: white;
+        padding: 5px 10px;
+        transform: rotate(-35deg) translate(-20px, 35px);
+        transform-origin: 0% 0%;
+        z-index: 999;
+        border-radius: 30px 30px 0 0;
+    }
+
+    #reviews .item {
+        background: white;
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 5px;
+        margin: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        width: 200px;
+    }
+</style>
 <div class="container">
     <!-- Page Header Start -->
     <div class="match-title">
@@ -60,7 +286,7 @@
             <div class="card bg-transparent mb-4" style="width: 100%;">
                 <div class="row no-gutters">
                     <!-- 教練大頭貼 -->
-                    <div class="col-md-6">
+                    <div class="col-md-6 p-5">
                         <div class="circle-container mx-auto">
                             @*<img src="~/images/教練/巨石強森.jpg" alt="" class="trainer-img">*@
                             <img class="trainer-img" :src="'data:image/jpeg;base64,' + trainer1Photo" alt="巨石強森" v-if="trainer1Photo">
@@ -167,7 +393,8 @@
     <!-- 學員評價Start -->
     <div class="container wow fadeInUp pt-5" data-wow-delay="0.1s" id="reviews">
         <h3>學員評價</h3>
-        <div class="review-box" @@mouseover="pauseScroll" @@mouseleave="resumeScroll" ref="box1">
+
+        <div class="review-box" @@mouseover="pauseScroll" @@mouseleave="resumeScroll" id="box1">
             <div class="review-list" ref="list1">
                 <div class="item" v-for="review in reviews">
                     <p>{{ review.comment }}</p>
@@ -175,15 +402,15 @@
                 </div>
             </div>
         </div>
-        <div class="review-box" ref="box2">
+
+        <div class="review-box" @@mouseover="pauseScroll" @@mouseleave="resumeScroll" id="box2">
             <div class="review-list" ref="list2">
-                <div class="item" v-for="review in reversedReviews">
+                <div class="item" v-for="review in reviews">
                     <p>{{ review.comment }}</p>
                     <span>- {{ review.memberName }}</span>
                 </div>
             </div>
         </div>
-
         <!-- <div class="review-box" id="box1">
             <div class="review-list" id="list1">
                 <div class="item"></div>
@@ -281,76 +508,57 @@
         data() {
             return {
                 reviews: [],
-                reversedReviews: [],
-                scroll1: 0,
-                scroll2: 0,
-                isPaused: false,
-                scrollSpeed1: 0.4,
-                scrollSpeed2: 0.3,
-
-            };
-        }, async mounted() {
-            try {
-                const response = await fetch(`${ApiUrl}/api/Match/Reviews`);
-                if (response.ok) {
-                    const data = await response.json();
-                    this.reviews = data; /
-                    this.reversedReviews = [...this.reviews].reverse(); // 反轉reviews數據
-
-                    this.startScrolling();
-                } else {
-                    console.error('Failed to fetch reviews:', response.status);
-                }
-            } catch (error) {
-                console.error('An error occurred while fetching data:', error);
+                itemWidth: 224, // 200 + 2 * 24
+                scrollSpeed: 0.5,
+                currentPosition1: 0,
+                currentPosition2: -224  //初始位置
             }
-
+        },
+        mounted() {
+            this.fetchReviews();
             this.startScrolling();
         },
         methods: {
-            pauseScroll() {
-                this.isPaused = true;
-            },
-            resumeScroll() {
-                this.isPaused = false;
+            async fetchReviews() {
+                try {
+                    const response = await fetch(`${ApiUrl}/api/Match/Reviews`);
+                    const data = await response.json();
+                    this.reviews = data;
+                    // this.currentPosition2 = -this.itemWidth * this.reviews.length;
+                } catch (error) {
+                    console.error("Failed to fetch reviews:", error);
+                }
             },
             startScrolling() {
-                const list1 = this.$refs.list1;
-                const list2 = this.$refs.list2;
+                const move = () => {
+                    this.currentPosition1 -= this.scrollSpeed;
+                    this.currentPosition2 += this.scrollSpeed;
+                    const totalWidth = this.itemWidth * this.reviews.length;
 
-                const box2 = this.$refs.box2;
-
-                // 設定第二排的初始位置
-                this.scroll2 = -box2.offsetWidth;
-
-                const scrollFunction = () => {
-                    if (!this.isPaused) {
-                        // 第一排滾動邏輯
-                        this.scroll1 += this.scrollSpeed1;
-                        if (this.scroll1 >= list1.offsetWidth) {
-                            this.scroll1 = 0;
-                        }
-                        list1.style.transform = `translateX(-${this.scroll1}px)`;
-
-                        // 第二排滾動邏輯
-                        this.scroll2 += this.scrollSpeed2;
-                        if (this.scroll2 >= 0) {
-                            this.scroll2 = -box2.offsetWidth;
-                        }
-                        list2.style.transform = `translateX(${this.scroll2}px)`;
+                    if (this.currentPosition1 <= -totalWidth) {
+                        this.currentPosition1 += totalWidth;
                     }
 
-                    requestAnimationFrame(scrollFunction);
+                    if (this.currentPosition2 >= 0) {
+                        this.currentPosition2 -= totalWidth;
+                    }
+
+                    this.$refs.list1.style.transform = `translateX(${this.currentPosition1}px)`;
+                    this.$refs.list2.style.transform = `translateX(${this.currentPosition2}px)`;
+
+                    requestAnimationFrame(move);
                 };
-
-                requestAnimationFrame(scrollFunction);
-
+                move();
+                // move2();
+            },
+            pauseScroll() {
+                this.scrollSpeed = 0;
+            },
+            resumeScroll() {
+                this.scrollSpeed = 0.5;
             }
         }
     }).mount("#reviews");
-
- 
-
     //課程
     const app4 = Vue.createApp({
         data() {
