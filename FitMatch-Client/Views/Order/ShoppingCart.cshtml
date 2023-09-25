@@ -466,14 +466,14 @@
                 // 在 "結帳" 按钮的链接中添加 orderId 参数
                 const checkoutButton = document.getElementById('checkout-button');
                 if (checkoutButton) {
-                    checkoutButton.href = (`https://localhost:7011/api/Order/NewebPay` + orderId);
+                    checkoutButton.href = `https://localhost:7088/Order/NewebPay?id=${orderId}`;
                 }
 
                 // 清空购物车相关数据
                 localStorage.clear();
 
                 // 立即跳转到下一页
-                window.location.href = (`https://localhost:7011/api/Order/NewebPay` + orderId);
+                window.location.href = `https://localhost:7088/Order/NewebPay?id=${orderId}`;
             })
             .catch(error => {
                 console.error('获取订单号时出错：', error);
