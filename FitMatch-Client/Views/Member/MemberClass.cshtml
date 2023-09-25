@@ -46,8 +46,7 @@
                 </tr>
             </thead>
 
-            <tbody v-for="classApi in MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms">
-
+            <tbody v-for="classApi in sortedClasses">
                 <!-- 如果某些關鍵數據是空的，就只顯示"未添加課程" -->
                 <tr v-if="isEmptyClassData(classApi)">
                     <td colspan="6">未添加課程</td>
@@ -161,18 +160,20 @@
         mounted() {
             this.MemberClassAPI();
         },
-        // computed: {  ///////////未測試
-        //     sortedClasses() {
-        //         return [...this.MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms].sort((a, b) => {
-        //             if (a.courseStatus === '進行中' && b.courseStatus !== '進行中') return -1;
-        //             if (b.courseStatus === '進行中' && a.courseStatus !== '進行中') return 1;
+        computed: {
+            sortedClasses() {
+                return [...this.MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms].sort((a, b) => {
+                    if (a.courseStatus === '進行中' && b.courseStatus !== '進行中') return -1;
+                    if (b.courseStatus === '進行中' && a.courseStatus !== '進行中') return 1;
+                    if (a.courseStatus === '已完成' && b.courseStatus !== '已完成') return 1;
+                    if (b.courseStatus === '已完成' && a.courseStatus !== '已完成') return -1;
 
-        //             const dateA = new Date(a.startTime);
-        //             const dateB = new Date(b.startTime);
-        //             return dateA - dateB;
-        //         });
-        //     }
-        // },
+                    const dateA = new Date(a.startTime);
+                    const dateB = new Date(b.startTime);
+                    return dateA - dateB;
+                });
+            }
+        },
 
         methods: {
             showChatHistory(Id) {//@@彥儀用@@

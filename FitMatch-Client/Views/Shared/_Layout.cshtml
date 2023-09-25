@@ -262,6 +262,7 @@
     const tokenFromUrl = urlParams.get('token');
     if (tokenFromUrl) {
         sessionStorage.setItem('token', tokenFromUrl);
+        sessionStorage.setItem('lineId', '1000');
         // 移除URL中的token參數以保護安全
         window.history.replaceState({}, document.title, window.location.pathname);
     }
@@ -345,8 +346,8 @@
 
                 // 綁定登出按鈕事件
                 document.getElementById('logoutBtn').addEventListener('click', function () {
-                    // 清除 sessionStorage 中的 token 和使用者相關資訊
-                    sessionStorage.removeItem('token');
+                    // 清除所有 sessionStorage
+                    sessionStorage.clear();
                     // 強制重新整理
                     location.reload();
                 });
