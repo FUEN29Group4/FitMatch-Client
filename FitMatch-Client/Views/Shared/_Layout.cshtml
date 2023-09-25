@@ -5,8 +5,6 @@
     <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    @*換網域的時候用*@
-    <meta name="api-base-url" content="https://localhost:7011">
 
     <!-- theme meta -->
     <meta name="theme-name" content="fitmatch" />
@@ -82,7 +80,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-item nav-link">關於我們</a>
+                <a asp-area="" asp-controller="Home" asp-action="Aboutus" class="nav-item nav-link">關於我們</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">媒合專區</a>
                     <div class="dropdown-menu m-0">
@@ -90,17 +88,17 @@
                         <a asp-area="" asp-controller="Match" asp-action="SearchTrainer" class="dropdown-item">
                             教練陣容
                         </a>
-                        <a href="course.html" class="dropdown-item">課程介紹</a>
+                        <a asp-area="" asp-controller="ClassType" asp-action="Index" class="dropdown-item">課程介紹</a>
                         <a asp-area="" asp-controller="Gym" asp-action="Gym" class="dropdown-item">場館介紹</a>
                     </div>
                 </div>
 
-@*                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">個人專區</a>
-                    <div class="dropdown-menu m-0">
-                        <a asp-area="" asp-controller="Member" asp-action="Member" class="dropdown-item">學員專區</a>
-                        <a href="personal_trainer_Basic_Information.html" class="dropdown-item">教練專區</a>
-                    </div>
+                @*                 <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">個人專區</a>
+                <div class="dropdown-menu m-0">
+                <a asp-area="" asp-controller="Member" asp-action="Member" class="dropdown-item">學員專區</a>
+                <a href="personal_trainer_Basic_Information.html" class="dropdown-item">教練專區</a>
+                </div>
                 </div> *@
 
                 <div class="nav-item dropdown">
@@ -126,7 +124,7 @@
                 </div>
 
 
-                <a href="restaurant.html" class="nav-item nav-link">尋找健康餐</a>
+                <a asp-controller="Restaurant" asp-action="Restaurant" class="nav-item nav-link">尋找健康餐</a>
             </div>
 
             <a href="/Login/Login" id="loginBtn" class="btn btn-primary rounded-0 py-2 px-lg-4 ">
@@ -138,7 +136,7 @@
                 <a href="#" class="nav-link d-flex align-items-center" style="color: #F24B88; font-size: 20px;" data-bs-toggle="dropdown">
                     <div id="userName"></div> <!-- 用戶名在這裡 -->
                     <div class="userPhoto me-2">
-                        <div id="userPhoto" ></div>
+                        <div id="userPhoto"></div>
                     </div> <!-- 照片在這裡 -->
                 </a>
                 <div id="dropdownContent" class="dropdown-menu m-0">
@@ -193,9 +191,8 @@
                     <h4 class="text-uppercase mb-4">相關連結</h4>
                     <a class="btn btn-link" href="about.html">關於我們</a>
                     <a class="btn btn-link" asp-area="" asp-controller="Match" asp-action="Match">我要預約</a>
-                    <a class="btn btn-link" href="course.html">課程介紹</a>
+                    <a class="btn btn-link" asp-controller="Order" asp-action="sho0913">商城</a>                    <a class="btn btn-link" href="course.html">課程介紹</a>
                     <a class="btn btn-link" asp-area="" asp-controller="Gym" asp-action="Gym">場館介紹</a>
-                    <a class="btn btn-link" asp-controller="Order" asp-action="sho0913">商城</a>
                     <a class="btn btn-link" href="contact.html">尋找健康餐</a>
 
                 </div>
@@ -259,6 +256,17 @@
 </html>
 
 <script>
+
+    // 這段程式碼會從URL中讀取令牌並存儲到sessionStorage
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = urlParams.get('token');
+    if (tokenFromUrl) {
+        sessionStorage.setItem('token', tokenFromUrl);
+        sessionStorage.setItem('lineId', '1000');
+        // 移除URL中的token參數以保護安全
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     // 取得儲存的 token
     const token = sessionStorage.getItem('token');
 
@@ -281,6 +289,7 @@
                 }
             })
             .then(data => {
+                console.log(data);
                 // 這裡假設 data 是一個包含用戶資訊的 JSON 物件
                 // 更新前端界面
                 const dropdownContent = document.getElementById('dropdownContent');
@@ -289,21 +298,30 @@
                 const userNameElement = document.getElementById('userName');
                 const userPhotoElement = document.getElementById('userPhoto');
 
-                // 如果data包含Photo欄位，則添加到用戶名旁邊
-                if (data.photo) {
+                // 先檢查 ProfilePictureUrl (LINE的頭像)
+                if (data.ProfilePictureUrl) {
+                    const img = document.createElement('img');
+                    img.src = data.ProfilePictureUrl; // 使用從後端獲取的 URL
+                    img.alt = 'User Photo';
+                    img.classList.add('userimg', 'me-lg-2'); // 圓圓的CSS
+                    userPhotoElement.appendChild(img);
+                }
+                // 如果沒有ProfilePictureUrl，檢查 photo (您原本的系統)
+                else if (data.photo) {
                     const img = document.createElement('img');
                     img.src = `data:image/jpeg;base64, ${data.photo}`; // 使用Base64編碼的照片
                     img.alt = 'User Photo';
-                    //img.width = 60;
-                    //img.height = 60;
                     img.classList.add('userimg', 'me-lg-2'); // 圓圓的CSS
                     userPhotoElement.appendChild(img);
-                } else {
-                    // 如果沒有photo，顯示用戶名作為替代
-                    if (data.memberName) {
-                        userNameElement.textContent = data.memberName;
+                }
+                // 如果都沒有，則顯示用戶名
+                else {
+                    if (data.DisplayName) {
+                        userNameElement.textContent = data.DisplayName;
                     }
-                    if (data.trainerName) {
+                    else if (data.memberName) {
+                        userNameElement.textContent = data.memberName;
+                    } else if (data.trainerName) {
                         userNameElement.textContent = data.trainerName;
                     }
                 }
@@ -332,7 +350,12 @@
                     sessionStorage.clear();
                     // 強制重新整理
                     location.reload();
+                    // 清除 sessionStorage 中的 token 和使用者相關資訊
+                    sessionStorage.removeItem('token');
+                    // 將用戶重新導向至首頁
+                    window.location.href = '/Home/Index'; // 根據您的路由設定修改為首頁的URL
                 });
+
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -346,7 +369,7 @@
 
 
 
-                 @*   //(以下都是暫時不需要的 教練專區控管) 填充 dropdownContent 根據用戶的角色（會員或教練）
+@*   //(以下都是暫時不需要的 教練專區控管) 填充 dropdownContent 根據用戶的角色（會員或教練）
                 if (data.memberName) {
                     dropdownContent.innerHTML += '<a href="/Member/Member" class="dropdown-item">學員專區</a>';
                 }

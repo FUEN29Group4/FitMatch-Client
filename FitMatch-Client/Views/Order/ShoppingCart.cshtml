@@ -151,8 +151,9 @@
 
 <script>
 
-    const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+    
 
+    
 
 
     // 初始化變數和 DOM 元素
@@ -425,7 +426,7 @@
             "cartItems": cartItems
         };
 
-        fetch(`${ApiUrl}/api/OrderAPI`, {
+        fetch(`https://localhost:7011/api/OrderAPI`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -479,17 +480,6 @@
             });
 
     }
-
-
-    //// 假设你可以从 API 响应中获取 orderId，将其存储在一个变量中
-    //const orderId = 47; // 这里用 47 作为示例，实际情况中应该从 API 获取
-
-    //// 在 "結帳" 按钮的链接中添加 orderId 参数
-    //const checkoutButton = document.getElementById('checkout-button');
-    //if (checkoutButton) {
-    //    checkoutButton.href = `https://localhost:7088/Order/NewebPay?id=${orderId}`;
-    //}
-
 
 
 

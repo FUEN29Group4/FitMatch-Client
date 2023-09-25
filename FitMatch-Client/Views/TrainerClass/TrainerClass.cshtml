@@ -255,21 +255,41 @@ function populateEvents(data) {
                 : `${startTimeStr}-${endTimeStr} 未预约`;
         }
 
+        // 查找相同日期的全天事件
+        const dateKey = startTime.toFormat('yyyy-MM-dd');
+        const allDayEvent = calendar.getEvents().find(event => {
+            return event.allDay && event.startStr.includes(dateKey);
+        });
+
+        // 初始化extendedProps对象
+        const extendedProps = {
+             classId: eventData.classId, // 将classId添加到extendedProps中
+            memberName: eventData.memberName,
+            className: eventData.className,
+            gymName: eventData.gymName,
+            courseStatus: eventData.courseStatus
+        };
+
+        // 如果找到全天事件，则从中获取gymId和VenueReservationID
+        if (allDayEvent) {
+            if (allDayEvent.extendedProps.gymId) {
+                extendedProps.gymId = allDayEvent.extendedProps.gymId;
+            }
+            if (allDayEvent.extendedProps.VenueReservationID) {
+                extendedProps.VenueReservationID = allDayEvent.extendedProps.VenueReservationID;
+            }
+        }
+
         calendar.addEvent({
+             id: eventData.classId,
             title: eventTitle,
             start: startTime.toJSDate(),
             end: endTime.toJSDate(),
             backgroundColor: eventColor,
             borderColor: eventColor,
-            extendedProps: {
-                memberName: eventData.memberName,
-                className: eventData.className,
-                gymName: eventData.gymName,
-                courseStatus: eventData.courseStatus
-            }
+            extendedProps: extendedProps // 使用修改后的extendedProps对象
         });
     });
-
 }
  
 function populateAllDayEvents(data) {
@@ -292,7 +312,8 @@ function populateAllDayEvents(data) {
             gymDetailsByDate[dateKey] = {
                 gymNames: new Set(),
                 addresses: new Set(),
-               venueReservationIds: new Set() // 添加这一行，用于存储venueReservationId
+               venueReservationIds: new Set(), // 添加这一行，用于存储venueReservationId
+                gymIds: new Set() // 添加这一行，用于存储venueReservationId
             };
         }
 
@@ -300,6 +321,7 @@ function populateAllDayEvents(data) {
         gymDetailsByDate[dateKey].venueReservationIds.add(venueReservationId); // 将venueReservationId添加到set中
         gymDetailsByDate[dateKey].gymNames.add(eventData.gymName);
         gymDetailsByDate[dateKey].addresses.add(eventData.address);
+        gymDetailsByDate[dateKey].gymIds.add(eventData.gymId);
     });
 
     // 循环处理每个日期的场馆详情并将全天事件添加到日历中
@@ -307,6 +329,7 @@ function populateAllDayEvents(data) {
         const allGymNames = Array.from(gymDetails.gymNames).join(', ');
         const allAddresses = Array.from(gymDetails.addresses).join(', ');
         const allVenueReservationIds = Array.from(gymDetails.venueReservationIds).join(', '); // 获取所有的venueReservationIds
+        const allgymIds = Array.from(gymDetails.gymIds).join(', '); // 获取所有的gymIds
 
 
         calendar.addEvent({
@@ -316,8 +339,8 @@ function populateAllDayEvents(data) {
             extendedProps: {
                 addresses: allAddresses,
                 VenueReservationDate: date, // 添加这一行
-                venueReservationId: allVenueReservationIds // 使用获取到的venueReservationIds
-
+                venueReservationIds: allVenueReservationIds, // 使用获取到的venueReservationIds
+                gymIds :allgymIds
 
             }
         });
@@ -334,34 +357,6 @@ function populateAllDayEvents(data) {
 
 
 
-
-
-
-function handleEventClick(eventInfo) {
-    const { memberName } = eventInfo.event.extendedProps;
-
-    if (memberName) {
-        Swal.fire({
-            icon: 'info',
-            title: '該時間段已被註冊',
-            text: '已被 ' + memberName + ' 預約，無法更改。',
-            confirmButtonText: '確定'
-        });
-    } else {
-        Swal.fire({
-            icon: 'warning',
-            title: '該時間段未被註冊',
-            text: '是否要移除？',
-            showCancelButton: true,
-            confirmButtonText: '移除',
-            cancelButtonText: '取消'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                eventInfo.event.remove();
-            }
-        });
-    }
-    }
 
 function formatDateToISO(date) {
     if (!(date instanceof Date && !isNaN(date.getTime()))) {
@@ -571,7 +566,7 @@ didOpen: () => {
         console.log("Removing existing venue event:", existingVenueEvent);
 
         // 调用API来删除场馆预订信息
-        fetch('https://localhost:7011/api/TrainerClass/VenueReservation/' + existingVenueEvent.extendedProps.venueReservationId, {
+        fetch('https://localhost:7011/api/TrainerClass/VenueReservation/' + existingVenueEvent.extendedProps.venueReservationIds, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -627,6 +622,7 @@ didOpen: () => {
 }
 
 function openTimeSlotModal(date) {
+     console.log('openTimeSlotModal is called'); // 确认函数被调用
     const targetEvent = calendar.getEvents().find(event => {
         const eventDate = event.start;
         return eventDate.getFullYear() === date.getFullYear() &&
@@ -634,44 +630,61 @@ function openTimeSlotModal(date) {
                eventDate.getDate() === date.getDate() &&
                eventDate.getHours() === date.getHours();
     });
+      // 获取新增时间段当天的所有事件的 gymId 和 VenueReservationID
+    const allEvents = calendar.getEvents();
+   const sameDayEvents = allEvents.filter(event => {
+    const eventDate = event.start;
+    const isAllDay = !eventDate.getHours() && !eventDate.getMinutes() && !eventDate.getSeconds();
 
+    return eventDate.getFullYear() === date.getFullYear() &&
+           eventDate.getMonth() === date.getMonth() &&
+           eventDate.getDate() === date.getDate() &&
+           (isAllDay || eventDate.getHours() === date.getHours());
+    });
+    console.log('sameDayEvents:', sameDayEvents);
+
+     const gymIds = sameDayEvents.map(event => event.extendedProps.gymIds).filter(id => id !== undefined);
+    const venueReservationIDs = sameDayEvents.map(event => event.extendedProps.venueReservationIds).filter(id => id !== undefined);
+        console.log('targetEvent:', targetEvent); // 打印 targetEvent 的值
+
+    console.log('gymIds:', gymIds);
+    console.log('venueReservationIDs:', venueReservationIDs);
     if (targetEvent && targetEvent.extendedProps.memberName) {
         Swal.fire({
-            icon: 'success',
-            title: '該時間段已被註冊',
-            showCancelButton: true,
-            cancelButtonText: '移除',
-            showConfirmButton: false
-        }).then((result) => {
-            if (result.isDismissed) {
-                targetEvent.remove();
-            }
+        icon: 'success',
+        title: '該時間段已被註冊',
+        showConfirmButton: true,
+        confirmButtonText: '確定'
         });
     } else if (targetEvent) {
-        Swal.fire({
-            icon: 'info',
-            title: '該時間段未被註冊',
-            text: '是否要移除？',
-            showCancelButton: true,
-            cancelButtonText: '否',
-            confirmButtonText: '移除'
+         Swal.fire({
+        icon: 'info',
+        title: '該時間段未被註冊',
+        text: '是否要移除？',
+        showCancelButton: true,
+        cancelButtonText: '否',
+        confirmButtonText: '移除'
         }).then((result) => {
-            if (result.isConfirmed) {
-                targetEvent.remove();
-            }
-        });
+        console.log('Result:', result); // 查看 result 的内容
+        if (result.isConfirmed) {
+            const classId = targetEvent.id; // 获取事件的ID，这里假设它对应于classId
+            console.log('ClassId:', classId); // 打印classId
+            removeEvent(classId); // 调用removeEvent函数来删除事件
+        }
+    });
     } else {
         // 如果没有任何事件在该时间段，保持原来的行为
-        let endDate = new Date(date);
+         let endDate = new Date(date);
         endDate.setHours(endDate.getHours() + 1);
 
-// 直接從 JavaScript Date 對象創建 DateTime 對象
-const startTime = DateTime.fromJSDate(date).setZone('Asia/Taipei');
-const endTime = DateTime.fromJSDate(endDate).setZone('Asia/Taipei');
+        const startTime = DateTime.fromJSDate(date).setZone('Asia/Taipei');
+        const endTime = DateTime.fromJSDate(endDate).setZone('Asia/Taipei');
 
-// 格式化時間
-const startTimeStr = startTime.toFormat('hh:mm a'); // 使用你需要的格式
-const endTimeStr = endTime.toFormat('hh:mm a'); // 使用你需要的格式
+        const startTimeStr = startTime.toFormat('hh:mm a');
+        const endTimeStr = endTime.toFormat('hh:mm a');
+        const ADDstartTimeStr = startTime.toISO().split('.')[0];
+        const ADDendTimeStr = endTime.toISO().split('.')[0];
+
 
         Swal.fire({
             title: '預約時段: ' + startTimeStr + ' - ' + endTimeStr,
@@ -681,23 +694,87 @@ const endTimeStr = endTime.toFormat('hh:mm a'); // 使用你需要的格式
             cancelButtonText: '取消'
         }).then((result) => {
             if (result.isConfirmed) {
-                const event = {
-                    title: startTimeStr + ' - ' + endTimeStr + '新增的課程時間段',
-                    start: date,
-                    end: endDate,
-                    backgroundColor: 'red',
-                    borderColor: 'red'
-                };
-                calendar.addEvent(event);
-                Swal.fire({
-                    icon: 'success',
-                    title: '該時間段已被註冊'
+                    const timeSlotData = {
+                        TrainerId: TrainerIdFromSession, // 使用合適的教練ID
+                        StartTime: ADDstartTimeStr,
+                        EndTime: ADDendTimeStr,
+                        gymId: gymIds[0],
+                        venueReservationId: venueReservationIDs[0],
+                        // ... 其他需要的參數
+                    };
+                console.log('timeSlotData:', timeSlotData);
+                fetch('https://localhost:7011/api/TrainerClass/Class', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(timeSlotData)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to update the database');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                     // 假設data對象中包含了新生成的classId
+                        const classId = data.classId;
+                        const event = {
+                         id: classId, // 使用返回的classId作為事件的id
+                        title: startTimeStr + ' - ' + endTimeStr + '新增的課程時間段',
+                        start: startTime.toJSDate(),
+                        end: endTime.toJSDate(),
+                        backgroundColor: 'red',
+                        borderColor: 'red'
+                    };
+                    calendar.addEvent(event);
+                    
+                    Swal.fire({
+                        icon: 'success',
+                        title: '該時間段已被註冊'
+                    });
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: '添加課程失敗',
+                        text: '請稍後再試或聯繫管理員。'
+                    });
                 });
             }
         });
     }
 }
+function handleEventClick(eventInfo) {
+    const { memberName } = eventInfo.event.extendedProps;
+    const classId = eventInfo.event.id; // 從事件中獲取classId
 
+        console.log("獲取的 classId:", classId); // 在控制台輸出 classId
+
+    if (memberName) {
+        Swal.fire({
+            icon: 'info',
+            title: '該時間段已被註冊',
+            text: '已被 ' + memberName + ' 預約，無法更改。',
+            confirmButtonText: '確定'
+        });
+    } else {
+        Swal.fire({
+            icon: 'warning',
+            title: '該時間段未被註冊',
+            text: '是否要移除？',
+            showCancelButton: true,
+            confirmButtonText: '移除',
+            cancelButtonText: '取消'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                removeEvent(classId); // 调用 removeEvent 函数并传递 classId
+            }
+        });
+    }
+}
 
 function formatTime(luxonDate) {
     if (!luxonDate || typeof luxonDate.hour !== 'number' || typeof luxonDate.minute !== 'number') {
@@ -718,12 +795,30 @@ function formatTime(luxonDate) {
 }
 
 
-function removeEvent(eventId) {
-    let event = calendar.getEventById(eventId);
-    if (event) {
-        event.remove();
+function removeEvent(classId) {
+    let event = calendar.getEventById(classId);
+               if (event) {
+        fetch(`https://localhost:7011/api/TrainerClass/Class/` + classId, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to delete the event');
+            }
+            // 更新前端的UI
+            event.remove();
+        })
+        .catch(error => {
+            // 显示错误消息给用户
+            Swal.fire({
+                icon: 'error',
+                title: '删除课程失败',
+                text: '请稍后再试或联系管理员。'
+            });
+        });
     }
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');

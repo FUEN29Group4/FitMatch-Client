@@ -5,7 +5,7 @@
 
 <link rel="stylesheet" href="~/css/memberclass.css">
 
-
+<meta name="api-base-url" content="https://localhost:7011">
 
 <div style="background-color: #fff" id="app">
     
@@ -85,7 +85,8 @@
     //     // You can also redirect the user or show an error message, if necessary.
     // }
 
-    const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+    
+
 
 
     Vue.createApp({
@@ -112,7 +113,9 @@
                 const headers = new Headers();
                 headers.append('Authorization', `Bearer ${this.token}`);
 
-                fetch(`${ApiUrl}/api/MemberFavorite/${this.memberId}`, {
+                // fetch(`https://localhost:7011/api/MemberFavorite/${this.memberId}`, {
+
+                fetch(`https://localhost:7011/api/MemberFavorite/${this.memberId}`, {
                     headers: headers
                 })
                     .then((response) => {
@@ -136,9 +139,17 @@
                 let memberId = new URLSearchParams(window.location.search).get('id');
 
                 if (type === 'trainer') {
-                    url = `${ApiUrl} /api/MemberFavorite/${this.memberId}/trainer/${id}`;
+
+                    // url = `https://localhost:7011/api/MemberFavorite/${this.memberId}/trainer/${id}`;
+
+
+                    url = `https://localhost:7011/api/MemberFavorite/${this.memberId}/trainer/${id}`;
                 } else {
-                    url = `${ApiUrl} /api/MemberFavorite/${this.memberId}/product/${id}`;
+
+                    // url = `https://localhost:7011/api/MemberFavorite/${this.memberId}/product/${id}`;
+
+
+                    url = `https://localhost:7011/api/MemberFavorite/${this.memberId}/product/${id}`;
                 }
 
                 try {

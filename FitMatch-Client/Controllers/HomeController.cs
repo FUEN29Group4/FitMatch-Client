@@ -26,7 +26,10 @@ namespace FitMatch_Client.Controllers
             return View();
         }
 
-        
+        public IActionResult Aboutus()
+        {
+            return View();
+        }
 
 
     }

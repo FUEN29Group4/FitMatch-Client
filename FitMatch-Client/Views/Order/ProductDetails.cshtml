@@ -313,7 +313,7 @@
         });
 
 
-
+</script>
 
 @* ========= API 串接區: 結帳將資料用post方式傳入資庫中 =========*@
 
@@ -322,7 +322,12 @@
 
 
 @* ======== Vue & axios start ======== *@
-   <script>const app = Vue.createApp({
+   <script>
+        
+
+
+
+    const app = Vue.createApp({
  data() {
      return {
          products: [], // 存储商品数据的数组
@@ -337,7 +342,7 @@
      async fetchProducts() {
          try {
              // 发起GET请求获取商品数据
-             const response = await axios.get('https://localhost:7011/api/ProductAPI');
+                        const response = await axios.get(`https://localhost:7011/api/ProductAPI`);
 
              // 将获取的商品数据存储到Vue实例的数据属性中
              this.products = response.data;
@@ -348,7 +353,7 @@
 
      addToCart(product) {
      //const itemValue = `${product.productName}|${product.photo}|${product.price}`;
-     const itemValue = `${product.productName}|'測試'
+     const itemValue = `${product.productName}|'加入購物車商品'
      |${product.price}`;
      const itemId = `${product.productId}`;
 
@@ -384,16 +389,13 @@
 
 });
 
-     app.mount('#app');</script>
+     app.mount('#app');
+     
+     </script>
 
 
 
 
-</script>
-
-
-@{
-}
 
 
 

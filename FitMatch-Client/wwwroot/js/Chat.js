@@ -2,7 +2,7 @@
 
 // 初始化 SignalR 连接
 const connection = new signalR.HubConnectionBuilder()
-    .withUrl(`${ApiUrl}/chatHub`)
+    .withUrl(`https://localhost:7011/chatHub`)
     .configureLogging(signalR.LogLevel.Information)
     .build();
 
@@ -26,7 +26,7 @@ const chat = Vue.createApp({
         this.role = sessionStorage.getItem('memberId') ? 'Member' : 'Trainer';
 
         // 啟動 SignalR 連線
-        this.connect();
+        //this.connect();
     },
     methods: {
         async loadPhoto(id, role) {//照片
@@ -54,6 +54,8 @@ const chat = Vue.createApp({
                         this.connect();
                     });
                     connection.connectionClosed = true;
+                } else {
+                    console.warn('已初始化過了SignalR');
                 }
 
                 try {
@@ -69,11 +71,14 @@ const chat = Vue.createApp({
                 // 添加新消息到 chatHistory
                 this.chatHistory.push({ senderId, messageContent: message, role });
                 // 捲動到最新消息
-                this.scrollToBottom();
+                this.$nextTick(() => {
+                    this.scrollToBottom();
+                });
             });
         },
         showChatHistory(receiverId) {
-
+            // 啟動 SignalR 連線
+            this.connect();
             this.receiverId = receiverId;
             this.isChatHistoryVisible = true;
             this.loadChatHistory();
@@ -95,6 +100,9 @@ const chat = Vue.createApp({
                 if (response.ok) {
                     const data = await response.json();
                     this.chatHistory = data;
+                    this.$nextTick(() => {
+                        this.scrollToBottom();
+                    });
                     // 加载照片
                     for (const msg of data) {
                         this.loadPhoto(msg.senderId, msg.role);
@@ -114,8 +122,7 @@ const chat = Vue.createApp({
                     //console.log('增加訊息成功:', this.senderId, this.message, this.role);
                     this.message = "";
                     this.$nextTick(() => {
-                        const chatBody = document.querySelector('.chat-body');
-                        chatBody.scrollTop = chatBody.scrollHeight;
+                        this.scrollToBottom();
                     });
                 } catch (err) {
                     console.error("傳送訊息時出錯", err);

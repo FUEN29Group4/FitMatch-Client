@@ -80,8 +80,14 @@ namespace FitMatch_Client.Controllers
             ViewData["MerchantOrderNo"] = DateTime.Now.ToString("yyyyMMddHHmmss");  //訂單編號
             ViewData["ExpireDate"] = DateTime.Now.AddDays(3).ToString("yyyyMMdd"); //繳費有效期限
             ViewData["ReturnURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Home/CallbackReturn"; //支付完成返回商店網址
+
+
             ViewData["CustomerURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Home/CallbackCustomer"; //商店取號網址
-            ViewData["NotifyURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Home/CallbackNotify"; //支付通知網址
+
+            //ViewData["NotifyURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Home/CallbackNotify"; //支付通知網址
+            ViewData["NotifyURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Order/CallbackNotify";//支付通知網址2
+
+
             ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}"; //返回商店網址
             return View();
         }
@@ -246,8 +252,49 @@ namespace FitMatch_Client.Controllers
             }
             ViewData["TradeInfo"] = receive.ToString();
 
+
+
+         
+
+
+
+
+
+
+
+            ////
+            //// 解密後的交易資訊儲存在 decryptTradeCollection 中
+            //string orderId = decryptTradeCollection["你的訂單ID欄位"];  // 從解密資訊中獲取訂單ID
+            //string newStatus = "已支付";  // 新的訂單狀態
+
+            //// 使用 Dapper 來更新資料庫
+            //string connectionString = "你的資料庫連接字串";
+            //using (SqlConnection conn = new SqlConnection(connectionString))
+            //{
+            //    string updateQuery = "UPDATE Orders SET Status = @Status WHERE OrderID = @OrderID";
+            //    conn.Execute(updateQuery, new { Status = newStatus, OrderID = orderId });
+            //}
+
+
+
             return View();
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// 加密後再轉 16 進制字串

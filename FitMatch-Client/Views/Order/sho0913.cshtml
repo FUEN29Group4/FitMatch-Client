@@ -89,8 +89,7 @@
     <section class="products-area ptb-54">
         <div class="container">
             <div class="row">
-
-
+            
                 <div class="col-lg-4">
                     <div class="widget-sidebar mr-15">
                         <div class="sidebar-widget categories">
@@ -135,7 +134,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="sidebar-widget filter">
+                        @* <div class="sidebar-widget filter">
                             <h3>預算</h3>
                             <form class="price-range-content">
                                 <div class="price-range-bar" id="range-slider"></div>
@@ -145,7 +144,7 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
+                        </div> *@
                         <div class="sidebar-widget brand">
                             <ul>
                                 <li>
@@ -265,7 +264,7 @@
                                                 {{ product.productName }}
 
                                             </a>
-                                            <span>ProductID: {{ product.productId }}</span>
+                                           
 
                                             <ul class="products-price">
                                                 <li>
@@ -369,7 +368,13 @@
 
 
 @* ======== Vue & axios start ======== *@
-   <script>const app = Vue.createApp({
+   <script>
+
+    
+   
+
+
+       const app = Vue.createApp({
  data() {
      return {
          products: [], // 存储商品数据的数组
@@ -384,7 +389,8 @@
      async fetchProducts() {
          try {
              // 发起GET请求获取商品数据
-             const response = await axios.get('https://localhost:7011/api/ProductAPI');
+                    const response = await axios.get("https://localhost:7011/api/ProductAPI");
+                   
 
              // 将获取的商品数据存储到Vue实例的数据属性中
              this.products = response.data;
@@ -395,7 +401,7 @@
 
      addToCart(product) {
      //const itemValue = `${product.productName}|${product.photo}|${product.price}`;
-     const itemValue = `${product.productName}|'測試'
+     const itemValue = `${product.productName}|已加入購物車品項
      |${product.price}`;
      const itemId = `${product.productId}`;
 

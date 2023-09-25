@@ -5,6 +5,8 @@
 
 <link rel="stylesheet" href="~/css/memberclass.css">
 
+<meta name="api-base-url" content="https://localhost:7011">
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -25,7 +27,7 @@
         <table class="table table-bordered table-hover">
             <thead style="background-color:#F24B88">
                 <tr>
-                    <th>訂單編號</th>
+                  @*   <th>訂單編號</th> *@
                     <th>訂購時間</th>
                     <th>總價</th>
                     <th>支付方式</th>
@@ -37,7 +39,7 @@
 
             <tbody>
                 <tr v-for="order in orders" :key="order.orderId">
-                    <td>{{ order.orderId }}</td>
+                   @*  <td>{{ order.orderId }}</td> *@
                     <td>{{ formatDate(order.orderTime) }}</td>
                     <td>$ {{ order.totalPrice }}</td>
                     <td>{{ order.paymentMethod }}</td>
@@ -59,7 +61,8 @@
 
     <!-- Modal -->
     <div class="modal fade" id="orderDetailModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title mx-auto" style="color:black">訂單明細</h4>
@@ -103,6 +106,8 @@
 
 <script>
 
+    
+
     Vue.createApp({
         data() {
             return {
@@ -132,7 +137,14 @@
             },
 
             fetchOrders() {
+
+
+                // fetch(`https://localhost:7011/api/OrderAPI/Order?id=${this.memberId}`, {
+
                 fetch(`https://localhost:7011/api/OrderAPI/Order?id=${this.memberId}`, {
+
+
+
                     headers: this.getHeaders()
                 })
                     .then(response => {
@@ -157,6 +169,8 @@
             },
             showOrderDetail(orderId) {
                 // 先清空之前的數據
+
+                // fetch(`https://localhost:7011/api/OrderAPI/OrderDetail?oid=${orderId}`, {
 
                 fetch(`https://localhost:7011/api/OrderAPI/OrderDetail?oid=${orderId}`, {
                     headers: this.getHeaders()
