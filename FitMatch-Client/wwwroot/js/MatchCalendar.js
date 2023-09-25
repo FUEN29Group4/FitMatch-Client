@@ -164,7 +164,7 @@ const MatchCalendar = Vue.createApp({
                     let memid = arg.event.extendedProps.memberid;
                     let buttons;
 
-                    if (status === '進行中' && memid === 0) {
+                    if (status === '進行中' && memid === null) {
                         buttons = `<button class="btn btn-available event-button">${arg.event.title}</button>`;
                     } else if (status === '已過期' || status === '已完成' || memid !== 0) {
                         buttons = `<button class="btn btn-unavailable event-button" disabled>${arg.event.title}</button>`;
