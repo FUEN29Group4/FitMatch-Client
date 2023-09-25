@@ -141,10 +141,10 @@
                                 </div>
                             </div>
                         <div class="row mb-2">
-                            @* <div class="col-md-6">
+                            <div class="col-md-6">
                                 <label class="form-label">付款人電子信箱</label>
                                 <input type="text" class="form-control" id="Email" v-model="addForm.Email">
-                            </div> *@
+                            </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">繳費有效期限</label>
@@ -291,7 +291,7 @@
                  
 
                     //抓第二個API加上顧客的資訊
-                   const response2 = await fetch(`https://localhost:7011/api/OrderAPI/orderviewmodel/` + OrderID);
+            const response2 = await fetch(`https://localhost:7011/api/OrderAPI/orderviewmodel?id=${OrderID}`);
 
                     this.order2 = await response2.json();
                     this.addForm.Email = this.order2.email.toString();
