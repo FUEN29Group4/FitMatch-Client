@@ -267,11 +267,11 @@
                         let memberId = arg.event.extendedProps.memberId;
                         let courseStatus = arg.event.extendedProps.courseStatus;
 
-                        if (courseStatus === '進行中' && memberId === 0) {
+                        if (courseStatus === '進行中' && memberId === null) {
                             return {
                                 html: '<button class="available">尚可預約</button>'
                             };
-                        } else if (courseStatus === '進行中' && memberId > 0) {
+                        } else if (courseStatus === '進行中' && memberId !== null && memberId >= 0) {
                             return {
                                 html: '<button class="booked">已被預約</button>'
                             };
