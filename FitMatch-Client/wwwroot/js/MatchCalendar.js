@@ -176,7 +176,7 @@ const MatchCalendar = Vue.createApp({
                     return { html };
                 },
                 eventClick: (info) => {
-                    if (info.event.extendedProps.coursestatus === '進行中' && info.event.extendedProps.memberid === 0) {
+                    if (info.event.extendedProps.coursestatus === '進行中' && info.event.extendedProps.memberid === null) {
                         this.showEventDetails(info.event.id);
                     }
                 }
