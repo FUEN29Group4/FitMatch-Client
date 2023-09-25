@@ -150,7 +150,7 @@
         methods: {
             async fetcharticle() {
                 try {
-                    const response = await fetch(`https://localhost:7011/api/Article/Getsport`);
+                    const response = await fetch(`https://localhost:7011/api/Article/sport`);
                     const data = await response.json();
                     this.articles = data.slice(0, 16);
                 } catch (error) {
