@@ -346,17 +346,14 @@
 
                 // 綁定登出按鈕事件
                 document.getElementById('logoutBtn').addEventListener('click', function () {
-<<<<<<< Updated upstream
                     // 清除所有 sessionStorage
                     sessionStorage.clear();
                     // 強制重新整理
                     location.reload();
-=======
                     // 清除 sessionStorage 中的 token 和使用者相關資訊
                     sessionStorage.removeItem('token');
                     // 將用戶重新導向至首頁
                     window.location.href = '/Home/Index'; // 根據您的路由設定修改為首頁的URL
->>>>>>> Stashed changes
                 });
 
             })
