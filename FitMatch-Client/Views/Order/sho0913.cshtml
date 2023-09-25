@@ -277,21 +277,7 @@
                                             <ul class="products-cart-wish-view d-flex">
                                                 <li class="btn btn-primary">
 
-                                                    @*原先*@
-                                                    @*<a :href="'ShoppingCart.html?id=' + product.ProductID">
-                                            <i class="fa-solid fa-cart-shopping"></i>
-                                            加入購物車
-                                        </a>*@
-   
-                                                    @*V1未成功先藏起來
-                                        @*<a :href="'ShoppingCart.html?id=' + product.ProductID">
-                                            <span id=" {{ product.productId }}" class="addButton">
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                                <input type="hidden" value="{{ product.productName }}|{{product.photo}}| {{ product.price }}">
-                                                加入購物車
-                                            </span>
-                                        </a>*@
-
+                                                   
                                                     @*V2試試看*@
                                                     <a @@click="addToCart(product)" href="#">
                                                         <span class="addButton">

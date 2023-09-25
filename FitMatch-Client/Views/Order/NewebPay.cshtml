@@ -70,13 +70,13 @@
                 <div class="col-lg-8 col-md-12 ">
 
                     <!-- 提醒登入的畫面先藏起來 -->
-                    <!-- <div class="log-in-coupon-code">
+                     <div class="log-in-coupon-code">
                         <p>Returning customer? Click here to
                             <a href="my-account.html">
                                 Log In
                             </a>
                         </p>
-                    </div> -->
+                    </div> 
 
                     @*<form>
                         <div class="billing-details">
@@ -126,7 +126,7 @@
                                     <input type="text" class="form-control" id="MerchantID" v-model="addForm.MerchantID">
                                 </div>*@
 
-                                <div class="col-md-6">
+                                <div class="col-md-6 form-group">
                                 <label class="form-label">訂購人</label>
                                     <input type="text" class="form-control" id="MemberName" v-model="addForm.MemberName">
                                 </div>
@@ -166,22 +166,22 @@
                             </div>
                         </div>
 
-                            <div class="row mb-2">
+                            @*<div class="row mb-2">
                                  <div class="col-md-6">
                                     <label class="form-label">支付完成返回網址</label>
                                     <input type="text" class="form-control" id="ReturnURL" v-model="addForm.ReturnURL">
-                                </div>
+                                </div>*@
  
-                                <div class="col-md-6">
+                                @*<div class="col-md-6">
                                     <label class="form-label">商店取號網址</label>
                                     <input type="text" class="form-control" id="CustomerURL" v-model="addForm.CustomerURL">
-                                </div>
-                            </div>
-                            <div class="row mb-2">
+                                </div>*@
+                            @*</div>*@
+                            @*<div class="row mb-2">
                                <div class="col-md-6">
                                     <label class="form-label">支付通知網址</label>
                                     <input type="text" class="form-control" id="NotifyURL" v-model="addForm.NotifyURL">
-                                </div> 
+                                </div>*@ 
                                 <div class="col-md-6">
                                     @*<label class="form-label">返回商店網址</label>
                                     <input type="text" class="form-control" id="ClientBackURL" v-model="addForm.ClientBackURL">*@
@@ -253,8 +253,8 @@
 
                         , ExpireDate: '@ViewData["ExpireDate"]'
                         // , ReturnURL: '@ViewData["ReturnURL"]'
-                        , CustomerURL: '@ViewData["CustomerURL"]'
-                        , NotifyURL: '@ViewData["NotifyURL"]'
+                        // , CustomerURL: '@ViewData["CustomerURL"]'
+                       //  , NotifyURL: '@ViewData["NotifyURL"]'
                         , ClientBackURL: '@ViewData["ClientBackURL"]'
                         , Email: 'xxxx@gmail.com'
                         , MemberName: '蔡彤彤'
@@ -316,8 +316,8 @@
 
                     postData['ExpireDate'] = self.addForm.ExpireDate;
                     // postData['ReturnURL'] = self.addForm.ReturnURL;
-                    postData['CustomerURL'] = self.addForm.CustomerURL;
-                    postData['NotifyURL'] = self.addForm.NotifyURL;
+                    // postData['CustomerURL'] = self.addForm.CustomerURL;
+                    // postData['NotifyURL'] = self.addForm.NotifyURL;
                     postData['ClientBackURL'] = self.addForm.ClientBackURL;
                     postData['Email'] = self.addForm.Email;
 

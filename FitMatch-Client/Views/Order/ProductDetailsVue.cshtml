@@ -335,8 +335,8 @@
                 var urlParams = new URLSearchParams(window.location.search);
                 var ProductID = urlParams.get("id")
                 // 使用 fetch 來獲取商品數據
-                const response = await fetch('https://4fitmatchapi.azurewebsites.net/ProductAPI/' + ProductID);
-
+                const response = await fetch(`https://localhost:7011/api/ProductAPI/${ProductID}`);
+               
         this.product = await response.json();
             } catch (error) {
             console.error('獲取資料錯誤：', error);
