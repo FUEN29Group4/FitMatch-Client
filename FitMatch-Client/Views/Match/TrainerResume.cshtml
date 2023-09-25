@@ -136,7 +136,7 @@
 <!-- 教練履歷 -->
 <!-- 引入Composition API -->
 <script>
-    const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+    
 
     document.addEventListener("DOMContentLoaded", function () {
         // 從URL獲取的Trainer的ID
@@ -144,7 +144,7 @@
         var trainerId = urlParams.get("id");
 
         // 使用fetch函數獲取特定Trainer的API數據
-        fetch(`${ApiUrl}/api/Reservation/` + trainerId)
+        fetch(`https://localhost:7011/api/Reservation/` + trainerId)
             .then(function (response) {
                 if (!response.ok) {
                     throw new Error("API請求失敗" + response);
@@ -267,11 +267,11 @@
                         let memberId = arg.event.extendedProps.memberId;
                         let courseStatus = arg.event.extendedProps.courseStatus;
 
-                        if (courseStatus === '進行中' && memberId === 0) {
+                        if (courseStatus === '進行中' && memberId === null) {
                             return {
                                 html: '<button class="available">尚可預約</button>'
                             };
-                        } else if (courseStatus === '進行中' && memberId > 0) {
+                        } else if (courseStatus === '進行中' && memberId !== 0 || memberId >= null) {
                             return {
                                 html: '<button class="booked">已被預約</button>'
                             };
@@ -303,7 +303,7 @@
                 var urlParams = new URLSearchParams(window.location.search);
                 var trainerId = urlParams.get("id");
                 
-                fetch(`${ApiUrl}/api/Reservation/` + trainerId)
+                fetch(`https://localhost:7011/api/Reservation/` + trainerId)
                     .then(function (response) {
                         if (!response.ok) {
                             throw new Error("API請求失敗" + response);
@@ -393,7 +393,7 @@
                 };
                 //console.log(reservationData);
                 // 使用fetch發送預約信息到後端
-                fetch(`${ApiUrl}/api/Reservation`, {
+                fetch(`https://localhost:7011/api/Reservation`, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'

@@ -1,0 +1,212 @@
+﻿
+@{
+
+}
+<script src="https://unpkg.com/vue@3"></script>
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">基礎重量訓練課程</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center text-uppercase mb-0">
+                <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                <li class="breadcrumb-item text-primary active" aria-current="page">course</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Service Start -->
+<!-- <div class="main-wrapper ">
+    <section class="page-title bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a href="index.html"
+                                class="text-sm letter-spacing text-white text-uppercase font-weight-bold">主頁</a>
+                        </li>
+                        <li class="list-inline-item"><span class="text-white">|</span></li>
+                        <li class="list-inline-item"><a href="course.html"
+                                class="text-color text-uppercase text-sm letter-spacing">熱門課程</a></li>
+                    </ul>
+                    <h1 class="text-lg text-white mt-2">基礎重量訓練課程</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br> -->
+<!-- Service End -->
+<!-- Section Course Start -->
+<div class="course-single-body">
+    <div class="coursesinglebody">
+        <section class="section course">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 col-md-12">
+                        <div class="single-course">
+                            <img class="img-fluid" :src="'data:image/jpeg;base64,' + classtype.photo"
+                                 :alt="classtype.className">
+                            <ul class="list-group list-group-horizontal-sm mt-5 mb-4"
+                                style="list-style-type: none; color: black;">
+                                <div class="me-1">
+                                <li class="list-group-item2"><span class="text-lg">1hr</span> 課程時數</li>
+                        </div>
+                        <div class="me-1">
+                            <li class="list-group-item2"><span class="text-lg">600+</span> 卡路里消耗</li>
+                        </div>
+                        <div class="me-1">
+                            <li class="list-group-item2"><span class="text-lg">75%</span> 訓練強度</li>
+                        </div>
+                        </ul>
+                        <p class="text-white">
+                            這是一個專為各個運動水平的人士打造的課程。無論你是初學者還是有經驗的運動員，我們都能幫助你提升身體力量、塑造理想體態並達到健康目標。在這個課程中，你將與我們的訓練專家一起學習正確的重量訓練技巧，並獲得個人化的指導，讓你在每一次訓練中都能充分發揮潛力。
+                        </p>
+                        <h3 class="text-color">課程特色：</h3>
+                        <p class="text-white">
+                            1. 專業指導：我們的教練團隊擁有豐富的經驗和專業知識，將為你提供專屬的訓練指導，確保你的動作準確且安全。<br>
+                            2. 訓練計劃：我們將根據你的個人目標和體能水平，設計一個量身定制的訓練計劃，幫助你持續進步。<br>
+                            3. 增強力量：重量訓練是增強肌肉力量和耐力的最佳方式，讓你在日常生活和運動中更加強壯。<br>
+                            4. 燃燒脂肪：重量訓練不僅能增加肌肉量，還有助於提高基礎代謝率，幫助你更有效地燃燒脂肪。<br>
+                            5. 塑造體態：透過針對不同部位的訓練，我們將幫助你塑造健美的身材和線條。<br>
+                            6. 訓練輕鬆：我們將為你創造一個友善和輕鬆的學習環境，讓你在訓練中感到愉悅和有成就感。<br>
+                        </p>
+
+                        <p class="text-white">
+                            無論你是想增加肌肉量、減重塑型還是增加體能，我們的重量訓練課程都能滿足你的需求。快來加入我們的課程，一起迎接健康、強壯的新自己！
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="course-widget border py-4 px-2 mt-5 mt-lg-0">
+                        <h3 class="text-center mb-3">
+                            <h2 class="text-white text-capitalize text-center">
+                                </i>Fit<span class="text-color">Match</span>
+                            </h2>
+                        </h3>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center text-black">
+                                類別<span class="text-black-50">重量訓練</span>
+                            </li>
+                            <!-- <li
+                                class="list-group-item d-flex justify-content-between align-items-center text-black">
+                                Price<span class="text-black-50">$1,000</span>
+                            </li> -->
+                        </ul>
+                        <div class="text-center mt-3">
+                            <a href="#" class="btn btn-main">立即預約</a>
+                        </div>
+                    </div>
+                    <div class="course-widget py-4 px-2 mt-3">
+                        <h3 class="text-center mb-3 text-white">課程分類</h3>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-center">
+                                <a href="#" data-bs-toggle="collapse" data-bs-target="#weight-training-courses"
+                                   aria-expanded="false" aria-controls="weight-training-courses">
+                                    <i class="ti-angle-right mr-2"></i>&gt;重量訓練課程&lt;
+                                </a>
+                                <div class="collapse" id="weight-training-courses">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><a href="course1.html">基礎重量訓練課程</a></li>
+                                        <li class="list-group-item"><a href="#">增肌重量訓練課程</a></li>
+                                        <!-- 加入更多子項目 -->
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                        <li class="list-group-item text-center">
+                            <a href="#" data-bs-toggle="collapse" data-bs-target="#aerobic-courses"
+                               aria-expanded="false" aria-controls="aerobic-courses">
+                                <i class="ti-angle-right mr-2"></i>&gt;有氧運動課程&lt;
+                            </a>
+                            <div class="collapse" id="aerobic-courses">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><a href="course2.html">跑步</a></li>
+                                    <li class="list-group-item"><a href="course4.html">瑜珈</a></li>
+                                    <!-- 加入更多子項目 -->
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <a href="#" data-bs-toggle="collapse" data-bs-target="#hiit-courses"
+                               aria-expanded="false" aria-controls="hiit-courses">
+                                <i class="ti-angle-right mr-2"></i>&gt;HIIT訓練課程&lt;
+                            </a>
+                            <div class="collapse" id="hiit-courses">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><a href="#">HIIT器械訓練</a></li>
+                                    <li class="list-group-item">
+                                        <a href="course6.html">HIIT核心強化訓練課程</a>
+                                    </li>
+                                    <!-- 加入更多子項目 -->
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <a href="#" data-bs-toggle="collapse" data-bs-target="#endurance-courses"
+                               aria-expanded="false" aria-controls="endurance-courses">
+                                <i class="ti-angle-right mr-2"></i>&gt;耐力訓練課程&lt;
+                            </a>
+                            <div class="collapse" id="endurance-courses">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><a href="course-single5.html">格鬥課程</a></li>
+                                    <li class="list-group-item"><a href="#">靈活度與耐力訓練課程</a></li>
+                                    <li class="list-group-item"><a href="course3.html">戰繩課程</a></li>
+                                    <!-- 加入更多子項目 -->
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <a href="#" data-bs-toggle="collapse" data-bs-target="#group-training-courses"
+                               aria-expanded="false" aria-controls="group-training-courses">
+                                <i class="ti-angle-right mr-2"></i>&gt;團體訓練課程&lt;
+                            </a>
+                            <div class="collapse" id="group-training-courses">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><a href="#">減脂燃脂課程</a></li>
+                                    <li class="list-group-item"><a href="#">靈活度和伸展課程</a></li>
+                                    <!-- 加入更多子項目 -->
+                                </ul>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- Section Course ENd -->
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const classtypeId = urlParams.get('classtypeId');
+
+    const app4 = Vue.createApp({
+        data() {
+            return {
+                classtype: null // 这里将classtype作为一个对象，而不是数组
+            };
+        },
+        mounted() {
+            this.fetchClassTypeDetail();
+        },
+        methods: {
+            async fetchClassTypeDetail() {
+                try {
+                    const response = await fetch(`https://localhost:7011/api/ClassType/detail/` + classtypeId);
+                    const data = await response.json();
+                    console.log(data);
+
+                    this.classtype = data; // 将返回的数据赋值给classtype
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        }
+    }).mount("#classTypeDetail"); // 这里更改为新的挂载点
+</script>

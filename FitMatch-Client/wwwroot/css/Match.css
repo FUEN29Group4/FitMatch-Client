@@ -1,4 +1,4 @@
-﻿.match-title .page-header {
+﻿﻿.match-title .page-header {
     background: none;
 }
 
@@ -214,21 +214,25 @@ body {
     z-index: 999;
     border-radius: 30px 30px 0 0;
 }
+
 @media (max-width: 990px) {
     .top-label {
         transform: rotate(-40deg) translate(-25px, 40px);
     }
 }
+
 @media (max-width: 767px) {
     .top-label {
         transform: rotate(-40deg) translate(83px, 130px);
     }
 }
+
 @media (max-width: 575px) {
     .top-label {
         transform: rotate(-40deg) translate(100px, 140px);
     }
 }
+
 @media (max-width: 539px) {
     .top-label {
         transform: rotate(-42deg) translate(30px, 80px);

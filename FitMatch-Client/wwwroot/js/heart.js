@@ -11,7 +11,7 @@
     },
     methods: {
         async checkFavoriteTrainer() {
-            const url = `${ApiUrl}/api/Trainer/GetFavoriteTrainer/${memberIdFromSession}`;
+            const url = `https://localhost:7011/api/Trainer/GetFavoriteTrainer/${memberIdFromSession}`;
 
             try {
                 const response = await fetch(url);
@@ -36,7 +36,7 @@
             }
             this.someAnimationBoolean = true;  // 啟動動畫
             if (memberIdFromSession) {
-                const url = `${ApiUrl}/api/Trainer/FavoriteTrainer`;
+                const url = `https://localhost:7011/api/Trainer/FavoriteTrainer`;
                 const data = {
                     memberId: memberIdFromSession,
                     trainerId: this.trainerId,

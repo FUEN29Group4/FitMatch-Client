@@ -134,7 +134,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="sidebar-widget filter">
+                        @* <div class="sidebar-widget filter">
                             <h3>預算</h3>
                             <form class="price-range-content">
                                 <div class="price-range-bar" id="range-slider"></div>
@@ -144,7 +144,7 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
+                        </div> *@
                         <div class="sidebar-widget brand">
                             <ul>
                                 <li>
@@ -369,7 +369,9 @@
 
 @* ======== Vue & axios start ======== *@
    <script>
-    //const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+
+    
+   
 
 
        const app = Vue.createApp({
@@ -387,7 +389,8 @@
      async fetchProducts() {
          try {
              // 发起GET请求获取商品数据
-             const response = await axios.get('https://4fitmatchapi.azurewebsites.net/api/ProductAPI');
+                    const response = await axios.get("https://localhost:7011/api/ProductAPI");
+                   
 
              // 将获取的商品数据存储到Vue实例的数据属性中
              this.products = response.data;

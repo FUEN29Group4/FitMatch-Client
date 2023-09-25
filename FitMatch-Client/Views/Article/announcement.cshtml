@@ -137,7 +137,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <script>
-    const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+    
 
     const app = Vue.createApp({
         data() {
@@ -152,7 +152,7 @@
         methods: {
             async fetcharticle() {
                 try {
-                    const response = await fetch(`${ApiUrl}/api/Article/Getannouncement`);
+                    const response = await fetch(`https://localhost:7011/api/Article/announcement`);
                     const data = await response.json();
                     // this.articles = data.map(article => {
                     //     article.content = article.content.slice(0, 20); // 截取前20個字元

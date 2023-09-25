@@ -245,7 +245,7 @@
 
 
 <script>
-    const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+    
 
     //開始Vue嚕
     const app = Vue.createApp({
@@ -277,7 +277,7 @@
             // 非同步方法來從 API 獲取教練數據
             async fetchtrainers() {
                 try {
-                    const res = await fetch(`${ApiUrl}/api/Match/Trainer`);
+                    const res = await fetch(`https://localhost:7011/api/Match/Trainer`);
                     const trainer = await res.json();
                     this.trainers = trainer;
                     //console.log(this.trainers)

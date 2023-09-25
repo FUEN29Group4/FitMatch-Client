@@ -5,8 +5,6 @@
     <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    @*換網域的時候用*@
-    <meta name="api-base-url" content="https://4fitmatchapi.azurewebsites.net">
 
     <!-- theme meta -->
     <meta name="theme-name" content="fitmatch" />
@@ -82,7 +80,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-item nav-link">關於我們</a>
+                <a asp-area="" asp-controller="Home" asp-action="Aboutus" class="nav-item nav-link">關於我們</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">媒合專區</a>
                     <div class="dropdown-menu m-0">
@@ -90,7 +88,7 @@
                         <a asp-area="" asp-controller="Match" asp-action="SearchTrainer" class="dropdown-item">
                             教練陣容
                         </a>
-                        <a href="course.html" class="dropdown-item">課程介紹</a>
+                        <a asp-area="" asp-controller="ClassType" asp-action="Index" class="dropdown-item">課程介紹</a>
                         <a asp-area="" asp-controller="Gym" asp-action="Gym" class="dropdown-item">場館介紹</a>
                     </div>
                 </div>
@@ -193,9 +191,8 @@
                     <h4 class="text-uppercase mb-4">相關連結</h4>
                     <a class="btn btn-link" href="about.html">關於我們</a>
                     <a class="btn btn-link" asp-area="" asp-controller="Match" asp-action="Match">我要預約</a>
-                    <a class="btn btn-link" href="course.html">課程介紹</a>
+                    <a class="btn btn-link" asp-controller="Order" asp-action="sho0913">商城</a>                    <a class="btn btn-link" href="course.html">課程介紹</a>
                     <a class="btn btn-link" asp-area="" asp-controller="Gym" asp-action="Gym">場館介紹</a>
-                    <a class="btn btn-link" asp-controller="Order" asp-action="sho0913">商城</a>
                     <a class="btn btn-link" href="contact.html">尋找健康餐</a>
 
                 </div>
@@ -265,6 +262,7 @@
     const tokenFromUrl = urlParams.get('token');
     if (tokenFromUrl) {
         sessionStorage.setItem('token', tokenFromUrl);
+        sessionStorage.setItem('lineId', '1000');
         // 移除URL中的token參數以保護安全
         window.history.replaceState({}, document.title, window.location.pathname);
     }
@@ -274,7 +272,7 @@
 
     if (token) {
         // 如果有 token, 用它來請求用戶資訊
-        fetch('https://4fitmatchapi.azurewebsites.net/api/Login/getUserInfo', { // 更新這裡的 URL
+        fetch('https://localhost:7011/api/Login/getUserInfo', { // 更新這裡的 URL
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -348,10 +346,17 @@
 
                 // 綁定登出按鈕事件
                 document.getElementById('logoutBtn').addEventListener('click', function () {
-                    // 清除 sessionStorage 中的 token 和使用者相關資訊
-                    sessionStorage.removeItem('token');
+<<<<<<< Updated upstream
+                    // 清除所有 sessionStorage
+                    sessionStorage.clear();
                     // 強制重新整理
                     location.reload();
+=======
+                    // 清除 sessionStorage 中的 token 和使用者相關資訊
+                    sessionStorage.removeItem('token');
+                    // 將用戶重新導向至首頁
+                    window.location.href = '/Home/Index'; // 根據您的路由設定修改為首頁的URL
+>>>>>>> Stashed changes
                 });
 
             })

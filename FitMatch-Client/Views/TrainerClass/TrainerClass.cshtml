@@ -263,6 +263,7 @@ function populateEvents(data) {
 
         // 初始化extendedProps对象
         const extendedProps = {
+             classId: eventData.classId, // 将classId添加到extendedProps中
             memberName: eventData.memberName,
             className: eventData.className,
             gymName: eventData.gymName,
@@ -717,8 +718,10 @@ function openTimeSlotModal(date) {
                 })
                 .then(data => {
                     console.log('Success:', data);
-                    
-                    const event = {
+                     // 假設data對象中包含了新生成的classId
+                        const classId = data.classId;
+                        const event = {
+                         id: classId, // 使用返回的classId作為事件的id
                         title: startTimeStr + ' - ' + endTimeStr + '新增的課程時間段',
                         start: startTime.toJSDate(),
                         end: endTime.toJSDate(),
@@ -747,6 +750,7 @@ function openTimeSlotModal(date) {
 function handleEventClick(eventInfo) {
     const { memberName } = eventInfo.event.extendedProps;
     const classId = eventInfo.event.id; // 從事件中獲取classId
+
         console.log("獲取的 classId:", classId); // 在控制台輸出 classId
 
     if (memberName) {

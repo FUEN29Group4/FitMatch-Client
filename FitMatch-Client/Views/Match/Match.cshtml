@@ -1,4 +1,4 @@
-﻿@{
+﻿﻿@{
     ViewData["Title"] = "Match";
 }
 <script src="https://unpkg.com/vue@3"></script>
@@ -8,7 +8,7 @@
 <div class="container">
     <!-- Page Header Start -->
     <div class="match-title">
-        <div class="container-fluid page-header py-5 mb-4 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container-fluid py-5 mb-4 wow fadeIn" data-wow-delay="0.1s">
             <div class="container text-center py-5">
                 <h1 class="text-white text-uppercase mb-3 animated slideInDown">與我們卓越的金牌教練共同提升您的運動體驗!</h1>
                 <h4 class="breadcrumb-item text-white m-5">針對個人需求提供量身定制的教練服務</h4>
@@ -16,15 +16,15 @@
             <div class="row d-flex align-content-center justify-content-between">
                 <div class="col text-end">
                     <a asp-controller="Match" asp-action="SearchTrainer" class="btn btn-dark"
-                   style="border-radius:10px; border: 1px solid #7c7c7c; padding:20px 40px;">
-                    <h3>找教練</h3>
-                </a>
+                       style="border-radius:10px; border: 1px solid #7c7c7c; padding:20px 40px;">
+                        <h3>找教練</h3>
+                    </a>
                 </div>
                 <div class="col text-start">
-                <a asp-controller="Gym" asp-action="Gym" class="btn btn-dark"
+                    <a asp-controller="Gym" asp-action="Gym" class="btn btn-dark"
                        style="border-radius:10px;border: 1px solid #7c7c7c; padding:20px 40px;">
-                    <h3>找場館</h3>
-                </a>
+                        <h3>找場館</h3>
+                    </a>
                 </div>
             </div>
         </div>
@@ -161,7 +161,7 @@
 
             </div>
         </div>
-       
+
     </div>
     <!-- 尋找你想媒合的課程內容End -->
     <!-- 學員評價Start -->
@@ -222,13 +222,12 @@
 
 </div>
 <script>
-    const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
 
     const app1 = Vue.createApp({
         data() {
             return {
                 trainerteams: [],
-                trainer1Photo:null
+                trainer1Photo: null
             };
         },
         mounted() {
@@ -237,7 +236,7 @@
         methods: {
             async fetchTrainers() {
                 try {
-                    const response = await fetch(`${ApiUrl}/api/Match/Trainer`);
+                    const response = await fetch(`https://localhost:7011/api/Match/Trainer`);
                     const data = await response.json();
                     // 根據課程數量做排序
                     data.sort((a, b) => b.classCount - a.classCount);
@@ -267,7 +266,7 @@
         methods: {
             async fetchTrainers() {
                 try {
-                    const response = await fetch(`${ApiUrl}/api/Match/Gym`);
+                    const response = await fetch(`https://localhost:7011/api/Match/Gym`);
                     const data = await response.json();
                     this.gyms = data.slice(0, 4);
                 } catch (error) {
@@ -291,10 +290,10 @@
             };
         }, async mounted() {
             try {
-                const response = await fetch(`${ApiUrl}/api/Match/Reviews`);
+                const response = await fetch(`https://localhost:7011/api/Match/Reviews`);
                 if (response.ok) {
                     const data = await response.json();
-                    this.reviews = data; /
+                    this.reviews = data;
                     this.reversedReviews = [...this.reviews].reverse(); // 反轉reviews數據
 
                     this.startScrolling();
@@ -349,7 +348,7 @@
         }
     }).mount("#reviews");
 
- 
+
 
     //課程
     const app4 = Vue.createApp({
@@ -364,7 +363,7 @@
         methods: {
             async fetchTrainers() {
                 try {
-                    const response = await fetch(`${ApiUrl}/api/Match/ClassTypes`);
+                    const response = await fetch(`https://localhost:7011/api/Match/ClassTypes`);
                     const data = await response.json();
                     this.classtypes = data.slice(0, 6);
                 } catch (error) {

@@ -1,4 +1,4 @@
-﻿/* 健身房模擬視窗 */
+﻿﻿ /* 健身房模擬視窗 */
 .modal {
     display: none;
     position: fixed;
@@ -147,9 +147,10 @@ h2,
 @media (max-width: 400px) {
     .trainerfilter .card-title {
         top: 23px; /* 調整位置 */
-        left: 70px; /* 調整位置 */
+        left: 85px; /* 調整位置 */
     }
 }
+
 .pl-7 {
     padding-left: 7em;
 }
