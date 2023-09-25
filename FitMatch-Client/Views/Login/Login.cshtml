@@ -47,11 +47,16 @@
                         style="background-color: #F24B88; color: white;">
                     登入
                 </button>
-                <a href="https://localhost:7011/api/Login/loginWithLine">Login with LINE</a>
-                <p class="text-center mb-0" style="color: #a5a5a5;">
-                    還沒成為會員嗎? <a asp-controller="SignUp" asp-action="SignUp"
-                                class="text-light">註冊</a>
-                </p>
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <!-- LINE 登入圖片 -->
+                    <a href="https://localhost:7011/api/Login/loginWithLine" style="margin-right: 10px;">
+                        <img src="/images/icon/btn_login_hover.png" alt="Login with LINE" />
+                    </a>
+                    <p class="text-center mb-0" style="color: #a5a5a5;">
+                        還沒成為會員嗎?
+                        <a asp-controller="SignUp" asp-action="SignUp" class="text-light">註冊</a>
+                    </p>
+                </div>
                 <div class="pt-1">
                     <button type="button" id="demoButton" class="btn btn-outline-success">教練-巨石強森</button>
                     <button type="button" id="demoButton2" class="btn btn-outline-success ms-2">教練-劉知珉</button>
