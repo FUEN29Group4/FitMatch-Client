@@ -106,7 +106,12 @@
 
 
 <script>
+   
+
     const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+
+
+
 
     // const memberIdFromSession = sessionStorage.getItem('memberId');
     // if (!memberIdFromSession) {
@@ -187,7 +192,7 @@
                     headers.append('Authorization', `Bearer ${token}`);
                 }
                 // fetch(`https://4fitmatchapi.azurewebsites.net/api/MemberClassAPI/${this.memberId}`, { // 修改這裡
-                    fetch(`https://localhost:7011/api/MemberClassAPI/${this.memberId }`, { // 修改這裡
+                fetch(`${ApiUrl}/api/MemberClassAPI/${this.memberId}`, { // 修改這裡
 
 
                     method: 'GET',

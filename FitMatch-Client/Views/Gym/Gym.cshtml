@@ -432,6 +432,8 @@
 
 <script>
 
+    const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+
     //讀取session中存的memberId
     const memberIdFromSession = sessionStorage.getItem('memberId');
 
@@ -533,7 +535,7 @@
 
             async fetchGyms() {
                 try {
-                    const response = await fetch('https://4fitmatchapi.azurewebsites.net/api/Gym');
+                    const response = await fetch(`${ApiUrl}/api/Gym`);
                     const data = await response.json();
                     this.gyms = data;
                     // Extract unique locations

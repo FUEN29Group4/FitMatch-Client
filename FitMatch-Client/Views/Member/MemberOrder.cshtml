@@ -138,9 +138,9 @@
             fetchOrders() {
 
 
-                    // fetch(`https://localhost:7011/api/OrderAPI/Order?id=${this.memberId}`, {
+                // fetch(`${ApiUrl}/api/OrderAPI/Order?id=${this.memberId}`, {
 
-                fetch(`https://4fitmatchapi.azurewebsites.net/api/OrderAPI/Order?id=${this.memberId}`, {
+                fetch(`${ApiUrl}/api/OrderAPI/Order?id=${this.memberId}`, {
 
 
 
@@ -171,7 +171,7 @@
 
                 // fetch(`https://localhost:7011/api/OrderAPI/OrderDetail?oid=${orderId}`, {
 
-                fetch(`https://4fitmatchapi.azurewebsites.net/api/OrderAPI/OrderDetail?oid=${orderId}`, {
+                fetch(`${ApiUrl}/api/OrderAPI/OrderDetail?oid=${orderId}`, {
                     headers: this.getHeaders()
                 })
                     .then(response => {
