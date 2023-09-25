@@ -8,5 +8,9 @@ namespace FitMatch_Client.Controllers
         {
             return View();
         }
+       public IActionResult coursedetail()
+        {
+            return View();
+        }
     }
 }
