@@ -203,6 +203,7 @@
 
 
 <script>
+    const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
 
     //// 获取 URL 中的 orderId 参数
     //function getOrderIdFromUrl() {
@@ -259,7 +260,7 @@
                     var urlParams = new URLSearchParams(window.location.search);
                     var OrderID = urlParams.get("id")
                     // 使用 fetch 來獲取商品數據
-                    const response = await fetch('https://fitmatchclient4.azurewebsites.net/api/OrderAPI/' + OrderID);
+            const response = await fetch(`${ApiUrl}/api/OrderAPI` + OrderID);
 
                     this.order = await response.json();
 
