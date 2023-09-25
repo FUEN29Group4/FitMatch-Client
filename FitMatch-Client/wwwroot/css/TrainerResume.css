@@ -309,7 +309,7 @@ h2,
     justify-content: center;
     background-color: green;
     color: #fff;
-    outline: 2px solid green;
+    outline: 2px solid #458d1cba;
     border: none;
     /* 移除邊框 */
     box-shadow: none;
@@ -342,7 +342,7 @@ h2,
     justify-content: center;
     background-color: grey;
     color: #fff;
-    outline: 2px solid rgb(100, 100, 100);
+    outline: 2px solid rgb(80 75 75 / 69%);
     border: none;
     /* 移除邊框 */
     box-shadow: none;
