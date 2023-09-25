@@ -16,7 +16,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.js"></script>
 @*彥儀用的勿刪*@
 
-@* <meta name="api-base-url" content="https://4fitmatchapi.azurewebsites.net"> *@
+@* <meta name="api-base-url" content="https://localhost:7011"> *@
 
 <link rel="stylesheet" href="~/css/memberclass.css">
 
@@ -108,7 +108,7 @@
 <script>
    
 
-    const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+    
 
 
 
@@ -191,8 +191,8 @@
                 if (token) {
                     headers.append('Authorization', `Bearer ${token}`);
                 }
-                // fetch(`https://4fitmatchapi.azurewebsites.net/api/MemberClassAPI/${this.memberId}`, { // 修改這裡
-                fetch(`${ApiUrl}/api/MemberClassAPI/${this.memberId}`, { // 修改這裡
+                // fetch(`https://localhost:7011/api/MemberClassAPI/${this.memberId}`, { // 修改這裡
+                fetch(`https://localhost:7011/api/MemberClassAPI/${this.memberId}`, { // 修改這裡
 
 
                     method: 'GET',

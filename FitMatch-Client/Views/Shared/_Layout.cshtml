@@ -273,7 +273,7 @@
 
     if (token) {
         // 如果有 token, 用它來請求用戶資訊
-        fetch('https://4fitmatchapi.azurewebsites.net/api/Login/getUserInfo', { // 更新這裡的 URL
+        fetch('https://localhost:7011/api/Login/getUserInfo', { // 更新這裡的 URL
             headers: {
                 'Authorization': `Bearer ${token}`
             }

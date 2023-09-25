@@ -5,7 +5,7 @@
 
 <link rel="stylesheet" href="~/css/memberclass.css">
 
-<meta name="api-base-url" content="https://4fitmatchapi.azurewebsites.net">
+<meta name="api-base-url" content="https://localhost:7011">
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -105,7 +105,7 @@
 
 <script>
 
-    const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+    
 
     Vue.createApp({
         data() {
@@ -138,9 +138,9 @@
             fetchOrders() {
 
 
-                // fetch(`${ApiUrl}/api/OrderAPI/Order?id=${this.memberId}`, {
+                // fetch(`https://localhost:7011/api/OrderAPI/Order?id=${this.memberId}`, {
 
-                fetch(`${ApiUrl}/api/OrderAPI/Order?id=${this.memberId}`, {
+                fetch(`https://localhost:7011/api/OrderAPI/Order?id=${this.memberId}`, {
 
 
 
@@ -171,7 +171,7 @@
 
                 // fetch(`https://localhost:7011/api/OrderAPI/OrderDetail?oid=${orderId}`, {
 
-                fetch(`${ApiUrl}/api/OrderAPI/OrderDetail?oid=${orderId}`, {
+                fetch(`https://localhost:7011/api/OrderAPI/OrderDetail?oid=${orderId}`, {
                     headers: this.getHeaders()
                 })
                     .then(response => {

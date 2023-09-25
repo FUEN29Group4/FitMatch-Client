@@ -2,7 +2,7 @@
 
 // 初始化 SignalR 连接
 const connection = new signalR.HubConnectionBuilder()
-    .withUrl(`${ApiUrl}/chatHub`)
+    .withUrl(`https://localhost:7011/chatHub`)
     .configureLogging(signalR.LogLevel.Information)
     .build();
 

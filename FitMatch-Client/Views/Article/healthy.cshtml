@@ -140,7 +140,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <script>
-    const ApiUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+    
 
     const app = Vue.createApp({
         data() {
@@ -155,7 +155,7 @@
         methods: {
             async fetcharticle() {
                 try {
-                    const response = await fetch(`${ApiUrl}/api/Article/Gethealthy`);
+                    const response = await fetch(`https://localhost:7011/api/Article/Gethealthy`);
                     const data = await response.json();
                     this.articles = data.slice(0, 16);
                 } catch (error) {

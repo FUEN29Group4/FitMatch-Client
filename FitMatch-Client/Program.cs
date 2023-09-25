@@ -42,7 +42,7 @@ if (lifetime != null)
         {
             using (HttpClient httpClient = new HttpClient())
             {
-                var response = await httpClient.GetAsync("https://4fitmatchapi.azurewebsites.net/api/CourseStatusUpdater/updateStatus");
+                var response = await httpClient.GetAsync("https://localhost:7011/api/CourseStatusUpdater/updateStatus");
                 if (response.IsSuccessStatusCode)
                 {
                     Console.WriteLine("成功更新課程狀態");
