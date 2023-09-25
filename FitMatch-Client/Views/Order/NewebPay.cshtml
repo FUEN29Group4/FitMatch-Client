@@ -125,6 +125,14 @@
                                     <label class="form-label">商店代號</label>
                                     <input type="text" class="form-control" id="MerchantID" v-model="addForm.MerchantID">
                                 </div>*@
+
+                                <div class="col-md-6">
+                                <label class="form-label">訂購人</label>
+                                    <input type="text" class="form-control" id="MemberName" v-model="addForm.MemberName">
+                                </div>
+
+
+
                                 <div class="col-md-6">
                                     <label class="form-label">訂單編號</label>
                                     <input type="text" class="form-control" id="MerchantOrderNo" v-model="addForm.MerchantOrderNo">
@@ -135,6 +143,12 @@
                                     <label class="form-label">商品說明</label>
                                     <input type="text" class="form-control" id="ItemDesc" v-model="addForm.ItemDesc">
                                 </div>*@
+
+                                <div class="col-md-6">
+                                    <label class="form-label">電子信箱</label>
+                                    <input type="text" class="form-control" id="Email" v-model="addForm.Email">
+                                </div>
+
                                 <div class="col-md-6">
                                     <label class="form-label">商品金額</label>
                                     <input type="text" class="form-control" id="Amt" v-model="addForm.Amt">
@@ -142,8 +156,8 @@
                             </div>
                         <div class="row mb-2">
                             <div class="col-md-6">
-                                <label class="form-label">付款人電子信箱</label>
-                                <input type="text" class="form-control" id="Email" v-model="addForm.Email">
+                                <label class="form-label">電話</label>
+                                    <input type="text" class="form-control" id="Phone" v-model="addForm.Phone">
                             </div>
 
                             <div class="col-md-6">
@@ -153,21 +167,21 @@
                         </div>
 
                             <div class="row mb-2">
-                               @*  <div class="col-md-6">
+                                 <div class="col-md-6">
                                     <label class="form-label">支付完成返回網址</label>
                                     <input type="text" class="form-control" id="ReturnURL" v-model="addForm.ReturnURL">
                                 </div>
- *@
-                                @* <div class="col-md-6">
+ 
+                                <div class="col-md-6">
                                     <label class="form-label">商店取號網址</label>
                                     <input type="text" class="form-control" id="CustomerURL" v-model="addForm.CustomerURL">
-                                </div>*@
+                                </div>
                             </div>
                             <div class="row mb-2">
-                              @*   <div class="col-md-6">
+                               <div class="col-md-6">
                                     <label class="form-label">支付通知網址</label>
                                     <input type="text" class="form-control" id="NotifyURL" v-model="addForm.NotifyURL">
-                                </div> *@
+                                </div> 
                                 <div class="col-md-6">
                                     @*<label class="form-label">返回商店網址</label>
                                     <input type="text" class="form-control" id="ClientBackURL" v-model="addForm.ClientBackURL">*@
@@ -222,32 +236,7 @@
 
 
 <script>
-    
-
-    //// 获取 URL 中的 orderId 参数
-    //function getOrderIdFromUrl() {
-    //    const queryString = window.location.search;
-    //    const urlParams = new URLSearchParams(queryString);
-    //    return urlParams.get('id');
-    //}
-
-    //// 在页面加载时获取 orderId 并将其显示在需要的地方
-    //window.addEventListener('load', function () {
-    //    const orderId = getOrderIdFromUrl();
-    //    if (orderId) {
-    //        // 在页面中显示 orderId，例如：
-    //        const orderIdElement = document.getElementById('orderId');
-    //        if (orderIdElement) {
-    //            orderIdElement.textContent = orderId;
-    //        }
-    //    }
-    //});
-
-
-
-
-
-
+   
         const app = Vue.createApp({
             data() {
 
@@ -259,15 +248,16 @@
                     addForm: {
                         MerchantID: '@ViewData["MerchantID"]' //商品代號
                         , MerchantOrderNo: '@ViewData["MerchantOrderNo"]'
-                        , ItemDesc: '測試商品'
+                        , ItemDesc: '商品'
                         , Amt: '100'
 
                         , ExpireDate: '@ViewData["ExpireDate"]'
-                        @*, ReturnURL: '@ViewData["ReturnURL"]'
-                , CustomerURL: '@ViewData["CustomerURL"]'*@
+                        // , ReturnURL: '@ViewData["ReturnURL"]'
+                        , CustomerURL: '@ViewData["CustomerURL"]'
                         , NotifyURL: '@ViewData["NotifyURL"]'
                         , ClientBackURL: '@ViewData["ClientBackURL"]'
                         , Email: 'xxxx@gmail.com'
+                        , MemberName: '蔡彤彤'
                     }
                 }
             },
@@ -295,6 +285,10 @@
 
                     this.order2 = await response2.json();
                     this.addForm.Email = this.order2.email.toString();
+                    this.addForm.MemberName = this.order2.memberName.toString();
+                    this.addForm.Phone = this.order2.phone.toString();
+
+           
 
 
 
@@ -322,8 +316,8 @@
 
                     postData['ExpireDate'] = self.addForm.ExpireDate;
                     // postData['ReturnURL'] = self.addForm.ReturnURL;
-                    //postData['CustomerURL'] = self.addForm.CustomerURL;
-                    // postData['NotifyURL'] = self.addForm.NotifyURL;
+                    postData['CustomerURL'] = self.addForm.CustomerURL;
+                    postData['NotifyURL'] = self.addForm.NotifyURL;
                     postData['ClientBackURL'] = self.addForm.ClientBackURL;
                     postData['Email'] = self.addForm.Email;
 
