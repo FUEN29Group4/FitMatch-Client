@@ -146,6 +146,7 @@
 <script>
 const { DateTime } = luxon;
 const TrainerIdFromSession = sessionStorage.getItem('trainerId');
+
 var calendar;
 var todayGymName = "";
 function toTaipeiDateTime(dateStr) {
@@ -188,6 +189,12 @@ async function loadEvents() {
     }
 
     try {
+        const examineResponse = await fetch("https://localhost:7011/api/examine/" + TrainerIdFromSession);
+
+        if (!examineResponse.ok) {
+            throw new Error('Examine check failed');
+        }
+        
         const [eventsResponse, allDayEventsResponse] = await Promise.all([
             fetch("https://localhost:7011/api/TrainerClass/" + TrainerIdFromSession),
             fetch("https://localhost:7011/api/TrainerClass/VenueReservation/" + TrainerIdFromSession)
@@ -212,13 +219,28 @@ async function loadEvents() {
 
     } catch (error) {
         console.error('Error loading events:', error);
-        Swal.fire({
-            icon: 'error',
-            title: '错误',
-            text: '加载预约数据时发生错误，请刷新页面重试。'
-        });
+        if (error.message === 'Examine check failed') {
+            // 如果examine检查失败，弹出特定的提示
+            Swal.fire({
+                icon: 'error',
+                title: '错误',
+                text: '你尚未審核通過。'
+            }).then(() => {
+                window.location.href = "/home/index"; // 跳转到主页
+            });
+        } else {
+            // 对于其他错误，弹出通用错误提示
+            Swal.fire({
+                icon: 'error',
+                title: '错误',
+                text: '加载预约数据时发生错误，请刷新页面重试。'
+            }).then(() => {
+                window.location.href = "/home/index"; // 跳转到主页
+            });
+        }
     }
 }
+
 
 function getGymsForDate(date) {
     let dateEvents = calendar.getEvents().filter(event => {

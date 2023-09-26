@@ -1,5 +1,7 @@
 ﻿
 @{
+    ViewData["Title"] = "Index";
+
 }
 <script src="https://unpkg.com/vue@3"></script>
 
@@ -59,12 +61,12 @@
                 <div class="row" id="classtypes">
                     <div class="col-lg-4 col-md-6" v-for="classtype in classtypes" :key="classtype.classTypeId">
                         <!-- 使用classtype.classTypeId构建链接 -->
-                        <a :href="'/ClassType/CourseDetail?classtypeId=' + classtype.classTypeId">
+                        <a :href="'/ClassType/coursedetail/detail?id=' + classtype.classTypeId">
                             <div class="card rounded-0 p-0 mb-5 overflow-hidden">
                                 <img class="img-fluid" :src="'data:image/jpeg;base64,' + classtype.photo"
                                      :alt="classtype.className">
                                 <div class="card-body">
-                                    <h4 class="text-center mt-3 mb-0 text-dark">{{ classtype.className }}</h4>
+                                    <h4 class="text-center mt-3 mb-0 text-dark">{{classtype.className }}</h4>
                                 </div>
                             </div>
                         </a>

@@ -263,7 +263,7 @@
             data: JSON.stringify(data),
             success: function (response) {
                 if (response.status === "success") {
-                    alert(response.message);
+                    alert(response.message + "請通知管理員");
 
                     sessionStorage.setItem('trainerId', TrainerIdFromSession);
                     console.log("Saved trainerId:", sessionStorage.getItem('trainerId'));
