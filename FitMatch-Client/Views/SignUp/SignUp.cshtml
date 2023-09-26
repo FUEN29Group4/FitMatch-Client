@@ -69,7 +69,10 @@
                     註冊
                 </button>
                 <button type="button" onclick="fillDemoData()" class="btn btn-secondary py-3 w-100 mb-2 mt-3">
-                    Demo
+                    會員Demo
+                </button>
+                <button type="button" onclick="fillTrainerDemoData()" class="btn btn-secondary py-3 w-100 mb-2 mt-3">
+                    教練Demo
                 </button>
                 <p class="text-center mb-0" style="color: #a5a5a5;">
                     我已經是會員 <a asp-controller="Login" asp-action="Login" class="text-light">登入</a>
@@ -185,13 +188,13 @@
 
     function fillDemoData() {
         // Fill name
-        document.getElementById("nameInput").value = "林大白";
+        document.getElementById("nameInput").value = "張員瑛";
 
         // Fill gender 
-        document.getElementById("male").checked = true;
+        document.getElementById("female").checked = true;
 
         // Fill birth
-        document.getElementById("birthInput").value = "1997-01-01";
+        document.getElementById("birthInput").value = "2004-08-31";
 
         // Fill phone
         document.getElementById("phoneInput").value = "0987251644";
@@ -209,6 +212,31 @@
         document.getElementById("member").checked = true;
     }
 
+    function fillTrainerDemoData() {
+        // Fill name
+        document.getElementById("nameInput").value = "高允貞";
+
+        // Fill gender
+        document.getElementById("female").checked = true; 
+
+        // Fill birth
+        document.getElementById("birthInput").value = "1996-04-22"; 
+
+        // Fill phone
+        document.getElementById("phoneInput").value = "0987288561"; 
+
+        // Fill address
+        document.getElementById("addressInput").value = "台北市中正區市民大道一段1號"; 
+
+        // Fill email
+        document.getElementById("emailInput").value = "fitmatch666@gmail.com"; 
+
+        // Fill password
+        document.getElementById("passwordInput").value = "CoachPassword123"; 
+
+        // Set account type to coach
+        document.getElementById("coach").checked = true; // 將帳戶類型設為教練
+    }
 
 
     async function register() {
