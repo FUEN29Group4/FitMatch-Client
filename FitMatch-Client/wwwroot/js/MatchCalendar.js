@@ -188,11 +188,14 @@ const MatchCalendar = Vue.createApp({
                 Swal.fire('提示', '尚未登入，無法進行預約', 'info');
                 return;
             }
+            // 找到相應的事件
+            const eventToUpdate = this.events.find(e => e.id === classId);
 
             // 構建要發送到後端的數據
             const requestData = {
                 memberId: memberIdFromSession,
-                classId: classId
+                classId: classId,
+                trainerName: eventToUpdate.extendedProps.trainerName
             };
             try {
                 // 使用fetch發送預約信息到後端

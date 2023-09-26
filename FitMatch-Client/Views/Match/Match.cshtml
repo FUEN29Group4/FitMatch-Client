@@ -150,7 +150,7 @@
                         <img class="img-fluid" :src="'data:image/jpeg;base64,' + classtype.photo"
                              :alt="classtype.className">
                         <div class="team-social">
-                            <a class="btn btn-primary" :href="'/Classtype/Classtype?id=' + classtype.classTypeId">我要預約</a>
+                            <a class="btn btn-primary" :href="'/Classtype/coursedetail/detail?id=' + classtype.classTypeId">查看課程</a>
                         </div>
                     </div>
 
@@ -238,7 +238,7 @@
                 try {
                     const response = await fetch(`https://localhost:7011/api/Match/Trainer`);
                     const data = await response.json();
-                    // 根據課程數量做排序
+                    // 根據課程預約率做排序
                     data.sort((a, b) => b.classCount - a.classCount);
                     // 只保留前5筆教練
                     this.trainerteams = data.slice(0, 5);
