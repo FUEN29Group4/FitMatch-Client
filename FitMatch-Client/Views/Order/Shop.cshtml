@@ -184,8 +184,12 @@
                         <!---------篩選功能 --------->
                         <div class="col-lg-6 col-md-6">
                             <div class="showing-top-bar-ordering">
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected="" value="1">最新</option>
+                                <select class="form-select" v-model="sortBy" aria-label="Default select example">
+                                    @*<option selected="" value="1">最新</option>
+                                    <option value="2">價格低至高</option>
+                                    <option value="3">價格高至低</option>*@
+
+                                    <option value="1">最新</option>
                                     <option value="2">價格低至高</option>
                                     <option value="3">價格高至低</option>
                                 </select>
@@ -213,9 +217,9 @@
                                         {{ product.price }}
                                     </li>
 
-                                    <li>
+                                    @*<li>
                                         {{ product.typeId}}
-                                    </li>
+                                    </li>*@
                                 </ul>
                                 <ul class="products-cart-wish-view d-flex">
                                     <li class="btn btn-primary">
@@ -325,7 +329,8 @@
             products: [],          // 存储所有商品数据的数组
             selectedCategory: null, // 存储当前选定的产品类别
             keyword: "",            // 存储搜索关键字
-            searchedProducts: []    // 存储搜索结果的数组
+            searchedProducts: [],   // 存储搜索结果的数组
+            sortBy: "" // 存储排序选项
             };
     },
 
@@ -337,16 +342,41 @@
     computed: {
        
 
+        //filteredProducts() {
+        //    // 根据选定的类别过滤商品
+        //    if (this.selectedCategory === null) {
+        //        // 如果没有选定类别，显示搜索结果或所有商品
+        //        return this.searchedProducts.length > 0 ? this.searchedProducts : this.products;
+        //    } else {
+        //        // 如果选定了类别，显示选定类别的商品
+        //        return this.products.filter(product => product.typeId === this.selectedCategory);
+        //    }
+        //},
+
+
         filteredProducts() {
             // 根据选定的类别过滤商品
             if (this.selectedCategory === null) {
                 // 如果没有选定类别，显示搜索结果或所有商品
-                return this.searchedProducts.length > 0 ? this.searchedProducts : this.products;
+                let productsToDisplay = this.searchedProducts.length > 0 ? this.searchedProducts : this.products;
+
+                // 根据排序选项对产品进行排序
+                if (this.sortBy === "2") {
+                    // 低至高排序
+                    productsToDisplay = productsToDisplay.sort((a, b) => a.price - b.price);
+                } else if (this.sortBy === "3") {
+                    // 高至低排序
+                    productsToDisplay = productsToDisplay.sort((a, b) => b.price - a.price);
+                }
+              
+                return productsToDisplay;
             } else {
                 // 如果选定了类别，显示选定类别的商品
                 return this.products.filter(product => product.typeId === this.selectedCategory);
             }
         },
+
+
 
 
 
