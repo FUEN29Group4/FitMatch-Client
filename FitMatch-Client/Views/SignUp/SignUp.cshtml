@@ -16,7 +16,7 @@
         <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4" style="width: 600px;">
             <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <a href="index.html" class="">
+                    <a href="/Home/Index" class="">
                         <div class="mb-3" style="transform: scale(0.9);">
                             <img src="~/images/LOGO/Logo.png" alt="">
                         </div>
@@ -51,7 +51,7 @@
                 </div>
                 <!-- Email -->
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control col-original" id="emailInput" placeholder="name@example.com" data-validate="required" data-error-message="請輸入Email">
+                    <input type="email" class="form-control col-original" id="emailInput" placeholder="name@example.com" data-validate="email" data-error-message="請輸入正確的Email格式">
                     <label for="emailInput" style="color: #a5a5a5;">Email</label>
                 </div>
                 <!-- 密碼 -->
@@ -121,6 +121,12 @@
         return address.length >= 10 && address.length <= 30;
     }
 
+    // Email 格式驗證
+    function validateEmail(email) {
+        const regex = /^[a-zA-Z0-9._-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/; 
+        return regex.test(email);
+    }
+
     // 密碼格式驗證（至少8碼的英數字混合）
     function validatePassword(password) {
         const regex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/; // 至少8碼的英數字混合
@@ -156,6 +162,13 @@
 
         if (validateRule === 'address') {
             if (!validateAddress(value)) {
+                showErrorMessage(element, errorMessage);
+                return false;
+            }
+        }
+
+        if (validateRule === 'email') {
+            if (!validateEmail(value)) {
                 showErrorMessage(element, errorMessage);
                 return false;
             }
