@@ -13,7 +13,8 @@
 
 
 @*  ======  增加style start ====== *@
-<style>
+
+@*<style>
     .product-img {
         height: 300px;
     }
@@ -35,9 +36,7 @@
     .products-collections-listing.products-row-view .single-products .product-content {
         background-color: transparent !important;
     }
-
-
-</style>
+</style>*@
 
 
 
@@ -80,122 +79,65 @@
     </div>
 </div>
 <!-- Page Header End -->
-
-
-
 @*＝＝＝＝＝ 以下為原先的商城樣式 ＝＝＝＝＝*@
 <!-- 创建Vue实例 -->
 <div id="app">
     <section class="products-area ptb-54">
         <div class="container">
             <div class="row">
-            
+
                 <div class="col-lg-4">
+                    <div class="widget-sidebar mr-15">
+                        <div class="sidebar-widget brand">
+                            <!-- 關鍵字搜尋 -->
+                            <form class="idebar-widget categories position-relative me-auto col-md-12" id="keywordsearch" style="align-items: center;">
+                                <div class="row">
+                                    <div class="input-group">
+                                        <!-- 選擇搜尋條件 -->
+                                        <!-- 輸入關鍵字 -->
+                                        <input type="search" class="showing-top-bar-ordering" name="txtKeyword" id="search-input"
+                                               placeholder="搜尋關鍵字" aria-label="Text input with dropdown button">
+                                        <input type="submit" value="搜尋" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
                     <div class="widget-sidebar mr-15">
                         <div class="sidebar-widget categories">
                             <ul>
                                 <li>
-                                    <h3>產品</h3>
+                                    <h3>關鍵字</h3>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        精選商品
+                                        # 熱銷商品
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        超值專區
+                                        # 保健食品
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        蛋白飲系列
+                                        # 飲養補品
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        保健食品
+                                        # 乳清蛋白
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        運動用品
+                                        # 運動用品
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#">
-                                        冷凍餐盒
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        熱銷商品
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        @* <div class="sidebar-widget filter">
-                            <h3>預算</h3>
-                            <form class="price-range-content">
-                                <div class="price-range-bar" id="range-slider"></div>
-                                <div class="price-range-filter">
-                                    <div class="price-range-filter-item">
-                                        <input type="text" id="price-amount" readonly="">
-                                    </div>
-                                </div>
-                            </form>
-                        </div> *@
-                        <div class="sidebar-widget brand">
-                            <ul>
-                                <li>
-                                    <h3>品牌分類</h3>
-                                </li>
-                                <li>
-                                    <div class="form-group checkboxs">
-                                        <input type="checkbox" class="chb2">
-                                        義美生醫
-                                        <span>(21)</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-group checkboxs">
-                                        <input type="checkbox" class="chb2">
-                                        果果堅果
-                                        <span>(10)</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-group checkboxs">
-                                        <input type="checkbox" class="chb2">
-                                        BSN 畢斯恩
-                                        <span>(15)</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-group checkboxs">
-                                        <input type="checkbox" class="chb2">
-                                        THE VEGAN 樂維根
-                                        <span>(05)</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-group checkboxs">
-                                        <input type="checkbox" class="chb2">
-                                        MYPROTEIN
-                                        <span>(13)</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-group checkboxs">
-                                        <input type="checkbox" class="chb2">
-                                        紅牛
-                                        <span>(17)</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
 
-                        <div class="trendingss">
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -234,206 +176,229 @@
                         </div>
                     </div>
                     @*  =====對照資料=====
-        productId:75
-        productName:"B群"
-        productDescription:"打造天然萃取B群，一顆滿足一日有神"
-        price:360
-        typeId:2
-        productInventory:99
-        approved:true
-        status:true
-        photo: *@
-
-
-                    
-                        <div class="col-lg-8">
-                            <div id="products-filter" class="products-collections-listing row justify-content-center">
-                                <div v-for="product in products" :key="product.ProductID" class="col-lg-6 col-md-6">
-
-                                    <div class="single-products">
-                                        <div class="product-img">
-
-                                            <img :src="'data:image/jpeg;base64,' + product.photo" alt="product Image" style="width: 200px; height: 200px; object-fit: cover;" />
-
-                                        </div>
-
-                                        <div class="product-content">
-                                            @*點選名字可以連到下一頁*@
-                                            @*<a :href="'./ProductDetailsVue?id=' + product.ProductID"> </a>*@
-                                            <a class="title" :href="'./ProductDetailsVue?id=' + product.productId">
-                                                {{ product.productName }}
-
-                                            </a>
-                                           
-
-                                            <ul class="products-price">
-                                                <li>
-                                                    {{ product.price }}
-                                                    @* <del>{{ product.OriginalPrice }}</del> *@
-                                                </li>
-                                            </ul>
-
-
-                                            <ul class="products-cart-wish-view d-flex">
-                                                <li class="btn btn-primary">
-
-                                                   
-                                                    @*V2試試看*@
-                                                    <a @@click="addToCart(product)" href="#">
-                                                        <span class="addButton">
-                                                            <i class="fa-solid fa-cart-shopping"></i>
-                                                            加入購物車
-                                                            <input type="hidden" :value="`${product.productName}|測試看看|${product.price}`">
-                                                        </span>
-                                                    </a>
+                        productId:75
+                        productName:"B群"
+                        productDescription:"打造天然萃取B群，一顆滿足一日有神"
+                        price:360
+                        typeId:2
+                        productInventory:99
+                        approved:true
+                        status:true
+                        photo: *@
 
 
 
+                    <div class="col-lg-8">
+                        <div id="products-filter" class="products-collections-listing row justify-content-center">
+                            <div v-for="product in products" :key="product.ProductID" class="col-lg-6 col-md-6">
+
+                                <div class="single-products">
+                                    <div class="product-img">
+
+                                        <img :src="'data:image/jpeg;base64,' + product.photo" alt="product Image" style="width: 200px; height: 200px; object-fit: cover;" />
+
+                                    </div>
+
+                                    <div class="product-content">
+                                        @*點選名字可以連到下一頁*@
+                                        @*<a :href="'./ProductDetailsVue?id=' + product.ProductID"> </a>*@
+                                        <a class="title" :href="'./ProductDetailsVue?id=' + product.productId">
+                                            {{ product.productName }}
+
+                                        </a>
 
 
-                                                </li>
-                                                <li>
-                                                    <a href="wishlist.html" class="wish-btn">
-                                                        <div class="icon-container">
-                                                            <i class="fa-regular fa-heart" style="color: #f24b88;"></i>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <ul class="products-price">
+                                            <li>
+                                                {{ product.price }}
+                                                @* <del>{{ product.OriginalPrice }}</del> *@
+                                            </li>
+                                        </ul>
+
+
+                                        <ul class="products-cart-wish-view d-flex">
+                                            <li class="btn btn-primary">
+
+
+                                                @*V2試試看*@
+                                                <a @@click="addToCart(product)" href="#">
+                                                    <span class="addButton">
+                                                        <i class="fa-solid fa-cart-shopping"></i>
+                                                        加入購物車
+                                                        <input type="hidden" :value="`${product.productName}|測試看看|${product.price}`">
+                                                    </span>
+                                                </a>
+
+
+
+
+
+                                            </li>
+                                            <li>
+                                                <a href="wishlist.html" class="wish-btn">
+                                                    <div class="icon-container">
+                                                        <i class="fa-regular fa-heart" style="color: #f24b88;"></i>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
+                            @*頁面 start*@
+                            <div class="col-12">
+                                <div class="pagination-area">
+                                    <span class="page-numbers current" aria-current="page">1</span>
+                                    <a href="" class="page-numbers">2</a>
+                                    <a href="" class="page-numbers">3</a>
+                                    <a href="" class="page-numbers">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            @*頁面 end*@
                         </div>
-                </div>
                     </div>
-            </section>
-        </div>
-        <!-- 创建Vue实例并将产品数据传递给它 -->
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-
-
-  @* ======== 原先JS樣式 start ======== *@
-   <!--Mall的效果JS-->
-   <script src="~/js/Mail.js/jquery.min.js"></script> 
-   <script src="~/js/Mail.js/bootstrap.bundle.min.js"></script> 
-  <script src="~/js/Mail.js/meanmenu.min.js"></script>
-  <script src="~/js/Mail.js/owl.carousel.min.js"></script>
-  <script src="~/js/Mail.js/wow.min.js"></script>
-  <script src="~/js/Mail.js/range-slider.min.js"></script>
-  <script src="~/js/Mail.js/form-validator.min.js"></script>
-  <script src="~/js/Mail.js/contact-form-script.js"></script>
-  <script src="~/js/Mail.js/ajaxchimp.min.js"></script>
-  <script src="~/js/Mail.js/custom.js"></script>
+                </div>
+            </div>
+    </section>
+</div>
+<!-- 创建Vue实例并将产品数据传递给它 -->
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 
 
+@* ======== 原先JS樣式 start ======== *@
+<!--Mall的效果JS-->
+<script src="~/js/Mail.js/jquery.min.js"></script>
+<script src="~/js/Mail.js/bootstrap.bundle.min.js"></script>
+<script src="~/js/Mail.js/meanmenu.min.js"></script>
+<script src="~/js/Mail.js/owl.carousel.min.js"></script>
+<script src="~/js/Mail.js/wow.min.js"></script>
+<script src="~/js/Mail.js/range-slider.min.js"></script>
+<script src="~/js/Mail.js/form-validator.min.js"></script>
+<script src="~/js/Mail.js/contact-form-script.js"></script>
+<script src="~/js/Mail.js/ajaxchimp.min.js"></script>
+<script src="~/js/Mail.js/custom.js"></script>
 
-   @* ======== 商城JavaScript動態效果 start ======== *@
-   <script>// 愛心
-     $(document).ready(function () {
-      // 您的圖標容器
-      var iconContainer = $('.icon-container');
 
-      // 當鼠標指向圖標時，更換圖標樣式
-      iconContainer.hover(function () {
-          $(this).find('.fa-heart').removeClass('fa-regular').addClass('fa-solid');
-      }, function () {
-          $(this).find('.fa-heart').removeClass('fa-solid').addClass('fa-regular');
-      });
 
-      // 點擊圖標時，固定圖標樣式
-      iconContainer.click(function () {
-          $(this).find('.fa-heart').addClass('fa-heart-clicked');
-      });
-  });</script>
+
+@* ======== 商城JavaScript動態效果 start ======== *@
+<script>// 愛心
+    $(document).ready(function () {
+        // 您的圖標容器
+        var iconContainer = $('.icon-container');
+
+        // 當鼠標指向圖標時，更換圖標樣式
+        iconContainer.hover(function () {
+            $(this).find('.fa-heart').removeClass('fa-regular').addClass('fa-solid');
+        }, function () {
+            $(this).find('.fa-heart').removeClass('fa-solid').addClass('fa-regular');
+        });
+
+        // 點擊圖標時，固定圖標樣式
+        iconContainer.click(function () {
+            $(this).find('.fa-heart').addClass('fa-heart-clicked');
+        });
+    });
+    //星星
+    $(document).ready(function () {
+        // 您的圖標容器
+        var iconContainer = $('.products-rating');
+
+        // 當鼠標指向圖標時，更換圖標樣式
+        iconContainer.hover(function () {
+            $(this).find('.fa-star').removeClass('fa-regular').addClass('fa-solid');
+        }, function () {
+            $(this).find('.fa-star').removeClass('fa-solid').addClass('fa-regular');
+        });
+
+        // 點擊圖標時，固定圖標樣式
+        iconContainer.click(function () {
+            $(this).find('.fa-heart').addClass('fa-heart-clicked');
+        });
+    });</script>
+
 
 
 
 @* ======== Vue & axios start ======== *@
-   <script>
+<script>const app = Vue.createApp({
+        data() {
+            return {
+                products: [], // 存储商品数据的数组
+            };
+        },
+        mounted() {
+            // 在组件加载后调用方法来获取商品数据
+            this.fetchProducts();
+        },
 
-    
-   
-
-
-       const app = Vue.createApp({
- data() {
-     return {
-         products: [], // 存储商品数据的数组
-     };
- },
- mounted() {
-     // 在组件加载后调用方法来获取商品数据
-     this.fetchProducts();
- },
-
- methods: {
-     async fetchProducts() {
-         try {
-             // 发起GET请求获取商品数据
+        methods: {
+            async fetchProducts() {
+                try {
+                    // 发起GET请求获取商品数据
                     const response = await axios.get("https://localhost:7011/api/ProductAPI");
-                   
 
-             // 将获取的商品数据存储到Vue实例的数据属性中
-             this.products = response.data;
-         } catch (error) {
-             console.error('獲取資料錯誤：', error);
-         }
-},
 
-     addToCart(product) {
-     //const itemValue = `${product.productName}|${product.photo}|${product.price}`;
-     const itemValue = `${product.productName}|已加入購物車品項
+                    // 将获取的商品数据存储到Vue实例的数据属性中
+                    this.products = response.data;
+                } catch (error) {
+                    console.error('獲取資料錯誤：', error);
+                }
+            },
+
+            addToCart(product) {
+                //const itemValue = `${product.productName}|${product.photo}|${product.price}`;
+                const itemValue = `${product.productName}|已加入購物車品項
      |${product.price}`;
-     const itemId = `${product.productId}`;
+                const itemId = `${product.productId}`;
 
-     // 存储到localStorage
-     if (localStorage.getItem(itemId)) {
-         alert('商品已在您的購物車中');
-     } else {
-        const addItemList = localStorage.getItem('addItemList') || '';
-        localStorage.setItem('addItemList', `${addItemList}${itemId}, `);
-        localStorage.setItem(itemId, itemValue);
-        alert('商品已加入購物車');
-        this.updateCartCountAndTotal();
-         
-     }
-},
+                // 存储到localStorage
+                if (localStorage.getItem(itemId)) {
+                    alert('商品已在您的購物車中');
+                } else {
+                    const addItemList = localStorage.getItem('addItemList') || '';
+                    localStorage.setItem('addItemList', `${addItemList}${itemId}, `);
+                    localStorage.setItem(itemId, itemValue);
+                    alert('商品已加入購物車');
+                    this.updateCartCountAndTotal();
 
-    // 更新购物车数量和总价
-    updateCartCountAndTotal() {
-    const itemString = localStorage.getItem('addItemList') || '';
-    const items = itemString.substring(0, itemString.length - 2).split(', ');
+                }
+            },
 
-    let subtotal = 0;
-    for (const itemId of items) {
-        const itemInfo = localStorage.getItem(itemId);
-        subtotal += parseInt(itemInfo.split('|')[2]);
-    }
+            // 更新购物车数量和总价
+            updateCartCountAndTotal() {
+                const itemString = localStorage.getItem('addItemList') || '';
+                const items = itemString.substring(0, itemString.length - 2).split(', ');
 
-    document.getElementById('itemCount').innerText = items.length;
-    document.getElementById('subtotal').innerText = subtotal;
-   },
+                let subtotal = 0;
+                for (const itemId of items) {
+                    const itemInfo = localStorage.getItem(itemId);
+                    subtotal += parseInt(itemInfo.split('|')[2]);
+                }
 
-},
+                document.getElementById('itemCount').innerText = items.length;
+                document.getElementById('subtotal').innerText = subtotal;
+            },
 
-});
+        },
 
-     app.mount('#app');</script>
+    });
 
-
+    app.mount('#app');</script>
 
 
- 
 
 
- @{
 
 
- }
+
+@{
+
+
+}
 
 
