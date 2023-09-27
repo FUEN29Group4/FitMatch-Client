@@ -88,7 +88,7 @@ namespace FitMatch_Client.Controllers
             ViewData["NotifyURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Order/CallbackNotify";//支付通知網址2
 
 
-            ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}"; //返回商店網址
+            ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}"; //返回商店網址
             return View();
         }
 
