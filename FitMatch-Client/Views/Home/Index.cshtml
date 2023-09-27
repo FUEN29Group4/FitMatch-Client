@@ -3,6 +3,13 @@
 }
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.js"></script>
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/vuex@4"></script>
+
+
+
 <style>
     /*** Facts 數據的背景 ***/
     .facts {
@@ -61,6 +68,8 @@
             width: 100%;
             height: auto;
         }
+
+   
 </style>
 
 
@@ -71,8 +80,10 @@
 
 
 
-<div class="container-fluid py-5 page-header">
-    <div class="container">
+
+<div id="app">
+    <div class="container-fluid py-5 page-header">
+        <div class="container">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                     <p class="fs-5 fw-bold text-primary">一起打造個人化的健身計劃</p>
@@ -127,34 +138,36 @@
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
-        </div>
         </div>
     </div>
     <!-- Features End -->
     <!-- Facts Start -->
-    <div class="container-fluid facts  py-5" data-parallax="scroll" data-image-src="images/bg/bg-cta">
+    <div class="container-fluid facts  py-5" data-parallax="scroll" data-image-src="images/bg/bg-cta" >
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-sm-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
-                    <h1 class="display-4 text-white" data-toggle="counter-up">3000+</h1>
+                    <h1 class="display-4 text-white" data-toggle="counter-up">{{counts.memberCount}}位</h1>
                     <span class="fs-5 fw-semi-bold text-light">運動愛好者</span>
                 </div>
                 <div class="col-sm-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
-                    <h1 class="display-4 text-white" data-toggle="counter-up">1000+</h1>
+                    <h1 class="display-4 text-white" data-toggle="counter-up">{{counts.trainerCount}}位</h1>
                     <span class="fs-5 fw-semi-bold text-light">專業教練</span>
                 </div>
                 <div class="col-sm-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
-                    <h1 class="display-4 text-white" data-toggle="counter-up">4000+</h1>
+                    <h1 class="display-4 text-white" data-toggle="counter-up">{{counts.classCount}}件</h1>
                     <span class="fs-5 fw-semi-bold text-light">媒合成功案件</span>
                 </div>
                 <div class="col-sm-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.9s">
-                    <h1 class="display-4 text-white" data-toggle="counter-up">500+</h1>
+                    <h1 class="display-4 text-white" data-toggle="counter-up">{{counts.gymCount}}個</h1>
                     <span class="fs-5 fw-semi-bold text-light">健身場所</span>
                 </div>
             </div>
         </div>
     </div>
+
+
     <!-- Facts End -->
     <!-- Service Start -->
     <div class="container-xxl py-5">
@@ -209,7 +222,7 @@
                         <!-- class: fa-plus(加號) -->
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -219,72 +232,16 @@
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <p class="d-inline-block bg-darkgray text-primary py-1 px-4">全台金牌教練都在FitMatch</p>
-                <h1 class="text-uppercase">優秀的教練陣容</h1>
+                <h1 class="text-uppercase">人氣Top4 教練陣容</h1>
             </div>
             <div class="row g-4">
 
-
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="team-item">
-                        <div class="team-img mx-auto position-relative overflow-hidden align-items-center trainerpic">
-                        <img class="img-fluid" src="~/images/教練/林芊妤.jpg" alt="">
-
-                            <div class="team-social">
-                                <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="bg-darkgray text-center p-4">
-                            <h5 class="text-uppercase">The Rock</h5>
-                            <span class="text-primary">功能性訓練</span>
-                            <br>
-                            <input class="btn btn-primary mt-2 " type="button" value="預約教練">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                @*＝＝＝＝＝＝＝金牌教練原先模板參考＝＝＝＝＝＝*@
+                            <!--<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                     <div class="team-item">
                         <div class="team-img mx-auto position-relative overflow-hidden trainerpic">
-                        <img class="img-fluid" src="~/images/教練/巨石強森.jpg" alt="">
 
-                            <div class="team-social">
-                                <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="bg-darkgray text-center p-4">
-                            <h5 class="text-uppercase">Biao Han Chen</h5>
-                            <span class="text-primary">拳擊訓練</span>
-                            <br>
-                            <input class="btn btn-primary mt-2 " type="button" value="預約教練">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="team-item">
-                        <div class="team-img mx-auto position-relative overflow-hidden trainerpic">
-                        <img class="img-fluid" src="~/images/教練/艾利克.jpg" alt=""> <!-- 照片尺寸怪怪 -->
-
-                            <div class="team-social">
-                                <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="bg-darkgray text-center p-4">
-                            <h5 class="text-uppercase">DON SALADINO</h5>
-                            <span class="text-primary">增肌減脂</span>
-                            <br>
-                            <input class="btn btn-primary mt-2 " type="button" value="預約教練">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="team-item">
-                        <div class="team-img mx-auto position-relative overflow-hidden trainerpic">
-                        <img class="img-fluid" src="~/images/教練/李奇福.jpg" alt="">
+                            <img class="img-fluid" src="~/images/教練/李奇福.jpg" alt="">
                             <div class="team-social">
                                 <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
                                 <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
@@ -298,30 +255,79 @@
                             <input class=" btn btn-primary mt-2 " type="button" value="預約教練">
                         </div>
                     </div>
+                </div>-->
+                @*＝＝＝＝＝＝＝用Vue實踐＝＝＝＝＝＝*@
+
+                <!--<template>
+                <div>
+                  <!-- Other parts of your component -->
+                  <!--<div v-for="trainer in trainers" :key="trainer.id">
+                  <h3>{{ trainer.TrainerName }}</h3>
+                  <img :src="trainer.photo" alt="Trainer Photo">
                 </div>
+                </template>-->
+
+
+                <div class="col-lg-3 col-md-6 wow fadeInUp" v-for="trainer in trainers" :key="trainer.id" data-wow-delay="0.7s">
+                    <div class="team-item">
+                        <div class="team-img mx-auto position-relative overflow-hidden trainerpic">
+
+
+                            @*<div class="product-img">
+                        <img :src="'data:image/jpeg;base64,' + product.photo" alt="product Image" style="width: 200px; height: 200px; object-fit: cover;" />
+                    </div>*@
+
+                            @*<img class="img-fluid" :src="trainer.photo" alt="Trainer Photo>*@
+                            <img class="img-fluid" :src="'data:image/jpeg;base64,' + trainer.photo" alt="Trainer Image" />
+
+                            <div class="team-social">
+                                <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="bg-darkgray text-center p-4">
+                            <h5 class="text-uppercase">{{ trainer.TrainerName }}</h5>
+                            <span class="text-primary">{{getFirstExpertise(trainer.expertise)}}</span>
+                            <br>
+                            <input class=" btn btn-primary mt-2 " type="button" value="預約教練">
+                        </div>
+                    </div>
+                </div>
+
+
+
+
             </div>
         </div>
+
+
+
+
+
+
+
     </div>
+
+
+
     <!-- Team End -->
     <!-- Testimonial Start -->
     <!--<div class="container-xxl py-5">
         <div class="container  ">
             <div class="text-center mx-auto mb-1 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <p class="d-inline-block bg-darkgray text-primary py-1 px-4">上千位學員好評推薦</p>-->
-                <!-- <h1 class="text-uppercase">一起來看看會員對我們的看法吧</h1> -->
-            <!--</div>-->
-
-            <!-- 下方小圓點的樣式：search style.css => .testimonial-carousel .owl-dots  -->
-            <!--<div class="testimonialbgc owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-                <div class="testimonial-item text-center "
-                 data-dot="<img class='img-fluid' src='../../wwwroot/images/會員/user1.png' alt=''>">-->
-                    <!-- 原本頭像 src='images/testimonial-3.jpg'  -->
-                    <!--<h4 class="text-uppercase py-2">石Ｏ聖</h4>
-                    <p class="text-primary">咖啡師傅（台中人 28歲 ）</p>-->
-
-
-                    <!-- mb-4  改變字感言的大小  （原先：fs-5） -->
-                    <!--<span class=" mb-4 text-light  ">
+    <!-- <h1 class="text-uppercase">一起來看看會員對我們的看法吧</h1> -->
+    <!--</div>-->
+    <!-- 下方小圓點的樣式：search style.css => .testimonial-carousel .owl-dots  -->
+    <!--<div class="testimonialbgc owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+        <div class="testimonial-item text-center "
+         data-dot="<img class='img-fluid' src='../../wwwroot/images/會員/user1.png' alt=''>">-->
+    <!-- 原本頭像 src='images/testimonial-3.jpg'  -->
+    <!--<h4 class="text-uppercase py-2">石Ｏ聖</h4>
+    <p class="text-primary">咖啡師傅（台中人 28歲 ）</p>-->
+    <!-- mb-4  改變字感言的大小  （原先：fs-5） -->
+    <!--<span class=" mb-4 text-light  ">
                         對於一個曾經的宅男，使用FitMatch是我迄今為止做過最正確的決定。<br> 每次的運動課程都充滿挑戰，但也都帶來滿滿的成就感。<br>
                         我發現運動讓我的精神狀態變得更加穩定，工作效率也提升了許多。
 
@@ -398,5 +404,53 @@
             </div>
         </div>
     </div>
-   
-    
+
+</div>
+
+
+
+@*===== 帶入Vue ＆ axios =====*@
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                trainers: [],
+                counts: {
+                    memberCount: 0,
+                    trainerCount: 0,
+                    classCount: 0,
+                    gymCount: 0
+                }
+            };
+        },
+        mounted() {
+            // 讀取Top4教練資訊
+            axios.get('https://localhost:7011/api/Trainer/GetTopTrainer')
+                .then(response => {
+                    this.trainers = response.data;
+                })
+                .catch(error => {
+                    console.error("Error fetching trainers:", error);
+                });
+
+            //獲取會員、教練、開課數、健身房各自的總數量 
+            axios.get('https://localhost:7011/api/Index/GetCounts')
+                .then(response => {
+                        this.counts = response.data;  
+                })
+                .catch(error => {
+                    console.error("Error fetching counts:", error);
+                });
+
+
+
+        },
+        methods: {
+            getFirstExpertise(expertise) {
+                return expertise.split(',')[0];
+            }
+        }
+
+    });
+
+ app.mount('#app');</script>

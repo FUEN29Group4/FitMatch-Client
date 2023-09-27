@@ -33,11 +33,11 @@
         background-color: transparent !important;
     }
 
-    .btn-primary {
+/*    .btn .btn-primary {
         color: #fff;
         background-color: #F24B88;
-        border-color: #F24B88;
-    } 
+        border-color: #F24B88;*/
+    }
 </style>
 
 
@@ -48,7 +48,7 @@
 <!--Mall的樣式css-->
 <link rel="stylesheet" href="~/css/Mall.css/bootstrap.min.css">
 
-<link rel="stylesheet" href="~/css/Mall.css/owl.theme.default.min.css">
+@*<link rel="stylesheet" href="~/css/Mall.css/owl.theme.default.min.css">
 
 <link rel="stylesheet" href="~/css/Mall.css/owl.carousel.min.css">
 
@@ -56,7 +56,7 @@
 
 <link rel="stylesheet" href="~/css/Mall.css/meanmenu.min.css">
 
-<link rel="stylesheet" href="~/css/Mall.css/animate.min.css">
+<link rel="stylesheet" href="~/css/Mall.css/animate.min.css">*@
 
 <link rel="stylesheet" href="~/css/Mall.css/style.css">
 
@@ -68,16 +68,17 @@
 
 
 
+
 @*  ======  body start ====== *@
 <!-- Page Header Start -->
 <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
-        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">SHOP</h1>
+        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">FitMatch健康商城</h1>
         <nav aria-label="breadcrumb animated slideInDown">
             <ol class="breadcrumb justify-content-center text-uppercase mb-0">
-                <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                <li class="breadcrumb-item text-primary active" aria-current="page">Shop</li>
+                <li class="breadcrumb-item"><a class="text-white" href="#">首頁</a></li>
+                @*<li class="breadcrumb-item"><a class="text-white" href="#">商城首頁</a></li>*@
+                <li class="breadcrumb-item text-primary active" aria-current="page">商城</li>
             </ol>
         </nav>
     </div>
@@ -101,8 +102,8 @@
                                     <div class="input-group">
                                         <!-- 輸入關鍵字 -->
                                         @*<input type="search" class="showing-top-bar-ordering" name="txtKeyword" id="search-input"
-                                               placeholder="請輸入文字" aria-label="Text input with dropdown button">
-                                        <input type="submit" value="搜尋" class="btn-primary" />*@
+                                                   placeholder="請輸入文字" aria-label="Text input with dropdown button">
+                                            <input type="submit" value="搜尋" class="btn-primary" />*@
 
                                         <input type="search" v-model="keyword" class="showing-top-bar-ordering" name="txtKeyword" id="search-input"
                                                placeholder="請輸入文字" aria-label="Text input with dropdown button">
@@ -123,7 +124,7 @@
                                     <h3>熱門標籤</h3>
                                 </li>
                                 <li>
-                                    <a href="#"  @@click="filterProducts(null)">
+                                    <a href="#" @@click="filterProducts(null)">
                                         # 熱銷商品
                                     </a>
                                 </li>
@@ -160,106 +161,106 @@
                 </div>
 
                 @*＝＝＝＝＝大小畫面切換 start ＝＝＝＝＝＝＝*@
-            <div class="col-lg-8">
-                <div class="showing-result">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="products-filter-options">
-                                <div class="view-list-row">
-                                    <div class="view-column">
-                                        <a href="#" class="icon-view-three active">
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                        </a>
-                                        <a href="#" class="view-grid-switch">
-                                            <span></span>
-                                            <span></span>
-                                        </a>
+                <div class="col-lg-8">
+                    <div class="showing-result">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="products-filter-options">
+                                    <div class="view-list-row">
+                                        <div class="view-column">
+                                            <a href="#" class="icon-view-three active">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </a>
+                                            <a href="#" class="view-grid-switch">
+                                                <span></span>
+                                                <span></span>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!---------篩選功能 --------->
-                        <div class="col-lg-6 col-md-6">
-                            <div class="showing-top-bar-ordering">
-                                <select class="form-select" v-model="sortBy" aria-label="Default select example">
-                                    @*<option selected="" value="1">最新</option>
-                                    <option value="2">價格低至高</option>
-                                    <option value="3">價格高至低</option>*@
+                            <!---------篩選功能 --------->
+                            <div class="col-lg-6 col-md-6">
+                                <div class="showing-top-bar-ordering">
+                                    <select class="form-select" v-model="sortBy" aria-label="Default select example">
+                                        @*<option selected="" value="1">最新</option>
+                                            <option value="2">價格低至高</option>
+                                            <option value="3">價格高至低</option>*@
 
-                                    <option value="1">最新</option>
-                                    <option value="2">價格低至高</option>
-                                    <option value="3">價格高至低</option>
-                                </select>
+                                        <option value="1">最新</option>
+                                        <option value="2">價格低至高</option>
+                                        <option value="3">價格高至低</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                @*＝＝＝＝＝大小畫面切換 end＝＝＝＝＝＝＝*@
+                    @*＝＝＝＝＝大小畫面切換 end＝＝＝＝＝＝＝*@
 
-                @*＝＝＝＝＝ 產品內容開始 start=======*@
-                <div id="products-filter" class="products-collections-listing row justify-content-center">
-                    <div v-for="product in filteredProducts" :key="product.ProductID" class="col-lg-6 col-md-6">
-                        <div class="single-products">
-                            <div class="product-img">
-                                <img :src="'data:image/jpeg;base64,' + product.photo" alt="product Image" style="width: 200px; height: 200px; object-fit: cover;" />
+                    @*＝＝＝＝＝ 產品內容開始 start=======*@
+                    <div id="products-filter" class="products-collections-listing row justify-content-center">
+                        <div v-for="product in filteredProducts" :key="product.ProductID" class="col-lg-6 col-md-6">
+                            <div class="single-products">
+                                <div class="product-img">
+                                    <img :src="'data:image/jpeg;base64,' + product.photo" alt="product Image" style="width: 200px; height: 200px; object-fit: cover;" />
+                                </div>
+
+                                <div class="product-content ">
+                                    <a class="title" :href="'./ProductDetailsVue?id=' + product.productId">
+                                        {{ product.productName }}
+                                    </a>
+                                    <ul class="products-price">
+                                        <li>
+                                            {{ product.price }}
+                                        </li>
+
+                                        @*<li>
+                                                {{ product.typeId}}
+                                            </li>*@
+                                    </ul>
+                                    <ul class="products-cart-wish-view d-flex">
+                                        <li class="btn btn-primary">
+                                            <a @@click="addToCart(product)" href="#">
+                                                @*<span class="addButton">*@
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                                加入購物車
+                                                @*<input type="hidden" :value="`${product.productName}|測試看看|${product.price}`">*@
+                                                @* </span>*@
+                                            </a>
+                                        </li>
+
+                                        <!------ 收藏愛心功能 ------->
+                                        <li>
+                                            <a href="wishlist.html" class="wish-btn">
+                                                <div class="icon-container">
+                                                    <i class="fa-regular fa-heart" style="color: #f24b88;"></i>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
+                        </div>
+                        @*產品內容結束＝＝＝＝＝end=======*@
 
-                            <div class="product-content ">
-                                <a class="title" :href="'./ProductDetailsVue?id=' + product.productId">
-                                    {{ product.productName }}
+                        <!------- 分頁 ------->
+                        <div class="col-12">
+                            <div class="pagination-area">
+                                <span class="page-numbers current" aria-current="page">1</span>
+                                <a href="" class="page-numbers">2</a>
+                                <a href="" class="page-numbers">3</a>
+                                <a href="" class="page-numbers">
+                                    <i class="fa-solid fa-angle-right"></i>
                                 </a>
-                                <ul class="products-price">
-                                    <li>
-                                        {{ product.price }}
-                                    </li>
-
-                                    @*<li>
-                                        {{ product.typeId}}
-                                    </li>*@
-                                </ul>
-                                <ul class="products-cart-wish-view d-flex">
-                                    <li class="btn btn-primary">
-                                        <a @@click="addToCart(product)" href="#">
-                                            @*<span class="addButton">*@
-                                            <i class="fa-solid fa-cart-shopping"></i>
-                                            加入購物車
-                                            @*<input type="hidden" :value="`${product.productName}|測試看看|${product.price}`">*@
-                                            @* </span>*@
-                                        </a>
-                                    </li>
-
-                                    <!------ 收藏愛心功能 ------->
-                                    <li>
-                                        <a href="wishlist.html" class="wish-btn">
-                                            <div class="icon-container">
-                                                <i class="fa-regular fa-heart" style="color: #f24b88;"></i>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
-                    </div>
-                    @*產品內容結束＝＝＝＝＝end=======*@
 
-                    <!------- 分頁 ------->
-                    <div class="col-12">
-                        <div class="pagination-area">
-                            <span class="page-numbers current" aria-current="page">1</span>
-                            <a href="" class="page-numbers">2</a>
-                            <a href="" class="page-numbers">3</a>
-                            <a href="" class="page-numbers">
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                        </div>
                     </div>
-
                 </div>
-            </div>
             </div>
         </div>
     </section>
@@ -325,87 +326,87 @@
 @* ======== Vue & axios start ======== *@
 <script>const app = Vue.createApp({
         data() {
-        return {
-            products: [],          // 存储所有商品数据的数组
-            selectedCategory: null, // 存储当前选定的产品类别
-            keyword: "",            // 存储搜索关键字
-            searchedProducts: [],   // 存储搜索结果的数组
-            sortBy: "" // 存储排序选项
+            return {
+                products: [],          // 存储所有商品数据的数组
+                selectedCategory: null, // 存储当前选定的产品类别
+                keyword: "",            // 存储搜索关键字
+                searchedProducts: [],   // 存储搜索结果的数组
+                sortBy: "" // 存储排序选项
             };
-    },
+        },
 
         mounted() {
             // 在组件加载后调用方法来获取商品数据
             this.fetchProducts();
 
-    },
-    computed: {
-       
-
-        //filteredProducts() {
-        //    // 根据选定的类别过滤商品
-        //    if (this.selectedCategory === null) {
-        //        // 如果没有选定类别，显示搜索结果或所有商品
-        //        return this.searchedProducts.length > 0 ? this.searchedProducts : this.products;
-        //    } else {
-        //        // 如果选定了类别，显示选定类别的商品
-        //        return this.products.filter(product => product.typeId === this.selectedCategory);
-        //    }
-        //},
+        },
+        computed: {
 
 
-        filteredProducts() {
-            // 根据选定的类别过滤商品
-            if (this.selectedCategory === null) {
-                // 如果没有选定类别，显示搜索结果或所有商品
-                let productsToDisplay = this.searchedProducts.length > 0 ? this.searchedProducts : this.products;
+            //filteredProducts() {
+            //    // 根据选定的类别过滤商品
+            //    if (this.selectedCategory === null) {
+            //        // 如果没有选定类别，显示搜索结果或所有商品
+            //        return this.searchedProducts.length > 0 ? this.searchedProducts : this.products;
+            //    } else {
+            //        // 如果选定了类别，显示选定类别的商品
+            //        return this.products.filter(product => product.typeId === this.selectedCategory);
+            //    }
+            //},
 
-                // 根据排序选项对产品进行排序
-                if (this.sortBy === "2") {
-                    // 低至高排序
-                    productsToDisplay = productsToDisplay.sort((a, b) => a.price - b.price);
-                } else if (this.sortBy === "3") {
-                    // 高至低排序
-                    productsToDisplay = productsToDisplay.sort((a, b) => b.price - a.price);
+
+            filteredProducts() {
+                // 根据选定的类别过滤商品
+                if (this.selectedCategory === null) {
+                    // 如果没有选定类别，显示搜索结果或所有商品
+                    let productsToDisplay = this.searchedProducts.length > 0 ? this.searchedProducts : this.products;
+
+                    // 根据排序选项对产品进行排序
+                    if (this.sortBy === "2") {
+                        // 低至高排序
+                        productsToDisplay = productsToDisplay.sort((a, b) => a.price - b.price);
+                    } else if (this.sortBy === "3") {
+                        // 高至低排序
+                        productsToDisplay = productsToDisplay.sort((a, b) => b.price - a.price);
+                    }
+
+                    return productsToDisplay;
+                } else {
+                    // 如果选定了类别，显示选定类别的商品
+                    return this.products.filter(product => product.typeId === this.selectedCategory);
                 }
-              
-                return productsToDisplay;
-            } else {
-                // 如果选定了类别，显示选定类别的商品
-                return this.products.filter(product => product.typeId === this.selectedCategory);
-            }
+            },
+
+
+
+
+
         },
+        methods: {
+
+            filterProducts(category) {
+                // 更新选定的类别状态
+                this.selectedCategory = category;
+            },
 
 
 
 
+            searchProducts() {
+                if (this.keyword.trim() === "") {
+                    // 如果关键字为空，则显示所有商品
+                    this.selectedCategory = null; // 清空选定的类别
+                    this.searchedProducts = [];   // 清空搜索结果
+                } else {
+                    // 如果关键字不为空，则根据关键字过滤商品
+                    this.selectedCategory = null; // 清空选定的类别
+                    this.searchedProducts = this.products.filter(product =>
+                        product.productName.toLowerCase().includes(this.keyword.trim().toLowerCase())
+                    );
+                    this.keyword = "";
 
-    },
-    methods: {
-
-        filterProducts(category) {
-            // 更新选定的类别状态
-            this.selectedCategory = category;
-        },
-
-
-        
-
-        searchProducts() {
-            if (this.keyword.trim() === "") {
-                // 如果关键字为空，则显示所有商品
-                this.selectedCategory = null; // 清空选定的类别
-                this.searchedProducts = [];   // 清空搜索结果
-            } else {
-                // 如果关键字不为空，则根据关键字过滤商品
-                this.selectedCategory = null; // 清空选定的类别
-                this.searchedProducts = this.products.filter(product =>
-                    product.productName.toLowerCase().includes(this.keyword.trim().toLowerCase())
-                );
-                this.keyword = "";
-                
-            }
-        },
+                }
+            },
 
 
 
