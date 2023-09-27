@@ -73,7 +73,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="chatModalLabel">訊息</h5>
+                    <h5 class="modal-title" id="chatModalLabel">聯繫會員</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -85,9 +85,10 @@
                             <!-- 否則，顯示ID -->
                             <div v-else>{{ msg.senderId }}</div>
                         </div>
-                        <span class="chat-content">
+                        <div class="chat-content">
                             {{ msg.messageContent }}
-                        </span>
+                          
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

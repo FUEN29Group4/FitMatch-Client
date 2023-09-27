@@ -18,6 +18,8 @@ const chat = Vue.createApp({
             receiverId: null,
             role: "", // 初始化为 null
             photoURLs: {},
+            isSubscribedToEvents: false,  // 用來檢查是否已經訂閱過事件的標誌
+
         };
     },
     async created() {
@@ -25,6 +27,18 @@ const chat = Vue.createApp({
         this.senderId = sessionStorage.getItem('memberId') || sessionStorage.getItem('trainerId');
         this.role = sessionStorage.getItem('memberId') ? 'Member' : 'Trainer';
 
+        // 如果還沒訂閱事件，則訂閱
+        if (!this.isSubscribedToEvents) {
+            connection.on("ReceiveMessage", (senderId, message, role, currentTime) => {
+                // 添加新消息到 chatHistory
+                this.chatHistory.push({ senderId, messageContent: message, role, currentTime });
+                // 捲動到最新消息
+                this.$nextTick(() => {
+                    this.scrollToBottom();
+                });
+            });
+            this.isSubscribedToEvents = true; // 設置為已訂閱
+        }
         // 啟動 SignalR 連線
         //this.connect();
     },
@@ -54,9 +68,7 @@ const chat = Vue.createApp({
                         this.connect();
                     });
                     connection.connectionClosed = true;
-                } else {
-                    console.warn('已初始化過了SignalR');
-                }
+                } 
 
                 try {
                     await connection.start();
@@ -66,15 +78,7 @@ const chat = Vue.createApp({
                 }
             } else {
                 console.warn('連線失敗狀態:', connection.state);
-            }// 訂閱接收消息事件
-            connection.on("ReceiveMessage", (senderId, message, role, currentTime) => {
-                // 添加新消息到 chatHistory
-                this.chatHistory.push({ senderId, messageContent: message, role, currentTime });
-                // 捲動到最新消息
-                this.$nextTick(() => {
-                    this.scrollToBottom();
-                });
-            });
+            }
         },
         showChatHistory(receiverId) {
             // 啟動 SignalR 連線
@@ -89,7 +93,7 @@ const chat = Vue.createApp({
 
         },
         scrollToBottom() {
-            const chatBody = document.querySelector('.chat-body');
+            const chatBody = document.querySelector('.modal-body');
             if (chatBody) {
                 chatBody.scrollTop = chatBody.scrollHeight;
             }

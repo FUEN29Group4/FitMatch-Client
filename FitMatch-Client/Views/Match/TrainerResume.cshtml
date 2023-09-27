@@ -336,7 +336,7 @@
 
             const showModal = (event) => {
                 //接收場館
-                // 使用fetch、axios或其他HTTP庫從API獲取健身房信息
+                // 使用fetch從API獲取健身房信息
                 var gymId = event.extendedProps.gymId;
                 var startTime = event.extendedProps.startTime;
                 var endTime = event.extendedProps.endTime;
@@ -347,7 +347,6 @@
                 const classTypeId = event.extendedProps.classTypeId;
                 //const matchedClassTypeInfo = classTypeData.find(type => type.classTypeId === classTypeId);
                 // 放進健身房模擬視窗
-                // 使用SweetAlert2显示模态窗口
                 Swal.fire({
                     title: '預約資訊',
                     html: `
