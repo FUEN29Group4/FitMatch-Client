@@ -98,8 +98,8 @@
                     <h3 class="cart-checkout-title">結帳金額</h3>
                     <ul>
                         <li>小計 <span id="subtotal">0</span></li>
-                        <li>稅金 <span id="tax">$00.00</span></li>
-                        <li>總金額 <span id="total">0</span></li>
+                        @*<li>稅金 <span id="tax">$00.00</span></li>
+                        <li>總金額 <span id="total">0</span></li>*@
                         @*       <li>優惠折扣 <span id="優惠id">0</span></li>
                             <li><b>折扣後金額</b><span id="折扣後id"><b>0</b></span></li>*@
                         <li>
@@ -276,7 +276,8 @@
         let spanSubtotal = document.createElement('span');
         spanSubtotal.className = 'subtotal-amount';
         //spanSubtotal.textContent = `$${itemPrice.toFixed(2)}`;
-        spanSubtotal.textContent = `$${(itemPrice * storedQuantity).toFixed(2)}`;
+        //spanSubtotal.textContent = `$${(itemPrice * storedQuantity).toFixed(2)}`;
+        spanSubtotal.textContent = `$${Math.floor(itemPrice * storedQuantity)}`;
         tdSubtotal.appendChild(spanSubtotal);
 
         // 第六列 - 刪除按鈕
@@ -311,9 +312,9 @@
         let tax = subtotal * 0.05;
         total = subtotal + tax;
 
-        document.getElementById('subtotal').innerText = subtotal.toFixed(2);
-        document.getElementById('tax').innerText = tax.toFixed(2);
-        document.getElementById('total').innerText = total.toFixed(2);
+        document.getElementById('subtotal').innerText = `$${Math.floor(subtotal)}`;
+        //document.getElementById('tax').innerText = tax.toFixed(2);
+        //document.getElementById('total').innerText = total.toFixed(2);
     }
     function deleteItem(e) {
         e.preventDefault();  // 阻止預設按下刪除會刷新頁面
