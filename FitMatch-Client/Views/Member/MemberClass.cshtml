@@ -27,7 +27,16 @@
         vertical-align: middle; /* 垂直置中 */
         text-align: center; /* 水平置中 */
     }
+    /*儀*/
+    .demoButton .btn:focus {
+        background-color: green;
+        border-color: green;
+        color: white;
+    }
 
+    .demoButton button {
+        background-color: transparent;
+    }
 </style>
 
 
@@ -107,8 +116,12 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input v-model="message" placeholder="輸入訊息" @@keyup.enter="sendMessage" />
+                        <input v-model="message" id="ChatInput" placeholder="輸入訊息" @@keyup.enter="sendMessage" />
                         <button @@click="sendMessage" class="btn btn-light" style="border-radius: 5px;padding:12px 14px"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                    <div class="text-end demoButton">
+                        <button type="button" id="demoButton" class="btn btn-outline-success m-2" style="border-radius: 5px;">DEMO1</button>
+                        <button type="button" id="demoButton2" class="btn btn-outline-success m-2" style="border-radius: 5px;">DEMO2</button>
                     </div>
                 </div>
             </div>
@@ -124,10 +137,33 @@
 
 
     //@@彥儀用@@
+    //DEMO
+    document.addEventListener("DOMContentLoaded", function () {
+        var demoButton = document.getElementById("demoButton");
+        if (demoButton) {
+            demoButton.addEventListener("click", function () {
+                var chatInput = document.getElementById("ChatInput");
+                chatInput.value = "收到教練，請問服裝有什麼規定嗎?";
+
+                var event = new Event('input', { bubbles: true });
+                chatInput.dispatchEvent(event);
+            });
+        }
+        var demoButton2 = document.getElementById("demoButton2");
+        if (demoButton2) {
+            demoButton2.addEventListener("click", function () {
+                var chatInput = document.getElementById("ChatInput");
+                chatInput.value = "感謝教練，我會遵守注意事項!";
+
+                var event = new Event('input', { bubbles: true });
+                chatInput.dispatchEvent(event);
+            });
+        }
+    });
     const sharedState = {
         Id: null,
         isVisible: false,
-    };
+    };//@@彥儀用結束@@
 
     const app1 = Vue.createApp({
         data() {

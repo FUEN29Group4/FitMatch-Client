@@ -23,6 +23,12 @@
     .btn-space {
         margin-right: 10px; /* 依您的需求調整間隔 */
     }
+    /*儀*/
+    .demoButton .btn:focus {
+        background-color: green;
+        border-color: green;
+        color:white;
+    }
 </style>
 
 <div class="container" id="app">
@@ -50,7 +56,7 @@
                     <button type="button"
                             class="btn btn-primary btn-space"
                             style="background-color: #F24B88; color: aliceblue;"
-                    @@click="showClassRecords(cls.memberId)">
+                            @@click="showClassRecords(cls.memberId)">
                         上課紀錄
                     </button>
                     <button type="button"
@@ -87,13 +93,17 @@
                         </div>
                         <div class="chat-content">
                             {{ msg.messageContent }}
-                          
+
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input v-model="message" placeholder="輸入訊息" @@keyup.enter="sendMessage" />
-                    <button @@click="sendMessage" class="btn btn-light" style="border-radius: 5px;padding:12px 14px"><i class="fa-solid fa-paper-plane"></i></button>
+                        <input v-model="message" id="ChatInput" placeholder="輸入訊息" @@keyup.enter="sendMessage" />
+                        <button @@click="sendMessage" class="btn btn-light" style="border-radius: 5px;padding:12px 14px"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+                <div class="text-end demoButton">
+                    <button type="button" id="demoButton" class="btn btn-outline-success m-2" style="border-radius: 5px;">DEMO1</button>
+                    <button type="button" id="demoButton2" class="btn btn-outline-success m-2" style="border-radius: 5px;">DEMO2</button>
                 </div>
             </div>
         </div>
@@ -103,16 +113,40 @@
 
 
 <script>
-    
+
 
     //@@彥儀用@@
+    //DEMO
+    document.addEventListener("DOMContentLoaded", function () {
+        var demoButton = document.getElementById("demoButton");
+        if (demoButton) {
+            demoButton.addEventListener("click", function () {
+                var chatInput = document.getElementById("ChatInput");
+                chatInput.value = "庭庭您好，收到您的預約了，下次上課記得攜帶水與毛巾";
+
+                var event = new Event('input', { bubbles: true });
+                chatInput.dispatchEvent(event);
+            });
+        }
+        var demoButton2 = document.getElementById("demoButton2");
+        if (demoButton2) {
+            demoButton2.addEventListener("click", function () {
+                var chatInput = document.getElementById("ChatInput");
+                chatInput.value = "需穿著運動服，鞋子部分可以穿平底鞋，這樣使用重訓器材時才不會腳底不穩";
+
+                var event = new Event('input', { bubbles: true });
+                chatInput.dispatchEvent(event);
+            });
+        }
+    });
     const sharedState = {
         Id: null,
         isVisible: false,
     };
+    //@@彥儀用結束@@
 
     const TrainerIdFromSession = sessionStorage.getItem('trainerId');
-    const { createApp, computed,ref } = Vue;
+    const { createApp, computed, ref } = Vue;
     const { createStore } = Vuex;
 
     const store = createStore({
@@ -145,9 +179,9 @@
                         summary[item.memberId] = {
                             memberId: item.memberId,
                             memberName: item.memberName,
-                           
-                            
-    
+
+
+
 
                             totalClasses: 0,
                             totalCost: 0
@@ -192,41 +226,41 @@
 
                 // 使用這些資料構建一個表格的HTML內容
                 let tableContent = `
-                    <table class="table table-bordered table-hover">
-                        <thead style="background-color: #F24B88;">
-                            <tr>
-                                <th>預約編號</th>
-                                <th>上課開始時間</th>
-                                <th>上課結束時間</th>
-                                <th>課程費用</th>
-                                <th>狀態</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                `;
+                        <table class="table table-bordered table-hover">
+                            <thead style="background-color: #F24B88;">
+                                <tr>
+                                    <th>預約編號</th>
+                                    <th>上課開始時間</th>
+                                    <th>上課結束時間</th>
+                                    <th>課程費用</th>
+                                    <th>狀態</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
 
                 memberClasses.forEach(cls => {
                     tableContent += `
-                        <tr>
-                            <td>${cls.classId}</td>
-                                <td>${formatTo12Hour(cls.startTime)}</td> 
-                                 <td>${formatTo12Hour(cls.endTime)}</td> 
-                            <td>${cls.courseUnitPrice}</td>
-                            <td>${cls.courseStatus}</td>
-                        </tr>
-                    `;
+                            <tr>
+                                <td>${cls.classId}</td>
+                                    <td>${formatTo12Hour(cls.startTime)}</td>
+                                     <td>${formatTo12Hour(cls.endTime)}</td>
+                                <td>${cls.courseUnitPrice}</td>
+                                <td>${cls.courseStatus}</td>
+                            </tr>
+                        `;
                 });
 
                 tableContent += `
-                        </tbody>
-                    </table>
-                `;
+                            </tbody>
+                        </table>
+                    `;
                 // 添加會員的總堂數和總費用到彈出視窗
                 const memberSummary = getMemberSummary(memberId);
                 let summaryContent = `
-                <p>總堂數: ${memberSummary.totalClasses}</p>
-                <p>總費用: ${memberSummary.totalCost}</p>
-                 `;
+                    <p>總堂數: ${memberSummary.totalClasses}</p>
+                    <p>總費用: ${memberSummary.totalCost}</p>
+                     `;
 
                 Swal.fire({
                     title: '上課紀錄',
@@ -259,7 +293,7 @@
                 getMemberSummary,
                 showClassRecords, // 在這裡返回
                 ...sharedState, //@@彥儀用@@
-                
+
                 sortedClasses,
                 formatTo12Hour,   // 注意這裡返回函數
                 showChatHistory(Id) { //@@彥儀用@@
