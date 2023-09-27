@@ -233,7 +233,7 @@ async function loadEvents() {
             Swal.fire({
                 icon: 'error',
                 title: '錯誤',
-                text: '加載預約數據，请刷新頁面重試。'
+                text: '加載預約數據，請刷新頁面重試。'
             }).then(() => {
                 window.location.href = "/home/index"; // 跳转到主页
             });
@@ -266,15 +266,15 @@ function populateEvents(data) {
         let eventTitle = '';
         let eventColor = 'green';
 
-        if (eventData.courseStatus === '已过期' || eventData.courseStatus === '已完成') {
+        if (eventData.courseStatus === '已過期' || eventData.courseStatus === '已完成') {
             eventTitle = '已结束';
             eventColor = 'gray';
         } else {
             const startTimeStr = formatTime(startTime);
             const endTimeStr = formatTime(endTime);
             eventTitle = eventData.memberName 
-                ? `${startTimeStr}-${endTimeStr} 已被${eventData.memberName}預約`
-                : `${startTimeStr}-${endTimeStr} 未預約`;
+                ? `已被${eventData.memberName}預約`
+                : `未預約`;
         }
 
         // 查找相同日期的全天事件
@@ -852,7 +852,7 @@ document.addEventListener('DOMContentLoaded', function () {
           eventContent: function(arg) {
             // 创建包含原始标题文本的span元素
             var titleEl = document.createElement('span');
-            titleEl.innerHTML = arg.event.title.replace('已被', '<br/>已被'); // 在‘已被’前加入换行符
+            titleEl.innerHTML = arg.event.title.replace('已被', '已被'); // 在‘已被’前加入换行符
 
             // 返回自定义内容
             return { domNodes: [titleEl] };

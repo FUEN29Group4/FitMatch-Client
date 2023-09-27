@@ -1,5 +1,5 @@
 ﻿/* 聊天模態視窗樣式 */
-.chat-modal {
+.chatmodal {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -22,32 +22,24 @@
     background: rgba(0, 0, 0, 0.7);
     z-index: 9998;
 }
-/* 關閉按鈕 */
-.close {
-    cursor: pointer;
-}
 /* 聊天頭部樣式 */
-.chat-header {
+.modal-header {
     text-align: right;
     padding: 10px;
     background-color: #F24B88;
     color: white;
     flex-shrink: 0; /* prevent shrinking */
     height: 50px;
+    border-bottom: none;
 }
 
 /* 聊天主體樣式 */
-.chat-body {
+.modal-body {
     overflow-y: auto;
     height: 500px;
     flex-grow: 1;
 }
 
-/* 聊天主體樣式 */
-.chat-footer {
-    padding: 10px;
-    text-align: center;
-}
 
 /* 已發送消息樣式 */
 .chat-message-sent {
@@ -130,12 +122,19 @@
     max-width: 350px;
 }
 /* 聊天底部輸入框樣式 */
-.chat-footer input {
+.modal-footer input {
+    flex-grow: 1;
     border-radius: 8px;
     border: 1px solid #ccc;
     padding: 10px 20px;
-    width: 80%;
     margin-right: 10px;
     flex-shrink: 0; /* prevent shrinking */
     height: 50px;
+}
+.modal-body {
+    padding-right: 0.2rem;
+}
+.modal-footer {
+    border-top: 1px solid #3333;
+    align-items: center;
 }
