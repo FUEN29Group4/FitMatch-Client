@@ -260,9 +260,11 @@
     // 這段程式碼會從URL中讀取令牌並存儲到sessionStorage
     const urlParams = new URLSearchParams(window.location.search);
     const tokenFromUrl = urlParams.get('token');
+    const memid = urlParams.get('memberId');
     if (tokenFromUrl) {
         sessionStorage.setItem('token', tokenFromUrl);
-        sessionStorage.setItem('lineId', '1000');
+        sessionStorage.setItem('memberId', memid);
+
         // 移除URL中的token參數以保護安全
         window.history.replaceState({}, document.title, window.location.pathname);
     }
@@ -289,48 +291,39 @@
                 }
             })
             .then(data => {
-                console.log(data);
-                // 這裡假設 data 是一個包含用戶資訊的 JSON 物件
-                // 更新前端界面
+                console.log("Returned Data:", data);
+
                 const dropdownContent = document.getElementById('dropdownContent');
                 dropdownContent.innerHTML = ''; // 清空目前菜單
 
                 const userNameElement = document.getElementById('userName');
                 const userPhotoElement = document.getElementById('userPhoto');
 
-                // 先檢查 ProfilePictureUrl (LINE的頭像)
-                if (data.ProfilePictureUrl) {
-                    const img = document.createElement('img');
-                    img.src = data.ProfilePictureUrl; // 使用從後端獲取的 URL
-                    img.alt = 'User Photo';
-                    img.classList.add('userimg', 'me-lg-2'); // 圓圓的CSS
-                    userPhotoElement.appendChild(img);
-                }
-                // 如果沒有ProfilePictureUrl，檢查 photo (您原本的系統)
-                else if (data.photo) {
-                    const img = document.createElement('img');
-                    img.src = `data:image/jpeg;base64, ${data.photo}`; // 使用Base64編碼的照片
-                    img.alt = 'User Photo';
-                    img.classList.add('userimg', 'me-lg-2'); // 圓圓的CSS
-                    userPhotoElement.appendChild(img);
-                }
-                // 如果都沒有，則顯示用戶名
-                else {
-                    if (data.DisplayName) {
-                        userNameElement.textContent = data.DisplayName;
+                // 如果有圖片
+                if (data.profilePictureUrl || data.photo) {
+                    if (data.profilePictureUrl) {
+                        const img = document.createElement('img');
+                        img.src = data.profilePictureUrl;
+                        img.alt = 'User Photo';
+                        img.classList.add('userimg', 'me-lg-2');
+                        userPhotoElement.appendChild(img);
+                    } else if (data.photo) {
+                        const img = document.createElement('img');
+                        img.src = `data:image/jpeg;base64, ${data.photo}`;
+                        img.alt = 'User Photo';
+                        img.classList.add('userimg', 'me-lg-2');
+                        userPhotoElement.appendChild(img);
                     }
-                    else if (data.memberName) {
-                        userNameElement.textContent = data.memberName;
-                    } else if (data.trainerName) {
-                        userNameElement.textContent = data.trainerName;
-                    }
+                }
+                // 若沒有圖片則顯示用戶名
+                else if (data.displayName || data.memberName || data.trainerName) {
+                    userNameElement.textContent = data.displayName || data.memberName || data.trainerName;
                 }
 
-                // 填充 dropdownContent 根據用戶的角色（會員或教練）
-                if (data.memberName) {
+                // 填充 dropdownContent based on user type
+                if (data.displayName || data.memberName) {
                     dropdownContent.innerHTML += '<a href="/Member/Member" class="dropdown-item">學員專區</a>';
                 }
-
                 if (data.trainerName) {
                     dropdownContent.innerHTML += '<a href="/Trainer/Index" class="dropdown-item">教練專區</a>';
                 }
