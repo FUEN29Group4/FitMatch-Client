@@ -35,14 +35,23 @@
     @* 會員資料 *@
     <div class="container" id="app">
         <table class="table table-hover table-centered">
+            
             <thead style="background-color: #F24B88;color:#fff">
+                <button type="button" @@click="CloseSort" style="border-radius:5px;border-radius:8px ;margin:5px"><i class="fa-regular fa-circle-xmark">關閉篩選</i></button>
                 <tr>
                     @*    <th>預約編號</th> *@
-                    <th><button type="button" class="btn-close" aria-label="Close" @@click="CloseSort" ></button>教練<button type="button" @@click="sortClassesByTrainer"><i class="fa-regular fa-bars-sort"></i></button></th>
-                    <th>場館<button type="button" @@click="sortClassesByGym"><i class="fa-regular fa-bars-sort"></i></button></th>
+                    <th>
+                        
+                        教練
+                        <button type="button" @@click="sortClassesByTrainer" style="margin-left:10px;border-radius:8px">
+                            <i class="fa-solid fa-sort"></i>
+                        </button>
+                    </th>
+
+                    <th>場館<button type="button" @@click="sortClassesByGym " style="margin-left:10px;border-radius:8px"><i class="fa-solid fa-sort"></i></button></th>
 
                     <th>課程狀態</th>
-                    <th>課程時間<button type="button" @@click="sortClassesByStartTime"><i class="fa-regular fa-bars-sort"></i></button></th>
+                    <th>課程時間<button type="button" @@click="sortClassesByStartTime" style="margin-left:10px;border-radius:8px"><i class="fa-solid fa-sort"></i></button></th>
                     <th>聯繫</th>
                 </tr>
             </thead>
