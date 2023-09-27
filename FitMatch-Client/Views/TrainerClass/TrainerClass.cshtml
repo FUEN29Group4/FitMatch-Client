@@ -223,7 +223,7 @@ async function loadEvents() {
             // 如果examine检查失败，弹出特定的提示
             Swal.fire({
                 icon: 'error',
-                title: '错误',
+                title: '錯誤',
                 text: '你尚未審核通過。'
             }).then(() => {
                 window.location.href = "/home/index"; // 跳转到主页
@@ -232,8 +232,8 @@ async function loadEvents() {
             // 对于其他错误，弹出通用错误提示
             Swal.fire({
                 icon: 'error',
-                title: '错误',
-                text: '加载预约数据时发生错误，请刷新页面重试。'
+                title: '錯誤',
+                text: '加載預約數據，请刷新頁面重試。'
             }).then(() => {
                 window.location.href = "/home/index"; // 跳转到主页
             });
@@ -273,8 +273,8 @@ function populateEvents(data) {
             const startTimeStr = formatTime(startTime);
             const endTimeStr = formatTime(endTime);
             eventTitle = eventData.memberName 
-                ? `${startTimeStr}-${endTimeStr} ${eventData.memberName}`
-                : `${startTimeStr}-${endTimeStr} 未预约`;
+                ? `${startTimeStr}-${endTimeStr} 已被${eventData.memberName}預約`
+                : `${startTimeStr}-${endTimeStr} 未預約`;
         }
 
         // 查找相同日期的全天事件
@@ -744,11 +744,11 @@ function openTimeSlotModal(date) {
                         const classId = data.classId;
                         const event = {
                          id: classId, // 使用返回的classId作為事件的id
-                        title: startTimeStr + ' - ' + endTimeStr + '新增的課程時間段',
+                        title: '新增的課程時間段',
                         start: startTime.toJSDate(),
                         end: endTime.toJSDate(),
-                        backgroundColor: 'red',
-                        borderColor: 'red'
+                        backgroundColor: 'green',
+                        borderColor: 'green'
                     };
                     calendar.addEvent(event);
                     
@@ -806,15 +806,11 @@ function formatTime(luxonDate) {
 
     let hours = luxonDate.hour;
     let minutes = luxonDate.minute;
-    let period = 'AM';
 
-    if (hours >= 12) {
-        period = 'PM';
-        hours = hours > 12 ? hours - 12 : hours;
-    }
-
-    return (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes + ' ' + period;
+    // 直接格式化為24小時制時間
+    return (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
 }
+
 
 
 function removeEvent(classId) {
@@ -834,8 +830,8 @@ function removeEvent(classId) {
             // 显示错误消息给用户
             Swal.fire({
                 icon: 'error',
-                title: '删除课程失败',
-                text: '请稍后再试或联系管理员。'
+                title: '刪除課程失敗',
+                text: '請稍後再聯繫管理員。'
             });
         });
     }
@@ -849,16 +845,24 @@ document.addEventListener('DOMContentLoaded', function () {
         eventClick: handleEventClick,
         eventDidMount: function(info) {
             if (info.event.extendedProps.memberName) {
-                info.el.style.backgroundColor = '#ff0000';  // 紅色表示該時間段已被預約
+                info.el.style.backgroundColor = 'gray';  // 紅色表示該時間段已被預約
                 info.el.setAttribute('title', '無法更改場館');
             }
+        },
+          eventContent: function(arg) {
+            // 创建包含原始标题文本的span元素
+            var titleEl = document.createElement('span');
+            titleEl.innerHTML = arg.event.title.replace('已被', '<br/>已被'); // 在‘已被’前加入换行符
+
+            // 返回自定义内容
+            return { domNodes: [titleEl] };
         },
         initialView: 'timeGridWeek',
         contentHeight: 'auto',
         locale: 'zh-tw',
         slotDuration: '01:00:00',   
         slotMinTime: '09:00:00',
-        slotMaxTime: '21:00:00',   
+        slotMaxTime: '22:00:00',   
         displayEventTime: false,
         allDayText: '場館',
         headerToolbar: {
@@ -881,7 +885,7 @@ document.addEventListener('DOMContentLoaded', function () {
             btn.style.marginTop = '5px';
             
                    if (hasAnyReservationsForDate(headerInfo.date) || isPastOrToday(headerInfo.date)) {
-            btn.style.backgroundColor = 'red';  // 讓按鈕變成紅色
+            btn.style.backgroundColor = 'gray';  // 讓按鈕變成紅色
             btn.disabled = true;                // 禁止點擊按鈕
             btn.innerText = '無法改變場館';
             } else {
