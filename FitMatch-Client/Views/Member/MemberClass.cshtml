@@ -37,11 +37,12 @@
         <table class="table table-hover table-centered">
             <thead style="background-color: #F24B88;color:#fff">
                 <tr>
-                 @*    <th>預約編號</th> *@
-                    <th>教練</th>
-                    <th>場館</th>
+                    @*    <th>預約編號</th> *@
+                    <th><button type="button" class="btn-close" aria-label="Close" @@click="CloseSort" ></button>教練<button type="button" @@click="sortClassesByTrainer"><i class="fa-regular fa-bars-sort"></i></button></th>
+                    <th>場館<button type="button" @@click="sortClassesByGym"><i class="fa-regular fa-bars-sort"></i></button></th>
+
                     <th>課程狀態</th>
-                    <th>課程時間</th>
+                    <th>課程時間<button type="button" @@click="sortClassesByStartTime"><i class="fa-regular fa-bars-sort"></i></button></th>
                     <th>聯繫</th>
                 </tr>
             </thead>
@@ -55,11 +56,11 @@
 
                 <!-- 否則，顯示數據 -->
                 <tr v-else v-for="trainer in classApi.trainers" :key="trainer.trainerId">
-                   @*  <td>{{classApi.classId}}</td> *@
+                    @*  <td>{{classApi.classId}}</td> *@
                     <td>{{classApi.trainers[0].trainerName}}</td>
                     <td>{{classApi.gyms[0].gymName}}</td>
                     <td>{{classApi.courseStatus}}</td>
-                  @*   <td>{{ formatTimeToDetailedDate(classApi.buildTime) }}</td> *@
+                    @*   <td>{{ formatTimeToDetailedDate(classApi.buildTime) }}</td> *@
                     <td>{{ formatTimeToDetailedDate(classApi.startTime) }}</td>
                     <td>
                         <button class="btn btn-primary" style="border-radius:25px" @@click="showChatHistory(classApi.trainers[0].trainerId)">聯繫教練</button>
@@ -105,13 +106,8 @@
 
 
 <script>
-    
 
-    // const memberIdFromSession = sessionStorage.getItem('memberId');
-    // if (!memberIdFromSession) {
-    //     console.error("memberId not found in session storage");
-    //     // You can also redirect the user or show an error message, if necessary.
-    // }
+
 
     //@@彥儀用@@
     const sharedState = {
@@ -149,65 +145,68 @@
                 favoritesWithTrainersAndProducts2: [],
                 memberId: sessionStorage.getItem('memberId'),
                 token: sessionStorage.getItem('token'),
-                
+
+                //排序
+                sortByStartTime: false,
+                sortByGym: false,
+                sortByTrainer: false,
+
+                trainerOccurrences: {}
             };
         },
         mounted() {
             this.MemberClassAPI();
         },
         computed: {
-            sortedClasses() {
-                return [...this.MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms].sort((a, b) => {
-                    if (a.courseStatus === '進行中' && b.courseStatus !== '進行中') return -1;
-                    if (b.courseStatus === '進行中' && a.courseStatus !== '進行中') return 1;
-                    if (a.courseStatus === '已完成' && b.courseStatus !== '已完成') return 1;
-                    if (b.courseStatus === '已完成' && a.courseStatus !== '已完成') return -1;
 
-                    const dateA = new Date(a.startTime);
-                    const dateB = new Date(b.startTime);
-                    return dateA - dateB;
-                });
+            //排序
+            sortedClasses() {
+                if (this.sortByGym) {
+                    return [...this.MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms].sort((a, b) => {
+                        const gymA = a.gyms && a.gyms[0] ? a.gyms[0].gymName : '';
+                        const gymB = b.gyms && b.gyms[0] ? b.gyms[0].gymName : '';
+                        return gymA.localeCompare(gymB);
+                    });
+                } else if (this.sortByStartTime) {
+                    return [...this.MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms].sort((a, b) => {
+                        const dateA = new Date(a.startTime);
+                        const dateB = new Date(b.startTime);
+                        return dateA - dateB;
+                    });
+                } else if (this.sortByTrainer) {
+                    return [...this.MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms].sort((a, b) => {
+                        const trainerA = a.trainers && a.trainers[0] ? a.trainers[0].trainerName : '';
+                        const trainerB = b.trainers && b.trainers[0] ? b.trainers[0].trainerName : '';
+                        return trainerA.localeCompare(trainerB);
+                    });
+                } // ... 之前的排序方法 ...
+                else {
+                    return [...this.MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms].sort((a, b) => {
+                        const dateA = new Date(a.startTime);
+                        const dateB = new Date(b.startTime);
+
+                        if (a.courseStatus === '進行中' && b.courseStatus !== '進行中') return -1;
+                        if (b.courseStatus === '進行中' && a.courseStatus !== '進行中') return 1;
+                        if (a.courseStatus === '已完成' && b.courseStatus !== '已完成') return 1;
+                        if (b.courseStatus === '已完成' && a.courseStatus !== '已完成') return -1;
+
+                        // 這裡是新增的時間排序邏輯
+                        if (a.courseStatus === '已完成' && b.courseStatus === '已完成') return dateA - dateB;
+                        if (a.courseStatus === '進行中' && b.courseStatus === '進行中') return dateA - dateB;
+
+                        return 0;
+                    });
+                }
+
             },
 
-
-
-            // trainerClassCounts() {
-            //     let counts = {};
-            //     this.MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms.forEach(classAPI => {
-            //         if (classAPI.trainers && classAPI.trainers.length > 0) {
-            //             const trainerId = classAPI.trainers[0].trainerId;
-            //             if (!counts[trainerId]) {
-            //                 counts[trainerId] = 0;
-            //             }
-            //             counts[trainerId]++;
-            //         }
-            //     });
-            //     return counts;
-            // },
-            // sortedClasses() {
-            //     return [...this.MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms].sort((a, b) => {
-            //         const trainerAId = a.trainers && a.trainers[0] ? a.trainers[0].trainerId : null;
-            //         const trainerBId = b.trainers && b.trainers[0] ? b.trainers[0].trainerId : null;
-
-            //         if (trainerAId !== trainerBId) {
-            //             const countA = this.trainerClassCounts[trainerAId] || 0;
-            //             const countB = this.trainerClassCounts[trainerBId] || 0;
-            //             return countB - countA; // 如果教練A的課程數量大於教練B，教練A排在前面
-            //         } else {
-            //             // 如果同為同一教練，根據課程時間排序
-            //             const dateA = new Date(a.startTime);
-            //             const dateB = new Date(b.startTime);
-            //             return dateA - dateB;
-            //         }
-            //     });
-            // },
 
         },
 
         methods: {
             showChatHistory(Id) {//@@彥儀用@@
                 this.Id = Id;
-                chat.showChatHistory(Id); 
+                chat.showChatHistory(Id);
             },
             MemberClassAPI() {
                 if (!this.memberId) {  // 修改這裡
@@ -265,6 +264,64 @@
                     !classApi.buildTime ||
                     formattedDate.includes("NaN");
             },
+
+            //排序
+            sortClassesByStartTime() {
+                this.sortByStartTime = !this.sortByStartTime;
+                this.sortByGym = false;
+                this.sortByTrainer = false;
+                console.log(this.sortByStartTime);
+            },
+            sortClassesByGym() {
+                this.sortByGym = !this.sortByGym;
+                this.sortByStartTime = false; // 確保不同時進行時間排序
+                this.sortByTrainer = false;
+                console.log(this.sortByGym);
+            },
+            sortClassesByTrainer() {
+                this.sortByTrainer = !this.sortByTrainer;
+                this.sortByGym = false;
+                this.sortByStartTime = false;
+
+                // 計算每個教練的出現次數
+                this.trainerOccurrences = {};
+                this.MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms.forEach(classApi => {
+                    if (classApi.trainers && classApi.trainers[0]) {
+                        const trainerName = classApi.trainers[0].trainerName;
+                        if (this.trainerOccurrences[trainerName]) {
+                            this.trainerOccurrences[trainerName]++;
+                        } else {
+                            this.trainerOccurrences[trainerName] = 1;
+                        }
+                    }
+                });
+
+                // 根據教練出現的次數進行排序
+                if (this.sortByTrainer) {
+                    this.MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms.sort((a, b) => {
+                        const trainerAName = a.trainers && a.trainers[0] ? a.trainers[0].trainerName : '';
+                        const trainerBName = b.trainers && b.trainers[0] ? b.trainers[0].trainerName : '';
+
+                        const trainerAOccurrences = this.trainerOccurrences[trainerAName] || 0;
+                        const trainerBOccurrences = this.trainerOccurrences[trainerBName] || 0;
+
+                        if (trainerAOccurrences === trainerBOccurrences) {
+                            return 0;  // 出現次數相同，不變動排序順序
+                        } else {
+                            return trainerBOccurrences - trainerAOccurrences; // 注意此處是B-A，以便進行由多到少的排序
+                        }
+                    });
+                }
+                console.log(this.sortByTrainer);
+            },
+            CloseSort() {
+                this.sortByTrainer = false;
+                this.sortByGym = false;
+                this.sortByStartTime = false;
+            }
+
+
+
         },
     }).mount('#app')
 
