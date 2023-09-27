@@ -167,7 +167,41 @@
                     const dateB = new Date(b.startTime);
                     return dateA - dateB;
                 });
-            }
+            },
+
+
+
+            // trainerClassCounts() {
+            //     let counts = {};
+            //     this.MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms.forEach(classAPI => {
+            //         if (classAPI.trainers && classAPI.trainers.length > 0) {
+            //             const trainerId = classAPI.trainers[0].trainerId;
+            //             if (!counts[trainerId]) {
+            //                 counts[trainerId] = 0;
+            //             }
+            //             counts[trainerId]++;
+            //         }
+            //     });
+            //     return counts;
+            // },
+            // sortedClasses() {
+            //     return [...this.MemberClassAPIs.classAPIWithTrainersAndClassTyoeAndGyms].sort((a, b) => {
+            //         const trainerAId = a.trainers && a.trainers[0] ? a.trainers[0].trainerId : null;
+            //         const trainerBId = b.trainers && b.trainers[0] ? b.trainers[0].trainerId : null;
+
+            //         if (trainerAId !== trainerBId) {
+            //             const countA = this.trainerClassCounts[trainerAId] || 0;
+            //             const countB = this.trainerClassCounts[trainerBId] || 0;
+            //             return countB - countA; // 如果教練A的課程數量大於教練B，教練A排在前面
+            //         } else {
+            //             // 如果同為同一教練，根據課程時間排序
+            //             const dateA = new Date(a.startTime);
+            //             const dateB = new Date(b.startTime);
+            //             return dateA - dateB;
+            //         }
+            //     });
+            // },
+
         },
 
         methods: {

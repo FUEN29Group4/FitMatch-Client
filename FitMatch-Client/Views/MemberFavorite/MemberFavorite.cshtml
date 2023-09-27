@@ -7,6 +7,13 @@
 
 <meta name="api-base-url" content="https://localhost:7011">
 
+<style>
+    .fa-heart:hover {
+        cursor: pointer;
+    }
+
+</style>
+
 <div style="background-color: #fff" id="app">
     
     <div class="container col-6">
@@ -42,7 +49,7 @@
                             </span>
                             <!-- For 教練的刪除 -->
                             
-                            <i class="fa-solid fa-heart" style="color:red; transform: scale(1.3);" v-on:click="showDeleteConfirmation('trainer', trainer.trainerId)"></i>
+                            <i class="fa-solid fa-heart" style="color:red; transform: scale(2.5);margin-right:15px" v-on:click="showDeleteConfirmation('trainer', trainer.trainerId)"></i>
                         </div>
                     </div>
                 </div>
@@ -62,7 +69,7 @@
                                 {{ product.productName }}
                             </span>
                             <!-- For 商品的刪除 -->
-                            <i class="fa-solid fa-heart" style="color:red; transform: scale(1.3);" v-on:click="showDeleteConfirmation('product', product.productId)"></i>
+                            <i class="fa-solid fa-heart" style="color:red; transform: scale(2.5);margin-right:15px" v-on:click="showDeleteConfirmation('product', product.productId)"></i>
                         </div>
                     </div>
                 </div>
