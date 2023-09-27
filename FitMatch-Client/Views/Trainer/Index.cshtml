@@ -45,7 +45,13 @@
             <div class="row justify-content-between">
                 <!--左攔-->
                 <div class="col-6">
-
+                    <!-- 審核狀態 -->
+                    <div class="row align-items-center mb-3">
+                        <label for="trainerApprovedInput" class="col-3 text-center col-form-label">審核狀態</label>
+                        <div class="col-9">
+                            <input class="form-control mb-3" type="text" id="trainerApprovedInput" disabled>
+                    </div>
+                    </div>
                     <!-- 姓名 -->
                     <div class="row align-items-center mb-3">
                         <label for="trainerNameInput" class="col-3 text-center col-form-label">中文姓名</label>
@@ -197,6 +203,21 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function (trainerData) {
+                        var approved = trainerData.approved; // 獲取審核狀態
+                        var statusText = '';
+                        switch (approved) {
+                            case 0:
+                            case null:
+                                statusText = '審核中';
+                                break;
+                            case 1:
+                                statusText = '審核通過';
+                                break;
+                            case 2:
+                                statusText = '審核退回';
+                                break;
+                        }
+                        $('#trainerApprovedInput').val(statusText); // 設定審核狀態
                         $('#trainerNameInput').val(trainerData.trainerName);
                         $('#trainerAddressInput').val(trainerData.address);
                         $('#trainerBirthdayInput').val(trainerData.birthday);
