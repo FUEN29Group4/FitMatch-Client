@@ -67,9 +67,9 @@ const chat = Vue.createApp({
             } else {
                 console.warn('連線失敗狀態:', connection.state);
             }// 訂閱接收消息事件
-            connection.on("ReceiveMessage", (senderId, message, role) => {
+            connection.on("ReceiveMessage", (senderId, message, role, currentTime) => {
                 // 添加新消息到 chatHistory
-                this.chatHistory.push({ senderId, messageContent: message, role });
+                this.chatHistory.push({ senderId, messageContent: message, role, currentTime });
                 // 捲動到最新消息
                 this.$nextTick(() => {
                     this.scrollToBottom();
@@ -118,7 +118,7 @@ const chat = Vue.createApp({
                 try {
                     await connection.invoke("SendMessage", this.receiverId, this.message, this.senderId, this.role);
                     //console.log('傳送訊息成功:',this.receiverId, this.message, this.senderId, this.role);
-                    this.chatHistory.push({ senderId: this.senderId, messageContent: this.message, role: this.role });
+                    //this.chatHistory.push({ senderId: this.senderId, messageContent: this.message, role: this.role });
                     //console.log('增加訊息成功:', this.senderId, this.message, this.role);
                     this.message = "";
                     this.$nextTick(() => {

@@ -72,7 +72,11 @@
                     @*   <td>{{ formatTimeToDetailedDate(classApi.buildTime) }}</td> *@
                     <td>{{ formatTimeToDetailedDate(classApi.startTime) }}</td>
                     <td>
-                        <button class="btn btn-primary" style="border-radius:25px" @@click="showChatHistory(classApi.trainers[0].trainerId)">聯繫教練</button>
+                        <button class="btn btn-primary" style="border-radius:25px" data-bs-toggle="modal"
+                                data-bs-target="#chatModal"
+                                @@click="showChatHistory(classApi.trainers[0].trainerId)">
+                            聯繫教練
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -81,30 +85,31 @@
     @*@@彥儀用@@*@
     @*對話視窗開始*@
     <div id="chat">
-        <div v-if="isChatHistoryVisible" class="overlay">
-            <div class="chat-modal">
-                <div class="chat-header">
-                    <span class="close" @@click="isChatHistoryVisible = false"><i class="fa-solid fa-xmark"></i></span>
-                </div>
-                <div class="chat-body">
-                    <div v-for="msg in chatHistory"
-                         :class="{'chat-message-sent': msg.role === role, 'chat-message-received': msg.role !== role}">
-                        <div class="chat-avatar">
-                            <!-- 如果msg.photo存在，則顯示照片 -->
-                            <img v-if="photoURLs[msg.senderId]" :src="photoURLs[msg.senderId]">
-                            <!-- 否則，顯示ID -->
-                            <div v-else>{{ msg.senderId }}</div>
-
-                        </div>
-                        <span class="chat-content">
-                            {{ msg.messageContent }}
-                        </span>
+        <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="chatModalLabel">訊息</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                </div>
-                <div class="chat-footer">
-                    <hr />
-                    <input v-model="message" placeholder="輸入訊息" @@keyup.enter="sendMessage" />
-                    <button @@click="sendMessage" class="btn btn-light" style="border-radius: 5px;padding:12px 14px"><i class="fa-solid fa-paper-plane"></i></button>
+                    <div class="modal-body">
+                        <div v-for="msg in chatHistory"
+                             :class="{'chat-message-sent': msg.role === role, 'chat-message-received': msg.role !== role}">
+                            <div class="chat-avatar">
+                                <!-- 如果msg.photo存在，則顯示照片 -->
+                                <img v-if="photoURLs[msg.senderId]" :src="photoURLs[msg.senderId]">
+                                <!-- 否則，顯示ID -->
+                                <div v-else>{{ msg.senderId }}</div>
+                            </div>
+                            <span class="chat-content">
+                                {{ msg.messageContent }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input v-model="message" placeholder="輸入訊息" @@keyup.enter="sendMessage" />
+                        <button @@click="sendMessage" class="btn btn-light" style="border-radius: 5px;padding:12px 14px"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
