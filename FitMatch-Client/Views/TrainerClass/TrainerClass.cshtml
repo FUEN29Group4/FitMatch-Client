@@ -200,46 +200,51 @@ async function loadEvents() {
             fetch("https://localhost:7011/api/TrainerClass/VenueReservation/" + TrainerIdFromSession)
         ]);
 
-        if (!eventsResponse.ok || !allDayEventsResponse.ok) {
-            throw new Error('Network response was not ok');
+        // 檢查eventsResponse是否有效
+        if (eventsResponse && eventsResponse.ok) {
+            const eventsData = await eventsResponse.json();
+            if (Array.isArray(eventsData) && eventsData.length > 0) {
+                populateEvents(eventsData);
+            }
+        } else {
+            console.warn('Could not load events data');
         }
 
-        const eventsData = await eventsResponse.json();
-        const allDayEventsData = await allDayEventsResponse.json();
-
-        if (Array.isArray(eventsData)) {
-            populateEvents(eventsData);
+        // 檢查allDayEventsResponse是否有效
+        if (allDayEventsResponse && allDayEventsResponse.ok) {
+            const allDayEventsData = await allDayEventsResponse.json();
+            if (Array.isArray(allDayEventsData) && allDayEventsData.length > 0) {
+                populateAllDayEvents(allDayEventsData);
+            }
+        } else {
+            console.warn('Could not load all day events data');
         }
 
-        if (Array.isArray(allDayEventsData)) {
-            populateAllDayEvents(allDayEventsData);
-        }
-
-        calendar.render(); // 一次性重新渲染日历
+        calendar.render(); // 一次性重新渲染日曆
 
     } catch (error) {
         console.error('Error loading events:', error);
         if (error.message === 'Examine check failed') {
-            // 如果examine检查失败，弹出特定的提示
             Swal.fire({
                 icon: 'error',
                 title: '錯誤',
                 text: '你尚未審核通過。'
             }).then(() => {
-                window.location.href = "/home/index"; // 跳转到主页
+                window.location.href = "/home/index"; // 跳轉到主頁
             });
         } else {
-            // 对于其他错误，弹出通用错误提示
             Swal.fire({
                 icon: 'error',
                 title: '錯誤',
                 text: '加載預約數據，請刷新頁面重試。'
             }).then(() => {
-                window.location.href = "/home/index"; // 跳转到主页
+                window.location.href = "/home/index"; // 跳轉到主頁
             });
         }
     }
 }
+
+
 
 
 function getGymsForDate(date) {
@@ -852,7 +857,7 @@ document.addEventListener('DOMContentLoaded', function () {
           eventContent: function(arg) {
             // 创建包含原始标题文本的span元素
             var titleEl = document.createElement('span');
-            titleEl.innerHTML = arg.event.title.replace('已被', '已被'); // 在‘已被’前加入换行符
+            titleEl.innerHTML = arg.event.title.replace('已被', 'B VN已被'); // 在‘已被’前加入换行符
 
             // 返回自定义内容
             return { domNodes: [titleEl] };
