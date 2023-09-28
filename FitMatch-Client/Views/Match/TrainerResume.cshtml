@@ -383,6 +383,7 @@
                 const reservationData = {
                     "classId": event.extendedProps.classId,
                     // "trainerId": event.trainerId,
+                    "trainerName":"巨石強森",
                     // "gymId": event.extendedProps.gymId,
                     "memberId": memberIdFromSession, 
                     // "startTime": event.startStr,
@@ -392,7 +393,7 @@
                 };
                 //console.log(reservationData);
                 // 使用fetch發送預約信息到後端
-                fetch(`https://localhost:7011/api/Reservation`, {
+                fetch("https://localhost:7011/api/Reservation", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
@@ -411,7 +412,7 @@
                     }
                 }).catch(error => {
                     console.log("預約資訊傳送失敗請把Api打開!!: " + error.message);
-                    Swal.fire('失敗', '預約失敗，請洽客服', 'error');
+                    // Swal.fire('失敗', '預約失敗，請洽客服', 'error');
                 });
             };
 
