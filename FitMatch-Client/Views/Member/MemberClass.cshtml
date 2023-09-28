@@ -46,7 +46,7 @@
         <table class="table table-hover table-centered">
             
             <thead style="background-color: #F24B88;color:#fff">
-                <button type="button" @@click="CloseSort" style="border-radius:5px;border-radius:8px ;margin:5px"><i class="fa-regular fa-circle-xmark">關閉篩選</i></button>
+                <button type="button" @@click="CloseSort" style="border-radius:5px;border-radius:5px ;margin:5px"><i class="fa-regular fa-circle-xmark">關閉篩選</i></button>
                 <tr>
                     @*    <th>預約編號</th> *@
                     <th>
@@ -81,7 +81,7 @@
                     @*   <td>{{ formatTimeToDetailedDate(classApi.buildTime) }}</td> *@
                     <td>{{ formatTimeToDetailedDate(classApi.startTime) }}</td>
                     <td>
-                        <button class="btn btn-primary" style="border-radius:25px" data-bs-toggle="modal"
+                        <button class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#chatModal"
                                 @@click="showChatHistory(classApi.trainers[0].trainerId)">
                             聯繫教練
