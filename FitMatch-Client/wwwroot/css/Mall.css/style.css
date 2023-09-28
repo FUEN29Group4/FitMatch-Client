@@ -790,10 +790,12 @@ Products Area Style
   margin-right: 5px;
 }
 
-.single-products.new-arrivals .product-content .products-cart-wish-view li {
-  padding: 11px 8px;
-  font-size: 12px;
-}
+
+
+    .single-products.new-arrivals .product-content .products-cart-wish-view li {
+        padding: 11px 8px;
+        font-size: 12px;
+    }
 
 .single-products.new-arrivals .product-content .products-cart-wish-view li .wish-btn {
   width: 30px;
@@ -4883,7 +4885,7 @@ Showing Area Style
 }
 
 .products-collections-listing.products-row-view .single-products .product-content .products-cart-wish-view li {
-  padding: 8px 10px;
+  padding: 8px 8px;
   font-size: 13px;
 }
 

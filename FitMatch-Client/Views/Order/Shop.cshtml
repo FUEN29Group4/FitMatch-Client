@@ -17,7 +17,7 @@
         width: 100%;
         height: 100%;
     }
-    .product-img {
+   /*  .product-img {
         height: 290px;
         width: 100%;
         height: 100%;
@@ -26,6 +26,29 @@
 
         .product-img img {
            
+        } */
+    .product-img {
+        /* height: 300px; */
+        overflow: hidden;
+        position: relative;
+        border-radius: 5px;
+    }
+
+    .product-img img {
+        height: 280px;
+        width: 100%;
+        object-fit: contain;
+    }
+    .products-row-view .product-img {
+        /*height: 200px;*/
+        overflow: hidden;
+        position: relative;
+    }
+
+        .products-row-view .product-img img {
+            width: 190px;
+            height: 100%;
+            object-fit: cover;
         }
 
     .products-row-view .single-products {
@@ -112,11 +135,9 @@
                                                    placeholder="請輸入文字" aria-label="Text input with dropdown button">
                                             <input type="submit" value="搜尋" class="btn-primary" />*@
 
-                                        <input type="search" v-model="keyword" class="showing-top-bar-ordering" name="txtKeyword" id="search-input"
-                                               placeholder="請輸入文字" aria-label="Text input with dropdown button">
-                                        <input type="submit" value="搜尋" class="btn-primary" @@click.prevent="searchProducts" />
-
-
+                                        <input type="search" v-model="keyword" class="showing-top-bar-ordering me-1" name="txtKeyword" id="search-input"
+                                               placeholder="請輸入文字" aria-label="Text input with dropdown button" autocomplete="off">
+                                        <button type="submit" class="btn btn-primary" @@click.prevent="searchProducts">搜尋</button>
                                     </div>
                                 </div>
                             </form>
@@ -216,13 +237,13 @@
                                     <img :src="'data:image/jpeg;base64,' + product.photo" alt="product Image" class="fill" />
                                 </div>
 
-                                <div class="product-content ">
+                                <div class="product-content my-auto">
                                     <a class="title" :href="'./ProductDetailsVue?id=' + product.productId">
                                         {{ product.productName }}
                                     </a>
                                     <ul class="products-price">
                                         <li>
-                                            {{ product.price }}
+                                            $ {{ product.price }}
                                         </li>
 
                                         @*<li>
