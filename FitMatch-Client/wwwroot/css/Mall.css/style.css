@@ -48,7 +48,12 @@ This files table contents are outlined below>>>>>
 Default Style
 ============================*/
 @import url("css2.css");
-
+.page-header {
+    background: linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(/images/bg/bg-shop.jpg) center center no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
 body {
   font-size: 15px;
   /* font-family: "Rubik"; */
@@ -4851,7 +4856,7 @@ Showing Area Style
   -ms-flex: 0 0 50%;
   flex: 0 0 50%;
   max-width: 50%;
-  z-index: 1;
+  /*z-index: 1;*/
 }
 
 .products-collections-listing.products-row-view .single-products .product-content {
