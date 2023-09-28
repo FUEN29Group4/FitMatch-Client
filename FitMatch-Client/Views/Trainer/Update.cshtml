@@ -175,6 +175,9 @@
                     <button id="saveButton" class="btn rounded-pill m-2" data-href="@Url.Action("Index", "Trainer")" style="background-color: #F24B88; color: #fff;">儲存</button>
                 </div>
             </div>
+        <div class="container text-center">
+            <button id="fillTestDataButton" class="btn rounded-pill m-2" style="background-color: #F24B88; color: #fff;">填充測試數據</button>
+        </div>
     </div>
 </div>
 <!-- Form End -->
@@ -345,6 +348,19 @@
             saveAllInfo();
         });
     });
+    document.getElementById("fillTestDataButton").addEventListener("click", function () {
+        // 為不同的欄位填充測試數據
+        document.getElementById("trainerNameInput").value = "黃小祥";
+        document.getElementById("trainercourseFeeInput").value = "1000";
+        document.getElementById("trainerPhoneInput").value = "0951012344";
+        document.getElementById("trainerAddressInput").value = "台北市基隆路二段189號";
+        document.getElementById("trainerCertificateInput").value = "健美C級教練證";
+        document.getElementById("trainerAwardsInput").value = "天下第一健身房亞軍";
+        document.getElementById("trainerIntroduceInput").value = "擁有豐富經驗的專業健身教練，擅長客製化設計運動計劃，幫助學員達成健康和美體目標。熱情、耐心，致力於創建積極的健身環境，激發每位學員發揮潛能，享受運動的樂趣。";
+
+    });
+
+
 </script>
 
 
