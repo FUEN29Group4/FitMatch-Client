@@ -37,11 +37,8 @@
                     <label for="floatingPassword" style="color: #a5a5a5;">密碼</label>
                 </div>
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1" style="color: #a5a5a5;">記住我</label>
-                    </div>
-                    <a href="/ForgotPassword/ForgotPassword" class="text-light">忘記密碼</a>
+                    <div></div>
+                    <a href="/ForgotPassword/ForgotPassword" class="text-light ml-auto">忘記密碼</a>
                 </div>
                 <button type="button" class="btn btn-primary py-3 w-100 mb-4" v-on:click="login"
                         style="background-color: #F24B88; color: white;">
@@ -50,7 +47,7 @@
                 <div style="display: flex; align-items: center; justify-content: center;">
                     <!-- LINE 登入圖片 -->
                     <a href="https://localhost:7011/api/Login/loginWithLine" style="margin-right: 10px;">
-                        <img src="/images/icon/btn_login_hover.png" alt="Login with LINE" />
+                        <img src="/images/icon/btn_login_base.png" alt="Login with LINE" />
                     </a>
                     <p class="text-center mb-0" style="color: #a5a5a5;">
                         還沒成為會員嗎?
@@ -64,6 +61,10 @@
                 <div class="pt-1">
                     <button type="button" id="demoButton3" class="btn btn-outline-secondary">會員-楊庭庭</button>
                     <button type="button" id="demoButton4" class="btn btn-outline-secondary ms-4">會員-黃翔翔</button>
+                </div>
+                <div class="pt-1">
+                    <button type="button" id="demoButton5" class="btn btn-outline-secondary">新註冊(會員)</button>
+                    <button type="button" id="demoButton6" class="btn btn-outline-secondary ms-4">新註冊(教練)</button>
                 </div>
             </div>
         </div>
@@ -205,6 +206,35 @@
                 passwordInput.dispatchEvent(event);
             });
         }
+        //新註冊的會員
+        var demoButton4 = document.getElementById("demoButton5");
+        if (demoButton4) {
+            demoButton4.addEventListener("click", function () {
+                var accountInput = document.getElementById("floatingInput");
+                var passwordInput = document.getElementById("floatingPassword");
+                accountInput.value = "fitmatch777@gmail.com";
+                passwordInput.value = "aaaa1234";
+
+                var event = new Event('input', { bubbles: true });
+                accountInput.dispatchEvent(event);
+                passwordInput.dispatchEvent(event);
+            });
+        }
+        //新註冊的教練
+        var demoButton4 = document.getElementById("demoButton6");
+        if (demoButton4) {
+            demoButton4.addEventListener("click", function () {
+                var accountInput = document.getElementById("floatingInput");
+                var passwordInput = document.getElementById("floatingPassword");
+                accountInput.value = "fitmatch666@gmail.com";
+                passwordInput.value = "aaaa1234";
+
+                var event = new Event('input', { bubbles: true });
+                accountInput.dispatchEvent(event);
+                passwordInput.dispatchEvent(event);
+            });
+        }
+
     });
 
 </script>
