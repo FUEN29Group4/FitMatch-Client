@@ -17,6 +17,10 @@ namespace FitMatch_Client.Controllers
         {
             return View();
         }
+        public IActionResult healthydetail()
+        {
+            return View();
+        }
         public IActionResult announcement()
         {
             return View();

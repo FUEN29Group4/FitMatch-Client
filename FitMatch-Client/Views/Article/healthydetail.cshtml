@@ -1,0 +1,191 @@
+﻿<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/vuex@4"></script>
+
+<style>
+    .page-header {
+        background: linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(../images/bg/bg-image-2-1.jpg) center center no-repeat;
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+    }
+    /* comment 照片  尚未用到 要修！*/
+    .comment .circle-container {
+        width: 300px;
+        /* 圓的寬度 */
+        height: 300px;
+        /* 圓的高度，應與寬度相同以產生完美的圓形 */
+        border-radius: 50%;
+        overflow: hidden;
+        /* 隱藏超出的部分 */
+        position: relative;
+        /* 使內部的 img 元素能夠使用絕對定位 */
+    }
+</style>
+<div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">News</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center text-uppercase mb-0">
+                <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                <li class="breadcrumb-item text-primary active" aria-current="page">Blog</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Blog Start -->
+<!-- 整體blog顏色  改為白色bg-white -->
+
+
+
+
+<div class="container-fluid py-5 wow fadeInUp bg-white" data-wow-delay="0.1s">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-8">
+                <!-- Blog Detail Start -->
+                <div class="mb-5  bg-white">
+                    <img class="img-fluid w-100 rounded mb-5" src="" alt="" id="Article-img">
+                    <h1 class="ps-3 mb-3 text-primary titleInput"></h1>
+                    <div class="d-flex mb-3">
+                        @*        <small class="ps-3 me-3"><i class="far fa-user me-2"></i></small> *@
+                        <small class="ps-3 me-3"><i class="far fa-calendar me-2 " id="formattedDateElement"></i></small>
+                    </div>
+                    <p class="ps-3 pe-3 contentTextInput" id="contentTextContainer">
+                    </p>
+                   
+                </div>
+              
+            </div>
+
+            <!-- Sidebar Start -->
+            <div class="col-lg-4">
+                <!-- Search Form Start -->
+                <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+                    <div class="input-group">
+                        <input type="text" class="form-control p-3" placeholder="Keyword">
+                        <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+                <!-- Search Form End -->
+                <!-- Category Start -->
+                <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+                    <div class="section-title section-title-sm position-relative pb-3 mb-3">
+                        <h3 class="mb-0 text-primary">文章分類</h3>
+                    </div>
+                    <div class="link-animated d-flex flex-column justify-content-start">
+                        <a class="h5 fw-semi-bold bg-pink rounded py-2 px-3 mb-2" href="#">
+                            <i class="bi bi-arrow-right me-2"></i>運動新聞
+                        </a>
+                        <a class="h5 fw-semi-bold bg-pink rounded py-2 px-3 mb-2" href="#">
+                            <i class="bi bi-arrow-right me-2"></i>新聞快訊
+                        </a>
+                        <a class="h5 fw-semi-bold bg-pink rounded py-2 px-3 mb-2" href="#">
+                            <i class="bi bi-arrow-right me-2"></i>系統公告
+                        </a>
+
+                    </div>
+                </div>
+                <!-- Category End -->
+
+
+
+            </div>
+            <!-- Sidebar End -->
+        </div>
+    </div>
+</div>
+<!-- Blog End -->
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+
+<script>
+    var currentUrl = window.location.href;
+
+    // 使用正则表达式从 URL 中提取参数
+    var match = currentUrl.match(/[?&]url=([^&]+)/);
+
+    // 如果找到匹配的参数
+    if (match) {
+        // 提取 "url" 参数的值
+        var urlParameter = decodeURIComponent(match[1]);
+
+        // 现在，urlParameter 变量包含了从 URL 中提取的 "url" 参数的值
+        console.log("URL Parameter:", urlParameter);
+    } else {
+        console.log("无法找到 URL 参数");
+    }
+
+
+    // 第一個 AJAX 請求
+    $.ajax({
+        url: 'https://localhost:7011/api/Article/titles?url=' + encodeURIComponent(urlParameter), // 将当前页面 URL 附加到请求中
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            // 创建一个对象来存储解析后的数据
+            var parsedData = {};
+            // 获取容纳 contentText 的容器元素
+            var contentTextContainer = document.getElementById("contentTextContainer");
+
+            // 遍历数据数组，分离 key 和 value
+            data.forEach(function (item) {
+                var parts = item.split(': ');
+                if (parts.length === 2 && parts[0] === "contentText") {
+                    var contentText = parts[1];
+
+                    // 创建一个新的 <p> 元素来显示 contentText
+                    var paragraph = document.createElement("p");
+                    paragraph.textContent = contentText;
+
+                    // 插入到容器中
+                    contentTextContainer.appendChild(paragraph);
+                }
+                else if (parts.length === 2) {
+                    var key = parts[0];
+                    var value = parts[1];
+                    parsedData[key] = value;
+                }
+            });
+
+
+
+            // 获取标题和内容
+            var title = parsedData.title;
+            //var contentText = parsedData.contentText;
+
+            // 在网页上显示标题和内容
+            $('.titleInput').text(title);
+            //$('.contentTextInput').text(contentText);
+
+            //$('.titleInput').val(data.title);
+            //$('.contentTextInput').val(data.contentText);
+
+            //// 假設你已經成功獲取到 Email，存在變數 data.email 中
+            //var title = data.title;
+            //$('.titleInput').text(title);
+            //var contentText = data.contentText;
+            //$('.contentTextInput').text(contentText);
+
+            // 获取图片数据（假设 data.photo 包含图片的 URL 字符串）
+            var photoUrl = parsedData.src;
+
+            // 更新文章图片
+            var ArticlePhotoElement = document.querySelector("#Article-img");
+
+            if (photoUrl) {
+                // 直接将图像 URL 设置为 src
+                ArticlePhotoElement.src = photoUrl;
+            }
+            //// ... 其他的資料設定
+        },
+        error: function (error) {
+            console.log("Error:", error);
+        }
+    });
+
+
+
+</script>
