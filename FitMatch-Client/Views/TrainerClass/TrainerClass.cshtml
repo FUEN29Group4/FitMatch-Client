@@ -857,7 +857,7 @@ document.addEventListener('DOMContentLoaded', function () {
           eventContent: function(arg) {
             // 创建包含原始标题文本的span元素
             var titleEl = document.createElement('span');
-            titleEl.innerHTML = arg.event.title.replace('已被', 'B VN已被'); // 在‘已被’前加入换行符
+            titleEl.innerHTML = arg.event.title.replace('已被', '已被'); // 在‘已被’前加入换行符
 
             // 返回自定义内容
             return { domNodes: [titleEl] };
