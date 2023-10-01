@@ -138,3 +138,17 @@
     border-top: 1px solid #3333;
     align-items: center;
 }
+
+/*時間*/
+.chat-time {
+    font-size: 0.8rem;
+    color: #aaa;
+    /*margin-left: 10px;*/
+}
+.chat-time-left {
+    text-align: left;
+}
+
+.chat-time-right {
+    text-align: right;
+}

@@ -100,8 +100,11 @@
                         </div>
                         <div class="chat-content">
                             {{ msg.messageContent }}
-
+                            <div class="chat-time" :class="{'chat-time-right': Number(msg.senderId) === Number(senderId), 'chat-time-left': Number(msg.senderId) !== Number(senderId)}">
+                                {{ msg.currentTime }}
+                            </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">
