@@ -9,8 +9,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.js"></script>
 
-@*<script src="https://unpkg.com/vue@3"></script>*@
-@*<script src="https://unpkg.com/vuex@4"></script>*@
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/vuex@4"></script>
+
 
 
 @* ====== 原先Html樣式 start ====== *@
@@ -65,7 +66,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">商品</th>
-                                    <th scope="col"></th>
+                                   @*  <th scope="col"></th> *@
                                     <th scope="col">金額</th>
                                     <th scope="col">數量</th>
                                     <th scope="col" style="width:150px;">小計</th>
@@ -77,20 +78,8 @@
                         </table>
                     </div>
                 </form>
-                @*<div class="coupon-cart">
-                    <div class="row">
-                    <div class="col-lg-8 col-md-8">
-                    <div class="form-group mb-0">
-                    <input type="text" class="form-control" placeholder="Coupon code">
-                    <button class="btn btn-primary">
-                    Apply Coupon
-                    </button>
-                    </div>
-                    </div>
-
-                    </div>
-                    </div>*@
             </div>
+               
 
 
             <div class="col-lg-3">
@@ -102,7 +91,7 @@
                         <li>總金額 <span id="total">0</span></li>*@
                         @*       <li>優惠折扣 <span id="優惠id">0</span></li>
                             <li><b>折扣後金額</b><span id="折扣後id"><b>0</b></span></li>*@
-                        <li>
+                       @*  <li>
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input"
                                        id="ship-differents-address">
@@ -110,7 +99,7 @@
                                     我同意<a href="terms-conditions.html">相關事項</a>*
                                 </label>
                             </div>
-                        </li>
+                        </li> *@
                     </ul>
                     <div class="text-center">
                       
@@ -187,7 +176,7 @@
 
         // 讀取商品資訊
         let itemTitle = itemValue.split('|')[0];
-        let itemImage = 'data:image/png;base64,' + itemValue.split('|')[1];
+        // let itemImage = 'data:image/png;base64,' + itemValue.split('|')[1];
         let itemPrice = parseInt(itemValue.split('|')[2]);
 
         // 建立商品行（<tr>）
@@ -195,17 +184,18 @@
         trItemList.setAttribute('data-item-id', itemId);
 
 
-        // 建立並添加商品圖片
-        let tdImage = document.createElement('td');
-        tdImage.className = 'product-thumbnail';
-        let aImage = document.createElement('a');
-        aImage.href = 'product-details.html';
-        let image = document.createElement('img');
-        image.src = itemImage;
-        image.alt = 'Image';
-        aImage.appendChild(image);
-        tdImage.appendChild(aImage);
-        trItemList.appendChild(tdImage);
+        // // 建立並添加商品圖片
+       
+        // let tdImage = document.createElement('td');
+        // tdImage.className = 'product-thumbnail';
+        // let aImage = document.createElement('a');
+        // aImage.href = 'product-details.html';
+        // let image = document.createElement('img');
+        // image.src = itemImage;
+        // image.alt = 'Image';
+        // aImage.appendChild(image);
+        // tdImage.appendChild(aImage);
+        // trItemList.appendChild(tdImage);
 
         // 建立並添加商品名稱
         let tdTitle = document.createElement('td');
@@ -223,7 +213,8 @@
         tdPrice.className = 'product-price';
         let spanPrice = document.createElement('span');
         spanPrice.className = 'unit-amount';
-        spanPrice.textContent = `$${itemPrice.toFixed(2)}`;
+        spanPrice.textContent = `$${Math.floor(itemPrice)}`;
+        // spanSubtotal.textContent = `$${Math.floor(itemPrice * storedQuantity)}`;
         tdPrice.appendChild(spanPrice);
 
         // 建立商品數量 -- 第四個 td
@@ -293,7 +284,7 @@
         aRemove.addEventListener('click', deleteItem);
         tdTrash.appendChild(aRemove);
         // 加所有列到這一行
-        trItemList.appendChild(tdImage);
+        // trItemList.appendChild(tdImage);
         trItemList.appendChild(tdTitle);
         trItemList.appendChild(tdPrice);
         trItemList.appendChild(tdQuantity);
@@ -350,7 +341,11 @@
         let originalPrice = parseInt(itemValue.split('|')[2]);
         let originalCount = parseInt(e.target.value);
         // 更新該商品的小計金額
-        closestTr.querySelector('.subtotal-amount').innerText = `$${(originalPrice * originalCount).toFixed(2)}`;
+        // closestTr.querySelector('.subtotal-amount').innerText = `$${(originalPrice * originalCount).toFixed(2)}`;
+        closestTr.querySelector('.subtotal-amount').innerText = `$${Math.floor(originalPrice * originalCount) }`;
+
+
+
 
         // 更新整體總價格
         storage.setItem(itemId + '-quantity', originalCount);
@@ -504,5 +499,37 @@
 @* ======== Vue & axios start ======== *@
 
 
-@{
-}
+@* <script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                cart: [],
+            };
+        },
+        methods: {
+            // 添加商品到购物车
+            addToCart(productId) {
+                // 发出HTTP请求以获取商品信息
+                axios.get(`https://localhost:7011/api/ProductAPI/${productId}`)
+                    .then((response) => {
+                        const productData = response.data;
+                        // 构建购物车项对象
+                        const cartItem = {
+                            productId: productData.id,
+                            name: productData.name,
+                            image: productData.image, // 商品图片
+                            price: productData.price,
+                            quantity: 1, // 初始数量
+                        };
+                        // 将购物车项添加到购物车
+                        // this.cart.push(cartItem);
+                        // 可以选择将购物车保存到本地存储或向后端发送购物车数据
+                    })
+                    .catch((error) => {
+                        console.error('获取商品信息失败', error);
+                    });
+            },
+            // 省略其他购物车操作方法
+        },
+    });
+</script> *@

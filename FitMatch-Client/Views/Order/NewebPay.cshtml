@@ -18,12 +18,23 @@
          outline: 0; 
          box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25); 
     }
-    .form-control {
+    /* .form-control {
         border-radius:5px;
-    }
+    } */
     .accordion-item {
         background-color: #fff; 
        
+    }
+
+    .custom-input {
+        border-radius: 5px; /* 将边框的圆角设置为0，即直角 */
+    }
+
+    .custom-input-group-text {
+        background-color: #fff; /* 更改背景颜色为您想要的颜色 */
+        /* color: #fff; */ /* 更改文字颜色为白色或您想要的颜色 */
+        border-radius: 5px; /* 添加圆角 */
+        padding: 0.25rem 0.5rem; /* 可以根据需要调整内边距 */
     }
 </style>
 
@@ -151,7 +162,10 @@
 
                                 <div class="col-md-6">
                                     <label class="form-label">商品金額</label>
-                                    <input type="text" class="form-control" id="Amt" v-model="addForm.Amt">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="Amt" v-model="addForm.Amt">
+                                        <span class="custom-input-group-text">元</span>
+                                    </div>
                                 </div>
                             </div>
                         <div class="row mb-2">
@@ -191,43 +205,27 @@
                                 </div>
                             </div>
                         </div>
-
-                        <ul style="list-style-type:none">
-                            <li>
-                               @*  <button type="button" class="btn btn-primary" v-on:click="SendToNewebPay('UNIONPAY')">前往付款</button> *@
-                            </li>
-
-                            <!--<li class="accordion-item">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input"
-                                           id="ship-differents-address">-->
-                                    @*<label class="form-check-label" for="ship-different-address">
-                                        我同意<a href="terms-conditions.html">相關事項</a>**@
-                                    @*</label>*@
-                                <!--</div>
-                            </li>-->
-                        </ul>
-                    </div>
                 </div>
 
-
+                       
                 @* 畫面右邊 *@
                 <div class="col-lg-4 col-md-12">
                     <div class="cart-totals">
                         <h3 class="cart-checkout-title">前往結帳</h3>
                         <div class="text-center">
+                            
 
                             <btn type="button" class="btn btn-primary" v-on:click="SendToNewebPay('UNIONPAY')"
-                               style="min-width: 250px; margin: auto;">
+                                 style="min-width: 250px; margin: auto;">
                                 結帳
                             </btn>
                         </div>
-                        
-                        
-
                     </div>
                 </div>
-            </div>
+                    
+             </div>
+
+
         </div>
     </section>
 </div>
