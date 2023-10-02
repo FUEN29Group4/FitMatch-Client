@@ -49,7 +49,7 @@
 
                                 <h5 class="mb-3">{{article.title}}</h5>
                                 <p class="">{{article.description}}</p>
-                                <a class="text-uppercase text-primary" :href="article.url">
+                                <a class="text-uppercase text-primary" :href="'/Article/healthydetail/?url=' + encodeURIComponent(article.url)">
                                     查看更多 <i class="bi bi-arrow-right"></i>
                                 </a>
                             </div>

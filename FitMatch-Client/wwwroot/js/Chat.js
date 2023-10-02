@@ -29,9 +29,12 @@ const chat = Vue.createApp({
 
         // 如果還沒訂閱事件，則訂閱
         if (!this.isSubscribedToEvents) {
-            connection.on("ReceiveMessage", (senderId, message, role, currentTime) => {
+            connection.on("ReceiveMessage", (senderId, message, role, receivedTime) => {
                 // 添加新消息到 chatHistory
+                //this.chatHistory.push({ senderId, messageContent: message, role, currentTime });
+                const currentTime = this.formatDate(new Date());
                 this.chatHistory.push({ senderId, messageContent: message, role, currentTime });
+
                 // 捲動到最新消息
                 this.$nextTick(() => {
                     this.scrollToBottom();
@@ -98,12 +101,33 @@ const chat = Vue.createApp({
                 chatBody.scrollTop = chatBody.scrollHeight;
             }
         },
+        formatDate(date) {
+            const now = new Date();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+
+            // 檢查日期是否是今天
+            if (date.getFullYear() === now.getFullYear() &&
+                date.getMonth() === now.getMonth() &&
+                date.getDate() === now.getDate()) {
+                return `今天 ${hours}:${minutes}`;
+            } else {
+                return `${month}/${day} ${hours}:${minutes}`;
+            }
+        },
         async loadChatHistory() {
             try {
                 const response = await fetch(`https://localhost:7011/api/Chat/GetHistory/${this.senderId}/${this.receiverId}`);
                 if (response.ok) {
                     const data = await response.json();
-                    this.chatHistory = data;
+                    //載入對話
+                    this.chatHistory = data.map(msg => {
+                        // 解析 dateTime 並轉換成指定的格式
+                        msg.currentTime = this.formatDate(new Date(msg.dateTime));
+                        return msg;
+                    });
                     this.$nextTick(() => {
                         this.scrollToBottom();
                     });
@@ -121,6 +145,7 @@ const chat = Vue.createApp({
             if (connection.state === signalR.HubConnectionState.Connected) {
                 try {
                     await connection.invoke("SendMessage", this.receiverId, this.message, this.senderId, this.role);
+                   
                     //console.log('傳送訊息成功:',this.receiverId, this.message, this.senderId, this.role);
                     //this.chatHistory.push({ senderId: this.senderId, messageContent: this.message, role: this.role });
                     //console.log('增加訊息成功:', this.senderId, this.message, this.role);

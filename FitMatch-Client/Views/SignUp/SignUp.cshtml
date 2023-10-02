@@ -201,25 +201,38 @@
 
     function fillDemoData() {
         // Fill name
-        document.getElementById("nameInput").value = "張員瑛";
+        const nameInput = document.getElementById("nameInput");
+        nameInput.value = "張員瑛";
+        validate(nameInput);
 
-        // Fill gender 
-        document.getElementById("female").checked = true;
+        // Fill gender
+        const genderFemaleInput = document.getElementById("female");
+        genderFemaleInput.checked = true;
 
         // Fill birth
-        document.getElementById("birthInput").value = "2004-08-31";
+        const birthInput = document.getElementById("birthInput");
+        birthInput.value = "2004-08-31";
+        validate(birthInput);
 
         // Fill phone
-        document.getElementById("phoneInput").value = "0987251644";
+        const phoneInput = document.getElementById("phoneInput");
+        phoneInput.value = "0987251644";
+        validate(phoneInput);
 
         // Fill address
-        document.getElementById("addressInput").value = "台南市安平區永華路二段6號";
+        const addressInput = document.getElementById("addressInput");
+        addressInput.value = "台南市安平區永華路二段6號";
+        validate(addressInput);
 
         // Fill email
-        document.getElementById("emailInput").value = "fitmatch777@gmail.com";
+        const emailInput = document.getElementById("emailInput");
+        emailInput.value = "fitmatch777@gmail.com";
+        validate(emailInput);
 
         // Fill password
-        document.getElementById("passwordInput").value = "Password123";
+        const passwordInput = document.getElementById("passwordInput");
+        passwordInput.value = "aaaa1234";
+        validate(passwordInput);
 
         // Set account type to member
         document.getElementById("member").checked = true;
@@ -227,28 +240,41 @@
 
     function fillTrainerDemoData() {
         // Fill name
-        document.getElementById("nameInput").value = "高允貞";
+        const nameInput = document.getElementById("nameInput");
+        nameInput.value = "高允貞";
+        validate(nameInput);
 
         // Fill gender
-        document.getElementById("female").checked = true; 
+        const genderFemaleInput = document.getElementById("female");
+        genderFemaleInput.checked = true;
 
         // Fill birth
-        document.getElementById("birthInput").value = "1996-04-22"; 
+        const birthInput = document.getElementById("birthInput");
+        birthInput.value = "1996-04-22";
+        validate(birthInput);
 
         // Fill phone
-        document.getElementById("phoneInput").value = "0987288561"; 
+        const phoneInput = document.getElementById("phoneInput");
+        phoneInput.value = "0987288561";
+        validate(phoneInput);
 
         // Fill address
-        document.getElementById("addressInput").value = "台北市中正區市民大道一段1號"; 
+        const addressInput = document.getElementById("addressInput");
+        addressInput.value = "台北市中正區市民大道一段1號";
+        validate(addressInput);
 
         // Fill email
-        document.getElementById("emailInput").value = "fitmatch666@gmail.com"; 
+        const emailInput = document.getElementById("emailInput");
+        emailInput.value = "fitmatch666@gmail.com";
+        validate(emailInput);
 
         // Fill password
-        document.getElementById("passwordInput").value = "CoachPassword123"; 
+        const passwordInput = document.getElementById("passwordInput");
+        passwordInput.value = "aaaa1234";
+        validate(passwordInput);
 
         // Set account type to coach
-        document.getElementById("coach").checked = true; // 將帳戶類型設為教練
+        document.getElementById("coach").checked = true;
     }
 
 

@@ -85,7 +85,14 @@
                 <div class="modal-body">
                     <div v-for="msg in chatHistory"
                          :class="{'chat-message-sent': msg.role === role, 'chat-message-received': msg.role !== role}">
-                        <div class="chat-avatar">
+                       @* <div class="chat-avatar">
+                            <!-- 如果msg.photo存在，則顯示照片 -->
+                            <img v-if="photoURLs[msg.senderId]" :src="photoURLs[msg.senderId]">
+                            <!-- 否則，顯示ID -->
+                            <div v-else>{{ msg.senderId }}</div>
+                        </div>*@
+                        <!-- 只在接收者的訊息中顯示頭像 -->
+                        <div class="chat-avatar" v-if="msg.role !== role">
                             <!-- 如果msg.photo存在，則顯示照片 -->
                             <img v-if="photoURLs[msg.senderId]" :src="photoURLs[msg.senderId]">
                             <!-- 否則，顯示ID -->
@@ -93,8 +100,11 @@
                         </div>
                         <div class="chat-content">
                             {{ msg.messageContent }}
-
+                            <div class="chat-time" :class="{'chat-time-right': Number(msg.senderId) === Number(senderId), 'chat-time-left': Number(msg.senderId) !== Number(senderId)}">
+                                {{ msg.currentTime }}
+                            </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">

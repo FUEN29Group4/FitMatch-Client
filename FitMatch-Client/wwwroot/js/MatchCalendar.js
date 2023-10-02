@@ -15,30 +15,18 @@ const MatchCalendar = Vue.createApp({
 
         };
     },
-    mounted() {
-        // 這裡的this.gymId是您預設希望加載的場館ID。
-        // 如果您想在組件開始時為所有場館加載事件，則可能需要稍微修改此函數。
-        this.fetchEventsForgym(this.gymId);
-    },
+    //mounted() {
+    //    this.fetchEventsForgym(this.gymId);
+    //},
     methods: {
-        async showModalWithCalendar() {
-
-            // 打開模擬視窗
+       showModalWithCalendar() {
+            //$('#calendarModal').off('shown.bs.modal').on('shown.bs.modal', () => {
+            //    if (this.calendar) {
+            //        this.calendar.render();
+            //        this.calendar.updateSize();
+            //    }
+            //});
             $('#calendarModal').modal('show');
-
-            $('#calendarModal').on('shown.bs.modal', () => {
-                // 在模擬視窗完全顯示後初始化FullCalendar
-                this.initializeFullCalendar();
-                if (this.calendar) {
-                    this.calendar.updateSize();
-                }
-            });
-        },
-        initializeFullCalendar() {
-            if (!this.calendar) { // 避免重複初始化
-                this.calendar = new FullCalendar.Calendar(/* ...配置參數... */);
-                this.calendar.render();
-            }
         },
         formatTime(dateTimeString) { //轉換時間
             let date = new Date(dateTimeString);
@@ -62,14 +50,24 @@ const MatchCalendar = Vue.createApp({
         },
         setgym(id) {
             this.gymId = id;
-            this.showCalendar = true;
-            this.fetchEventsForgym(id); // 獲取場館的事件
-            //this.initializeCalendar();  // 初始化 FullCalendar
-            this.showModalWithCalendar();
+            this.fetchEventsForgym(id).then(() => {
+                // 確保每次都重新初始化日曆
+                if (this.calendar) {
+                    this.calendar.destroy();
+                }
+                this.initializeCalendar();
 
+                $('#calendarModal').off('shown.bs.modal').on('shown.bs.modal', () => {
+                    if (this.calendar) {
+                        this.calendar.updateSize();
+                    }
+                });
+
+                this.showModalWithCalendar();
+            });
         },
         fetchEventsForgym(gymid) {
-            fetch(`https://localhost:7011/api/Reservation/MatchGym/${gymid}`)
+           return  fetch(`https://localhost:7011/api/Reservation/MatchGym/${gymid}`)
                 .then(response => {
                     //console.log(gymid);
                     if (!response.ok) {
@@ -100,7 +98,7 @@ const MatchCalendar = Vue.createApp({
                             };
                         });
                     }
-                    this.initializeCalendar();  // 確保在數據更新後重新渲染日曆
+                    //this.initializeCalendar();  // 確保在數據更新後重新渲染日曆
                 });
         },
         async showEventDetails(eventId) {
@@ -135,6 +133,10 @@ const MatchCalendar = Vue.createApp({
         },
         initializeCalendar() {
             const calendarEl = document.getElementById('calendar');
+            if (!calendarEl) {
+                console.error("Calendar element not found!");
+                return;
+            }
             if (this.calendar) {
                 this.calendar.destroy();  // 如果日曆已經初始化，則先銷毀它
             }
@@ -181,7 +183,7 @@ const MatchCalendar = Vue.createApp({
                     }
                 }
             });
-            this.calendar.render();
+                this.calendar.render();
         },
         async bookAppointment(classId) {
             if (!memberIdFromSession) {
