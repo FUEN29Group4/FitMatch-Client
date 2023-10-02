@@ -58,6 +58,22 @@
                 object-fit: cover; /* 圖片將保持其寬高比，但會放大和收縮以填充容器，多出的部分會被隱藏 */
                 object-position: center; /* 圖片會從容器的中心點開始展示 */
             }
+
+        .cart-notification {
+            position: absolute;
+            top: 30px; /* 调整通知的垂直位置 */
+            right: 20px; /* 调整通知的水平位置 */
+            background-color: red;
+            color: white;
+            border-radius: 50%; /* 创建圆形形状 */
+            width: 20px; /* 调整通知的宽度 */
+            height: 20px; /* 调整通知的高度 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px; /* 调整通知文本的大小 */
+        }
+
     </style>
 </head>
 <body>
@@ -112,19 +128,37 @@
 
 
                 @* 商成與購物車NAVBAR *@
-                @* <a asp-controller="Order" asp-action="ShopTest" class="nav-item nav-link">商城</a> *@
-                <div class="nav-item dropdown">
+                <a asp-controller="Order" asp-action="Shop" class="nav-item nav-link">商城</a> 
+               
+                @* <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">商城</a>
                     <div class="dropdown-menu m-0">
                         <a asp-controller="Order" asp-action="Shop" class="dropdown-item">商城首頁</a>
                         <a asp-controller="Order" asp-action="ShoppingCart" class="dropdown-item">我的購物車</a>
                         @* <a href="blog_activity.html" class="dropdown-item">活動專區</a>
-                        <a href="blog_announcement.html" class="dropdown-item">系統公告</a> *@
+                        <a href="blog_announcement.html" class="dropdown-item">系統公告</a>
                     </div>
-                </div>
+                </div>  *@
 
 
+
+           
                 <a asp-controller="Restaurant" asp-action="Restaurant" class="nav-item nav-link">尋找健康餐</a>
+
+                <div class="nav-item position-relative">
+                    <a asp-controller="Order" asp-action="ShoppingCart" class="nav-link"><i class="fa-solid fa-cart-shopping fa-lg"></i></a>
+                    <div id="cartNotification" class="cart-notification">0</div>
+                </div>
+@*                 <a asp-controller="Order" asp-action="ShoppingCart" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping fa-lg"></i></a>
+ *@
+               @*  <div class="nav-item">
+                    <div class="d-flex align-items-center">
+                        <a asp-controller="Order" asp-action="ShoppingCart" class="fas fa-cart-plus "></a>
+                    </div>
+                </div> *@
+
+               
+
             </div>
 
             <a href="/Login/Login" id="loginBtn" class="btn btn-primary rounded-0 py-2 px-lg-4 ">
@@ -357,6 +391,33 @@
         // 如果沒有 token，可能需要導向登入頁面
         console.log('No token found. User is not logged in.');
     }
+    //購物車icon
+    // 从localStorage中获取addItemList数组的长度
+    const addItemList = JSON.parse(localStorage.getItem('addItemList')) || [];
+    const cartNotification = document.getElementById('cartNotification');
+
+    // 更新通知中的数量
+    function updateCartNotification() {
+        const cartCount = addItemList.length;
+
+        if (cartCount > 0) {
+            cartNotification.textContent = cartCount;
+            cartNotification.style.display = 'block'; // 显示通知
+        } else {
+            cartNotification.style.display = 'none'; // 隐藏通知
+        }
+    }
+
+    // 页面加载时更新通知
+    updateCartNotification();
+
+    // 当addItemList数组发生变化时，更新通知
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'addItemList') {
+            updateCartNotification();
+        }
+    });
+
 
 </script>
 

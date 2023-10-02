@@ -276,7 +276,7 @@
                         @*產品內容結束＝＝＝＝＝end=======*@
 
                         <!------- 分頁 ------->
-                        <div class="col-12">
+                        @* <div class="col-12">
                             <div class="pagination-area">
                                 <span class="page-numbers current" aria-current="page">1</span>
                                 <a href="" class="page-numbers">2</a>
@@ -285,7 +285,34 @@
                                     <i class="fa-solid fa-angle-right"></i>
                                 </a>
                             </div>
+                        </div> *@
+
+                        <!-- 添加分页按钮 -->
+                        <div class="col-12">
+                            <div class="pagination-area">
+                                <!-- 上一页按钮 -->
+                                <a href="#" class="page-numbers" @@click.prevent="changePage(currentPage - 1)" :disabled="currentPage === 1">
+                                    <i class="fa-solid fa-angle-left"></i>
+                                </a>
+
+                                <!-- 分页页数按钮 -->
+                                <template v-for="page in Math.ceil(filteredProducts.length / pageSize)">
+                                    <a href="#" class="page-numbers"@@click.prevent="changePage(page)" :class="{ 'current': currentPage === page }">{{ page }}</a>
+                                </template>
+
+                                <!-- 添加其他页码按钮 -->
+                                <a href="#" class="page-numbers" @@click.prevent="changePage(2)" :class="{ 'current': currentPage === 2 }">2</a>
+                                <a href="#" class="page-numbers" @@click.prevent="changePage(3)" :class="{ 'current': currentPage === 3 }">3</a>
+
+                                <!-- 下一页按钮 -->
+                                <a href="#" class="page-numbers" @@click.prevent="changePage(currentPage + 1)" :disabled="currentPage === Math.ceil(filteredProducts.length / pageSize)">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                            </div>
                         </div>
+
+
+
 
                     </div>
                 </div>
@@ -359,7 +386,11 @@
                 selectedCategory: null, // 存储当前选定的产品类别
                 keyword: "",            // 存储搜索关键字
                 searchedProducts: [],   // 存储搜索结果的数组
-                sortBy:0 // 存储排序选项
+                sortBy:0, // 存储排序选项
+
+
+               currentPage: 1, // 当前页数
+                pageSize: 6    // 每页显示的数据条数
             };
         },
 
@@ -369,18 +400,6 @@
 
         },
         computed: {
-
-
-            //filteredProducts() {
-            //    // 根据选定的类别过滤商品
-            //    if (this.selectedCategory === null) {
-            //        // 如果没有选定类别，显示搜索结果或所有商品
-            //        return this.searchedProducts.length > 0 ? this.searchedProducts : this.products;
-            //    } else {
-            //        // 如果选定了类别，显示选定类别的商品
-            //        return this.products.filter(product => product.typeId === this.selectedCategory);
-            //    }
-            //},
 
 
             filteredProducts() {
@@ -398,7 +417,15 @@
                         productsToDisplay = productsToDisplay.sort((a, b) => b.price - a.price);
                     }
 
-                    return productsToDisplay;
+                    
+                    // 分页逻辑
+                    const startIndex = (this.currentPage - 1) * this.pageSize;
+                    const endIndex = startIndex + this.pageSize;
+
+                    return productsToDisplay.slice(startIndex, endIndex);
+                    // return productsToDisplay;
+
+
                 } else {
                     // 如果选定了类别，显示选定类别的商品
                     return this.products.filter(product => product.typeId === this.selectedCategory);
@@ -407,10 +434,13 @@
 
 
 
-
-
         },
         methods: {
+
+            changePage(page) {
+                this.currentPage = page;
+            },
+
 
             filterProducts(category) {
                 // 更新选定的类别状态
@@ -459,12 +489,39 @@
 
                 // 存储到localStorage
                 if (localStorage.getItem(itemId)) {
-                    alert('商品已在您的購物車中');
+                    
+                    
+
+                    Swal.fire({
+                        title: '小提醒',
+                        text: '已在您的購物車中喔',
+                        icon: 'info',
+                        timer: 1500, // 這裡的值是毫秒，例如 2000 毫秒表示對話框將在 2 秒後自動關閉
+                        showConfirmButton: false // 這將隱藏 "確定" 按鈕
+                    });
+
+                    // Swal.fire('小提醒', '已在您的購物車中喔', 'info');
+                    // alert('商品已在您的購物車中')
+                    
+                    
+                    
+                    ;
                 } else {
                     const addItemList = localStorage.getItem('addItemList') || '';
                     localStorage.setItem('addItemList', `${addItemList}${itemId}, `);
                     localStorage.setItem(itemId, itemValue);
-                    alert('商品已加入購物車');
+
+
+                    Swal.fire({
+                        title: '成功',
+                        text: '商品已加入購物車',
+                        icon: 'success',
+                        timer: 1500, // 這裡的值是毫秒，例如 2000 毫秒表示對話框將在 2 秒後自動關閉
+                        showConfirmButton: false // 這將隱藏 "確定" 按鈕
+                    });
+
+                    // Swal.fire('成功', '商品已加入購物車', 'success');
+                    // alert('商品已加入購物車');
                     this.updateCartCountAndTotal();
 
                 }
