@@ -414,8 +414,30 @@
 
         const memberIdFromSession = sessionStorage.getItem('memberId');
         if (!memberIdFromSession) {
-            alert('請先登入會員');
-            window.location.href = 'https://localhost:7088/Login/Login';
+
+
+
+
+
+            Swal.fire({
+                title: '小提醒',
+                text: '請先登入會員',
+                icon: 'info',
+                confirmButtonText: '確認',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // 使用 JavaScript 重定向到指定的 URL
+                    window.location.href = 'https://localhost:7088/Login/Login';
+                } else {
+                    alert('請先登入會員');
+                }
+            });
+
+         //Swal.fire('小提醒', '請先登入會員', 'info');
+         //alert('請先登入會員');
+
+
+         //   window.location.href = 'https://localhost:7088/Login/Login';
             console.log("没有找到会员ID");
             return;
         }
